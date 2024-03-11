@@ -1,0 +1,53 @@
+header {
+    padding: 30px 60px 30px 60px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.dongle-regular {
+    font-family: "Dongle", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+#logo {
+    z-index: 100;
+
+}
+
+#menu {
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    font-size: 40px;
+}
+
+
+#menu>ul {
+    margin: auto;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 170px;
+    box-sizing: border-box;
+}
+
+#menu>ul>li {
+    float: left;
+    text-align: center;
+    width: 20% !important;
+}
+
+#login_group {
+    position: absolute;
+    top: 60px;
+    right: 60px;
+    font-size: 30px;
+}
+
+#login_group>ul>li {
+    float: left;
+    padding-left: 30px;
+}

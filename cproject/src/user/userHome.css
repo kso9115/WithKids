@@ -1,0 +1,80 @@
+@font-face {
+    font-family: 'claytoy';
+    /*font 이름*/
+    font-style: 'normal';
+    /* font 스타일 정의 (기울임, 일반) */
+    font-weight: 400;
+    /* font 굵기 정의 */
+    /* 브라우저&디바이스 환경에 따른 font 파일 위치 정의 */
+    src: url('../../public/webfont/claytoy\ L.ttf');
+}
+
+@font-face {
+    font-family: 'NanumBarunGothic';
+    src: url('../../public/webfont/NanumBarunGothic.ttf');
+}
+
+ul,ol,li,dl {
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+#viewport{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 840px;
+    text-align: center;
+}
+
+#viewport_img {
+    position: relative;
+    top: 100px;
+    /* left: calc(50% - 300px); */
+}
+
+#viewport_text {
+    position: relative;
+    text-align: center;
+    top: 130px;
+    color: white;
+    font-size: 20px;
+}
+
+#viewport_box {
+    font-family: 'claytoy';
+    position: relative;
+    top: 130px;
+    display: flex;
+    justify-content: center;
+    /* text-align: center; */
+    gap: 50px;
+    font-size: 30px;
+    color: var(--kid);
+    margin-bottom: 30px;
+}
+
+#viewport_box span {
+    color: white;
+    padding-left: 20px;
+}
+
+#viewport_slide {
+    margin: auto;
+    position: relative;
+    top: 150px;
+    /* text-align: center; */
+    /* overflow: hidden;
+    width: 1200px;
+    height: 300px; */
+}

@@ -1,0 +1,31 @@
+.searchBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    background-color: var(--admin);
+    
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.searchBox input{
+    height: 22px;
+}
+
+.searchBox div:nth-child(2)>input{
+    width: 300px;
+}
+
+.searchBox div:nth-child(3)>input {
+    width: 100px;
+}
+
+.searchBox div:nth-child(4) select {
+    width: 300px;
+}
+
+.mainBox{
+    display: flex;
+    height: -webkit-calc(100% - 107px);
+}

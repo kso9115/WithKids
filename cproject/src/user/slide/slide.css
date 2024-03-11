@@ -1,0 +1,39 @@
+.slick-slider {
+    width: 1300px;
+    margin: auto;
+}
+
+.slick-list {
+    width: 1300px;
+    /* display: flex; */
+}
+
+.slick-slide {
+    height: 400px;
+    width: 300px;
+    /* background-color: white; */
+
+}
+
+.slick-slide img {
+    border-radius: 15px 15px 0 0;
+}
+.slick-track {
+    width: 1300px;
+}
+
+.imgName {
+    /* font-family: 'claytoy'; */
+    font-family: 'NanumBarunGothic', 'serif';
+    color: black;
+    font-size: 25px;
+}
+
+.imgBox_Slider {
+    width: 300px;
+    background-color: white;
+    border-radius: 15px;
+    color: var(--admin);
+    margin: auto;
+}
+
