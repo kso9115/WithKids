@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="survey.css">
+    <link rel="stylesheet" type="text/css" href="survey1.css">
+    <link rel="stylesheet" type="text/css" href="layout.css">
+</head>
+<body>
+    <div class="top_title">
+        <h5>설문조사</h5>
+    </div>
+
+
+
+    <div id="contain">
+		<!-- <div id="quick">
+	<h3>Quick Menu</h3>
+	<ul>
+		<li class="q1"><a href="./?g_page=member&m_page=member05&ServiceType=5&act=book.ord.form">안심예약대출 신청 <br>(장바구니)</a></li>
+	</ul>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        var currentPosition = parseInt($("#quick").css("top"));
+        $(window).scroll(function() {
+            var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.
+            $("#quick").stop().animate({"top":position+currentPosition+"px"},800);
+        });
+    });
+</script>
+ -->
+		<div class="contain">
+		<div id="aside">
+			<div class="community">
+		
+	<h2><span>열린마당</span></h2>
+	<ul>
+		<li class="side2m1 ">
+
+		<a href="./index.php?g_page=community&amp;m_page=community01">공지사항</a>
+		
+				</li>
+			<li class="side2m2 ">
+
+		<a href="./index.php?g_page=community&amp;m_page=community02">자주하는 질문</a>
+		
+				</li>
+			<li class="side2m3 ">
+
+		<a href="./index.php?g_page=community&amp;m_page=community03">참여게시판</a>
+		
+				</li>
+			<li class="side2m4 ">
+
+		<a href="./index.php?g_page=community&amp;m_page=community04">자원봉사</a>
+		
+		
+		
+	
+</div>		</div>
+		<div id="design">
+			<div id="program">
+				<div class="visual_community">
+					<div class="visual">
+	<h1>설문조사</h1>
+	<!--p>꿈이 시작되는, 꿈이 완성되는</p-->
+	<script>
+		function bookmarksite(title,url) {
+		   // Internet Explorer
+		   if(document.all)
+		   {
+			   window.external.AddFavorite(url, title);
+		   }
+		   // Google Chrome
+		   else if(window.chrome){
+			  alert("Ctrl+D키를 누르시면 즐겨찾기에 추가하실 수 있습니다.");
+		   }
+		   // Firefox
+		   else if (window.sidebar) // firefox
+		   {
+			   window.sidebar.addPanel(title, url, "");
+		   }
+		   // Opera
+		   else if(window.opera && window.print)
+		   { // opera
+			  var elem = document.createElement('a');
+			  elem.setAttribute('href',url);
+			  elem.setAttribute('title',title);
+			  elem.setAttribute('rel','sidebar');
+			  elem.click();
+		   }
+		}
+		$(function() {
+			$('.share_sns').click(function(){
+				var state = $('#share-lay').css('display');
+				if(state == 'none'){
+					$('#share-lay').slideDown();
+					$('.sb_quick .no02 > a').addClass('on');
+				}else{
+					$('#share-lay').slideUp();
+					$('.sb_quick .no02 > a').removeClass('on');
+				}
+			});
+		});
+		function onShareSns(kind){
+			var openWindow = window.open("about:blank");
+			if(kind == "fb"){
+				openWindow.location.href="http://www.facebook.com/sharer/sharer.php?u="+$(location).attr('href');
+			}else if(kind == "tw"){
+				openWindow.location.href="https://twitter.com/intent/tweet?url="+$(location).attr('href');
+			}else if(kind == "blog"){
+				openWindow.location.href="http://blog.naver.com/openapi/share?url="+$(location).attr('href');
+			}else{
+				alert("공유에 실패하였습니다.\n관리자에게 문의하세요.");
+			}
+		}
+	</script>
+	<div class="locator">
+		<ul class="path">		
+				<div class="navi">
+					<div>
+				
+				<a href="./index.php?g_page=community&amp;m_page=community01"></a><a href="./index.php?g_page=community&amp;m_page=community02"></a><a href="./index.php?g_page=community&amp;m_page=community03">참여게시판</a><a href="./index.php?g_page=community&amp;m_page=community04"></a><a href="./index.php?g_page=community&amp;m_page=community05_05"></a><a href="./index.php?g_page=community&amp;m_page=community08"></a><a href="./index.php?g_page=community&amp;m_page=community06_05"></a><a href="./index.php?g_page=community&amp;m_page=community07"></a>					</div>
+				</div>
+			</li>
+				</ul>
+	</div>
+	<i class="img"></i>
+</div>
+
+				</div>
+				<div class="community">
+
+
+
+
+<script>
+	var request_arr = new Array();
+	function wjPollCheck(f){
+
+		var _getValue = wjGetFormValues()
+		httpRequest = getXMLHttpRequest();
+		httpRequest.onreadystatechange =
+			function checkPoll(f){
+				try{
+					if(httpRequest.readyState == 4){
+						if(httpRequest.status == 200){
+							var result = httpRequest.responseText;
+
+							result = result.replace(/^\s*|\s*$/g,"");
+							//alert(result);
+							if(result != 'ok') alert(result);
+							else{
+								wjPollSubmit(f);
+							}
+						}
+					}
+				}
+				catch(err){
+					//alert(httpRequest.readyState);
+				}
+			}
+			
+		httpRequest.open("post","./index.php?g_page=community&m_page=community07&act=pollCheck",true);
+		httpRequest.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		httpRequest.setRequestHeader('Cache-Control','no-cache,must-revalidate');
+		httpRequest.setRequestHeader('Pragma','no-cache');
+
+		httpRequest.send(_getValue);
+	}
+
+	function wjPollSubmit(f){
+		document.que_form.submit();
+	}
+
+	function wjGetFormValues(){
+		f = document.que_form;
+		var params = "";
+
+		for(var i = 0; i < f.elements.length; i++){
+			if(f.elements[i].type=="radio" || f.elements[i].type=="checkbox"){
+				if(f.elements[i].checked){
+					params  = encodeURIComponent(f.elements[i].name);
+					params += "=";
+					params += encodeURIComponent(f.elements[i].value);
+				}
+			}else{
+				params  = encodeURIComponent(f.elements[i].name);
+				params += "=";
+				params += encodeURIComponent(f.elements[i].value);
+			}
+			wjAddRequest(i,params);
+		}
+		return request_arr.join('&');
+	}
+
+	function wjAddRequest(key,val){
+		request_arr[key] = val;
+	}
+</script>
+
+
+	<!--form method=post name=que_form action='../yilib/community/poll_ok.php' onsubmit="wjPollCheck(this);return false"-->
+	<form method="post" name="que_form" action="./index.php?g_page=community&amp;m_page=community07&amp;act=poll_ok" onsubmit="wjPollCheck(this);return false">
+	<!-- 참여시작시간 -->
+	<input type="hidden" name="wd_reg_s_date" value="1710142899">
+	<input type="hidden" name="vtCode" value="1">
+
+<!-- 질문 -->
+  	<div class="ending"></div>
+	<div class="faq_list">
+		<ul>
+			<li class="faq">
+				<dl class="faq_q">
+					<dt><img src="../wdVote/img/vote_q.png" alt="질문"></dt>
+					<dd>
+						진주시립도서관 이용자 만족도 설문지					</dd>
+				</dl>
+			</li>
+			<li class="faq">
+				<dl class="faq_a">
+					<dt></dt>
+					<dd>
+						안녕하십니까? 저희는 진주시립도서관입니다.
+저희 도서관에서는 도서관정보정책기획단과 공동으로 공공도서관 이용자를 대상으로 이용 만족도에
+대한 조사를 진행하고 있습니다. 본 조사는 이용자 여러분의 의견을 수렴하여 보다 나은 진주시립도서관
+을 만들어 나가는데 귀중한 자료로 사용될 예정입니다.
+
+귀하께서 응답해주시는 내용은 통계법 13조에 의해 철저하게 비밀이 보장되며 오직 통계분석 용도로만 사용됩
+니다. 선생님의 참여를 부탁드립니다.					</dd>
+				</dl>
+			</li>
+		</ul>
+	</div>
+	
+
+<!-- 정보 -->
+	
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="2">
+	<input type="hidden" name="vote_type[2]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 1.</strong> 문1-1) 귀하께서는 최근 1년간 진주시립도서관의 도서자료를 이용해 보거나 대출한 적이 있으십니까?</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item20" name="answer[2][]" title="예">
+					<label for="item20">예</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item21" name="answer[2][]" title="아니오">
+					<label for="item21">아니오</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="3">
+	<input type="hidden" name="vote_type[3]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 2.</strong> 문1-2) 귀하께서는 최근 1년간 진주시립도서관의 직원에게 정보를 문의한 적이 있으십니까?</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item30" name="answer[3][]" title="예">
+					<label for="item30">예</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item31" name="answer[3][]" title="아니오">
+					<label for="item31">아니오</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="4">
+	<input type="hidden" name="vote_type[4]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 3.</strong> 문1-3) 최근 1년간 진주시립도서관에서 진행하는 ‘전시회/특강/강좌/공연/공모전’ 등의 문화 프로그램을 이용해 보신 적이 있으십 니까?</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item40" name="answer[4][]" title="예">
+					<label for="item40">예</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item41" name="answer[4][]" title="아니오">
+					<label for="item41">아니오</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="5">
+	<input type="hidden" name="vote_type[5]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 4.</strong> 문2-1-1) 이 도서관은 내가 찾는 신간 도서를 가지고 있다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item50" name="answer[5][]" title="전혀 그렇지 않다">
+					<label for="item50">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item51" name="answer[5][]" title="그렇지 않은 편이다">
+					<label for="item51">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item52" name="answer[5][]" title="보통이다">
+					<label for="item52">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item53" name="answer[5][]" title="그런 편이다">
+					<label for="item53">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item54" name="answer[5][]" title="매우 그렇다">
+					<label for="item54">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="6">
+	<input type="hidden" name="vote_type[6]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 5.</strong> 문2-1-2) 이 도서관은 내가 찾는 분야의 도서를 잘 갖추고 있다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item60" name="answer[6][]" title="전혀 그렇지 않다">
+					<label for="item60">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item61" name="answer[6][]" title="그렇지 않은 편이다">
+					<label for="item61">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item62" name="answer[6][]" title="보통이다">
+					<label for="item62">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item63" name="answer[6][]" title="그런 편이다">
+					<label for="item63">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item64" name="answer[6][]" title="매우 그렇다">
+					<label for="item64">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="7">
+	<input type="hidden" name="vote_type[7]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 6.</strong> 문2-2-1) 이 도서관의 직원은 지식이 풍부해서 내가 원하는 정보에 대한 상담(문의)을 할 수 있다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item70" name="answer[7][]" title="전혀 그렇지 않다">
+					<label for="item70">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item71" name="answer[7][]" title="그렇지 않은 편이다">
+					<label for="item71">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item72" name="answer[7][]" title="보통이다">
+					<label for="item72">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item73" name="answer[7][]" title="그런 편이다">
+					<label for="item73">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item74" name="answer[7][]" title="매우 그렇다">
+					<label for="item74">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="8">
+	<input type="hidden" name="vote_type[8]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 7.</strong> 문2-2-2) 이 도서관의 직원은 친절하다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item80" name="answer[8][]" title="전혀 그렇지 않다">
+					<label for="item80">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item81" name="answer[8][]" title="그렇지 않은 편이다">
+					<label for="item81">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item82" name="answer[8][]" title="보통이다">
+					<label for="item82">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item83" name="answer[8][]" title="그런 편이다">
+					<label for="item83">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item84" name="answer[8][]" title="매우 그렇다">
+					<label for="item84">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="9">
+	<input type="hidden" name="vote_type[9]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 8.</strong> 문2-3-1) 이 도서관의 시설은 관리가 잘 되어 있어 독서 및 학습을 하기에 불편함이 없다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item90" name="answer[9][]" title="전혀 그렇지 않다">
+					<label for="item90">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item91" name="answer[9][]" title="그렇지 않은 편이다">
+					<label for="item91">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item92" name="answer[9][]" title="보통이다">
+					<label for="item92">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item93" name="answer[9][]" title="그런 편이다">
+					<label for="item93">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item94" name="answer[9][]" title="매우 그렇다">
+					<label for="item94">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="10">
+	<input type="hidden" name="vote_type[10]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 9.</strong> 문2-3-2) 이 도서관은 컴퓨터를 이용하거나 DVD, 비디오 등의 자료를 이용할 수 있는 시설이나 장비가 잘 갖추어져 있어 이용하기 편하다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item100" name="answer[10][]" title="전혀 그렇지 않다">
+					<label for="item100">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item101" name="answer[10][]" title="그렇지 않은 편이다">
+					<label for="item101">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item102" name="answer[10][]" title="보통이다">
+					<label for="item102">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item103" name="answer[10][]" title="그런 편이다">
+					<label for="item103">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item104" name="answer[10][]" title="매우 그렇다">
+					<label for="item104">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="11">
+	<input type="hidden" name="vote_type[11]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 10.</strong> 문2-4-1) 이 도서관이 진행하는 문화프로그램에 대한 정보는  쉽게 얻을 수 있다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item110" name="answer[11][]" title="전혀 그렇지 않다">
+					<label for="item110">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item111" name="answer[11][]" title="그렇지 않은 편이다">
+					<label for="item111">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item112" name="answer[11][]" title="보통이다">
+					<label for="item112">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item113" name="answer[11][]" title="그런 편이다">
+					<label for="item113">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item114" name="answer[11][]" title="매우 그렇다">
+					<label for="item114">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="12">
+	<input type="hidden" name="vote_type[12]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 11.</strong> 문2-4-2) 이 도서관의 문화프로그램은 내용이 알차 내가 참여 했거나 참여하고 싶은 프로그램이 있다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item120" name="answer[12][]" title="전혀 그렇지 않다">
+					<label for="item120">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item121" name="answer[12][]" title="그렇지 않은 편이다">
+					<label for="item121">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item122" name="answer[12][]" title="보통이다">
+					<label for="item122">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item123" name="answer[12][]" title="그런 편이다">
+					<label for="item123">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item124" name="answer[12][]" title="매우 그렇다">
+					<label for="item124">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="13">
+	<input type="hidden" name="vote_type[13]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 12.</strong> 문2-5-1) 귀하께서는 최근 1년간 인터넷을 통해 진주시립도서관의 도서자료를 열람하거나 정보를 검색해 보신 적이 있으십니까?</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item130" name="answer[13][]" title="예">
+					<label for="item130">예</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item131" name="answer[13][]" title="아니오">
+					<label for="item131">아니오</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="14">
+	<input type="hidden" name="vote_type[14]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 13.</strong> 문2-5-2) 이 도서관의 홈페이지는 전자책, 오디오북 등 디지털 자료가 풍부하다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item140" name="answer[14][]" title="전혀 그렇지 않다">
+					<label for="item140">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item141" name="answer[14][]" title="그렇지 않은 편이다">
+					<label for="item141">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item142" name="answer[14][]" title="보통이다">
+					<label for="item142">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item143" name="answer[14][]" title="그런 편이다">
+					<label for="item143">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item144" name="answer[14][]" title="매우 그렇다">
+					<label for="item144">매우 그렇다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>6)</strong> 
+					<input type="radio" value="6" id="item145" name="answer[14][]" title="이용 안함">
+					<label for="item145">이용 안함</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="15">
+	<input type="hidden" name="vote_type[15]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 14.</strong> 문2-5-3) 이 도서관의 홈페이지는 신간도서 정보, 문화행사 개최 정보 등 최신정보 업데이트가 빠르다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item150" name="answer[15][]" title="전혀 그렇지 않다">
+					<label for="item150">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item151" name="answer[15][]" title="그렇지 않은 편이다">
+					<label for="item151">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item152" name="answer[15][]" title="보통이다">
+					<label for="item152">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item153" name="answer[15][]" title="그런 편이다">
+					<label for="item153">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item154" name="answer[15][]" title="매우 그렇다">
+					<label for="item154">매우 그렇다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>6)</strong> 
+					<input type="radio" value="6" id="item155" name="answer[15][]" title="이용 안함">
+					<label for="item155">이용 안함</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="16">
+	<input type="hidden" name="vote_type[16]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 15.</strong> 문2-6-1) 이 도서관은 도보, 자전거 등으로 방문하거나 대중교통(버스, 지하철 등)을 이용해 오기 편하다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item160" name="answer[16][]" title="전혀 그렇지 않다">
+					<label for="item160">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item161" name="answer[16][]" title="그렇지 않은 편이다">
+					<label for="item161">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item162" name="answer[16][]" title="보통이다">
+					<label for="item162">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item163" name="answer[16][]" title="그런 편이다">
+					<label for="item163">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item164" name="answer[16][]" title="매우 그렇다">
+					<label for="item164">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="17">
+	<input type="hidden" name="vote_type[17]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 16.</strong> 문2-6-2) 이 도서관은 찾아가기 쉽도록 이정표가 잘 설치되어 있다</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item170" name="answer[17][]" title="전혀 그렇지 않다">
+					<label for="item170">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item171" name="answer[17][]" title="그렇지 않은 편이다">
+					<label for="item171">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item172" name="answer[17][]" title="보통이다">
+					<label for="item172">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item173" name="answer[17][]" title="그런 편이다">
+					<label for="item173">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item174" name="answer[17][]" title="매우 그렇다">
+					<label for="item174">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="18">
+	<input type="hidden" name="vote_type[18]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 17.</strong> 문2-7) 귀하께서는 진주시립도서관에 대해 전반적으로 만족하십니까?</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item180" name="answer[18][]" title="전혀 그렇지 않다">
+					<label for="item180">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item181" name="answer[18][]" title="그렇지 않은 편이다">
+					<label for="item181">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item182" name="answer[18][]" title="보통이다">
+					<label for="item182">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item183" name="answer[18][]" title="그런 편이다">
+					<label for="item183">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item184" name="answer[18][]" title="매우 그렇다">
+					<label for="item184">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="19">
+	<input type="hidden" name="vote_type[19]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 18.</strong> 문2-8) 귀하께서는 진주시립도서관을 지속적으로 이용할 의향이 있으십니까?</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item190" name="answer[19][]" title="전혀 그렇지 않다">
+					<label for="item190">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item191" name="answer[19][]" title="그렇지 않은 편이다">
+					<label for="item191">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item192" name="answer[19][]" title="보통이다">
+					<label for="item192">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item193" name="answer[19][]" title="그런 편이다">
+					<label for="item193">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item194" name="answer[19][]" title="매우 그렇다">
+					<label for="item194">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="20">
+	<input type="hidden" name="vote_type[20]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 19.</strong> 문2-9) 귀하께서는 진주시립도서관을 주변 사람들에게 추천하실 의향이 있으십니까?</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item200" name="answer[20][]" title="전혀 그렇지 않다">
+					<label for="item200">전혀 그렇지 않다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item201" name="answer[20][]" title="그렇지 않은 편이다">
+					<label for="item201">그렇지 않은 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item202" name="answer[20][]" title="보통이다">
+					<label for="item202">보통이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item203" name="answer[20][]" title="그런 편이다">
+					<label for="item203">그런 편이다</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item204" name="answer[20][]" title="매우 그렇다">
+					<label for="item204">매우 그렇다</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="21">
+	<input type="hidden" name="vote_type[21]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 20.</strong> DQ1. 귀하의 성별은 무엇입니까?</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item210" name="answer[21][]" title="남자">
+					<label for="item210">남자</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item211" name="answer[21][]" title="여자">
+					<label for="item211">여자</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="22">
+	<input type="hidden" name="vote_type[22]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 21.</strong> DQ2. 귀하의 연령은 만으로 어떻게 되십니까?</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item220" name="answer[22][]" title="남자">
+					<label for="item220">남자</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item221" name="answer[22][]" title="여자">
+					<label for="item221">여자</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="23">
+	<input type="hidden" name="vote_type[23]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 22.</strong> DQ2. 귀하의 연령은 만으로 어떻게 되십니까?</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item230" name="answer[23][]" title="10대 이하">
+					<label for="item230">10대 이하</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item231" name="answer[23][]" title="20대">
+					<label for="item231">20대</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item232" name="answer[23][]" title="30대">
+					<label for="item232">30대</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item233" name="answer[23][]" title="40대">
+					<label for="item233">40대</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item234" name="answer[23][]" title="50대">
+					<label for="item234">50대</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>6)</strong> 
+					<input type="radio" value="6" id="item235" name="answer[23][]" title="60대 이상">
+					<label for="item235">60대 이상</label>
+				</div>
+							</li>
+						</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<!-- 설문 항목 코드 -->
+	<input type="hidden" name="item_code[]" value="24">
+	<input type="hidden" name="vote_type[24]" value="1">
+
+	<div class="polltit">
+		<h3><i></i><strong>질문 23.</strong> DQ3. 귀하의 현재 직업은 무엇입니까?</h3>
+	</div>
+	<!-- 설문항목 -->
+	<div class="pollitem">
+		<div class="pollitem_wrap">
+			<ul>
+				<li>
+				<div class="question">
+					<strong>1)</strong> 
+					<input type="radio" value="1" id="item240" name="answer[24][]" title="초등학생">
+					<label for="item240">초등학생</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>2)</strong> 
+					<input type="radio" value="2" id="item241" name="answer[24][]" title="중학생">
+					<label for="item241">중학생</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>3)</strong> 
+					<input type="radio" value="3" id="item242" name="answer[24][]" title="고등학생">
+					<label for="item242">고등학생</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>4)</strong> 
+					<input type="radio" value="4" id="item243" name="answer[24][]" title="대학생(원)">
+					<label for="item243">대학생(원)</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>5)</strong> 
+					<input type="radio" value="5" id="item244" name="answer[24][]" title="회사원">
+					<label for="item244">회사원</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>6)</strong> 
+					<input type="radio" value="6" id="item245" name="answer[24][]" title="자영업">
+					<label for="item245">자영업</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>7)</strong> 
+					<input type="radio" value="7" id="item246" name="answer[24][]" title="전문직">
+					<label for="item246">전문직</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>8)</strong> 
+					<input type="radio" value="8" id="item247" name="answer[24][]" title="전업주부">
+					<label for="item247">전업주부</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+					<strong>9)</strong> 
+					<input type="radio" value="9" id="item248" name="answer[24][]" title="무직">
+					<label for="item248">무직</label>
+				</div>
+							</li>
+						<li>
+				<div class="question">
+				<strong>10)</strong> 
+				<label for="item_etc249">기타 (적어주시기 바랍니다.)</label>
+				<input type="text" id="item_etc249" name="answer_etc[24]" title="기타 (적어주시기 바랍니다.) 입력">
+								</div>
+			</li>
+					</ul>
+		</div>
+	</div>
+	<!-- //설문항목 -->
+		<div class="tac">
+		<strong class="mr5p">* 개인정보 수집 이용 동의 여부</strong> <input type="radio" value="1" id="chkok" name="agree" checked="checked" title="동의함"> <label for="chkok">동의함</label> &nbsp;&nbsp; <input type="radio" value="2" id="chkno" name="agree" title="동의하지 않음"> <label for="chkno">동의하지 않음</label>
+	</div>
+	<div class="ending">* 이 설문조사는 마감이 되었습니다.</div>
+	</form>
+<div class="title">
+	<h3><i></i>전체 설문조사</h3>
+</div>
+<div class="dk_table">
+	<table class="responsive">
+		<caption>설문조사 목록</caption>
+		<colgroup>
+			<col style="width:50px;">
+			<col>
+			<col style="width:100px;">
+			<col style="width:100px;">
+			<col style="width:75px;">
+			<!-- col style="width:75px;" -->
+		</colgroup>
+		<thead>
+			<tr>
+				<th scope="col">번호</th>
+				<th scope="col">제목</th>
+				<th scope="col">시작일 </th>
+				<th scope="col">종료일</th>
+				<th scope="col">설문결과</th>
+				<!-- th scope="col">상태</th -->
+			</tr>
+		</thead>
+		<tbody>
+					<tr>
+				<td data-th="번호"><span class="bt-content">6</span></td>
+				<td class="tal" data-th="제목"><span class="bt-content"><a href="./index.php?g_page=community&amp;m_page=community07&amp;vtCode=9">어린이전문도서관 CCTV 설치 설문조사</a></span></td>
+				<td data-th="시작일 "><span class="bt-content">2023.09.12</span></td>
+				<td data-th="종료일"><span class="bt-content">2023.10.12</span></td>
+				<td data-th="설문결과"><span class="bt-content"><span class="state01">마 감</span></span></td>
+				<!-- td>결과보기</a></td -->
+			</tr>
+						<tr>
+				<td data-th="번호"><span class="bt-content">5</span></td>
+				<td class="tal" data-th="제목"><span class="bt-content"><a href="./index.php?g_page=community&amp;m_page=community07&amp;vtCode=6">2022년 진주시립도서관 이용자 만족도 설문조사</a></span></td>
+				<td data-th="시작일 "><span class="bt-content">2022.08.01</span></td>
+				<td data-th="종료일"><span class="bt-content">2022.08.31</span></td>
+				<td data-th="설문결과"><span class="bt-content"><span class="state01">마 감</span></span></td>
+				<!-- td>결과보기</a></td -->
+			</tr>
+						<tr>
+				<td data-th="번호"><span class="bt-content">4</span></td>
+				<td class="tal" data-th="제목"><span class="bt-content"><a href="./index.php?g_page=community&amp;m_page=community07&amp;vtCode=4">2021년 진주시립도서관 이용자 만족도 설문조사</a></span></td>
+				<td data-th="시작일 "><span class="bt-content">2021.09.01</span></td>
+				<td data-th="종료일"><span class="bt-content">2021.09.30</span></td>
+				<td data-th="설문결과"><span class="bt-content"><span class="state01">마 감</span></span></td>
+				<!-- td>결과보기</a></td -->
+			</tr>
+						<tr>
+				<td data-th="번호"><span class="bt-content">3</span></td>
+				<td class="tal" data-th="제목"><span class="bt-content"><a href="./index.php?g_page=community&amp;m_page=community07&amp;vtCode=3">연암도서관 북카페 명칭 설문조사</a></span></td>
+				<td data-th="시작일 "><span class="bt-content">2020.05.08</span></td>
+				<td data-th="종료일"><span class="bt-content">2020.05.08</span></td>
+				<td data-th="설문결과"><span class="bt-content"><span class="state01">마 감</span></span></td>
+				<!-- td>결과보기</a></td -->
+			</tr>
+						<tr>
+				<td data-th="번호"><span class="bt-content">2</span></td>
+				<td class="tal" data-th="제목"><span class="bt-content"><a href="./index.php?g_page=community&amp;m_page=community07&amp;vtCode=1">진주시립도서관 이용자 만족도 설문지</a></span></td>
+				<td data-th="시작일 "><span class="bt-content">2019.09.09</span></td>
+				<td data-th="종료일"><span class="bt-content">2019.09.30</span></td>
+				<td data-th="설문결과"><span class="bt-content"><span class="state01">마 감</span></span></td>
+				<!-- td>결과보기</a></td -->
+			</tr>
+						<tr>
+				<td data-th="번호"><span class="bt-content">1</span></td>
+				<td class="tal" data-th="제목"><span class="bt-content"><a href="./index.php?g_page=community&amp;m_page=community07&amp;vtCode=2">진주시립연암도서관 리모델링 관련 이용자 의견조사 설문지</a></span></td>
+				<td data-th="시작일 "><span class="bt-content">2019.07.10</span></td>
+				<td data-th="종료일"><span class="bt-content">2019.07.16</span></td>
+				<td data-th="설문결과"><span class="bt-content"><span class="state01">마 감</span></span></td>
+				<!-- td>결과보기</a></td -->
+			</tr>
+					</tbody>
+	</table>
+</div>
+<div class="dk_paging">
+	<div class="paging"><strong>1</strong> </div></div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    
+</body>
+</html>
