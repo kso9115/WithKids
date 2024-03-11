@@ -33,7 +33,7 @@
     width: 300px;
     background-color: white;
     border-radius: 15px;
-    color: var(--admin);
+    /* color: var(--admin); */
     margin: auto;
 }
 

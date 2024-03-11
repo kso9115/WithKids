@@ -133,7 +133,22 @@ function ProgramDetails() {
 
                 <div><span>*</span>소득구분</div>
                 <div>
-
+                    <div>
+                        <input type="checkbox" id='general' name='incmClsfc' />
+                        <label for='general'>일반</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id='beneficiary ' name='incmClsfc' />
+                        <label for='beneficiary'>수급자</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id='nearPoverty' name='incmClsfc' />
+                        <label for='nearPoverty'>차상위</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id='none' name='incmClsfc' />
+                        <label for='none'>저소득</label>
+                    </div>
                 </div>
             </div>
         </div>

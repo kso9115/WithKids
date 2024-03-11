@@ -1,0 +1,45 @@
+#viewport {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 840px;
+    text-align: center;
+}
+
+#viewport_img {
+    position: relative;
+    top: 100px;
+}
+
+#viewport_text {
+    position: relative;
+    text-align: center;
+    top: 130px;
+    color: white;
+    font-size: 20px;
+}
+
+#viewport_box {
+    font-family: 'claytoy';
+    position: relative;
+    top: 130px;
+    display: flex;
+    justify-content: center;
+
+    gap: 50px;
+    font-size: 30px;
+    color: var(--kid);
+    margin-bottom: 30px;
+}
+
+#viewport_box span {
+    color: white;
+    padding-left: 20px;
+}
+
+#viewport_slide {
+    margin: auto;
+    position: relative;
+    top: 150px;
+
+}
