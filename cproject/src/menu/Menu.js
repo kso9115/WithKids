@@ -1,7 +1,7 @@
 // import Login from '../container/login/Login'
 import Calender from '../celender/Calender'
 import ProgramManagement from '../container/program/ProgramManagement'
-import MemberList from '../container/memberlist/MemberList'
+import MemberList from '../container/memberdetail/MemberList'
 import Admission from '../container/admission/AdmLvng_Manager'
 import Attandance from '../container/attandance/Attandance'
 import MealManagement from '../container/mealManagement/MealManagement'

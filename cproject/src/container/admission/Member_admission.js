@@ -2,7 +2,7 @@
 
 function Member_addission(){
 
-    retrun (
+    return (
         <div>
             <table>
                 <tr>입소/이용 일자</tr><td></td>

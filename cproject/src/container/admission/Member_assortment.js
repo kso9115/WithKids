@@ -2,7 +2,7 @@
 
 function Member_adssortment(){
 
-    retrun (
+    return (
     <div>
         <table>
             <tr>대상자 정보</tr><td></td>

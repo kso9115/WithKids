@@ -3,7 +3,7 @@
 
 function Member_Leaving(){
 
-    retrun (
+    return (
         <div>
             <table>
                 <tr>퇴소/종결 일자</tr><td></td>

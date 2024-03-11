@@ -1,13 +1,13 @@
 import './userHome.css'
 import UserHeader from './UserHeader'
 import UserFooter from './UserFooter'
-import Slide from './slide/Slide'
-function UserHome({children}) {
+import { Outlet } from 'react-router-dom'
+function UserHome() {
 
     return (
         <>
             <UserHeader></UserHeader>
-            {children}
+            <Outlet />
             <UserFooter></UserFooter>  
         </>
     );

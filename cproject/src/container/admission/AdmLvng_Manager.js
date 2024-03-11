@@ -1,13 +1,12 @@
 import MemberAdmission from "./Member_admission";
-import MemberList from "../memberlist/MemberList";
+import MemberList from "../memberdetail/MemberList";
 import MemberAssortment from "./Member_assortment";
-import MemberAdmission from "./Member_admission";
-import MemberAdmission from "./Member_Leaving";
+import MemberLeaving from "./Member_Leaving";
 
 
 function AdmLvng_Manager() {
 
-    retrun (
+    return (
         <div>
             <h3>입소(이용)/퇴소(종결) 관리</h3>
             <table>
@@ -20,6 +19,7 @@ function AdmLvng_Manager() {
             <MemberList />
             <MemberAssortment />
             <MemberAdmission />
+            <MemberLeaving/>
         </div>
     );
 }
