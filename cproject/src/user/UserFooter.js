@@ -1,4 +1,5 @@
 import './userFooter.css'
+import logo from '../images/Community Child Center.png'
 
 function UserFooter() {
 
@@ -25,7 +26,7 @@ function UserFooter() {
                     height: '150px'
                 }}></div>
                 <p class="footer_logo">
-                    <img src="img/Community Child Center.png" alt=""></img>
+                    <img src={logo} alt=""></img>
                     <cite>COPYRIGHT(C) YONGIN CITY. ALL RIGHTS RESERVED.</cite>
                 </p>
             </div>

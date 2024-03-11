@@ -1,4 +1,6 @@
 import './userHeader.css'
+import logo from '../images/Community Child Center.png'
+import iconChat from '../images/iconChat.png'
 
 import { useRef } from 'react';
 
@@ -28,8 +30,8 @@ function UserHeader() {
 
     return (
         <header class="dongle-regular">
-            <a id="logo" href="#">
-                <img src="img/Community Child Center.png" alt=""></img>
+            <a id="logo" href="/user">
+                <img src={logo} alt=""></img>
 
             </a>
 
@@ -37,7 +39,7 @@ function UserHeader() {
                 <div id="menu">
                     <ul>
                         <li><a href="#">센터 소개</a></li>
-                        <li><a href="#">공지사항</a></li>
+                        <li><a href="/user/notice">공지사항</a></li>
                         <li><a href="#">프로그램</a></li>
                         <li><a href="#">프로그램 후기</a></li>
                         <li><a href="#">찾아오시는길</a></li>
@@ -47,12 +49,13 @@ function UserHeader() {
 
             <div id="login_group">
                 <ul>
+                    <li><a href="/">선택창(Test)</a></li>
                     <li><a href="#">로그인</a></li>
                 </ul>
             </div>
 
             <div id="iconChat" className='' ref={icon} onClick={iconClick}>
-                <img src="img/iconChat.png" alt="" />
+                <img src={iconChat} alt="" />
             </div>
         </header>
     );

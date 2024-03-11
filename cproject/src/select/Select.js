@@ -27,8 +27,8 @@ function Select() {
                 gap: '50px',
                 justifyContent: 'center'
             }}>
-                <a href="/userHome">사용자 홈페이지로</a>
-                <a href="/Home">관리페이지로</a>
+                <a href="/user">사용자 홈페이지로</a>
+                <a href="/login">관리페이지로</a>
             </div>
 
         </div>

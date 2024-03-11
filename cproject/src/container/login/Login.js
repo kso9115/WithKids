@@ -1,11 +1,23 @@
 import './login.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import Session from 'react-session-api';
 
 function Login({ setSessionName }) {
+    const navigate = useNavigate();
+    useEffect(() => {
+        
+        let loginId = "admin";
+        loginId = "";
 
-
+        if (loginId !== null && loginId.trim().length !== 0 && loginId !== undefined) {
+            console.log("aa");
+            navigate("/home");
+        }
+    }, [navigate])
+    
+    
 
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
@@ -55,11 +67,13 @@ function Login({ setSessionName }) {
                             <td>
                                 <input type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
                                 <input type="reset" value="취소" />
+                                
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </form>
+            <a href="/home">메인페이지</a>
         </div>
     );
 }

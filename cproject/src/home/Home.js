@@ -4,28 +4,46 @@ import Menu from '../menu/Menu'
 import Container from '../container/Container'
 import Main from '../container/main/Main'
 import axios from 'axios';
-
+import React, { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 function Home() {
-    let clientData;
+    // let clientData;
 
-    async function getClientData() {
-        try {
-            /* 
-                json 객체의 id 고유식별자를 이용한 URL 매핑이 가능하며,
-                이와같은 경로 지정을 통해 json 데이터를 식별.
-            */
-            const response = await axios.get('http://localhost:4000/api/member');
+    // async function getClientData() {
+    //     try {
+    //         /* 
+    //             json 객체의 id 고유식별자를 이용한 URL 매핑이 가능하며,
+    //             이와같은 경로 지정을 통해 json 데이터를 식별.
+    //         */
+    //         const response = await axios.get('http://localhost:4000/api/member');
 
-            clientData = response.data;
+    //         clientData = response.data;
 
-            console.log(clientData);
-        } catch (err) {
-            console.log('데이터를 가져오는 중 오류 발생');
-            console.log(err.message);
+    //         console.log(clientData);
+    //     } catch (err) {
+    //         console.log('데이터를 가져오는 중 오류 발생');
+    //         console.log(err.message);
+    //     }
+    // }
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+
+        let loginId = "admin";
+        // loginId = "";
+        console.log('loginId === null : ' + loginId === null);
+        console.log('loginId.trim().length === 0 : ' + loginId.trim().length === 0);
+        console.log('loginId === undefined : ' + loginId === undefined);
+        if (loginId === null || loginId.trim().length === 0 || loginId === undefined) {
+            console.log("aa");
+            navigate("/errNoneLogin");
+        } else {
+
         }
-    }
-
+    }, [navigate])
+    
     const [sname, setSname] = useState(sessionStorage.getItem("sname"));
     const [currentTab, setCurrentTab] = useState(0);
     const [menuArr, setMenuArr] = useState([
@@ -35,7 +53,7 @@ function Home() {
     const setSessionName = (name) => {
         setSname(name);
     }
-    getClientData();
+    // getClientData();
 
     return (
         <>
