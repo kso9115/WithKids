@@ -1,9 +1,9 @@
-
+import './Member_assortment.css';
 
 function Member_adssortment(){
 
     return (
-    <div>
+    <div class="assortmentBox">
         <table>
             <tr>대상자 정보</tr><td></td>
             <tr>대상자 번호</tr><td></td>
