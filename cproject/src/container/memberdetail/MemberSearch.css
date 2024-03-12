@@ -1,0 +1,10 @@
+.memberSearchBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    background-color: var(--admin);
+    
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}

@@ -6,9 +6,22 @@ function MemberMangement() {
     return (
 
         <div className="MemberMangement">
-            <h>MemberMangement 아동 관리 전체 화면</h>
+            <p>아동 관리 전체 화면</p>
+
             <MemberSearch />
-            <MemberList />
+
+            <form>
+                <div className='memberMainBox'>
+                    <div>
+                        <div>
+                            <span>대상자 목록(총 20건)</span>
+                            <button>excel다운(이벤트넣기)</button>&nbsp;
+                            <button>출력(이벤트넣기)</button>
+                        </div>
+                        <MemberList />
+                    </div>
+                </div>
+            </form>
         </div>
     );
 }
