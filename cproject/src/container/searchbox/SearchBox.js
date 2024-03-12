@@ -1,28 +1,12 @@
 import { useState } from 'react'
 
-// const data = new Map();
-
-// data.set(
-
-// )
-
 function SearchBox({ data }) {
     const [sbVal, setSbVal] = useState(...[data.content.map((o) => { return o.default })]);
-    console.log(sbVal);
 
-    function change(n, i, e, d) {
-        
-        console.log(e.target.value + " " + d);
-        
+    // input 입력시 useState 값 바꿔주는 함수
+    function change(i, e, d) {
         let c = sbVal;
-        // console.log(c);
-        // if (d !== undefined) {
-        //     c[i][d] = e.target.value;
-        // } else {
-        //     c[i] = e.target.value;
-        // }
-        // console.log(c);
-        // setSbVal(c);
+
         if (d !== undefined) {
             c[i][d] = e.target.value;
             setSbVal({
@@ -37,29 +21,26 @@ function SearchBox({ data }) {
                 c
             });
         }
-        // setSbVal({
-        //     ...sbVal,
+    } //change
 
-        // });
-    }
-
+    // 가져온 data 바탕으로 input/select 생성
     function inputBox(o, i) {
         switch (o.type) {
             case "text":
-                return <input type="text" value={sbVal[i]} onChange={(e) => { change(o.default,i,e) }} />;
+                return <input name={o.state} type="text" value={sbVal[i]} onChange={(e) => { change(i,e) }} />;
             case "date":
-                if (o.count === 1) {
-                    return <input type="date" value={sbVal[i]} onChange={(e) => { change(o.default, i, e) }} />;
-                } else {
+                if (Array.isArray(o.default)) {
                     return <>
-                        <input type="date" value={sbVal[i][0]} onChange={(e) => { change(o.default, i, e , 0) }} />
-                        ~<input type="date" value={sbVal[i][1]} onChange={(e) => { change(o.default, i, e, 1) }} />
+                        <input name={o.state[0]} type="date" value={sbVal[i][0]} onChange={(e) => { change(i, e, 0) }} />
+                        ~<input name={o.state[1]} type="date" value={sbVal[i][1]} onChange={(e) => { change(i, e, 1) }} />
                     </>
+                } else {
+                    return <input name={o.state} type="date" value={sbVal[i]} onChange={(e) => { change(i, e) }} />;
                 }
             case "select":
                 return <>
                     <select>
-                        <option value="" key="">전체</option>
+                        <option name={o.state} value="" key="">전체</option>
                         {
                             o.default.map((j) => {
                                 return <option value={j.value} key="">{j.name}</option>
@@ -70,12 +51,12 @@ function SearchBox({ data }) {
             default:
                 break;
         }
-    }
+    } //inputBox
 
     return (
         <>
             <p>{data.name}</p>
-            <form>
+            <form action={data.action} method={data.method}>
                 <div className='searchBox'>
                     {
                         data.content.map((o, i) => {
@@ -85,7 +66,6 @@ function SearchBox({ data }) {
                                 }{o.name}&nbsp;&nbsp;
                                     {inputBox(o, i)}
                                 </div>
-
                             );
                         })
                     }
@@ -98,6 +78,6 @@ function SearchBox({ data }) {
             </form>
         </>
     );
-}
+} //SearchBox
 
 export default SearchBox;
