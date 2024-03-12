@@ -3,6 +3,46 @@ import ProgramTree from './ProgramTree'
 import ProgramDetails from './ProgramDetails'
 import Container from '../Container'
 import { useState } from 'react'
+import SearchBox from './SearchBox';
+
+const data = {
+    name: '프로그램 정보 관리',
+    content: [
+        {
+            name: '프로그램 기간',
+            state: 'programDate',
+            type: 'date',
+            count: 2,
+            esntl: true,
+            default: ['2024-01-01', '2024-12-31']
+        },
+        {
+            name: '프로그램명',
+            state: 'programName',
+            type: 'text',
+            count: 1,
+            esntl: false,
+            default: ''
+        },
+        {
+            name: '담당자',
+            state: 'manager',
+            type: 'text',
+            count: 1,
+            esntl: false,
+            default: ''
+        }
+        ,
+        {
+            name: '프로그램 그룹',
+            state: 'programGroup',
+            type: 'select',
+            count: 5,
+            esntl: false,
+            default: [{ name: '음악', value: '음악' }, { name: '공부', value: '공부' }, { name: '독서', value: '독서' }]
+        }
+    ]
+}
 
 function ProgramManagement() {
     const [subMenuArr, setSubMenuArr] = useState([
@@ -15,6 +55,7 @@ function ProgramManagement() {
             color: "black",
             height: "100%"
         }}>
+            <SearchBox data={data}></SearchBox>
             <p>프로그램 정보 관리</p>
             <form>
                 <div className='searchBox'>
