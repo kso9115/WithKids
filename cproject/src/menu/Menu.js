@@ -2,12 +2,14 @@
 import Calender from '../celender/Calender'
 import ProgramManagement from '../container/program/ProgramManagement'
 import MemberMangement from '../container/memberdetail/MemberMangement'
+import MemberMangement from '../container/memberdetail/MemberMangement'
 import Admission from '../container/admission/AdmLvng_Manager'
 import Attandance from '../container/attandance/Attandance'
 import MealManagement from '../container/mealManagement/MealManagement'
     
 function Menu({ sname, menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     const map = new Map();
+    map.set('MemberMangement', { name: '대상자 기본 정보', content: <MemberMangement /> });
     map.set('MemberMangement', { name: '대상자 기본 정보', content: <MemberMangement /> });
     map.set('Admission', { name: '입소/퇴소 관리', content: <Admission/> });
     map.set('Attandance', { name: '출석관리', content: <Attandance /> });
@@ -100,6 +102,7 @@ function Menu({ sname, menuArr, setMenuArr, setCurrentTab, setSessionName }) {
                 <div id="management" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">아동 관리:</h6>
+                        <span class="collapse-item" style={{ cursor: 'pointer' }} onClick={() => getTransTitle('MemberMangement')}>대상자 기본 정보</span>
                         <span class="collapse-item" style={{ cursor: 'pointer' }} onClick={() => getTransTitle('MemberMangement')}>대상자 기본 정보</span>
                         <span class="collapse-item" style={{ cursor: 'pointer' }} onClick={() => getTransTitle('Admission')}>입소/퇴소 관리</span>
                     </div>
