@@ -32,9 +32,11 @@
     max-height: 100px;
 }
 
-.menu-side-menu::before{
+/* .menu-side-name::before{
     content: url("../images/icon-user.png");
-}
+    width: 10px;
+    height: 10px;
+} */
 
 .afterIcon::after, .afterIconRot::after{
     font: var(--fa-font-solid);
