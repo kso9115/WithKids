@@ -3,7 +3,6 @@ import './Member_assortment.css';
 function Member_adssortment(){
 
     return (
-    <div className='assortmentBox'>
         <div className='asgridBox'>
             <div>대상자성명</div> 
             <div><input type='text' readOnly/></div>    
@@ -23,7 +22,6 @@ function Member_adssortment(){
             <div>입소/이용상태</div>
             <div><input type='text' readOnly/></div>
         </div>
-    </div>
     );
 }
 export default Member_adssortment;

@@ -26,7 +26,7 @@ function AdmLvng_Manager() {
                     height: '100%'}} >
                     <div style={{
                         marginBottom: '5px'}}>
-                        학생 리스트
+
                     </div>
                     <MemberList />
                 </div>

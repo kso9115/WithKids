@@ -1,7 +1,7 @@
 import './userHeader.css'
 import logo from '../images/Community Child Center.png'
 import iconChat from '../images/iconChat.png'
-import Chatbot from './chatbot/Chatbot';
+// import Chatbot from './chatbot/Chatbot';
 import { useRef , useState } from 'react';
 
 function UserHeader() {
@@ -60,7 +60,7 @@ function UserHeader() {
             </div>
 
             
-            <Chatbot isModal={modal} setModal={setModal}></Chatbot>
+            {/* <Chatbot isModal={modal} setModal={setModal}></Chatbot> */}
         </header>
         
     );
