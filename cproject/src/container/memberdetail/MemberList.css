@@ -1,0 +1,26 @@
+.memberList {
+    font-size: 14px;
+}
+
+.table-container {
+    border-top: 0.3px solid var(--lgray);
+    border-bottom: 0.3px solid var(--lgray);
+    display: grid;
+    flex-direction: column;
+}
+
+.header {
+    background-color: var(--admin);
+    font-weight: bold;
+}
+
+.table-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.table-cell {
+    flex: 1;
+    border-bottom: 0.3px solid var(--lgray);
+    padding: 7px;
+}
