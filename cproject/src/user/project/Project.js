@@ -56,15 +56,15 @@ function Project() {
 
 						</li>
 						<li class="program_v_con">
-							<h4>[수지] 지역 아동 복지센터 신청 페이지</h4>
+							<h4>[성남] 지역 아동 복지센터 신청 페이지</h4>
 							<ul>
 
 								<li><span>분야</span>
-									<p class="label label03">문화예술</p>
+									<p class="label label03">프로그램</p>
 								</li>
 
 								<li><span>공간</span>
-									<p>청년 LAB <b class="zoon zoon03"></b></p>
+									<p>아동 LAB <b class="zoon zoon03"></b></p>
 								</li>
 								<li>
 									<span>모집일자</span>
@@ -81,12 +81,12 @@ function Project() {
 								<li>
 									<span>진행일자</span>
 									<p>
-										2024-03-21
+										2024-03-14
 									</p>
 								</li>
 								<li>
-									<span>진행자</span>
-									<p>2024-02-22</p>
+									<span>마감일자</span>
+									<p>2024-04-22</p>
 								</li>
 							</ul>
 
@@ -98,7 +98,7 @@ function Project() {
 					<div class="program_v_list">
 						<p class="tit_style02"></p>
 						<p class="0"><span style={{ textAutospace : 'none'}}><span style={{fontFamily : '함초롬바탕'}}><span
-										style={{fontFamily : 'bold'}}>프로그램명</span></span><span lang="EN-US"
+										style={{fontFamily : 'bold'}}>프로그램명 : 축구교실</span></span><span lang="EN-US"
 									style={{letterSpacing : '0pt'}}><span style={{fontWeight :'bold'}}>
 											</span></span></span></p><br></br><br></br>
 
