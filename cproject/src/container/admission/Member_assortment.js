@@ -3,15 +3,26 @@ import './Member_assortment.css';
 function Member_adssortment(){
 
     return (
-    <div class="assortmentBox">
-        <table>
-            <tr>대상자 정보</tr><td></td>
-            <tr>대상자 번호</tr><td></td>
-            <tr>생년월일</tr><td></td>
-            <tr>주민등록번호</tr><td></td>
-            <tr>성별구분</tr><td></td>
-            <tr>입소/이용상태</tr><td></td>
-        </table>
+    <div className='assortmentBox'>
+        <div className='asgridBox'>
+            <div>대상자성명</div> 
+            <div><input type='text' readOnly/></div>    
+            
+            <div>대상자번호</div>  
+            <div><input type='text' readOnly/></div> 
+
+            <div>생년월일</div>  
+            <div><input type='text' readOnly/></div> 
+
+            <div>주민등록번호</div>
+            <div><input type='text' readOnly/></div> 
+
+            <div>성별구분</div>
+            <div><input type='text' readOnly/></div> 
+
+            <div>입소/이용상태</div>
+            <div><input type='text' readOnly/></div>
+        </div>
     </div>
     );
 }
