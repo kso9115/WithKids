@@ -3,6 +3,10 @@
     box-sizing: border-box;
 }
 
+#homeContainer {
+    display: flex;
+}
+
 /* App.js */
 .myInfo {
     background-color: #FFFFE0;

@@ -26,16 +26,16 @@ export const prg_mng = {
         }
         ,
         {
-            name: '프로그램 그룹',
-            state: 'programGroup',
+            name: '프로그램 구분',
+            state: 'prg_cls',
             type: 'select',
             esntl: false,
-            default: [{ name: '음악', value: '음악' }, { name: '공부', value: '공부' }, { name: '독서', value: '독서' }]
+            default: [{ name: '내부형프로그램', value: '내부형프로그램' }, { name: '신청형프로그램', value: '신청형프로그램' }]
         }
     ]
 }
 
-export const  admLvng_mng= {
+export const admLvng_mng = {
     name: '입소(이용) / 퇴소(종결) 관리 ', // 서치 박스 위에 표시될 이름
     action: 'admLvng', // form 태그로 전달할 요청명
     method: 'get', // form 태그로 전달할 요청 방식
@@ -74,12 +74,12 @@ export const  admLvng_mng= {
             state: 'admStatus',
             type: 'select',
             esntl: false,
-            default: [{ name: '대기', value: '대기' }, { name: '결정', value: '결정' },{ name: '취소', value: '취소' } ]
+            default: [{ name: '대기', value: '대기' }, { name: '결정', value: '결정' }, { name: '취소', value: '취소' }]
         }
     ]
 }
 
-export const  mem_mng= {
+export const mem_mng = {
     name: '대상자 기본정보', // 서치 박스 위에 표시될 이름
     action: 'memmng', // form 태그로 전달할 요청명
     method: 'get', // form 태그로 전달할 요청 방식

@@ -1,0 +1,94 @@
+/* .menu-side {
+    box-sizing: content-box;
+} */
+
+.menu-side-name {
+    padding: 16px;
+    font-size: 14px;
+    cursor: pointer;
+
+    animation-name: fadein;
+    animation-duration: 2s;
+
+}
+
+/* .menu-side-name:hover {
+
+    transition: height 0.5s ease-out;
+} */
+
+.menu-side-menu {
+    /* position: relative; */
+    overflow: hidden;
+    margin: 0 16px;
+    padding: 8px;
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    /* transform: ; */
+    transition: all 0.3s ease-in-out;
+    
+    max-height: 100px;
+}
+
+/* .menu-side-name::before{
+    content: url("../images/icon-user.png");
+    width: 10px;
+    height: 10px;
+} */
+
+.afterIcon::after, .afterIconRot::after{
+    font: var(--fa-font-solid);
+    content:'\f105';
+    /* position: absolute;
+    left: 190px; */
+    float: right;
+}
+
+.afterIcon::after {
+    transform: rotate(0);
+}
+
+.afterIconRot::after{
+    transform: rotate(90deg);
+}
+
+.menu-side-menu.hide {
+    padding: 0 8px;
+    max-height: 0px;
+}
+
+.menu-side-menu p {
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 8px 16px;
+
+    /* 나중에 지우기 */
+    margin: 0;
+}
+
+.menu-side-menu p:hover {
+    background-color: var(--mgray);
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+
+    }
+
+    to {
+        opacity: 0;
+    }
+}

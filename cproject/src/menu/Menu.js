@@ -2,34 +2,20 @@
 import Calender from '../celender/Calender'
 import ProgramManagement from '../container/program/ProgramManagement'
 import MemberMangement from '../container/memberdetail/MemberMangement'
-import MemberMangement from '../container/memberdetail/MemberMangement'
 import Admission from '../container/admission/AdmLvng_Manager'
 import Attandance from '../container/attandance/Attandance'
 import MealManagement from '../container/mealManagement/MealManagement'
     
-function Menu({ sname, menuArr, setMenuArr, setCurrentTab, setSessionName }) {
+function Menu({ menuArr, setMenuArr, setCurrentTab }) {
     const map = new Map();
-    map.set('MemberMangement', { name: '대상자 기본 정보', content: <MemberMangement /> });
     map.set('MemberMangement', { name: '대상자 기본 정보', content: <MemberMangement /> });
     map.set('Admission', { name: '입소/퇴소 관리', content: <Admission/> });
     map.set('Attandance', { name: '출석관리', content: <Attandance /> });
     map.set('MealManagement', { name: '급식관리 ', content: <MealManagement /> });
-
+    map.set('회원탈퇴', { name: 'Delete', content: null });
     map.set('회원탈퇴', { name: 'Delete', content: null });
     map.set('캘린더', { name: 'Calender', content: <Calender></Calender> });
     map.set('ProgramManagement', { name: '프로그램정보관리', content: <ProgramManagement></ProgramManagement> });
-
-
-    // function getTransTitle(e) {
-    //     for (let i = 0; i < menuArr.length; i++) {
-    //         if (map.get(e.target.textContent).name === menuArr[i].name) {
-    //             return;
-    //         };
-    //     }
-
-    //     setCurrentTab(menuArr.length);
-    //     onCreate(map.get(e.target.textContent).name, map.get(e.target.textContent).content)
-    // }
 
     function getTransTitle(menuName) {
         for (let i = 0; i < menuArr.length; i++) {
@@ -102,7 +88,6 @@ function Menu({ sname, menuArr, setMenuArr, setCurrentTab, setSessionName }) {
                 <div id="management" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">아동 관리:</h6>
-                        <span class="collapse-item" style={{ cursor: 'pointer' }} onClick={() => getTransTitle('MemberMangement')}>대상자 기본 정보</span>
                         <span class="collapse-item" style={{ cursor: 'pointer' }} onClick={() => getTransTitle('MemberMangement')}>대상자 기본 정보</span>
                         <span class="collapse-item" style={{ cursor: 'pointer' }} onClick={() => getTransTitle('Admission')}>입소/퇴소 관리</span>
                     </div>

@@ -1,10 +1,9 @@
 import './home.css';
-import { useState } from 'react'
 import Menu from '../menu/Menu'
 import Container from '../container/Container'
 import Main from '../container/main/Main'
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 function Home() {

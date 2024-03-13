@@ -1,5 +1,7 @@
 import './MemberList.css';
 
+import './MemberList.css';
+
 function MemberList() {
 
     const testData = [

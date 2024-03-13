@@ -14,6 +14,12 @@ function MemberMangement() {
     ]);
 
     const [subCurrentTab, setSubCurrentTab] = useState(0);
+    const [subMenuArr, setSubMenuArr] = useState([
+        { name: '기본 인적 사항', content: <MemberDetail></MemberDetail> },
+        { name: '특이사항', content: <div>특이사항세부 textarea사용해서 적기만..??</div> }
+    ]);
+
+    const [subCurrentTab, setSubCurrentTab] = useState(0);
 
     return (
         <div>
