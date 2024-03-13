@@ -1,0 +1,21 @@
+.memberList {
+    font-size: 14px;
+    width: auto;
+}
+
+.memberList th {
+    width: 100px;
+    border-top: 0.3px solid var(--lgray);
+    border-bottom: 0.3px solid var(--lgray);
+    background-color: var(--admin);
+    text-align: center;
+    color: black;
+}
+
+.memberList input {
+    text-align: center;
+    height: 30px;
+    border-width: 0 0 0.3px;
+    border-bottom: 0.3px solid var(--lgray);
+}
+
