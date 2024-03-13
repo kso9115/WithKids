@@ -36,14 +36,17 @@ function Home2() {
     // }
 
     return (
-        <>
-            <div id="homeContainer">
-                <Menu2 menuArr={menuArr} setMenuArr={setMenuArr} setCurrentTab={setCurrentTab} ></Menu2>
+        <div id="screen">
+            <Menu2 menuArr={menuArr} setMenuArr={setMenuArr} setCurrentTab={setCurrentTab} ></Menu2>
+            <div>
                 <div id='homeContainerMain'>
                     <Container menuArr={menuArr} setMenuArr={setMenuArr} currentTab={currentTab} setCurrentTab={setCurrentTab} mainSub={'main'}></Container>
                 </div>
+                <footer id='homeFooter'>
+                    <div>카톡으로 얘기하조?</div>
+                </footer>
             </div>
-        </>
+        </div>
     );
 }
 

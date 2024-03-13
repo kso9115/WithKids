@@ -1,9 +1,9 @@
 #menuContainer {
-    width: 224px;
+    width: 224px !important;
     min-height: 100vh;
     background-color: var(--blue);
     color: white;
-
+    margin-bottom: 0;
     font-family: sans-serif;
 }
 

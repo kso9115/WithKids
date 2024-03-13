@@ -1,6 +1,6 @@
 import './pagesCollapse.css'
 
-function PagesCollapse({ name, menu, getTransTitle, conName }) {
+function PagesCollapse({ name, menu, getTransTitle, conName ,img}) {
 
     function menuHide(e) {
         if (e.target.nextSibling.className === "menu-side-menu") {
@@ -20,7 +20,11 @@ function PagesCollapse({ name, menu, getTransTitle, conName }) {
 
     return (
         <li className='menu-side' >
-            <div className='menu-side-name afterIcon' onClick={menuHide}>{name}</div>
+            <div className='menu-side-name afterIcon' onClick={menuHide}><img src={img} alt='' style={{
+                width: '18px',
+                height: '18px',
+                marginRight: '7px',
+            }}></img>{name}</div>
             <div className='menu-side-menu hide'>
                 {menu.map((e,i) => {
                     return(

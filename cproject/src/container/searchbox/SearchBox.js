@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 function SearchBox({ data }) {
     const [sbVal, setSbVal] = useState(...[data.content.map((o) => { return o.default })]);
-    console.log(sbVal);
+
     // input 입력시 useState 값 바꿔주는 함수
     function change(i, e, d) {
-        console.log(e);
+
         if (d !== undefined) {
             sbVal[i][d] = e.target.value;
             setSbVal({
