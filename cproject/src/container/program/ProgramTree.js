@@ -16,7 +16,7 @@ function ProgramTree({name}) {
         return array;
     }
 
-    console.log(TreeOpenner());
+    // console.log(TreeOpenner());
 
     return (
         <>

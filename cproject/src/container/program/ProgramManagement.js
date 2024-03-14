@@ -8,6 +8,7 @@ import { prg_mng } from '../searchbox/searchData'
 
 
 function ProgramManagement() {
+    
     const [subMenuArr, setSubMenuArr] = useState([
         { name: '프로그램 상세정보', content: <ProgramDetails></ProgramDetails> },
         { name: '세부 프로그램', content: <div>세부 프로그램</div> }

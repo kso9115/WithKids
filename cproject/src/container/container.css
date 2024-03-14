@@ -3,7 +3,8 @@
     margin: 0 auto;
     width: 100%;
     /* height: calc(100vh - 171px); */
-    
+    background-color: rgba(128, 128, 128, 0.05);
+    /* background: linear-gradient(white 1%,rgba(128, 128, 128, 0.05)); */
 }
 .sub-container {
     height: 100%;

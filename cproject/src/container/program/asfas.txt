@@ -1,0 +1,170 @@
+
+use cproject;
+
+CREATE TABLE staff_prv(
+    staff_pst VARCHAR(10) NOT NULL,
+    staff_chl_cr TINYINT(1) NULL,
+    staff_cmn_mng TINYINT(1) NULL,
+    staff_cnt_mng TINYINT(1) NULL,
+    PRIMARY KEY(staff_pst)
+);
+show tables;
+CREATE TABLE staff(
+    stf_pst VARCHAR(10) NOT NULL,
+    stf_nm VARCHAR(10) NOT NULL,
+    stf_id VARCHAR(20) NOT NULL,
+    stf_psw VARCHAR(100) NOT NULL,
+    stf_phnn VARCHAR(20) NOT NULL,
+    stf_leave TINYINT(1) NOT NULL,
+    stf_lvdy VARCHAR(10) NOT NULL,
+    rmr VARCHAR(1000) NOT NULL,
+    PRIMARY KEY(stf_id),
+    FOREIGN KEY(stf_pst) REFERENCES staff_prv(staff_pst)
+);
+CREATE TABLE staff_atn(
+    staff_id VARCHAR(20) NOT NULL,
+    date VARCHAR(10) NOT NULL,
+    staff_atn TINYINT(1) NOT NULL,
+    FOREIGN KEY(staff_id) REFERENCES staff(stf_id)
+);
+
+CREATE TABLE classification(
+    cls VARCHAR(10) NOT NULL,
+    rec VARCHAR(10) NOT NULL,
+    PRIMARY KEY(rec)
+);
+
+CREATE TABLE program(
+    prg_id VARCHAR(20) NOT NULL,
+    prg_big_cls VARCHAR(10) NOT NULL,
+    prg_mid_cls VARCHAR(10) NOT NULL,
+    prg_sub_cls VARCHAR(20) NOT NULL,
+    prg_cls VARCHAR(7) NOT NULL,
+    prg_nm VARCHAR(20) NOT NULL,
+    prg_svc VARCHAR(20) NULL,
+    prg_str VARCHAR(10) NOT NULL,
+    prg_end VARCHAR(10) NOT NULL,
+    prg_mngr VARCHAR(10) NOT NULL,
+    prg_mngr_phnn VARCHAR(12) NOT NULL,
+    prg_mngr_eml VARCHAR(30) NULL,
+    prg_nmb_api VARCHAR(5) NOT NULL,
+    prg_use TINYINT(1) NOT NULL,
+    bdg_exc TINYINT(1) NULL,
+    bdg_amt INT NULL,
+    sgnn_cntr TINYINT(1) NULL,
+    cost_clsfc TINYINT(1) NOT NULL,
+    prg_fee INT NULL,
+    pln_nmb_ppl INT NOT NULL,
+    wtl_rgs TINYINT(1) NULL,
+    f_typ VARCHAR(10) NULL,
+    cls_inc VARCHAR(10) NULL,
+    PRIMARY KEY(prg_id,rec,prg_id)
+);
+-- ALTER TABLE
+--     program_details ADD CONSTRAINT program_details_rec_foreign FOREIGN KEY(REC) REFERENCES classification(rec);    
+-- ALTER TABLE
+--     program_details ADD CONSTRAINT program_details_prg_id_foreign FOREIGN KEY(prg_id) REFERENCES program(prg_id);
+CREATE TABLE program_details(
+    rec VARCHAR(10) NOT NULL,
+    date VARCHAR(10) NOT NULL,
+    mngr VARCHAR(10) NOT NULL,
+    title VARCHAR(20) NOT NULL,
+    prg_nm VARCHAR(20) NOT NULL,
+    prg_id VARCHAR(20) NOT NULL,
+    pln_prd VARCHAR(22) NULL,
+    pln_tm VARCHAR(22) NULL,
+    pln_cnt INT NULL AUTO_INCREMENT,
+    pln_nmb_ppl INT NULL AUTO_INCREMENT,
+    prg_hst VARCHAR(10) NULL,
+    pln_mngr VARCHAR(10) NULL,
+    prgrs_prd VARCHAR(22) NULL,
+    prgrs_tm VARCHAR(22) NULL,
+    rqd_tm VARCHAR(10) NULL,
+    cnt INT NULL AUTO_INCREMENT,
+    nmb_ppl INT NULL AUTO_INCREMENT,
+    stl_amn INT NULL AUTO_INCREMENT,
+    evl_cls VARCHAR(20) NULL,
+    str_dt VARCHAR(22) NULL,
+    end_dt VARCHAR(22) NULL,
+    evlt_nmbr INT NULL AUTO_INCREMENT,
+    str_tm VARCHAR(22) NULL,
+    end_tm VARCHAR(22) NULL,
+    content VARCHAR(1000) NOT NULL,
+    PRIMARY KEY(rec,date,prg_id),
+    FOREIGN KEY(REC) REFERENCES classification(rec),
+    FOREIGN KEY(prg_id) REFERENCES program(prg_id)
+);
+-- ALTER TABLE
+--     program_details ADD PRIMARY KEY(date);
+-- ALTER TABLE
+--     program_details ADD PRIMARY KEY(prg_id);
+CREATE TABLE program_application(
+    mem_serial VARCHAR(20) NOT NULL,
+    rec VARCHAR(10) NOT NULL,
+    prg_date VARCHAR(10) NOT NULL,
+    prg_id VARCHAR(20) NOT NULL,
+    prg_apl_dtl VARCHAR(1000) NOT NULL,
+    PRIMARY KEY(mem_serial,prg_date,prg_id),
+    FOREIGN KEY(rec) REFERENCES program_details(rec),
+    FOREIGN KEY(prg_id) REFERENCES program_details(prg_id),
+    FOREIGN KEY(prg_date) REFERENCES program_details(date)
+);
+-- ALTER TABLE
+--     program_application ADD PRIMARY KEY(prg_date);
+-- ALTER TABLE
+--     program_application ADD PRIMARY KEY(prg_id);
+CREATE TABLE program_answer(
+    prg_srv VARCHAR(50) NOT NULL,
+    prg_ans VARCHAR(50) NOT NULL,
+    PRIMARY KEY(prg_srv)
+);
+CREATE TABLE program_surveys(
+    mem_serial VARCHAR(10) NOT NULL,
+    prg_date VARCHAR(10) NOT NULL,
+    prg_id VARCHAR(20) NOT NULL,
+    prg_srv VARCHAR(50) NOT NULL,
+    prg_ans VARCHAR(50) NULL,
+    PRIMARY KEY(mem_serial,prg_date,prg_id,prg_srv),
+    FOREIGN KEY(prg_srv) REFERENCES program_answer(prg_srv),
+    FOREIGN KEY(prg_date) REFERENCES program_application(prg_date),
+    FOREIGN KEY(mem_serial) REFERENCES program_application(mem_serial),
+    FOREIGN KEY(prg_id) REFERENCES program_application(prg_id)
+);
+-- ALTER TABLE
+--     program_surveys ADD PRIMARY KEY(prg_date);
+-- ALTER TABLE
+--     program_surveys ADD PRIMARY KEY(prg_id);
+-- ALTER TABLE
+--     program_surveys ADD PRIMARY KEY(prg_srv);
+    
+    
+
+
+
+-- ALTER TABLE
+--     staff ADD CONSTRAINT staff_stf_pst_foreign FOREIGN KEY(stf_pst) REFERENCES staff_prv(staff_pst);
+-- ALTER TABLE
+--     staff_atn ADD CONSTRAINT teacher_atn_staff_id_foreign FOREIGN KEY(staff_id) REFERENCES staff(stf_id);
+--     
+-- ALTER TABLE
+--     program_details ADD CONSTRAINT program_details_rec_foreign FOREIGN KEY(REC) REFERENCES classification(rec);    
+-- ALTER TABLE
+--     program_details ADD CONSTRAINT program_details_prg_id_foreign FOREIGN KEY(prg_id) REFERENCES program(prg_id);
+    
+-- ALTER TABLE
+--     program_application ADD CONSTRAINT program_application_rec_foreign FOREIGN KEY(rec) REFERENCES program_details(rec);
+-- ALTER TABLE
+--     program_application ADD CONSTRAINT program_application_prg_id_foreign FOREIGN KEY(prg_id) REFERENCES program_details(prg_id);   
+-- ALTER TABLE
+--     program_application ADD CONSTRAINT program_application_prg_date_foreign FOREIGN KEY(prg_date) REFERENCES program_details(date);
+
+-- ALTER TABLE
+--     program_surveys ADD CONSTRAINT program_surveys_prg_srv_foreign FOREIGN KEY(prg_srv) REFERENCES program_answer(prg_srv);
+-- ALTER TABLE
+--     program_surveys ADD CONSTRAINT program_surveys_prg_date_foreign FOREIGN KEY(prg_date) REFERENCES program_application(prg_date);
+-- ALTER TABLE
+--     program_surveys ADD CONSTRAINT program_surveys_mem_serial_foreign FOREIGN KEY(mem_serial) REFERENCES program_application(mem_serial);
+-- ALTER TABLE
+--     program_surveys ADD CONSTRAINT program_surveys_prg_id_foreign FOREIGN KEY(prg_id) REFERENCES program_application(prg_id);
+
+

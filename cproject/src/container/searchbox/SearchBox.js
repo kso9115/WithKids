@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 function SearchBox({ data }) {
+    
     const [sbVal, setSbVal] = useState(...[data.content.map((o) => { return o.default })]);
 
     // input 입력시 useState 값 바꿔주는 함수
@@ -39,8 +40,8 @@ function SearchBox({ data }) {
                     <select>
                         <option name={o.state} value="" key="">전체</option>
                         {
-                            o.default.map((j) => {
-                                return <option value={j.value} key="">{j.name}</option>
+                            o.default.map((j,i) => {
+                                return <option value={j.value} key={i}>{j.name}</option>
                             })
                         }
                     </select>
@@ -58,7 +59,7 @@ function SearchBox({ data }) {
                     {
                         data.content.map((o, i) => {
                             return (
-                                <div>{
+                                <div key={"search"+i}>{
                                     o.esntl ? <span style={{ color: "red" }}>*</span> : null
                                 }{o.name}&nbsp;&nbsp;
                                     {inputBox(o, i)}
