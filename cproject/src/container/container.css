@@ -2,6 +2,7 @@
     text-align: initial;
     margin: 0 auto;
     width: 100%;
+    flex: 1 0 auto;
     /* height: calc(100vh - 171px); */
     background-color: rgba(128, 128, 128, 0.05);
     /* background: linear-gradient(white 1%,rgba(128, 128, 128, 0.05)); */
@@ -14,6 +15,7 @@ ul.tabs {
     margin: 0px;
     padding: 0px;
     list-style: none;
+    display: flex;
 }
 
 ul.tabs li {
@@ -25,13 +27,11 @@ ul.tabs li {
     line-height: 27px;
     border-right: 1px solid var(--mgray);
     border-top: 1px solid var(--mgray);
-
     font-size: 14px;
 }
 
 .sub-container ul.tabs li {
     border-left: 1px solid var(--mgray);
-    
 }
 
 ul.tabs li.current {
@@ -63,11 +63,11 @@ ul.tabs li span.dis-none {
 }
 
 .close {
+    height: 27px;
     display: inline-block;
 }
 
 .close:after {
     content: "\00d7";
     font-size: 15pt;
-    line-height: 27px;
 }
