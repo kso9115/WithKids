@@ -1,0 +1,42 @@
+.loginBox {
+    display: flex;
+}
+/* 왼쪽 사진 */
+.leftBackground {
+    width: 100%;
+}
+/* 로그인 탭 */
+.logLeftBox {
+    position: relative;
+}
+.logLeftBox>div:nth-child(2) {
+    position: absolute;
+    right: 0%;
+    top: 40%;
+    font-size: 25px;
+    z-index: 500;
+}
+
+/* 로그인 로고 */
+.logRightBox {
+    margin: auto;
+}
+.logLogo,.logRightBox>form {
+    text-align: center;
+}
+
+/* 로그인 박스 */
+.loginTable>div:first-child {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: 10% 20%;
+}
+.loginTable>div:first-child>div {
+    margin: 5px;
+    
+}
+.loginTable>div:first-child>div:nth-child(2n-1) {
+    background-color: var(--admin);
+    border: 1px solid var(--lgray);
+}
