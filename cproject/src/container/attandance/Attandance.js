@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-function Attandance() {
-    
-=======
 import './Attandance.css';
 
 function Attandance() {
@@ -20,7 +16,7 @@ function Attandance() {
                             <div className='attandance_cell'>공/결</div>
 
                         </div>
-                        
+
                         <div className='attandance_row'>
                             <div className='attandance_cell'>체크란</div>
                             <div className='attandance_cell'>미금</div>
@@ -37,7 +33,6 @@ function Attandance() {
 
     );
 
->>>>>>> kso
 }
 
 export default Attandance;
