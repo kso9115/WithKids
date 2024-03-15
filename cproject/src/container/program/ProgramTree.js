@@ -4,6 +4,7 @@ import { TreeView } from '@mui/x-tree-view/TreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import treeclose from '../../images/treeclose.png';
 import treeopen from '../../images/treeopen.png';
+import React from "react";
 import './programTree.css'
 
 const treeData = [
@@ -194,4 +195,4 @@ function ProgramTree({ name }) {
     );
 }
 
-export default ProgramTree;
+export default React.memo(ProgramTree);

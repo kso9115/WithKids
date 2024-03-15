@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React,{ useState } from 'react'
 
 function SearchBox({ data }) {
     
@@ -69,7 +69,7 @@ function SearchBox({ data }) {
                     }
                     <div>
                         <button type="reset">리셋</button>&nbsp;
-                        <button type="button">조회</button>
+                        <button type="submit">조회</button>
                     </div>
                 </div>
 
@@ -78,4 +78,4 @@ function SearchBox({ data }) {
     );
 } //SearchBox
 
-export default SearchBox;
+export default React.memo(SearchBox);

@@ -2,6 +2,7 @@
 #screen {
     display: flex;
     width: 100%;
+    min-width: 2100px;
 }
 
 #screen>div {

@@ -32,7 +32,7 @@
     flex-direction: column;
 }
 
-.mainBox{
+.pgr_mng_mainBox{
     display: flex;
     flex: 1 0 auto;
 }

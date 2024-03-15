@@ -17,7 +17,7 @@ function ProgramManagement() {
     return (
         <div className='pgr_mng' >
             <SearchBox data={prg_mng} />
-            <div className='mainBox'>
+            <div className='pgr_mng_mainBox'>
                 <div style={{
                     width: '30%',
                     height: '100%',

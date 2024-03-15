@@ -9,7 +9,7 @@ function ProgramDetails() {
         }}>
             <form action='asd' method='get'>
                 <b>프로그램 기본정보</b>
-                <div className='gridBox'>
+                <div className='prg_dtl_gridBox'>
                     <div><span>*</span>사업 대분류</div>
                     <div><input type="text" name='prg_big_cls'/></div>
 
@@ -60,7 +60,7 @@ function ProgramDetails() {
 
                 </div>
                 <b>예산, 비용, 인원 정보 </b>
-                <div className='gridBox2'>
+                <div className='prg_dtl_gridBox2'>
                     <div>예산집행여부</div>
                     <div className='radioBox'>
                         <div><input type="radio" id='execution' name='BudgetExecution' value='집행' checked /><label for='execution'>집행</label></div>
@@ -71,7 +71,7 @@ function ProgramDetails() {
                     <div><input type="text" name='' />(원)</div>
 
                     <div>이용계약체결</div>
-                    <div className='radioBox'>
+                    <div className='prg_dtl_radioBox'>
                         <div><input type="radio" id='Concluded' name='contractConcluded' value='체결' checked /><label for='Concluded'>체결</label></div>
                         <div><input type="radio" id='notConcluded' name='contractConcluded' value='미체결' /><label for='notConcluded'>미체결</label></div>
                     </div>
@@ -89,7 +89,7 @@ function ProgramDetails() {
                     <div><input type="text" name='' />(명)</div>
 
                     <div>대기자등록</div>
-                    <div className='radioBox'>
+                    <div className='prg_dtl_radioBox'>
                         <div><input type="radio" id='possible' name='waiting' value='가능' checked /><label for='possible'>가능</label></div>
                         <div><input type="radio" id='impossible' name='waiting' value='불가능' /><label for='impossible'>불가능</label></div>
                     </div>
@@ -98,10 +98,10 @@ function ProgramDetails() {
                     <div></div>
                 </div>
                 <b>프로그램 대상기준(대상자 요건 및 자격)</b>
-                <div className='gridBox3'>
+                <div className='prg_dtl_gridBox3'>
 
                     <div><span>*</span>가구유형</div>
-                    <div className='checkBox'>
+                    <div className='prg_dtl_checkBox'>
                         <div>
                             <input type="checkbox" id='none' name='familyType ' />
                             <label for='none'>해당없음</label>
