@@ -60,7 +60,7 @@ ul.tabs li span.dis-none {
 
 .sub-container .tab-content {
     border: 1px solid var(--mgray);
-    height: -webkit-calc(100% - 38px);
+    height: -webkit-calc(100% - 40px);
 }
 
 .tab-content.current {
