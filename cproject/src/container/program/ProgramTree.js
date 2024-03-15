@@ -126,7 +126,7 @@ const treeData = [
 function ProgramTree({ name }) {
 
     function requestTree(e) {
-        console.log(e.target);
+        console.log(e.target.innerText.substring(0, e.target.innerText.indexOf('(')));
     }
 
     let treeMake = treeData.map((e) => {

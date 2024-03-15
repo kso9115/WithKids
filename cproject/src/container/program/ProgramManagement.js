@@ -15,10 +15,7 @@ function ProgramManagement() {
     ]);
     const [subCurrentTab, setSubCurrentTab] = useState(0);
     return (
-        <div style={{
-            color: "black",
-            height: "100%"
-        }}>
+        <div className='pgr_mng' >
             <SearchBox data={prg_mng} />
             <div className='mainBox'>
                 <div style={{

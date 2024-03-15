@@ -25,7 +25,14 @@
     width: 300px;
 }
 
+.pgr_mng {
+    color: black;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .mainBox{
     display: flex;
-    height: -webkit-calc(100% - 107px);
+    flex: 1 0 auto;
 }
