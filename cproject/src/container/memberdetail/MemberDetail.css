@@ -1,0 +1,71 @@
+.mem_gridBox,
+.mem_gridBox2,
+.mem_gridBox3 {
+    font-size: 14px;
+    display: grid;
+    margin-bottom: 30px;
+    /* padding: 10px; */
+
+    border-top: 0.3px solid var(--lgray);
+    border-bottom: 0.3px solid var(--lgray);
+}
+
+.mem_gridBox {
+    grid-template-columns: 10% 26% 10% 25% 10% 20%;
+}
+
+.mem_gridBox2 {
+    grid-template-columns: 10% 26% 10% 25% 10% 20%;
+}
+.mem_gridBox3 {
+    grid-template-columns: 10% 26% 10% 25% 10% 20%;
+}
+
+.memberSearchBox input{
+    height: 22px;
+}
+
+.mem_gridBox>div,
+.mem_gridBox2>div,
+.mem_gridBox3>div {
+    padding: 5px;
+    border-bottom: 1px solid var(--lgray);
+}
+
+.mem_resident_registration_number>input:nth-child(1),
+.mem_resident_registration_number>input:nth-child(2){
+    width: 300%;
+}
+
+.mem_resident_registration_number>input:nth-child(4){
+    font-size: 100%;
+    height: auto;
+}
+
+.mem_gridBox>div,
+.mem_gridBox>div>div,
+.mem_gridBox2>div,
+.mem_gridBox2>div>div,
+.mem_gridBox3>div,
+.mem_gridBox3>div>div {
+    display: flex;
+    align-items: center;
+}
+
+.mem_gridBox>div>input {
+    width: 100%;
+}
+
+.mem_gridBox>div:nth-child(2n+1),
+.mem_gridBox2>div:nth-child(2n+1),
+.mem_gridBox3>div:nth-child(2n+1) {
+    justify-content: end;
+    background-color: var(--admin);
+    font-weight: bold;
+}
+
+.mem_gridBox>div:not(:nth-child(6n+1)),
+.mem_gridBox2>div:not(:nth-child(6n+1)),
+.mem_gridBox3>div:not(:nth-child(2n+1)) {
+    border-left: 1px solid var(--lgray);
+}
