@@ -2,6 +2,7 @@ import MemberList from "./MemberList";
 import { useState } from "react";
 import Container from "../Container";
 import MemberDetail from "./MemberDetail";
+import MemberDetailNote from "./MemberDetailNote";
 
 import SearchBox from "../searchbox/SearchBox";
 import { mem_mng } from "../searchbox/searchData"
@@ -11,7 +12,7 @@ function MemberMangement() {
     const [subCurrentTab, setSubCurrentTab] = useState(0);
     const [subMenuArr, setSubMenuArr] = useState([
         { name: '기본 인적 사항', content: <MemberDetail></MemberDetail> },
-        { name: '특이사항', content: <div>특이사항세부 textarea사용해서 적기만..??</div> }
+        { name: '특이사항', content: <MemberDetailNote></MemberDetailNote> }
     ]);
 
     return (

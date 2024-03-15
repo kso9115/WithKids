@@ -1,0 +1,9 @@
+.gridBox3 textarea{
+    width: 100%;
+    height: 300px;
+}
+
+.gridBox4{
+    display: flex;
+
+}
