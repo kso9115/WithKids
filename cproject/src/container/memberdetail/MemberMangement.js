@@ -16,7 +16,7 @@ function MemberMangement() {
     ]);
 
     return (
-        <div>
+        <div className='memberSearchBox'>
             <SearchBox data={mem_mng} />
 
             <div className='memberMainBox'>
@@ -31,8 +31,8 @@ function MemberMangement() {
                     borderWidth: 1,
                     borderStyle: 'solid',
                     borderColor: 'rgb(223, 222, 222)',
-                    marginLeft: '5px',
-                    marginRight: '5px'
+                    marginLeft: '10px',
+                    marginRight: '10px'
                 }}></div>
 
                 <div style={{

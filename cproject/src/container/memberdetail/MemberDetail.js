@@ -5,7 +5,7 @@ function MemberDetail() {
     return (
         <div>
             <b>기본인적사항</b>
-            <div className='gridBox'>
+            <div className='mem_gridBox'>
                 <div><span>*</span>대상자번호</div>
                 <div><input type='text' name='mem_serial' readOnly></input></div>
 
@@ -16,18 +16,20 @@ function MemberDetail() {
                 <div>
                     <div>
                         <input type='radio' name='mem_agreeP' value='Y' defaultChecked></input>
-                        <label for='agreeP'>Yes&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <label for='agreeP'>&nbsp;Y&nbsp;&nbsp;</label>
                     </div>
                     <div>
                         <input type='radio' name='mem_agreeP' value='N'></input>
-                        <label for='agreeP'>No</label>
+                        <label for='agreeP'>&nbsp;N</label>
                     </div>
                 </div>
 
                 <div><span>*</span>주민등록번호</div>
-                <div>
+                <div className='mem_resident_registration_number'>
+                    <input type='text' name='mem_resident_registration_number' readOnly></input>
+                    &nbsp;-&nbsp;
                     <input type='text' name='mem_resident_registration_number' readOnly></input>&nbsp;
-                    <label for='resident'></label>
+                    <label for='mem_resident_registration_number'></label>
                     <input type='button' value='중복'></input>
                 </div>
 
@@ -35,11 +37,11 @@ function MemberDetail() {
                 <div>
                     <div>
                         <input type='radio' name='mem_agreeN' value='Y' defaultChecked></input>
-                        <label for='agreeN'>Yes&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <label for='agreeN'>&nbsp;Y&nbsp;&nbsp;</label>
                     </div>
                     <div>
                         <input type='radio' name='mem_agreeN' value='N'></input>
-                        <label for='agreeN'>No</label>
+                        <label for='agreeN'>&nbsp;N</label>
                     </div>
                 </div>
 
@@ -70,8 +72,11 @@ function MemberDetail() {
                 <div>우편번호</div>
                 <div><input type='text' name='mem_zipcode'></input></div>
                 
-                <div>우편번호</div>
-                <div><input type='text' name='mem_address1'></input></div>
+                <div>주소</div>
+                <div>
+                    <input type='text' name='mem_address1'></input>
+                    <input type='button' value='주소검색'></input>
+                </div>
                 
                 <div>이메일</div>
                 <div>
@@ -86,7 +91,7 @@ function MemberDetail() {
             </div>
 
             <b>계좌번호</b>
-            <div className='gridBox2'>
+            <div className='mem_gridBox2'>
                 <div>은행명</div>
                 <div><input type='text' name='mem_bank'></input></div>
                 
@@ -98,7 +103,7 @@ function MemberDetail() {
             </div>
 
             <b>학력</b>
-            <div className='gridBox2'>
+            <div className='mem_gridBox3'>
                 <div>학력구분</div>
                 <div><input type='text' name='academic_Background'></input></div>
                 

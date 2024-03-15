@@ -13,4 +13,12 @@
 
 .memberMainBox{
     display: flex;
+    /* flex: 1 0 auto; */
+}
+
+.mem_mng {
+    color: black;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
