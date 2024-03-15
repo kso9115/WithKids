@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-function Attandance() {
-    
-=======
 import './Attandance.css';
 
 function Attandance() {
@@ -37,7 +33,6 @@ function Attandance() {
 
     );
 
->>>>>>> kso
 }
 
 export default Attandance;

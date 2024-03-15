@@ -3,9 +3,7 @@
     margin: 0 auto;
     width: 100%;
     flex: 1 0 auto;
-    /* height: calc(100vh - 171px); */
     background-color: rgba(128, 128, 128, 0.05);
-    /* background: linear-gradient(white 1%,rgba(128, 128, 128, 0.05)); */
 }
 .sub-container {
     height: 100%;
@@ -21,7 +19,9 @@ ul.tabs {
 ul.tabs li {
     background: var(--mgray);
     color: #222;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    height: 40px;
     padding: 5px 15px;
     cursor: pointer;
     line-height: 27px;
@@ -53,6 +53,11 @@ ul.tabs li span.dis-none {
     border-top: 1px solid var(--mgray);
 }
 
+.main-container>.tab-content>div{
+    width: 1666px;
+    height: 731px;
+}
+
 .sub-container .tab-content {
     border: 1px solid var(--mgray);
     height: -webkit-calc(100% - 38px);
@@ -70,4 +75,6 @@ ul.tabs li span.dis-none {
 .close:after {
     content: "\00d7";
     font-size: 15pt;
+    position: relative;
+    top: -2px;
 }

@@ -1,8 +1,5 @@
-
 #screen {
     display: flex;
-    width: 100%;
-    min-width: 2100px;
 }
 
 #screen>div {
@@ -15,7 +12,6 @@
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
-    /* height: 100%; */
     height: calc(100vh - 82px);
 }
 

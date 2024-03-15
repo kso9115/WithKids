@@ -7,7 +7,7 @@ import Attandance from '../container/attandance/Attandance'
 import MealManagement from '../container/mealManagement/MealManagement'
 import PagesCollapse from './PagesCollapse'
 import Charts from './Charts'
-
+import React from 'react'
 
 function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     const map = new Map();
@@ -19,8 +19,10 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     map.set('회원탈퇴', { name: 'Delete', content: null });
     map.set('Calender', { name: '캘린더', content: <Calender></Calender> });
     map.set('ProgramManagement', { name: '프로그램정보관리', content: <ProgramManagement></ProgramManagement> });
-
+    console.log(menuArr);
     function getTransTitle(menuName) {
+        
+        // menuArr.filter((it)=>it.isDone)
         for (let i = 0; i < menuArr.length; i++) {
             if (map.get(menuName).name === menuArr[i].name) {
                 return;
@@ -73,4 +75,4 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     );
 }
 
-export default Menu;
+export default React.memo(Menu);

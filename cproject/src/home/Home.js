@@ -7,8 +7,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from '../menu/Navbar';
 
-function Home2() {
+function Home() {
     const navigate = useNavigate();
+
+    
+
+    
 
     useEffect(() => {
 
@@ -33,7 +37,7 @@ function Home2() {
     // }
 
     return (
-        <div id="screen">
+        <div id="screen" >
             <Menu menuArr={menuArr} setMenuArr={setMenuArr} setCurrentTab={setCurrentTab} ></Menu>
             <div>
                 <div id='homeContainerMain'>
@@ -45,7 +49,8 @@ function Home2() {
                 </footer>
             </div>
         </div>
+
     );
 }
 
-export default Home2;
+export default Home;

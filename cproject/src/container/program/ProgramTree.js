@@ -125,7 +125,7 @@ const treeData = [
 ];
 
 function ProgramTree({ name }) {
-
+    // console.log(treeData.filter((it) => it.prg_big_cls));
     function requestTree(e) {
         console.log(e.target.innerText.substring(0, e.target.innerText.indexOf('(')));
     }

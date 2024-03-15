@@ -9,8 +9,13 @@
     margin-bottom: 20px;
 }
 
-.searchBox input{
+.searchBox input, .searchBox select{
     height: 22px;
+}
+
+.searchBox>div {
+    display: flex;
+    line-height: 22px;
 }
 
 .searchBox div:nth-child(2)>input{
@@ -27,7 +32,6 @@
 
 .pgr_mng {
     color: black;
-    height: 100%;
     display: flex;
     flex-direction: column;
 }
