@@ -1,4 +1,5 @@
 import './navbar.css'
+import React from 'react'
 
 const data = {
     name: '임명건',
@@ -56,4 +57,4 @@ function Navbar() {
     );
 }
 
-export default Navbar;
+export default React.memo(Navbar);
