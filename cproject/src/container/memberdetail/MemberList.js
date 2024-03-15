@@ -47,6 +47,72 @@ function MemberList() {
             gender: '남',
             birth: '1993-04-18'
         },
+        {
+            serial: 'user2024ff008',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff009',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff010',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff011',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff012',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff013',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff014',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff015',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff016',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff017',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff018',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
     ]
 
 
@@ -86,28 +152,25 @@ function MemberList() {
                         }
                     </table> */}
 
-                    <div className="memberList">
-                        <div className="table-container">
-                            <div className="table-row header">
-                                <div className="table-cell">번호</div>
-                                <div className="table-cell">대상자번호</div>
-                                <div className="table-cell">대상자명</div>
-                                <div className="table-cell">성별</div>
-                                <div className="table-cell">생년월일</div>
+                        <div className="memberList_container">
+                            <div className="memberList_row header">
+                                <div className="memberList_cell">번호</div>
+                                <div className="memberList_cell">대상자번호</div>
+                                <div className="memberList_cell">대상자명</div>
+                                <div className="memberList_cell">성별</div>
+                                <div className="memberList_cell">생년월일</div>
                             </div>
                             {testData.map((o, i) => (
-                                <div className="table-row" key={i}>
-                                    <div className="table-cell">시퀀스 넘버</div>
-                                    <div className="table-cell">{o.serial}</div>
-                                    <div className="table-cell">{o.name}</div>
-                                    <div className="table-cell">{o.gender}</div>
-                                    <div className="table-cell">{o.birth}</div>
+                                <div className="memberList_row" key={i}>
+                                    <div className="memberList_cell">시퀀스 넘버</div>
+                                    <div className="memberList_cell">{o.serial}</div>
+                                    <div className="memberList_cell">{o.name}</div>
+                                    <div className="memberList_cell">{o.gender}</div>
+                                    <div className="memberList_cell">{o.birth}</div>
                                 </div>
                             ))}
                         </div>
                     </div>
-
-                </div>
             </form>
         </>
     );
