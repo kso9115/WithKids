@@ -48,7 +48,7 @@ ul.tabs li span.dis-none {
     background: #ffffff;
     padding: 15px;
     width: 100%;
-    height: calc(100% - 41px);
+    height: calc(100% - 40px);
     overflow: auto;
     border-top: 1px solid var(--mgray);
 }
@@ -64,7 +64,8 @@ ul.tabs li span.dis-none {
 }
 
 .tab-content.current {
-    display: inherit;
+    /* display: inherit; */
+    display: block;
 }
 
 .close {

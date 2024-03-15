@@ -90,6 +90,10 @@
     width: 60%;
 }
 
+.prg_dtl_select{
+    height: 21px;
+}
+
 .text_align{
     text-align: right;
 }

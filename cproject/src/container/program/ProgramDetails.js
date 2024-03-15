@@ -1,19 +1,72 @@
 import './programDetails.css'
 
 function ProgramDetails() {
+    let submitBool = false;
 
-    function prg_essential() {
+    function prg_essential(event) {
         let esntl_text = document.querySelectorAll('.esntl_text');
         let esntl_radio = document.querySelectorAll('.esntl_radio');
         let esntl_f_typ = document.querySelectorAll('.esntl_f_typ');
         let esntl_cls_inc = document.querySelectorAll('.esntl_cls_inc');
+
+        console.log(esntl_text);
+        console.log(esntl_radio);
+        console.log(esntl_f_typ);
+        console.log(esntl_cls_inc);
+
+        // input type = text 유효성 검사
+        for (let i = 0; i < esntl_text.length; i++) {
+            console.log(esntl_text[i].value);
+            if (esntl_text[i].value === '') {
+                esntl_text[i].focus();
+                event.preventDefault();
+                return;
+            }
+        }
+
+        // input type = radio 유효성 검사
+        for (let i = 0; i < esntl_radio.length; i=i+2) {
+            if (!esntl_radio[i].value && !esntl_radio[i + 1].value) {
+                esntl_radio[i].focus();
+                event.preventDefault()
+                return ;
+            };
+        }
+
+        // 가구유형 체크박스 유효성 검사
+        let f_typ_count = 0;
+        esntl_f_typ.forEach((e) => {
+            console.log(e.checked);
+            if (e.checked === true) {
+                f_typ_count++;
+            }
+        })
+        if (f_typ_count === 0) {
+            esntl_f_typ[0].focus();
+            event.preventDefault()
+            return;
+        }
+
+        // 소득구분 체크박스 유효성 검사
+        let cls_inc_count = 0;
+        esntl_cls_inc.forEach((e) => {
+            console.log(e.checked);
+            if (e.checked === true) cls_inc_count++;
+        })
+        if (cls_inc_count === 0) {
+            cls_inc_count[0].focus();
+            event.preventDefault()
+            return;
+        }
     }
 
     return (
         <div style={{
-            height: '-webkit-calc(100% - 30px)'
+            height: '100%'
         }}>
-            <form method='get'>
+            <form style={{
+                height: '100%'
+            }} method='get'>
                 <b>프로그램 기본정보</b>
                 <div className='prg_dtl_gridBox'>
                     <div><span>*</span>사업 대분류</div>
@@ -38,7 +91,7 @@ function ProgramDetails() {
                     </div>
 
                     <div><span>*</span>프로그램명</div>
-                    <div><input className='essential' type="text" name='prg_nm' /></div>
+                    <div><input className='essential esntl_text' type="text" name='prg_nm' /></div>
 
                     <div>서비스 분류</div>
                     <div><input type="text" name='prg_svc' /></div>
@@ -50,7 +103,18 @@ function ProgramDetails() {
                     <div><input className='esntl_text' type="text" name='prg_mngr' /></div>
 
                     <div><span>*</span>담당자 전화번호</div>
-                    <div><input className='esntl_text' type="tel" name='prg_mngr_phnn' /></div>
+                    <div>
+                        <select className='prg_dtl_select'>
+                            <option value="010" key="010">010</option>
+                            <option value="011" key="011">011</option>
+                            <option value="016" key="016">016</option>
+                            <option value="017" key="017">017</option>
+                            <option value="019" key="019">019</option>
+                        </select>&nbsp;-&nbsp;
+                        {/* <input className='esntl_text' type="tel" name='prg_mngr_phnn1' />&nbsp;-&nbsp; */}
+                        <input className='esntl_text' type="tel" name='prg_mngr_phnn2' maxlength='4' />&nbsp;-&nbsp;
+                        <input className='esntl_text' type="tel" name='prg_mngr_phnn3' maxlength='4' />
+                    </div>
 
                     <div><span>*</span>담당자 이메일</div>
                     <div><input className='esntl_text' type="email" name='prg_mngr_eml' /></div>
@@ -166,7 +230,7 @@ function ProgramDetails() {
                 <div className='buttonBox'>
                     <div>
                         <button type="reset">입력취소</button>
-                        <button type="submit" value='삭제' formaction="/program/delete">삭제</button>
+                        <button type="submit" value='삭제' formaction="/program/delete" onClick={(event) => prg_essential(event)} >삭제</button>
                         <button type="submit" value='신규' formaction="/program/insert">신규</button>
                         <button type="submit" value='저장' formaction="/program/update">저장</button>
                     </div>

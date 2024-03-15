@@ -1,0 +1,57 @@
+.prg_dtlprg_grid {
+    margin-bottom: 60px;
+    text-align: center;
+    height: 39.8%;
+    border: 1px solid var(--lgray);
+    border-top: 2px solid var(--lgray);
+}
+
+.prg_dtlprg_gridBox,
+.prg_dtlprg_gridBox2,
+.prg_dtlprg_gridBox3 {
+    font-size: 14px;
+    display: grid;
+}
+
+.prg_dtlprg_gridBox {
+    grid-template-columns: 4% 48% 48%;
+    overflow-y: scroll;
+    height: 100%;
+    position: relative;
+    
+}
+
+.prg_dtlprg_gridBox2,
+.prg_dtlprg_gridBox3 {
+    margin-bottom: 60px;
+    border-top: 2px solid var(--lgray);
+    border-bottom: 2px solid var(--lgray);
+}
+.prg_dtlprg_gridBox>div {
+    /* height: calc(100% / 7); */
+    height: 32px;
+    line-height: 32px;
+    border-bottom: 1px solid var(--lgray);
+}
+
+.prg_dtlprg_gridBox>div:nth-child(-n+3) {
+    background-color: var(--admin);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.prg_dtlprg_gridBox>div:nth-child(3n-1) {
+    border-left: 1px solid var(--lgray);
+    border-right: 1px solid var(--lgray);
+}
+
+.buttonBox,
+.buttonBox>div {
+    display: flex;
+}
+
+.buttonBox>div {
+    gap: 5px;
+    margin-left: auto;
+}

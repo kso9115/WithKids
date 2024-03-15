@@ -1,6 +1,7 @@
 import './programManagement.css';
 import ProgramTree from './ProgramTree'
 import ProgramDetails from './ProgramDetails'
+import ProgramDetailsPrg from './ProgramDetailsPrg';
 import Container from '../Container'
 import { useState } from 'react'
 import SearchBox from '../searchbox/SearchBox';
@@ -11,7 +12,7 @@ function ProgramManagement() {
     
     const [subMenuArr, setSubMenuArr] = useState([
         { name: '프로그램 상세정보', content: <ProgramDetails></ProgramDetails> },
-        { name: '세부 프로그램', content: <div>세부 프로그램</div> }
+        { name: '세부 프로그램', content: <ProgramDetailsPrg></ProgramDetailsPrg> }
     ]);
     const [subCurrentTab, setSubCurrentTab] = useState(0);
     return (
