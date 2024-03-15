@@ -1,9 +1,17 @@
 .gridBox3 textarea{
-    width: 80%;
-    height: 300px;
+    width: 96.5%;
+    height: 183px;
 }
 
 .gridBox4{
     display: flex;
 
+}
+
+.mem_gridBox2 {
+    grid-template-columns: 10% 15% 10% 35% 10% 20%;
+}
+
+.mem_account>input:nth-child(1){
+    width: 90%;
 }

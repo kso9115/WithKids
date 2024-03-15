@@ -1,5 +1,6 @@
 .memberList {
     font-size: 14px;
+    height: 100%;
 }
 
 .memberList_container {
@@ -7,6 +8,7 @@
     border-bottom: 0.3px solid var(--lgray); */
     border: 0.3px solid var(--lgray);
     padding: 5px;
+    height: 100%;
     /* 전체 컨테이너에서 모든 추가 행을 세로로 나열 */
     display: grid;
     flex-direction: column;
@@ -14,7 +16,6 @@
 
     
     /* 세로 스크롤 */
-    height: 700px;
     overflow-x: hidden;
     overflow-y: auto;
 

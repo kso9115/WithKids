@@ -16,7 +16,7 @@ function MemberMangement() {
     ]);
 
     return (
-        <div className='memberSearchBox'>
+        <div className='mem_mng'>
             <SearchBox data={mem_mng} />
 
             <div className='memberMainBox'>

@@ -6,7 +6,6 @@ function MemberDetailNote() {
         <div>
             <b>비고</b>
             <div className='gridBox3'>
-                <div>아동 특이사항</div>
                 <div><textarea name="mem_info"></textarea></div>
             </div>
             <div className='gridBox4'>

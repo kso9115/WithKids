@@ -113,6 +113,24 @@ function MemberList() {
             gender: '남',
             birth: '1993-04-18'
         },
+        {
+            serial: 'user2024ff018',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff018',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
+        {
+            serial: 'user2024ff018',
+            name: '최승삼',
+            gender: '남',
+            birth: '1993-04-18'
+        },
     ]
 
 
