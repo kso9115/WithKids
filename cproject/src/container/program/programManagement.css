@@ -18,15 +18,15 @@
     line-height: 22px;
 }
 
-.searchBox div:nth-child(2)>input{
+.pgr_mng .searchBox div:nth-child(2)>input{
     width: 300px;
 }
 
-.searchBox div:nth-child(3)>input {
+.pgr_mng .searchBox div:nth-child(3)>input {
     width: 100px;
 }
 
-.searchBox div:nth-child(4) select {
+.pgr_mng .searchBox div:nth-child(4) select {
     width: 300px;
 }
 
@@ -40,5 +40,5 @@
     display: flex;
     /* flex: 1 0 auto; */
     width: 1666px;
-    height: 641px;
+    height: 722px;
 }

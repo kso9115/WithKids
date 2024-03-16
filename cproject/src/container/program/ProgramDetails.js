@@ -1,7 +1,36 @@
+import { useState } from 'react';
 import './programDetails.css'
 
-function ProgramDetails() {
+function ProgramDetails({ data, setData }) {
+    const [prgd, setPrgd] = useState({
+        prg_id: '',
+        prg_big_cls: '',
+        prg_mid_cls: '',
+        prg_sub_cls: '',
+        prg_cls: '',
+        prg_nm: '',
+        prg_svc: '',
+        prg_str: '',
+        prg_end: '',
+        prg_mngr: '',
+        prg_mngr_phnn: '',
+        prg_mngr_eml: '',
+        prg_nmb_api: '',
+        prg_use: '',
+        bdg_exc: '',
+        bdg_amt: '',
+        sgnn_cntr: '',
+        cost_clsfc: '',
+        prg_fee: '',
+        pln_nmb_ppl: '',
+        wtl_rgs: '',
+        f_typ: '',
+        cls_inc: '',
+    });
+
+
     let submitBool = false;
+    console.log(data);
 
     function prg_essential(event) {
         let esntl_text = document.querySelectorAll('.esntl_text');

@@ -1,4 +1,7 @@
 import './programDetailsPrg.css'
+import React, { useState } from 'react';
+import AttachedFile from '../../func/AttachedFile';
+
 
 const prgdtlData = [
     {
@@ -11,8 +14,8 @@ const prgdtlData = [
     }
 ];
 
-function ProgramDetailsPrg() {
-    
+function ProgramDetailsPrg({ data, setData }) {
+    console.log(data);
 
     return (
         <div style={{
@@ -40,15 +43,31 @@ function ProgramDetailsPrg() {
                         <div>1</div><div>세부프로그램명</div><div>세부프로그램내용</div>
                     </div>
                 </div>
-                
 
                 <b>세부프로그램 상세정보</b>
                 <div className='prg_dtlprg_gridBox2'>
+                    <div><span>*</span>대분류명</div>
+                    <div><input type="text" /></div>
 
+                    <div><span>*</span>중분류명</div>
+                    <div><input type="text" /></div>
+                    
+                    <div><span>*</span>소분류명</div>
+                    <div><input type="text" /></div>
+
+                    <div><span>*</span>프로그램명</div>
+                    <div><input type="text" /></div>
                 </div>
 
                 <div className='prg_dtlprg_gridBox3'>
+                    <div><span>*</span>세부프로그램명</div>
+                    <div><input type="text" /></div>
 
+                    <div>세부프로그램 내용</div>
+                    <div><textarea cols="140" rows="6"></textarea></div>
+
+                    <div>첨부파일</div>
+                    <div><AttachedFile></AttachedFile></div>
                 </div>
                 <div className='buttonBox'>
                     <div>

@@ -122,3 +122,39 @@ export const mem_mng = {
         }
     ]
 }
+
+export const stf_mng = {
+    name: '직원관리 및 직원정보',
+    action: 'stfmng', 
+    method: 'get',
+    content: [ 
+        {
+            name: '직위',
+            state: 'staff_pst',
+            type: 'select',
+            esntl: false,
+            default: [{ name: '시설장', value: '시설장' }, { name: '생활복지사', value: '생활복지사' }]
+        },
+        {
+            name: '이름',
+            state: 'staff_nm',
+            type: 'text',
+            esntl: false, 
+            default: ''
+        },
+        {
+            name: '아이디',
+            state: 'staff_id',
+            type: 'text',
+            esntl: false,
+            default: ''
+        },
+        {
+            name: '전화번호',
+            state: 'staff_phnn',
+            type: 'text',
+            esntl: false,
+            default: ''
+        }
+    ]
+}
