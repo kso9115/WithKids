@@ -4,27 +4,25 @@
 }
 
 .memberList_container {
-    /* border-top: 0.3px solid var(--lgray);
-    border-bottom: 0.3px solid var(--lgray); */
-    border: 0.3px solid var(--lgray);
-    padding: 5px;
-    height: 100%;
+    border: 1px solid var(--lgray);
+    
     /* 전체 컨테이너에서 모든 추가 행을 세로로 나열 */
     display: grid;
     flex-direction: column;
     text-align: center;
-
     
     /* 세로 스크롤 */
+    height: 722px;
     overflow-x: hidden;
     overflow-y: auto;
-
 }
+
 
 .header {
     background-color: var(--admin);
     font-weight: bold;
-    
+    position: sticky;
+    top:0.1px;
 }
 
 .memberList_row {
@@ -35,6 +33,6 @@
 
 .memberList_cell {
     flex: 1;
-    border-bottom: 0.3px solid var(--lgray);
+    border-bottom: 1px solid var(--lgray);
     padding: 7px;
 }
