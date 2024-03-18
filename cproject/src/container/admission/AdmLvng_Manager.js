@@ -42,7 +42,8 @@ function AdmLvng_Manager() {
                     height: '100%'
                 }}>
                     <MemberAssortment />
-                    <Container menuArr={subMenuArr} setMenuArr={setSubMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={'sub'}></Container>
+                    <Container menuArr={subMenuArr} setMenuArr={setSubMenuArr} 
+                        currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={'sub'}></Container>
                 </div>
             </div>
         </div>
