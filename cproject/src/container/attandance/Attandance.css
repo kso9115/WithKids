@@ -1,10 +1,16 @@
-.attandance_container{
+.attandance {
+    font-size: 14px;
+    height: calc(100% - 26px);
+    margin-top: 5px;
+}
+
+.attandance_container {
+    border: 1px solid var(--lgray);
     display: grid;
     flex-direction: column;
+    text-align: center;
 
-    border-top: 0.3px solid var(--lgray);
-    border-bottom: 0.3px solid var(--lgray);
-
+    /* height: 722px; */
 }
 
 .header{
@@ -15,11 +21,11 @@
 .attandance_row {
     /* 하나의 row에는 가로로 데이터 배치 */
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
 }
 
 .attandance_cell{
     flex: 1;
     border-bottom: 0.3px solid var(--lgray);
-    padding: 7px;
+    padding: 3px;
 }

@@ -144,12 +144,6 @@ function MemberList() {
             birth: '1995-08-08'
         },
         {
-            serial: 'user2024ff001',
-            name: '김수옥',
-            gender: '여',
-            birth: '1995-08-08'
-        },
-        {
             serial: 'user2024ff002',
             name: '임시운',
             gender: '여',
@@ -192,7 +186,7 @@ function MemberList() {
     return (
         <>
             <b>대상자 리스트</b>
-            <form>
+            
                 <div className="memberList">
                     {/* <table>
                         <thead>
@@ -243,7 +237,7 @@ function MemberList() {
                             ))}
                         </div>
                     </div>
-            </form>
+           
         </>
     );
 }

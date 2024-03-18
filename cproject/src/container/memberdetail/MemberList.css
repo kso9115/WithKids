@@ -1,16 +1,18 @@
 .memberList {
     font-size: 14px;
-    height: 100%;
+    /* height: 100%; */
+    height: calc(100% - 26px);
+    margin-top: 5px;
 }
 
 .memberList_container {
     border: 1px solid var(--lgray);
-    
+
     /* 전체 컨테이너에서 모든 추가 행을 세로로 나열 */
     display: grid;
     flex-direction: column;
     text-align: center;
-    
+
     /* 세로 스크롤 */
     height: 722px;
     overflow-x: hidden;
@@ -22,7 +24,7 @@
     background-color: var(--admin);
     font-weight: bold;
     position: sticky;
-    top:0.1px;
+    top: 0.1px;
 }
 
 .memberList_row {

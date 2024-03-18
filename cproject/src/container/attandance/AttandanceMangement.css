@@ -1,8 +1,14 @@
-.memberMainBox{
+.att_mng{
+    color: black;
+    height: 100%;
     display: flex;
-    width: 1666px ;
-    height: 722px
+    flex-direction: column;
+}
 
+.attandanceMainBoxs {
+    display: flex;
+    width: 1666px;
+    height: 722px;
 }
 
 .searchBox {
@@ -16,11 +22,4 @@
 
 .searchBox input{
     height: 22px;
-}
-
-.mem_mng {
-    color: black;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
 }

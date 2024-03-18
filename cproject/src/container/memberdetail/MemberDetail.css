@@ -9,8 +9,6 @@
     border-bottom: 0.3px solid var(--lgray);
 }
 
-
-
 .mem_gridBox {
     grid-template-columns: 10% 24% 10% 24% 12% 20%;
 }
@@ -87,8 +85,6 @@
     align-items: center;
 }
 
-
-
 .mem_gridBox>div:nth-child(2n+1),
 .mem_gridBox2>div:nth-child(2n+1),
 .mem_gridBox3>div:nth-child(2n+1) {
@@ -101,6 +97,13 @@
 .mem_gridBox2>div:not(:nth-child(6n+1)),
 .mem_gridBox3>div:not(:nth-child(2n+1)) {
     border-left: 1px solid var(--lgray);
+}
+
+/* 필수입력사항 표시 */
+.mem_gridBox>div>span,
+.mem_gridBox2>div>span,
+.mem_gridBox3>div>span {
+    color: red;
 }
 
 /* 버튼 */
