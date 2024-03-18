@@ -48,7 +48,7 @@ function AttachedFile() {
     function handleDrop(event) {
         event.preventDefault();
 
-        const file = event.dataTransfer.files[0];
+        const file = event.dataTransfer.files;
         const set = new Set([...files, file]);
         console.log([...set]);
         setFiles([...set]);
