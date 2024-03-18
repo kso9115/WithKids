@@ -7,132 +7,8 @@ import treeopen from '../../images/treeopen.png';
 import React from "react";
 import './programTree.css'
 
-const treeData = [
-    {
-        prg_big_cls: '교육',
-        count: '2',
-        contents: [
-            {
-                prg_mid_cls: '특기적성',
-                count: '3',
-                contents: [
-                    {
-                        prg_sub_cls: '독서활동',
-                        count: '4',
-                        contents: [
-                            {
-                                prg_id: 'prg독서활동',
-                                prg_nm: '독서활동 (20240101 ~ 20241231)',
-                                count: '5',
-                                prg_str: '20240101',
-                                prg_end: '20241231'
-                            }
-                        ]
-                    },
-                    {
-                        prg_sub_cls: '악기활동',
-                        count: '6',
-                        contents: [
-                            {
-                                prg_id: 'prg악기활동',
-                                prg_nm: '악기활동 (20240101 ~ 20241231)',
-                                count: '7',
-                                prg_str: '20240101',
-                                prg_end: '20241231'
-                            }
-                        ]
-                    },
-                    {
-                        prg_sub_cls: '합창활동',
-                        count: '8',
-                        contents: [
-                            {
-                                prg_id: 'prg합창활동',
-                                prg_nm: '합창활동 (20240101 ~ 20241231)',
-                                count: '9',
-                                prg_str: '20240101',
-                                prg_end: '20241231'
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                prg_mid_cls: '학습',
-                count: '10',
-                contents: [
-                    {
-                        prg_sub_cls: '영어지도프로그램',
-                        count: '11',
-                        contents: [
-                            {
-                                prg_id: 'prg영어지도프로그램',
-                                prg_nm: '영어지도프로그램 (20240101 ~ 20241231)',
-                                count: '12',
-                                prg_str: '20240101',
-                                prg_end: '20241231'
-                            }
-                        ],
-                    }
-                ],
-            }
-        ]
-    },
-    {
-        prg_big_cls: '돌봄',
-        count: '13',
-        contents: [
-            {
-                prg_mid_cls: '돌돔서비스',
-                count: '14',
-                contents: [
-                    {
-                        prg_sub_cls: '돌돔프로그램',
-                        count: '15',
-                        contents: [
-                            {
-                                prg_id: 'prg평일반',
-                                prg_nm: '평일반 (20240101 ~ 20241231)',
-                                count: '16',
-                                prg_str: '20240101',
-                                prg_end: '20241231'
-                            }
-                        ],
-                    }
-                ],
-            }
-        ]
-    },
-    {
-        prg_big_cls: '이용',
-        count: '17',
-        contents: [
-            {
-                prg_mid_cls: '시설이용',
-                count: '18',
-                contents: [
-                    {
-                        prg_sub_cls: '이용_서비스',
-                        count: '19',
-                        contents: [
-                            {
-                                prg_id: 'prg모전지역아동센터',
-                                prg_nm: '모전지역아동센터 (20240101 ~ 20241231)',
-                                count: '20',
-                                prg_str: '20240101',
-                                prg_end: '20241231'
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-    },
-];
-
-function ProgramTree({ name, setData, setSubMenuArr, subMenuArr }) {
-    // console.log(treeData.filter((it) => it.prg_big_cls));
-
+function ProgramTree({ name, setData, treeData, prgData }) {
+    let count = 1;
     let treeMake = treeData.map((e) => {
         return (
             <TreeItem key={e.count} nodeId={e.count} label={e.prg_big_cls} >
@@ -144,10 +20,8 @@ function ProgramTree({ name, setData, setSubMenuArr, subMenuArr }) {
                                     <TreeItem key={e3.count} nodeId={e3.count} label={e3.prg_sub_cls} >
                                         {e3.contents.map((e4) => {
                                             return (
-                                                <>
-                                                    <TreeItem key={e4.count} nodeId={e4.count} onClick={() => setData(e4.prg_id)}
-                                                        label={e4.prg_nm} ></TreeItem>
-                                                </>
+                                                <TreeItem key={e4.count} nodeId={e4.count} onClick={() => setData(prgData[count++])}
+                                                    label={e4.prg_nm} ></TreeItem>
                                             )
                                         })}
                                     </TreeItem>
@@ -187,7 +61,7 @@ function ProgramTree({ name, setData, setSubMenuArr, subMenuArr }) {
                     // defaultExpandIcon={<ChevronRightIcon />}
                     className='treeFont'
                 >
-                    
+
                     <TreeItem nodeId="1" label="사업정보">
                         {treeMake}
                     </TreeItem>

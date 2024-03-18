@@ -1,7 +1,3 @@
-.mem_mng{
-    height: 100%;
-}
-
 .searchBox {
     display: flex;
     align-items: center;
@@ -10,8 +6,6 @@
     /* background-color: var(--admin); */
 
 }
-
-
 
 .searchBox input{
     height: 22px;
@@ -28,4 +22,10 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.memberMainBox {
+    display: flex;
+    width: 1666px;
+    height: 722px
 }

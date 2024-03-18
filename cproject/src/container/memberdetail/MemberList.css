@@ -1,6 +1,7 @@
 .memberList {
     font-size: 14px;
-    height: 100%;
+    height: calc(100% - 26px); 
+    margin-top: 5px;
 }
 
 .memberList_container {

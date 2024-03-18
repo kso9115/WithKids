@@ -158,3 +158,32 @@ export const stf_mng = {
         }
     ]
 }
+
+export const att_mng = {
+    name: '출석관리',
+    action: 'attmng',
+    method: 'get',
+    content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
+        {
+            name: '재원 기간', // input/select 앞에 표현될 내용
+            state: ['att_str', 'mem_end'], // 테이블과 연결될 컬럼명
+            type: 'date', //input 타입이나 select
+            esntl: true, // 필수 요소 표현 유무
+            default: ['2023-01-01', '2023-12-31'] // 표현될 default 값
+        },
+        {
+            name: '대상자 성명',
+            state: 'mem_name',
+            type: 'text',
+            esntl: false,
+            default: ''
+        },
+        {
+            name: '대상자 전화번호',
+            state: 'mem_phone',
+            type: 'text',
+            esntl: false,
+            default: ''
+        },
+    ]
+}

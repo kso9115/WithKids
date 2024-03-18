@@ -1,32 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './programDetails.css'
 
 function ProgramDetails({ data, setData }) {
-    const [prgd, setPrgd] = useState({
-        prg_id: '',
-        prg_big_cls: '',
-        prg_mid_cls: '',
-        prg_sub_cls: '',
-        prg_cls: '',
-        prg_nm: '',
-        prg_svc: '',
-        prg_str: '',
-        prg_end: '',
-        prg_mngr: '',
-        prg_mngr_phnn: '',
-        prg_mngr_eml: '',
-        prg_nmb_api: '',
-        prg_use: '',
-        bdg_exc: '',
-        bdg_amt: '',
-        sgnn_cntr: '',
-        cost_clsfc: '',
-        prg_fee: '',
-        pln_nmb_ppl: '',
-        wtl_rgs: '',
-        f_typ: '',
-        cls_inc: '',
-    });
+    useEffect(() => {
+        setData(data)
+    }, [data]);
+
+    const [prgd, setPrgd] = useState(data);
 
 
     let submitBool = false;
@@ -89,6 +69,12 @@ function ProgramDetails({ data, setData }) {
         }
     }
 
+    function CheckBoxTrue(array,str) {
+        if (array !== undefined && Array.isArray(array) && array.split(' ').find(str) === str) return true;
+        else if (array !== undefined && !Array.isArray(array) && array === str) return true;
+        else return false;
+    }
+
     return (
         <div style={{
             height: '100%'
@@ -99,62 +85,52 @@ function ProgramDetails({ data, setData }) {
                 <b>프로그램 기본정보</b>
                 <div className='prg_dtl_gridBox'>
                     <div><span>*</span>사업 대분류</div>
-                    <div><input className='esntl_text' type="text" name='prg_big_cls' /></div>
+                    <div><input className='esntl_text' type="text" name='prg_big_cls' value={prgd.prg_big_cls}/></div>
 
                     <div><span>*</span>사업 중분류</div>
-                    <div><input className='esntl_text' type="text" name='prg_mid_cls' /></div>
+                    <div><input className='esntl_text' type="text" name='prg_mid_cls' value={prgd.prg_mid_cls} /></div>
 
                     <div><span>*</span>사업 소분류</div>
-                    <div><input className='esntl_text' type="text" name='prg_sub_cls' /></div>
+                    <div><input className='esntl_text' type="text" name='prg_sub_cls' value={prgd.prg_sub_cls} /></div>
 
                     <div><span>*</span>프로그램 구분</div>
                     <div className='prg_dtl_radioBox'>
                         <div>
-                            <input className='esntl_radio' type="radio" id='interior' name='prg_cls' value='내부형프로그램' />
+                            <input className='esntl_radio' type="radio" id='interior' name='prg_cls' value='내부형프로그램' checked={prgd.prg_cls === '내부형프로그램' ? true : false} />
                             <label for='interior'>내부형프로그램</label>
                         </div>
                         <div>
-                            <input className='esntl_radio' type="radio" id='application' name='prg_cls' value='신청형프로그램' />
+                            <input className='esntl_radio' type="radio" id='application' name='prg_cls' value='신청형프로그램' checked={prgd.prg_cls !== '내부형프로그램' ? true : false} />
                             <label for='application'>신청형프로그램</label>
                         </div>
                     </div>
 
                     <div><span>*</span>프로그램명</div>
-                    <div><input className='essential esntl_text' type="text" name='prg_nm' /></div>
+                    <div><input className='essential esntl_text' type="text" name='prg_nm' value={prgd.prg_nm} /></div>
 
                     <div>서비스 분류</div>
-                    <div><input type="text" name='prg_svc' /></div>
+                    <div><input type="text" name='prg_svc' value={prgd.prg_svc} /></div>
 
                     <div><span>*</span>프로그램 기간</div>
-                    <div><input className='esntl_text' type="date" name='prg_str' /> ~ <input type="date" name='prg_end' /></div>
+                    <div><input className='esntl_text' type="date" name='prg_str' value={prgd.prg_str} /> ~
+                        <input className='esntl_text' type="date" name='prg_end' value={prgd.prg_end} /></div>
 
                     <div><span>*</span>담당자</div>
-                    <div><input className='esntl_text' type="text" name='prg_mngr' /></div>
+                    <div><input className='esntl_text' type="text" name='prg_mngr' value={prgd.prg_mngr} /></div>
 
                     <div><span>*</span>담당자 전화번호</div>
-                    <div>
-                        <select className='prg_dtl_select'>
-                            <option value="010" key="010">010</option>
-                            <option value="011" key="011">011</option>
-                            <option value="016" key="016">016</option>
-                            <option value="017" key="017">017</option>
-                            <option value="019" key="019">019</option>
-                        </select>&nbsp;-&nbsp;
-                        {/* <input className='esntl_text' type="tel" name='prg_mngr_phnn1' />&nbsp;-&nbsp; */}
-                        <input className='esntl_text' type="tel" name='prg_mngr_phnn2' maxlength='4' />&nbsp;-&nbsp;
-                        <input className='esntl_text' type="tel" name='prg_mngr_phnn3' maxlength='4' />
-                    </div>
+                    <div><input className='esntl_text' type="tel" name='prg_mngr_phnn' value={prgd.prg_mngr_phnn} /></div>
 
                     <div><span>*</span>담당자 이메일</div>
-                    <div><input className='esntl_text' type="email" name='prg_mngr_eml' /></div>
+                    <div><input className='esntl_text' type="email" name='prg_mngr_eml' value={prgd.prg_mngr_eml} /></div>
 
                     <div><span>*</span>지원횟수</div>
-                    <div><input className='esntl_text' type="text" name='prg_nmb_api' /></div>
+                    <div><input className='esntl_text' type="text" name='prg_nmb_api' value={prgd.prg_nmb_api} /></div>
 
                     <div><span>*</span>사용여부</div>
                     <div className='prg_dtl_radioBox'>
-                        <div><input className='esntl_radio' type="radio" id='yes' name='prg_use' value='Y' /><label for='yes'>Y</label></div>
-                        <div><input className='esntl_radio' type="radio" id='no' name='prg_use' value='N' /><label for='no'>N</label></div>
+                        <div><input className='esntl_radio' type="radio" id='yes' name='prg_use' value='Y' checked={prgd.prg_use === '1' ? true : false} /><label for='yes'>Y</label></div>
+                        <div><input className='esntl_radio' type="radio" id='no' name='prg_use' value='N' checked={prgd.prg_use !== '1' ? true : false} /><label for='no'>N</label></div>
                     </div>
 
                 </div>
@@ -162,40 +138,40 @@ function ProgramDetails({ data, setData }) {
                 <div className='prg_dtl_gridBox2'>
                     <div>예산집행여부</div>
                     <div className='radioBox'>
-                        <div><input type="radio" id='execution' name='bdg_exc' value='집행' checked /><label for='execution'>집행</label></div>
-                        <div><input type="radio" id='nonexecution' name='bdg_exc' value='미집행' /><label for='nonexecution'>미집행</label></div>
+                        <div><input type="radio" id='execution' name='bdg_exc' value='집행' checked={prgd.bdg_exc === '1' ? true : false} /><label for='execution'>집행</label></div>
+                        <div><input type="radio" id='nonexecution' name='bdg_exc' value='미집행' checked={prgd.bdg_exc !== '1' ? true : false} /><label for='nonexecution'>미집행</label></div>
                     </div>
 
                     <div>예산금액</div>
-                    <div><input className='text_align' type="text" name='bdg_amt' />&nbsp;(원)</div>
+                    <div><input className='text_align' type="text" name='bdg_amt' value={prgd.bdg_amt} />&nbsp;(원)</div>
 
                     <div>이용계약체결</div>
                     <div className='prg_dtl_radioBox'>
-                        <div><input type="radio" id='Concluded' name='sgnn_cntr' value='체결' checked /><label for='Concluded'>체결</label></div>
-                        <div><input type="radio" id='notConcluded' name='sgnn_cntr' value='미체결' /><label for='notConcluded'>미체결</label></div>
+                        <div><input type="radio" id='Concluded' name='sgnn_cntr' value='체결' checked={prgd.sgnn_cntr === '1' ? true : false} /><label for='Concluded'>체결</label></div>
+                        <div><input type="radio" id='notConcluded' name='sgnn_cntr' value='미체결' checked={prgd.sgnn_cntr !== '1' ? true : false} /><label for='notConcluded'>미체결</label></div>
                     </div>
 
                     <div><span>*</span>비용구분</div>
                     <div className='prg_dtl_selectBox'>
                         <select className='esntl_text' name='cost_clsfc'>
-                            <option value="무료" key="">무료</option>
-                            <option value="유료" key="">유료</option>
+                            <option value="무료" key="" selected={prgd.cost_clsfc === '무료' ? true : false}>무료</option>
+                            <option value="유료" key="" selected={prgd.cost_clsfc === '유료' ? true : false}>유료</option>
                         </select>
                     </div>
 
                     <div>프로그램요금</div>
-                    <div><input className='text_align' type="text" name='prg_fee' />&nbsp;(원)</div>
+                    <div><input className='text_align' type="text" name='prg_fee' value={prgd.prg_fee} />&nbsp;(원)</div>
 
                     <div></div>
                     <div></div>
 
                     <div><span>*</span>계획인원(정원)</div>
-                    <div><input className='text_align esntl_text' type="text" name='pln_nmb_ppl' />&nbsp;(명)</div>
+                    <div><input className='text_align esntl_text' type="text" name='pln_nmb_ppl' value={prgd.pln_nmb_ppl} />&nbsp;(명)</div>
 
                     <div>대기자등록</div>
                     <div className='prg_dtl_radioBox'>
-                        <div><input type="radio" id='possible' name='wtl_rgs' value='가능' checked /><label for='possible'>가능</label></div>
-                        <div><input type="radio" id='impossible' name='wtl_rgs' value='불가능' /><label for='impossible'>불가능</label></div>
+                        <div><input type="radio" id='possible' name='wtl_rgs' value='가능' checked={prgd.wtl_rgs === '1' ? true : false} /><label for='possible'>가능</label></div>
+                        <div><input type="radio" id='impossible' name='wtl_rgs' value='불가능' checked={prgd.wtl_rgs !== '1' ? true : false} /><label for='impossible'>불가능</label></div>
                     </div>
 
                     <div></div>
@@ -207,31 +183,31 @@ function ProgramDetails({ data, setData }) {
                     <div><span>*</span>가구유형</div>
                     <div className='prg_dtl_checkBox'>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='none' name='f_typ' />
+                            <input className='esntl_f_typ' type="checkbox" id='none' name='f_typ' checked={CheckBoxTrue(prgd.f_typ, '해당없음') ? true : false} />
                             <label for='none'>해당없음</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='singleParent' name='f_typ' />
+                            <input className='esntl_f_typ' type="checkbox" id='singleParent' name='f_typ' checked={CheckBoxTrue(prgd.f_typ, '한부모') ? true : false} />
                             <label for='singleParent'>한부모</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='multicultural' name='f_typ' />
+                            <input className='esntl_f_typ' type="checkbox" id='multicultural' name='f_typ' checked={CheckBoxTrue(prgd.f_typ, '다문화') ? true : false} />
                             <label for='multicultural'>다문화</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='grandson' name='f_typ' />
+                            <input className='esntl_f_typ' type="checkbox" id='grandson' name='f_typ' checked={CheckBoxTrue(prgd.f_typ, '조손') ? true : false} />
                             <label for='grandson'>조손</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='defector' name='f_typ' />
+                            <input className='esntl_f_typ' type="checkbox" id='defector' name='f_typ' checked={CheckBoxTrue(prgd.f_typ, '새터민') ? true : false} />
                             <label for='defector'>새터민</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='BnG_hoh' name='f_typ' />
+                            <input className='esntl_f_typ' type="checkbox" id='BnG_hoh' name='f_typ' checked={CheckBoxTrue(prgd.f_typ, '소년소녀가장') ? true : false} />
                             <label for='BnG_hoh'>소년소녀가장</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='etc' name='f_typ' />
+                            <input className='esntl_f_typ' type="checkbox" id='etc' name='f_typ' checked={CheckBoxTrue(prgd.f_typ, '독거노인') ? true : false} />
                             <label for='etc'>독거노인</label>
                         </div>
                     </div>
@@ -239,19 +215,19 @@ function ProgramDetails({ data, setData }) {
                     <div><span>*</span>소득구분</div>
                     <div>
                         <div>
-                            <input className='esntl_cls_inc' type="checkbox" id='general' name='cls_inc' />
+                            <input className='esntl_cls_inc' type="checkbox" id='general' name='cls_inc' checked={CheckBoxTrue(prgd.cls_inc, '일반') ? true : false} />
                             <label for='general'>일반</label>
                         </div>
                         <div>
-                            <input className='esntl_cls_inc' type="checkbox" id='beneficiary ' name='cls_inc' />
+                            <input className='esntl_cls_inc' type="checkbox" id='beneficiary ' name='cls_inc' checked={CheckBoxTrue(prgd.cls_inc, '수급자') ? true : false} />
                             <label for='beneficiary'>수급자</label>
                         </div>
                         <div>
-                            <input className='esntl_cls_inc' type="checkbox" id='nearPoverty' name='cls_inc' />
+                            <input className='esntl_cls_inc' type="checkbox" id='nearPoverty' name='cls_inc' checked={CheckBoxTrue(prgd.cls_inc, '차상위') ? true : false} />
                             <label for='nearPoverty'>차상위</label>
                         </div>
                         <div>
-                            <input className='esntl_cls_inc' type="checkbox" id='none' name='cls_inc' />
+                            <input className='esntl_cls_inc' type="checkbox" id='none' name='cls_inc' checked={CheckBoxTrue(prgd.cls_inc, '저소득') ? true : false} />
                             <label for='none'>저소득</label>
                         </div>
                     </div>
