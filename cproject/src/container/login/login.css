@@ -14,7 +14,8 @@
     right: 0%;
     top: 40%;
     font-size: 25px;
-    z-index: 500;
+    z-index: 2;
+    text-align: end;
 }
 
 /* 로그인 로고 */
@@ -26,12 +27,14 @@
 }
 
 /* 로그인 박스 */
+
 .loginTable>div:first-child {
     display: grid;
     justify-content: center;
     align-content: center;
     grid-template-columns: 10% 20%;
 }
+
 .loginTable>div:first-child>div {
     margin: 5px;
     

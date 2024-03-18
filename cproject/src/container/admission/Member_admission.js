@@ -3,7 +3,7 @@ import './Member_admission.css';
 function Member_addission(){
 
     return (
-        <form>
+        <form action="" method="get">
             <div style={{color:'black',fontWeight:'bold'}}>입소/이용 정보</div>
             <div className="adgridBox admissionBox">
                 <div><span style={{color:"red"}}>*</span>입소/이용일자</div>
@@ -57,7 +57,16 @@ function Member_addission(){
                 <div><span></span>입소/이용경위</div>
                 <div><textarea></textarea></div>
             </div>   
-          </form>
+
+            <div className='buttonBox'>
+                <div>
+                    <button type="reset">입력취소</button>
+                    <button type="submit" value='삭제' formaction="/admission/delete">삭제</button>
+                    <button type="submit" value='신규' formaction="/admission/insert">신규</button>
+                    <button type="submit" value='저장' formaction="/admission/update">저장</button>
+                </div>
+            </div>
+        </form>
           
     );
 }

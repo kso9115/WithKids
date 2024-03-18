@@ -57,9 +57,11 @@ function Login({ setSessionName }) {
                 <div><img className="leftBackground" src={leftBackground} alt="배경"></img></div>
 
                 <div>
-                    <a href='/'>로그인페이지</a><br/><br/>
-                    <a href="/home">메인페이지</a>
+                    <div><a href='/'>로그인페이지</a></div>
+                    <br />
+                    <div><a href="/home">메인페이지</a></div>
                 </div>
+                
             </div>
 
             <div className='logRightBox'  style={{width:'50%'}}>
@@ -72,11 +74,11 @@ function Login({ setSessionName }) {
                 <form onSubmit={handleSubmit}>
                     <div className='loginTable'>
                         <div>
-                            <div>I D</div>
-                            <div><input type="text" id="id" name="id" value={id} onChange={handleIdChange} size="18" /></div>
+                            <div className='idpwbox'><label htmlFor="id">I D</label></div>
+                            <div><input type="text" id="id" name="id" value={id} onChange={handleIdChange}/></div>
                         
-                            <div><label htmlFor="password">비밀번호</label></div>
-                            <div><input type="password" id="password" name="password" value={password} onChange={handlePwChange} size="18" /></div>
+                            <div className='idpwbox'><label htmlFor="password">Password</label></div>
+                            <div><input type="password" id="password" name="password" value={password} onChange={handlePwChange}/></div>
                         </div>
                         <div className='loginBtn'>
                             <input type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
