@@ -10,11 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-// @Table(name="guestbook") // 클래스 이름과 동일한 경우 생략가능
-
 @Getter
-@Builder // 복잡한 객체의 생성 과정과 표현 방법을 분리하여 다양한 구성의 인스턴스를 만드는 생성 패턴. 출처:
-			// https://inpa.tistory.com/entry/GOF-💠-빌더Builder-패턴-끝판왕-정리
+@Builder
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor

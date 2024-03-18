@@ -17,7 +17,7 @@ function ProgramManagement() {
         { name: '세부 프로그램', content: <ProgramDetailsPrg data={programId} setData={setProgramId} /> }
     ]);
     const [subCurrentTab, setSubCurrentTab] = useState(0);
-    console.log(programId);
+    // console.log(programId);
 
     useEffect(() => {
         setSubMenuArr([
