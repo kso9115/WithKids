@@ -93,21 +93,21 @@ export const mem_mng = {
         },
         {
             name: '대상자 성명',
-            state: 'mem_nm',
+            state: 'mem_name',
             type: 'text',
             esntl: false,
             default: ''
         },
         {
             name: '대상자 성별',
-            state: 'mem_gn',
+            state: 'mem_sex',
             type: 'select',
             esntl: false,
             default: [{ name: '여성', value: '여성' }, { name: '남성', value: '남성' }]
         },
         {
             name: '담당자 성명',
-            state: 'mem_nmgr',
+            state: 'mem_responsible_person',
             type: 'text',
             esntl: false,
             default: ''
@@ -115,7 +115,7 @@ export const mem_mng = {
         ,
         {
             name: '입소 상태',
-            state: 'memStatus',
+            state: 'mem_status',
             type: 'select',
             esntl: false,
             default: [{ name: '전체', value: '전체' }, { name: '이용', value: '이용' }]
@@ -156,5 +156,34 @@ export const stf_mng = {
             esntl: false,
             default: ''
         }
+    ]
+}
+
+export const att_mng = {
+    name: '출석관리', 
+    action: 'attmng',
+    method: 'get', 
+    content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
+        {
+            name: '재원 기간', // input/select 앞에 표현될 내용
+            state: ['att_str', 'mem_end'], // 테이블과 연결될 컬럼명
+            type: 'date', //input 타입이나 select
+            esntl: true, // 필수 요소 표현 유무
+            default: ['2023-01-01', '2023-12-31'] // 표현될 default 값
+        },
+        {
+            name: '대상자 성명',
+            state: 'mem_name',
+            type: 'text',
+            esntl: false,
+            default: ''
+        },
+        {
+            name: '대상자 전화번호',
+            state: 'mem_phone',
+            type: 'text',
+            esntl: false,
+            default: ''
+        },
     ]
 }
