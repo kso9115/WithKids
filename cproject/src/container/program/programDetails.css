@@ -3,10 +3,9 @@
 .prg_dtl_gridBox3 {
     font-size: 14px;
     display: grid;
-
+    margin-bottom: 60px;
     border-top: 2px solid var(--lgray);
     border-bottom: 2px solid var(--lgray);
-    margin-bottom: 20px;
 }
 
 .prg_dtl_gridBox {
@@ -85,4 +84,24 @@
 
 .prg_dtl_gridBox3>div label {
     width: 130px;
+}
+
+.prg_dtl_selectBox>select {
+    width: 60%;
+}
+
+.prg_dtl_select{
+    height: 21px;
+}
+
+.text_align{
+    text-align: right;
+}
+
+.buttonBox, .buttonBox>div {
+    display: flex;
+}
+.buttonBox>div {
+    gap: 5px;
+    margin-left: auto;
 }

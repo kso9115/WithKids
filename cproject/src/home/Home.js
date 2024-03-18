@@ -44,9 +44,6 @@ function Home() {
                     <Navbar />
                     <Container menuArr={menuArr} setMenuArr={setMenuArr} currentTab={currentTab} setCurrentTab={setCurrentTab} mainSub={'main'}></Container>
                 </div>
-                <footer id='homeFooter'>
-                    <div>카톡으로 얘기하조?</div>
-                </footer>
             </div>
         </div>
 

@@ -1,6 +1,7 @@
 import './menu.css'
 import Calender from '../celender/Calender'
 import ProgramManagement from '../container/program/ProgramManagement'
+import StaffManagement from '../container/staff/StaffManagement'
 import MemberMangement from '../container/memberdetail/MemberMangement'
 import Admission from '../container/admission/AdmLvng_Manager'
 import Attandance from '../container/attandance/Attandance'
@@ -16,7 +17,7 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     map.set('Attandance', { name: '출석관리', content: <Attandance /> });
     map.set('MealManagement', { name: '급식관리 ', content: <MealManagement /> });
     map.set('회원탈퇴', { name: 'Delete', content: null });
-    map.set('회원탈퇴', { name: 'Delete', content: null });
+    map.set('StaffManagement', { name: '직원정보', content: <StaffManagement/> });
     map.set('Calender', { name: '캘린더', content: <Calender></Calender> });
     map.set('ProgramManagement', { name: '프로그램정보관리', content: <ProgramManagement></ProgramManagement> });
     console.log(menuArr);
@@ -69,7 +70,7 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
                     menu={['프로그램정보관리', '프로그램계획서작성', '프로그램일지 작성']}
                     conName={['ProgramManagement', '캘린더', '캘린더']} img='img/프로그램.png' />
                 <Charts getTransTitle={getTransTitle} name='직원 관리'
-                    conName={'Calender'} img='img/직원.png' />
+                    conName={'StaffManagement'} img='img/직원.png' />
             </ul>
         </>
     );

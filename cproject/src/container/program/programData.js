@@ -1,0 +1,27 @@
+export const grg_data = [
+    {
+        prg_id: 'prg독서활동',
+        prg_big_cls: '교육',
+        prg_mid_cls: '특기적성',
+        prg_sub_cls: '독서활동',
+        prg_cls: '내부형프로그램',
+        prg_nm: '독서활동 (20240101 ~ 20241231)',
+        prg_svc: '학습지원',
+        prg_str: '20240101',
+        prg_end: '20241231',
+        prg_mngr: '임명건',
+        prg_mngr_phnn: '010-0000-0000',
+        prg_mngr_eml: 'qwer123@naver.com',
+        prg_nmb_api: '주1',
+        prg_use: '1',
+        bdg_exc: '',
+        bdg_amt: '',
+        sgnn_cntr: '',
+        cost_clsfc: '무료',
+        prg_fee: '',
+        pln_nmb_ppl: '1',
+        wtl_rgs: '',
+        f_typ: '한부모 다문화',
+        cls_inc: '일반 수급자',
+    }
+];

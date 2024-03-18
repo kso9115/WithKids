@@ -21,7 +21,8 @@ const treeData = [
                         count: '4',
                         contents: [
                             {
-                                prg_nm: '독서활동',
+                                prg_id: 'prg독서활동',
+                                prg_nm: '독서활동 (20240101 ~ 20241231)',
                                 count: '5',
                                 prg_str: '20240101',
                                 prg_end: '20241231'
@@ -33,7 +34,8 @@ const treeData = [
                         count: '6',
                         contents: [
                             {
-                                prg_nm: '악기활동',
+                                prg_id: 'prg악기활동',
+                                prg_nm: '악기활동 (20240101 ~ 20241231)',
                                 count: '7',
                                 prg_str: '20240101',
                                 prg_end: '20241231'
@@ -45,7 +47,8 @@ const treeData = [
                         count: '8',
                         contents: [
                             {
-                                prg_nm: '합창활동',
+                                prg_id: 'prg합창활동',
+                                prg_nm: '합창활동 (20240101 ~ 20241231)',
                                 count: '9',
                                 prg_str: '20240101',
                                 prg_end: '20241231'
@@ -63,7 +66,8 @@ const treeData = [
                         count: '11',
                         contents: [
                             {
-                                prg_nm: '영어지도프로그램',
+                                prg_id: 'prg영어지도프로그램',
+                                prg_nm: '영어지도프로그램 (20240101 ~ 20241231)',
                                 count: '12',
                                 prg_str: '20240101',
                                 prg_end: '20241231'
@@ -87,7 +91,8 @@ const treeData = [
                         count: '15',
                         contents: [
                             {
-                                prg_nm: '평일반',
+                                prg_id: 'prg평일반',
+                                prg_nm: '평일반 (20240101 ~ 20241231)',
                                 count: '16',
                                 prg_str: '20240101',
                                 prg_end: '20241231'
@@ -111,7 +116,8 @@ const treeData = [
                         count: '19',
                         contents: [
                             {
-                                prg_nm: '모전지역아동센터',
+                                prg_id: 'prg모전지역아동센터',
+                                prg_nm: '모전지역아동센터 (20240101 ~ 20241231)',
                                 count: '20',
                                 prg_str: '20240101',
                                 prg_end: '20241231'
@@ -124,11 +130,8 @@ const treeData = [
     },
 ];
 
-function ProgramTree({ name }) {
+function ProgramTree({ name, setData, setSubMenuArr, subMenuArr }) {
     // console.log(treeData.filter((it) => it.prg_big_cls));
-    function requestTree(e) {
-        console.log(e.target.innerText.substring(0, e.target.innerText.indexOf('(')));
-    }
 
     let treeMake = treeData.map((e) => {
         return (
@@ -142,8 +145,8 @@ function ProgramTree({ name }) {
                                         {e3.contents.map((e4) => {
                                             return (
                                                 <>
-                                                    <TreeItem key={e4.count} nodeId={e4.count} onClick={requestTree} value={e4.prg_nm}
-                                                        label={e4.prg_nm + '(' + e4.prg_str + '~' + e4.prg_end + ')'} ></TreeItem>
+                                                    <TreeItem key={e4.count} nodeId={e4.count} onClick={() => setData(e4.prg_id)}
+                                                        label={e4.prg_nm} ></TreeItem>
                                                 </>
                                             )
                                         })}
@@ -196,3 +199,4 @@ function ProgramTree({ name }) {
 }
 
 export default React.memo(ProgramTree);
+// export default ProgramTree;
