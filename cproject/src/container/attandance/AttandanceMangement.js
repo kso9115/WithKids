@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-function AttandanceMangement() {
-    
-    return (
-        <div></div>
-    );
-=======
 import Attandance from "./Attandance";
 import SearchBox from "../searchbox/SearchBox";
 import { useState } from "react";
@@ -30,7 +23,6 @@ function AttandanceMangement() {
 
     );
 
->>>>>>> kso
 }
 
 export default AttandanceMangement;
