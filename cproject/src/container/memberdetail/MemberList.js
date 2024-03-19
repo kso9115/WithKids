@@ -12,6 +12,138 @@ function MemberList() {
             birth: '1995-08-08'
         },
         {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
+            serial: 'user2024ff001',
+            name: '김수옥',
+            gender: '여',
+            birth: '1995-08-08'
+        },
+        {
             serial: 'user2024ff002',
             name: '임시운',
             gender: '여',
@@ -46,7 +178,7 @@ function MemberList() {
             name: '최승삼',
             gender: '남',
             birth: '1993-04-18'
-        },
+        }
     ]
 
 
@@ -54,9 +186,9 @@ function MemberList() {
     return (
         <>
             <b>대상자 리스트</b>
-            <form>
-                <div className="memberList">
-                    {/* <table>
+
+            <div className="memberList">
+                {/* <table>
                         <thead>
                             <tr>
                                 <th>번호</th>
@@ -86,29 +218,25 @@ function MemberList() {
                         }
                     </table> */}
 
-                    <div className="memberList">
-                        <div className="table-container">
-                            <div className="table-row header">
-                                <div className="table-cell">번호</div>
-                                <div className="table-cell">대상자번호</div>
-                                <div className="table-cell">대상자명</div>
-                                <div className="table-cell">성별</div>
-                                <div className="table-cell">생년월일</div>
-                            </div>
-                            {testData.map((o, i) => (
-                                <div className="table-row" key={i}>
-                                    <div className="table-cell">시퀀스 넘버</div>
-                                    <div className="table-cell">{o.serial}</div>
-                                    <div className="table-cell">{o.name}</div>
-                                    <div className="table-cell">{o.gender}</div>
-                                    <div className="table-cell">{o.birth}</div>
-                                </div>
-                            ))}
-                        </div>
+                <div className="memberList_container">
+                    <div className="memberList_row header">
+                        <div className="memberList_cell">번호</div>
+                        <div className="memberList_cell">대상자번호</div>
+                        <div className="memberList_cell">대상자명</div>
+                        <div className="memberList_cell">성별</div>
+                        <div className="memberList_cell">생년월일</div>
                     </div>
-
+                    {testData.map((o, i) => (
+                        <div className="memberList_row" key={i}>
+                            <div className="memberList_cell">시퀀스 넘버</div>
+                            <div className="memberList_cell">{o.serial}</div>
+                            <div className="memberList_cell">{o.name}</div>
+                            <div className="memberList_cell">{o.gender}</div>
+                            <div className="memberList_cell">{o.birth}</div>
+                        </div>
+                    ))}
                 </div>
-            </form>
+            </div>
         </>
     );
 }

@@ -1,10 +1,10 @@
 import './pagesCollapse.css'
 
-function Charts({ name, menu, getTransTitle, conName,img }) {
+function Charts({ name, getTransTitle, conName,img }) {
 
     return (
         <li className='menu-side'>
-            <div className='menu-side-name' onClick={() => getTransTitle(conName)}>
+            <div className='menu-side-name2' onClick={() => getTransTitle(conName)}>
                 <img src={img} alt='' style={{
                     width: '18px',
                     height: '18px',

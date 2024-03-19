@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Session from 'react-session-api';
+import leftBackground from '../../images/leftBackground.png';
+import faceId from '../../images/free-icon-face-id-2415069.png';
+import padLock from '../../images/free-icon-padlock-2575570.png';
 
 function Login({ setSessionName }) {
     const navigate = useNavigate();
@@ -48,32 +51,45 @@ function Login({ setSessionName }) {
             .catch(err => console.log(err))
     };
 
-
     return (
-        <div id="loginBox">
-            <h2>** Login Form **</h2>
-            <form onSubmit={handleSubmit}>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td><label htmlFor="id">I D</label></td>
-                            <td><input type="text" id="id" name="id" value={id} onChange={handleIdChange} size="18" /></td>
-                        </tr>
-                        <tr>
-                            <td><label htmlFor="password">비밀번호</label></td>
-                            <td><input type="password" id="password" name="password" value={password} onChange={handlePwChange} size="18" /></td>
-                        </tr>
-                        <tr><td></td>
-                            <td>
-                                <input type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
-                                <input type="reset" value="취소" />
-                                
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
-            <a href="/home">메인페이지</a>
+        <div className="loginBox">
+            <div className='logLeftBox' style={{width:'50%', heightht: '100%'}}>
+                <div><img className="leftBackground" src={leftBackground} alt="배경"></img></div>
+
+                <div>
+                    <div className='hovering'><a href='/'>로그인페이지</a></div>
+                    <br />
+                    <div className='hovering'><a href="/home">메인페이지</a></div>
+                </div>
+                
+            </div>
+
+            <div className='logRightBox'  style={{width:'50%'}}>
+                <div className='logLogo'>
+                    <img src='img/Community Child Center.png' alt="커뮤니티차일드센터"></img>
+                    <h2 className="" style={{
+                        fontSize:50 , fontWeight:'bold' , color:'var(--admin)'
+                        }}>L O G I N</h2>
+                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className='loginTable'>
+                        <div className='idpwbox'>
+                            <div><img className="faceId" src={faceId} alt="ID" />
+                                <input type="text" id="id" name="id" value={id} onChange={handleIdChange}/>
+                            </div>
+                        
+                            <div><img className="padLock" src={padLock} alt="password"></img>
+                                <input type="password" id="password" name="password" value={password} onChange={handlePwChange}/>
+                            </div>
+                        </div>
+                        
+                        <div className='loginBtn'>
+                            <input className='custom-btn btn-6' type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
+                            <input className='custom-btn btn-6' type="reset" value="취소" />
+                        </div>    
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

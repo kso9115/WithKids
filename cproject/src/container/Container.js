@@ -14,7 +14,7 @@ function Container({ menuArr, setMenuArr, currentTab, setCurrentTab, mainSub }) 
         } else if (index === currentTab) {
             setCurrentTab(currentTab - 1)
         }
-        console.log(menuArr.length + ':' + currentTab + ':' + index);
+
         if (menuArr.length - 1 < currentTab) {
             setCurrentTab(menuArr.length - 1)
         }

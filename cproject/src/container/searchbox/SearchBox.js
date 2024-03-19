@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import React,{ useState } from 'react'
 
 function SearchBox({ data }) {
+    
     const [sbVal, setSbVal] = useState(...[data.content.map((o) => { return o.default })]);
 
     // input 입력시 useState 값 바꿔주는 함수
@@ -39,8 +40,8 @@ function SearchBox({ data }) {
                     <select>
                         <option name={o.state} value="" key="">전체</option>
                         {
-                            o.default.map((j) => {
-                                return <option value={j.value} key="">{j.name}</option>
+                            o.default.map((j,i) => {
+                                return <option value={j.value} key={i}>{j.name}</option>
                             })
                         }
                     </select>
@@ -52,13 +53,13 @@ function SearchBox({ data }) {
 
     return (
         <>
-            <p>{data.name}</p>
+            <p style={{ marginBottom:'5px'}}>{data.name}</p>
             <form action={data.action} method={data.method}>
                 <div className='searchBox'>
                     {
                         data.content.map((o, i) => {
                             return (
-                                <div>{
+                                <div key={"search"+i}>{
                                     o.esntl ? <span style={{ color: "red" }}>*</span> : null
                                 }{o.name}&nbsp;&nbsp;
                                     {inputBox(o, i)}
@@ -68,7 +69,7 @@ function SearchBox({ data }) {
                     }
                     <div>
                         <button type="reset">리셋</button>&nbsp;
-                        <button type="button">조회</button>
+                        <button type="submit">조회</button>
                     </div>
                 </div>
 
@@ -77,4 +78,4 @@ function SearchBox({ data }) {
     );
 } //SearchBox
 
-export default SearchBox;
+export default React.memo(SearchBox);

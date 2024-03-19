@@ -26,7 +26,7 @@ function AdmLvng_Manager() {
                     height: '100%'}} >
                     <div style={{
                         marginBottom: '5px'}}>
-                        학생 리스트
+
                     </div>
                     <MemberList />
                 </div>
@@ -42,7 +42,8 @@ function AdmLvng_Manager() {
                     height: '100%'
                 }}>
                     <MemberAssortment />
-                    <Container menuArr={subMenuArr} setMenuArr={setSubMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={'sub'}></Container>
+                    <Container menuArr={subMenuArr} setMenuArr={setSubMenuArr} 
+                        currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={'sub'}></Container>
                 </div>
             </div>
         </div>

@@ -1,11 +1,5 @@
-* {
-    margin: 0;
-    box-sizing: border-box;
-}
-
 #screen {
     display: flex;
-    width: 100%;
 }
 
 #screen>div {
@@ -15,8 +9,9 @@
 }
 
 #homeContainerMain {
+    display: flex;
+    flex-direction: column;
     flex: 1 0 auto;
-    /* height: 100%; */
     height: calc(100vh - 82px);
 }
 

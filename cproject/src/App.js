@@ -1,6 +1,5 @@
 import './App.css';
 import Home from './home/Home.js'
-import Home2 from './home/Home2.js'
 import Login from './container/login/Login.js'
 import Select from './select/Select'
 import UserHome from './user/UserHome'
@@ -21,7 +20,6 @@ function App() {
                     <Route path="/" element={<Select />}></Route>
                     <Route path="/login" element={<Login />}></Route>
                     <Route path="/home" element={<Home />}></Route>
-                    <Route path="/home2" element={<Home2 />}></Route>
                     <Route path="/user" element={<UserHome />}>
                         <Route path="" element={<UserMain />}></Route>
                         <Route path="notice" element={<Notice />}></Route>

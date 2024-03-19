@@ -28,7 +28,7 @@ function PagesCollapse({ name, menu, getTransTitle, conName ,img}) {
             <div className='menu-side-menu hide'>
                 {menu.map((e,i) => {
                     return(
-                        <p onClick={() => getTransTitle(conName[i])} >{e}</p>
+                        <p key={'pages'+i} onClick={() => getTransTitle(conName[i])} >{e}</p>
                     );
                 })}
             </div>

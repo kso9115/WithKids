@@ -4,9 +4,51 @@ import { TreeView } from '@mui/x-tree-view/TreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import treeclose from '../../images/treeclose.png';
 import treeopen from '../../images/treeopen.png';
+import React from "react";
 import './programTree.css'
 
-function ProgramTree({name}) {
+function ProgramTree({ name, setData, treeData, prgData }) {
+    
+    let count = 1;
+    let treeMake = treeData.map((e) => {
+        return (
+            <TreeItem key={e.count} nodeId={e.count} label={e.prg_big_cls} >
+                {e.contents.map((e2) => {
+                    return (
+                        <TreeItem key={e2.count} nodeId={e2.count} label={e2.prg_mid_cls} >
+                            {e2.contents.map((e3) => {
+                                return (
+                                    <TreeItem key={e3.count} nodeId={e3.count} label={e3.prg_sub_cls} >
+                                        {e3.contents.map((e4) => {
+                                            return (
+                                                <TreeItem key={e4.count} nodeId={e4.count} onClick={() => {
+                                                    let data = prgData[prgData.findIndex((item) => item.prg_id === e4.prg_id)];
+                                                    data = {
+                                                        ...data,
+                                                        f_typ: !data.f_typ ?
+                                                            new Set() : Array.isArray(data.f_typ) ?
+                                                                data.cls_inc : data.f_typ.indexOf(' ') > 0 ?
+                                                                    new Set(data.f_typ.split(' ')) : new Set([data.f_typ]),
+                                                        cls_inc: !data.cls_inc ?
+                                                            new Set() : Array.isArray(data.cls_inc) ?
+                                                                data.cls_inc : data.cls_inc.indexOf(' ') > 0 ?
+                                                                    new Set(data.cls_inc.split(' ')) : new Set([data.cls_inc]),
+                                                    };
+                                                    setData(data)
+                                                }}
+                                                    label={e4.prg_nm} ></TreeItem>
+                                            )
+                                        })}
+                                    </TreeItem>
+                                )
+                            })}
+                        </TreeItem>
+                    )
+                })}
+            </TreeItem>
+        )
+    })
+
 
     function TreeOpenner() {
         let array = ['1'];
@@ -15,8 +57,6 @@ function ProgramTree({name}) {
         }
         return array;
     }
-
-    console.log(TreeOpenner());
 
     return (
         <>
@@ -36,54 +76,9 @@ function ProgramTree({name}) {
                     // defaultExpandIcon={<ChevronRightIcon />}
                     className='treeFont'
                 >
+
                     <TreeItem nodeId="1" label="사업정보">
-
-                        <TreeItem nodeId="2" label="교육" >
-                            <div className='TreeBorder'>
-                                <TreeItem nodeId="3" label="특기적성" >
-                                    <div className='TreeBorder'>
-                                        <TreeItem nodeId="4" label="독서활동" >
-                                            <div className='TreeBorder'>
-                                                <TreeItem nodeId="5" label={`독서활동${' 빈공간'}`} />
-                                            </div>
-                                        </TreeItem>
-                                        <TreeItem nodeId="6" label="악기활동" >
-                                            <div className='TreeBorder'>
-                                                <TreeItem nodeId="7" label={`악기활동${' 빈공간'}`} />
-                                            </div>
-
-                                        </TreeItem>
-                                        <TreeItem nodeId="8" label="합창활동" >
-                                            <div className='TreeBorder'>
-                                                <TreeItem nodeId="9" label={`합창활동${' 빈공간'}`} />
-                                            </div>
-                                        </TreeItem>
-                                    </div>
-                                </TreeItem>
-
-                                <TreeItem nodeId="10" label="학습" >
-                                    <TreeItem nodeId="11" label="영어지도프로그램" >
-                                        <TreeItem nodeId="12" label={`영어지도프로그램${' 빈공간'}`} />
-                                    </TreeItem>
-                                </TreeItem>
-                            </div>
-                        </TreeItem>
-                        <TreeItem nodeId="13" label="돌봄" >
-                            <div className='TreeBorder'>
-                                <TreeItem nodeId="14" label="돌봄서비스" >
-                                    <TreeItem nodeId="15" label="돌봄 프로그램" >
-                                        <TreeItem nodeId="16" label={`평일반${' 빈공간'}`} />
-                                    </TreeItem>
-                                </TreeItem>
-                            </div>
-                        </TreeItem>
-                        <TreeItem nodeId="17" label="이용" >
-                            <TreeItem nodeId="18" label="시설이용" >
-                                <TreeItem nodeId="19" label="이용_서비스" >
-                                    <TreeItem nodeId="20" label={`모전지억아동센터_이용${' 빈공간'}`} />
-                                </TreeItem>
-                            </TreeItem>
-                        </TreeItem>
+                        {treeMake}
                     </TreeItem>
                 </TreeView>
             </div>
@@ -92,4 +87,5 @@ function ProgramTree({name}) {
     );
 }
 
-export default ProgramTree;
+export default React.memo(ProgramTree);
+// export default ProgramTree;

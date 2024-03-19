@@ -1,0 +1,117 @@
+.mem_gridBox,
+.mem_gridBox2,
+.mem_gridBox3 {
+    font-size: 14px;
+    display: grid;
+    margin-bottom: 40px;
+
+    border-top: 0.3px solid var(--lgray);
+    border-bottom: 0.3px solid var(--lgray);
+}
+
+.mem_gridBox {
+    grid-template-columns: 10% 24% 10% 24% 12% 20%;
+}
+
+
+.mem_gridBox3 {
+    grid-template-columns: 10% 24% 10% 24% 12% 20%;
+}
+
+.memberSearchBox input{
+    height: 22px;
+}
+
+/* 기본인적사항, 계좌번호, 학력 구분선 */
+.mem_gridBox>div,
+.mem_gridBox2>div,
+.mem_gridBox3>div {
+    padding: 5px;
+    border-bottom: 1px solid var(--lgray);
+}
+
+/* 대상자명, 담당자명, 이메일 */
+.mem_name>input:nth-child(1),
+.mem_responsible_person>input:nth-child(1),
+.mem_mail>input:nth-child(1),
+.mem_zipcode>input:nth-child(1){
+    width: 40%;
+}
+
+/* 주민번호 */
+.mem_resident_registration_number>input:nth-child(1),
+.mem_resident_registration_number>input:nth-child(2){
+    width: 300%;
+}
+
+.mem_resident_registration_number>input:nth-child(4){
+    height: auto;
+}
+
+/* 연령 */
+.mem_age>input:nth-child(1){
+    width: 25%; 
+}
+
+/* 전화번호, 핸드폰번호 */
+.mem_tel>input:nth-child(2),
+.mem_tel>input:nth-child(3),
+.mem_phone>input:nth-child(2),
+.mem_phone>input:nth-child(3){
+    width: 20%;
+}
+.mem_tel>select,
+.mem_phone>select{
+    width:20%;
+    height:22px;
+}
+
+/* 주소 */
+.mem_address1>input:nth-child(3){
+    height: auto;
+}
+
+/* 학력 */
+
+
+/* 기본인적사항 전체 박스 정렬 */
+.mem_gridBox>div,
+.mem_gridBox>div>div,
+.mem_gridBox2>div,
+.mem_gridBox2>div>div,
+.mem_gridBox3>div,
+.mem_gridBox3>div>div {
+    display: flex;
+    align-items: center;
+}
+
+.mem_gridBox>div:nth-child(2n+1),
+.mem_gridBox2>div:nth-child(2n+1),
+.mem_gridBox3>div:nth-child(2n+1) {
+    justify-content: end;
+    background-color: var(--admin);
+    font-weight: bold;
+}
+
+.mem_gridBox>div:not(:nth-child(6n+1)),
+.mem_gridBox2>div:not(:nth-child(6n+1)),
+.mem_gridBox3>div:not(:nth-child(2n+1)) {
+    border-left: 1px solid var(--lgray);
+}
+
+/* 필수입력사항 표시 */
+.mem_gridBox>div>span,
+.mem_gridBox2>div>span,
+.mem_gridBox3>div>span {
+    color: red;
+}
+
+/* 버튼 */
+.buttonBox, .buttonBox>div {
+    display: flex;
+}
+.buttonBox>div {
+    gap: 5px;
+    margin-left: auto;
+    margin-top: 80px;
+}

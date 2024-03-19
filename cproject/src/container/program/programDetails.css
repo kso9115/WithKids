@@ -1,88 +1,107 @@
-.gridBox,
-.gridBox2,
-.gridBox3 {
+.prg_dtl_gridBox,
+.prg_dtl_gridBox2,
+.prg_dtl_gridBox3 {
     font-size: 14px;
     display: grid;
-
+    margin-bottom: 60px;
     border-top: 2px solid var(--lgray);
     border-bottom: 2px solid var(--lgray);
-    margin-bottom: 20px;
 }
 
-.gridBox {
+.prg_dtl_gridBox {
     grid-template-columns: 10% 26% 12% 20% 12% 20%;
 }
 
-.gridBox2 {
+.prg_dtl_gridBox2 {
     grid-template-columns: 10% 23.3% 10% 23.3% 10% 23.4%;
 }
 
-.gridBox3 {
+.prg_dtl_gridBox3 {
     grid-template-columns: 10% 90%;
 }
 
-.gridBox>div,
-.gridBox2>div,
-.gridBox3>div {
+.prg_dtl_gridBox>div,
+.prg_dtl_gridBox2>div,
+.prg_dtl_gridBox3>div {
     padding: 5px;
     border-bottom: 1px solid var(--lgray);
 }
 
-.gridBox>div,
-.gridBox>div>div,
-.gridBox2>div,
-.gridBox2>div>div,
-.gridBox3>div,
-.gridBox3>div>div {
+.prg_dtl_gridBox>div,
+.prg_dtl_gridBox>div>div,
+.prg_dtl_gridBox2>div,
+.prg_dtl_gridBox2>div>div,
+.prg_dtl_gridBox3>div,
+.prg_dtl_gridBox3>div>div {
     display: flex;
     align-items: center;
 }
 
-.gridBox>div>input {
+.prg_dtl_gridBox>div>input {
     width: 100%;
 }
 
-.gridBox2>div>input {
+.prg_dtl_gridBox2>div>input {
     width: 60%;
 }
 
-.gridBox>div:nth-child(2n+1),
-.gridBox2>div:nth-child(2n+1),
-.gridBox3>div:nth-child(2n+1) {
+.prg_dtl_gridBox>div:nth-child(2n+1),
+.prg_dtl_gridBox2>div:nth-child(2n+1),
+.prg_dtl_gridBox3>div:nth-child(2n+1) {
     justify-content: end;
     background-color: var(--admin);
     font-weight: bold;
 }
 
-.gridBox>div:not(:nth-child(6n+1)),
-.gridBox2>div:not(:nth-child(6n+1)),
-.gridBox3>div:not(:nth-child(2n+1)) {
+.prg_dtl_gridBox>div:not(:nth-child(6n+1)),
+.prg_dtl_gridBox2>div:not(:nth-child(6n+1)),
+.prg_dtl_gridBox3>div:not(:nth-child(2n+1)) {
     border-left: 1px solid var(--lgray);
 }
 
-.gridBox>div:nth-child(n+19),
-.gridBox2>div:nth-child(n+13),
-.gridBox3>div:nth-child(n+7) {
+.prg_dtl_gridBox>div:nth-child(n+19),
+.prg_dtl_gridBox2>div:nth-child(n+13),
+.prg_dtl_gridBox3>div:nth-child(n+7) {
     border-bottom: 0px;
 }
 
-.gridBox>div>span,
-.gridBox2>div>span,
-.gridBox3>div>span {
+.prg_dtl_gridBox>div>span,
+.prg_dtl_gridBox2>div>span,
+.prg_dtl_gridBox3>div>span {
     color: red;
 }
 
-.gridBox>div label,
-.gridBox2>div label,
-.gridBox3>div label {
+.prg_dtl_gridBox>div label,
+.prg_dtl_gridBox2>div label,
+.prg_dtl_gridBox3>div label {
     margin: 0;
     padding-left: 2px;
 }
 
-.radioBox {
+.prg_dtl_radioBox {
     gap: 20px;
 }
 
-.gridBox3>div label {
+.prg_dtl_gridBox3>div label {
     width: 130px;
+}
+
+.prg_dtl_selectBox>select {
+    width: 60%;
+}
+
+.prg_dtl_select{
+    height: 21px;
+}
+
+.text_align{
+    text-align: right;
+}
+
+.buttonBox, .buttonBox>div {
+    display: flex;
+}
+.buttonBox>div {
+    gap: 5px;
+    margin-left: auto;
 }
