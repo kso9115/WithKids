@@ -4,7 +4,8 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Session from 'react-session-api';
 import leftBackground from '../../images/leftBackground.png';
-
+import faceId from '../../images/free-icon-face-id-2415069.png';
+import padLock from '../../images/free-icon-padlock-2575570.png';
 
 function Login({ setSessionName }) {
     const navigate = useNavigate();
@@ -50,16 +51,15 @@ function Login({ setSessionName }) {
             .catch(err => console.log(err))
     };
 
-
     return (
         <div className="loginBox">
-            <div className='logLeftBox' style={{width:'50%'}} >
+            <div className='logLeftBox' style={{width:'50%', heightht: '100%'}}>
                 <div><img className="leftBackground" src={leftBackground} alt="배경"></img></div>
 
                 <div>
-                    <div><a href='/'>로그인페이지</a></div>
+                    <div className='hovering'><a href='/'>로그인페이지</a></div>
                     <br />
-                    <div><a href="/home">메인페이지</a></div>
+                    <div className='hovering'><a href="/home">메인페이지</a></div>
                 </div>
                 
             </div>
@@ -73,16 +73,19 @@ function Login({ setSessionName }) {
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className='loginTable'>
-                        <div>
-                            <div className='idpwbox'><label htmlFor="id">I D</label></div>
-                            <div><input type="text" id="id" name="id" value={id} onChange={handleIdChange}/></div>
+                        <div className='idpwbox'>
+                            <div><img className="faceId" src={faceId} alt="ID" />
+                                <input type="text" id="id" name="id" value={id} onChange={handleIdChange}/>
+                            </div>
                         
-                            <div className='idpwbox'><label htmlFor="password">Password</label></div>
-                            <div><input type="password" id="password" name="password" value={password} onChange={handlePwChange}/></div>
+                            <div><img className="padLock" src={padLock} alt="password"></img>
+                                <input type="password" id="password" name="password" value={password} onChange={handlePwChange}/>
+                            </div>
                         </div>
+                        
                         <div className='loginBtn'>
-                            <input type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
-                            <input type="reset" value="취소" />
+                            <input className='custom-btn btn-6' type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
+                            <input className='custom-btn btn-6' type="reset" value="취소" />
                         </div>    
                     </div>
                 </form>

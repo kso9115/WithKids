@@ -160,9 +160,9 @@ export const stf_mng = {
 }
 
 export const att_mng = {
-    name: '출석관리',
+    name: '출석관리', 
     action: 'attmng',
-    method: 'get',
+    method: 'get', 
     content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
         {
             name: '재원 기간', // input/select 앞에 표현될 내용
