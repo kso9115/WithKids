@@ -12,21 +12,30 @@ function ProgramManagement() {
     const [programId, setProgramId] = useState([]);
     const [prgData, setPrgData] = useState('');
 
-    const [subMenuArr, setSubMenuArr] = useState([
-        { name: '프로그램 상세정보', content: <ProgramDetails data={programId} setData={setProgramId} /> },
-        { name: '세부 프로그램', content: <ProgramDetailsPrg data={programId} setData={setProgramId} /> }
-    ]);
+    // const [subMenuArr, setSubMenuArr] = useState([
+    //     { name: '프로그램 상세정보', content: <ProgramDetails data={programId} setData={setProgramId} /> },
+    //     { name: '세부 프로그램', content: <ProgramDetailsPrg data={programId} setData={setProgramId} /> }
+    // ]);
+    console.log(programId);
+    const subMenuArr = [
+        { name: '프로그램 상세정보', content: '' },
+        { name: '세부 프로그램', content: '' }
+    ];
+    subMenuArr[0].content = <ProgramDetails data={programId} setData={setProgramId} />;
+    subMenuArr[1].content = <ProgramDetailsPrg data={programId} setData={setProgramId} />;
+
     const [subCurrentTab, setSubCurrentTab] = useState(0);
-    // console.log(programId);
+    
+
+    // useEffect(() => {
+    //     setSubMenuArr([
+    //         { name: '프로그램 상세정보', content: <ProgramDetails data={programId} setData={setProgramId} /> },
+    //         { name: '세부 프로그램', content: <ProgramDetailsPrg data={programId} setData={setProgramId} /> }
+    //     ])
+    // }, [programId]);
 
     useEffect(() => {
-        setSubMenuArr([
-            { name: '프로그램 상세정보', content: <ProgramDetails data={programId} setData={setProgramId} /> },
-            { name: '세부 프로그램', content: <ProgramDetailsPrg data={programId} setData={setProgramId} /> }
-        ])
-    }, [programId]);
-
-    useEffect(() => {
+        console.log("데이터 가져와요!!");
         axios.get('/api/prg/prgList')
             .then((res) => {
                 setPrgData(res.data);
@@ -104,7 +113,7 @@ function ProgramManagement() {
                     width: '70%',
                     height: '100%'
                 }}>
-                    <Container menuArr={subMenuArr} setMenuArr={setSubMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={'sub'} ></Container>
+                    <Container menuArr={subMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={'sub'} ></Container>
                 </div>
             </div>
         </div>

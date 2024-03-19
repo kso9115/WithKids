@@ -4,8 +4,6 @@ import UserFooter from './UserFooter'
 import { Outlet } from 'react-router-dom'
 
 function UserHome() {
-    
-
 
     return (
         <>

@@ -63,3 +63,8 @@ code {
   margin: 0;
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: 'home';
+  src: url('../public/webfont/210\ 러블리베이비R.ttf') format('truetype');
+}

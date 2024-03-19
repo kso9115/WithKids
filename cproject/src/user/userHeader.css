@@ -9,7 +9,6 @@ header {
     font-family: "Dongle", sans-serif;
     font-weight: 400;
     font-style: normal;
-
 }
 
 #logo {
@@ -17,34 +16,39 @@ header {
 
 }
 
-#menu {
+#userMenu {
     width: 100%;
     position: absolute;
     top: 60px;
     left: 0;
     font-size: 40px;
+    font-family: 'home';
 }
 
 
-#menu>ul {
+#userMenu>ul {
     margin: auto;
     width: 100%;
     max-width: 1200px;
     padding: 0 170px;
     box-sizing: border-box;
+    display: flex;
+    justify-content: space-between
 }
 
-#menu>ul>li {
+#userMenu>ul>li {
     float: left;
     text-align: center;
-    width: 20% !important;
+    /* width: 20% !important; */
+    font-size: 30px;
 }
 
 #login_group {
     position: absolute;
-    top: 60px;
+    top: 70px;
     right: 60px;
-    font-size: 30px;
+    font-size: 21px;
+    font-family: 'home';
 }
 
 #login_group>ul>li {
@@ -72,3 +76,4 @@ header {
     color: black;
     line-height: 50px;
 }
+

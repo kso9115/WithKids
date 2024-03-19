@@ -37,7 +37,7 @@ function UserHeader() {
             </a>
 
             <nav>
-                <div id="menu">
+                <div id="userMenu">
                     <ul>
                         <li><a href="#">센터 소개</a></li>
                         <li><a href="/user/notice">공지사항</a></li>

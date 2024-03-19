@@ -20,7 +20,6 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     map.set('StaffManagement', { name: '직원정보', content: <StaffManagement /> });
     map.set('Calender', { name: '캘린더', content: <Calender></Calender> });
     map.set('ProgramManagement', { name: '프로그램정보관리', content: <ProgramManagement></ProgramManagement> });
-    console.log(menuArr);
     function getTransTitle(menuName) {
         
         // menuArr.filter((it)=>it.isDone)
@@ -52,7 +51,7 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
                 </div>
                 <PagesCollapse getTransTitle={getTransTitle} name='출석'
                     menu={['출석관리', '출석그래프']}
-                    conName={['Attandance', 'Calender']} img='img/출석.png'/>
+                    conName={['AttandanceMangement', 'Calender']} img='img/출석.png'/>
                 <PagesCollapse getTransTitle={getTransTitle} name='아동관리'
                     menu={['대상자 기본 정보', '입소/퇴소 관리']}
                     conName={['MemberMangement', 'Admission']} img='img/사람.png'/>
