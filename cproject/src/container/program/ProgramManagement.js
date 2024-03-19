@@ -16,7 +16,7 @@ function ProgramManagement() {
     //     { name: '프로그램 상세정보', content: <ProgramDetails data={programId} setData={setProgramId} /> },
     //     { name: '세부 프로그램', content: <ProgramDetailsPrg data={programId} setData={setProgramId} /> }
     // ]);
-    console.log(programId);
+    // console.log(programId);
     const subMenuArr = [
         { name: '프로그램 상세정보', content: '' },
         { name: '세부 프로그램', content: '' }
@@ -25,14 +25,6 @@ function ProgramManagement() {
     subMenuArr[1].content = <ProgramDetailsPrg data={programId} setData={setProgramId} />;
 
     const [subCurrentTab, setSubCurrentTab] = useState(0);
-    
-
-    // useEffect(() => {
-    //     setSubMenuArr([
-    //         { name: '프로그램 상세정보', content: <ProgramDetails data={programId} setData={setProgramId} /> },
-    //         { name: '세부 프로그램', content: <ProgramDetailsPrg data={programId} setData={setProgramId} /> }
-    //     ])
-    // }, [programId]);
 
     useEffect(() => {
         console.log("데이터 가져와요!!");

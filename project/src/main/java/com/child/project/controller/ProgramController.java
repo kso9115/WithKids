@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.child.project.entity.Program;
+//import com.child.project.entity.Program_details;
 import com.child.project.service.ProgramService;
 
 import lombok.AllArgsConstructor;
@@ -28,6 +30,14 @@ public class ProgramController {
 		return list;
 	} // prgList
 
+	// @GetMapping("/prgDetails")
+	// public Program_details prgDetails(Model model, @RequestParam("rec")String rec,
+	// 		@RequestParam("prg_date")String prg_date,@RequestParam("prg_id")String prg_id) {
+		
+	// 	return prgService.selectDetails(rec,prg_date,prg_id);
+	// } // prgDetails
+	
+	
 	@GetMapping("/hi")
 	public String hi() {
 

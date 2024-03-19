@@ -1,5 +1,5 @@
 import './programDetailsPrg.css'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AttachedFile from '../../func/AttachedFile';
 
 
@@ -15,7 +15,13 @@ const prgdtlData = [
 ];
 
 function ProgramDetailsPrg({ data, setData }) {
-    console.log(data);
+    // useEffect(() => {
+    //     console.log("데이터 가져와요!!");
+    //     axios.get('/api/prg/prgList')
+    //         .then((res) => {
+    //             setPrgData(res.data);
+    //         })
+    // }, []);
 
     return (
         <div style={{
