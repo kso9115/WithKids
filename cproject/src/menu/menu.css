@@ -1,0 +1,27 @@
+#menuContainer {
+    width: 224px !important;
+    min-height: 100vh;
+    background-color: var(--blue);
+    color: white;
+    margin-bottom: 0;
+    font-family: sans-serif;
+}
+
+.menuHr {
+    margin: 0 auto;
+    margin-bottom: 16px;
+    width: 200px;
+    border-top: 1px solid rgba(231, 231, 231, 0.3);
+    /* color: var(--gray); */
+}
+
+#menuTitle {
+    text-align: center;
+    line-height: 70px;
+}
+
+.menu-side-heading {
+    padding: 0 16px;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.7);
+}

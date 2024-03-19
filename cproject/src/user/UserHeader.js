@@ -1,21 +1,22 @@
 import './userHeader.css'
 import logo from '../images/Community Child Center.png'
 import iconChat from '../images/iconChat.png'
-
-import { useRef } from 'react';
+import Chatbot from './chatbot/Chatbot';
+import { useRef , useState } from 'react';
 
 function UserHeader() {
     
+    const [modal, setModal] = useState(false);
     const icon = useRef();
 
     function iconClick() {
         
         if (document.getElementById("iconChat").classList == 'iconClick') {
-            console.log(document.getElementById("iconChat").classList);
+            setModal(false)
             document.getElementById("iconChat").classList = '';
             document.getElementById("iconChat").innerHTML = '<img src="img/iconChat.png" alt="" />'
         } else {
-            console.log(document.getElementById("iconChat").classList);
+            setModal(true)
             document.getElementById("iconChat").classList = 'iconClick';
             document.getElementById("iconChat").innerHTML = '<span>닫기</span>'
         }
@@ -57,7 +58,11 @@ function UserHeader() {
             <div id="iconChat" className='' ref={icon} onClick={iconClick}>
                 <img src={iconChat} alt="" />
             </div>
+
+            
+            <Chatbot isModal={modal} setModal={setModal}></Chatbot>
         </header>
+        
     );
 }
 export default UserHeader;

@@ -1,0 +1,40 @@
+
+.adgridBox {
+    display: grid;
+    font-size: 14px;
+    grid-template-columns: 12% 20% 12% 22% 12% 22%;
+   
+    border-top: 2px solid var(--lgray);
+    border-bottom: 2px solid var(--lgray);
+}
+.adgridBox2 {
+    display: grid;
+    font-size: 14px;
+    color: black;
+    grid-template-columns: 12% 88%;
+    border-top: 2px solid var(--lgray);
+    border-bottom: 2px solid var(--lgray);
+}
+.adgridBox>div, .adgridBox2>div {
+    color: black;
+    font-weight: bold;
+    padding: 5px;
+}
+.adgridBox2 textarea {
+    height: 50px;
+    width: 80%;
+}
+.adgridBox>div:nth-child(2n-1), 
+.adgridBox2>div:nth-child(2n-1) {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    background-color: var(--admin);
+}
+.adgridBox2>div:nth-child(n):nth-child(-n+2),
+.adgridBox>div:nth-child(n):nth-child(-n+36) {
+    border-bottom: 1px solid var(--lgray);
+}
+.adgridBox>div:not(:nth-child(6n)) {
+    border-right: 1px solid var(--lgray);
+}

@@ -3,6 +3,9 @@ import ProgramTree from './ProgramTree'
 import ProgramDetails from './ProgramDetails'
 import Container from '../Container'
 import { useState } from 'react'
+import SearchBox from '../searchbox/SearchBox';
+import { prg_mng } from '../searchbox/searchData'
+
 
 function ProgramManagement() {
     const [subMenuArr, setSubMenuArr] = useState([
@@ -15,46 +18,13 @@ function ProgramManagement() {
             color: "black",
             height: "100%"
         }}>
-            <p>프로그램 정보 관리</p>
-            <form>
-                <div className='searchBox'>
-                    <div>
-                        <span style={{color:"red"}}>*</span>프로그램 기간&nbsp;&nbsp;
-                        <input type="date" value={'2024-01-01'}/>
-                        ~
-                        <input type="date" value={'2024-12-31'} />
-                    </div>
-                    <div>
-                        프로그램명&nbsp;&nbsp;
-                        <input type="text" />
-                    </div>
-                    <div>
-                        담당자&nbsp;&nbsp;
-                        <input type="text" />
-                    </div>
-                    <div>
-                        프로그램 그룹&nbsp;&nbsp;
-                        <select>
-                            <option value="" key="">전체</option>
-                        </select>
-                    </div>
-                    <div>
-                        <button type="reset">리셋</button>&nbsp;
-                        <button type="button">조회</button>
-                    </div>
-                </div>
-            </form>
+            <SearchBox data={prg_mng} />
             <div className='mainBox'>
                 <div style={{
                     width: '30%',
                     height: '100%',
                 }}>
-                    <div style={{
-                        marginBottom: '5px'
-                    }}>
-                        프로그램 목록
-                    </div>
-                    <ProgramTree></ProgramTree>
+                    <ProgramTree name={'프로그램 목록'}></ProgramTree>
                 </div>
                 <div style={{
                     borderWidth: 1,
