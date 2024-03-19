@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="board_notice.css">
-	<link rel="stylesheet" type="text/css" href="default_notice.css">
-	<link rel="stylesheet" type="text/css" href="layout_notice.css">
-	<link rel="stylesheet" type="text/css" href="layout2_notice.css">
-    <link rel="stylesheet" type="text/css" href="sub_notice.css">
+
+
+
 </head>
+
 <body>
-    
+
 </body>
+
 </html>
 <div id="container" class="sub">
     <div class="sub_top">
@@ -20,57 +22,56 @@
             <h5>공지사항</h5>
         </div>
     </div>
-    <div class="content pd0">\
+    <div class="content pd0">
         <form name="dataForm" id="dataForm" method="get" action="BD_selectBbsList.do" class="form-inline">
             <input type="hidden" name="q_bbsCode" id="q_bbsCode" value="1001">
             <input type="hidden" name="q_bbscttSn" id="q_bbscttSn" value="">
             <div class="Search">
-                <fieldset>
-                    <div class="con_inner">
-                        <div class="Search_table">
-                            <table>
-                                <caption>공지사항 목록보기 검색창</caption>
-                                <colgroup>
-                                    <col style="width:80px">
-                                    <col>
-                                </colgroup>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">
-                                            <div class="input_group">
-                                                <select title="구분" id="q_searchKey" name="q_searchKey"
-                                                    class="searchKey">
-                                                    <option value="1001" selected="selected">제목</option>
-                                                    <option value="1002">내용</option>
-                                                </select>
-                                            </div>
-                                        </th>
-                                        <td>
-                                            <div class="input_group">
-                                                <input type="text" name="q_searchVal" class="keyword" title="검색어"
-                                                    placeholder="검색어를 입력하세요." value="">
-                                                <span class="input_addon"><button type="submit"
-                                                        class="btn_bbs_search">검색</button></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+                <div class="con_inner">
+                    <div class="Search_table">
+                        <table>
+                            <caption>공지사항 목록보기 검색창</caption>
+                            <colgroup>
+                                <col style="width: 100px;">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">
+                                        <div class="input_group">
+                                            <select title="구분" id="q_searchKey" name="q_searchKey" class="searchKey">
+                                                <option value="1001" selected="selected">제목</option>
+                                                <option value="1002">내용</option>
+                                            </select>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        <div class="input_group">
+                                            <input type="text" name="q_searchVal" class="keyword" title="검색어"
+                                                placeholder="검색어를 입력하세요." value="">
+                                            <span class="input_addon"><button type="submit"
+                                                    class="btn_bbs_search">검색</button></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </fieldset>
+                </div>
+
             </div>
 
             <div class="con_inner">
                 <div class="board_list">
-    
-                    <fieldset>
-                        <legend class="sr-only">페이지당 목록갯수 선택</legend>
-                        <div class="pull-left">
-                            <span class="list_total">전체<strong>153</strong>건</span>
-                        </div>
 
-                    </fieldset>
+
+                    <legend class="sr-only">페이지당 목록갯수 선택</legend>
+                    <div class="pull-left">
+                        <span class="list_total">전체<strong>153</strong>건</span>
+                    </div>
+
+
 
                     <input type="hidden" name="q_currPage" id="q_currPage" value="1">
 
@@ -80,12 +81,7 @@
 
                     <table class="tb_list notice_list" summary=" 항목을 제공합니다.">
                         <caption class="hidden">HOME &gt; 커뮤니티 &gt; 공지사항 </caption>
-                        <colgroup>
-                            <col width="">
-                            <col width="">
-                            <col width="">
-                            <col width="">
-                        </colgroup>
+
                         <thead>
                             <tr>
                                 <th scope="col">번호</th>
@@ -252,7 +248,7 @@
 
                         </tbody>
                     </table>
-                   
+
 
 
                     <div class="paging" id="page-div">
@@ -287,126 +283,37 @@
 
                         <a href="#" onclick="opMovePage(10); return false;" title="10 페이지">10</a>
 
-
-
                         <a href="#next" class="direction next" onclick="opMovePage(11); return false;"
                             title="다음페이지그룹 가기"><i class="entypo-right-open"></i></a>
-
-
-
+                        <br><br>
+                        <hr>
 
                     </div>
 
-                    <script type="text/javascript">
-                       
-                        var currNum = $("#page-div").find("strong").text();
-                        var prevNum = "0";
-                        var nextNum = "11";
-                        var mCurrNum = currNum;
-                        var mPrevNum = prevNum;
-                        var mNextNum = nextNum;
-                        var scriptNm = "opMovePage" == "" ? "opMovePage" : "opMovePage";
-                        var lastPageNum = "16";
-                        var resizePagination = function () {
-
-                            if (window.outerWidth < 768) {
-
-                                if (Number(currNum) > 10) currNum = currNum.substring(currNum.length - 1);
-
-                                if (Number(currNum) == 0) currNum = 10;
-
-                                $("#page-div a").not(".direction").each(function (i) {
-                                    var pageNum = $(this).text();
-
-                                    if (Number(pageNum) > 10) pageNum = pageNum.substring(pageNum.length - 1);
-
-                                    if (Number(pageNum) == 0) pageNum = 10;
-
-                                    if (Number(currNum) > 5) {
-                                        if (Number(pageNum) <= 5) {
-
-                                            $(this).css("display", "none");
-                                        }
-                                    } else {
-                                        if (Number(pageNum) > 5) {
-
-                                            $(this).css("display", "none");
-                                        }
-                                    }
-                                });
-
-                                if (Number(currNum) > 5) {
-                                    mPrevNum = Number(mPrevNum) + 5;
-
-                                    if (Number(mCurrNum) > 5 && Number(mCurrNum) <= 10) {
-                                        var prevTag = "<a href='#' class='direction prev' onclick='" + scriptNm + "(5); return false;' title='이전페이지그룹 가기'></a>";
-                                        $("#page-div").prepend(prevTag);
-                                    }
-                                } else {
-                                    mNextNum = Number(mNextNum) - 5;
-
-                                    if (Number(lastPageNum) < Number(nextNum)) {
-                                        var nextTag = "<a href='#' class='direction next' onclick='" + scriptNm + "(" + (Number(mNextNum) - 5) + "); return false;' title='다음페이지그룹 가기'></a>";
-                                        $("#page-div").append(nextTag);
-                                    }
-                                }
 
 
-                                $("#page-div").find("a.prev").attr("onclick", scriptNm + '(' + mPrevNum + '); return false;');
-                                $("#page-div").find("a.next").attr("onclick", scriptNm + '(' + mNextNum + '); return false;');
-                            } else {
-
-                                if (Number(mCurrNum) <= 10) {
-                                    $("#page-div").find("a.prev").remove();
-                                }
-                                $("#page-div a").not(".direction").removeAttr("style");
-
-                                $("#page-div").find("a.prev").attr("onclick", scriptNm + '(' + prevNum + '); return false;');
-                                $("#page-div").find("a.next").attr("onclick", scriptNm + '(' + nextNum + '); return false;');
-                            }
-
-                            if (Number(lastPageNum) < Number(nextNum)) {
-                                $("#page-div").find("a.next").remove();
-                            }
-                        }
-
-                        $(document).ready(function () {
-                            $(window).resize(resizePagination);
-                            resizePagination();
-                        });
-                        
-                    </script>
-                    
                 </div>
             </div>
         </form>
     </div>
 
     <footer id="footer">
-        
-     <div class="footer_inner">
-         <div class="footer_left">
-             <ul class="footer_menu">
-                 <li class="pinclr"><a href="/home/indvdlinfo/indvdlinfo_2.jsp">개인정보처리방침</a></li>
-                 <li><a href="/home/indvdlinfo/indvdlinfo_1.jsp">이용약관</a></li>
-                 <li><a href="/home/indvdlinfo/indvdlinfo_3.jsp">이메일무단수집거부</a></li>
-             </ul>
-         </div>
-         <div class="footer_right">
-             
-             <ul class="addr">
-                 <li><span>처인구</span><p>[17055] 경기도 용인시 처인구 명지로40번길 8 삼가프라자 5층<br> TEL 031-337-4012, 4013</p></li>
-                 <li><span>기흥구</span><p>[16972] 경기도 용인시 기흥구 구갈로60번길 15 경영빌딩 2층<br> TEL 031-693-8332, 8333</p></li>
-                 <li><span>수지구</span><p>[16870] 경기도 용인시 수지구 포은대로 499 아르피아타워 2~3층<br> TEL 031-324-4852, 4853</p></li>
-             </ul>
-             
-         </div>
-         <p class="footer_logo">
-             <img src="/MyJavaScript/Project/logo.png" alt="용인 청년 LAB">
-             <cite>COPYRIGHT(C) YONGIN CITY. ALL RIGHTS RESERVED.</cite>
-         </p>	
-     </div>
-     
- </footer>
+
+        <div class="footer_inner">
+            <div class="footer_left">
+                <ul class="footer_menu">
+                    <li class="pinclr"><a href="/home/indvdlinfo/indvdlinfo_2.jsp">개인정보처리방침</a></li>
+                    <li><a href="/home/indvdlinfo/indvdlinfo_1.jsp">이용약관</a></li>
+                    <li><a href="/home/indvdlinfo/indvdlinfo_3.jsp">이메일무단수집거부</a></li>
+                </ul>
+            </div>
+
+            <p class="footer_logo">
+
+                <cite>COPYRIGHT(C) YONGIN CITY. ALL RIGHTS RESERVED.</cite>
+            </p>
+        </div>
+
+    </footer>
 
 </div>

@@ -4,33 +4,32 @@
 //     // return { __html: 'First &middot; Second' };
 //     return { __html: '<iframe src={noticeSrc}</iframe>' };
 // }
-
+import './board_notice.css';
 
 function Notice() {
 
     return (
         // <div dangerouslySetInnerHTML={createNotice()} />
         <div>
-            <div id="container" class="sub">
+
+        
+            <div id="container" class="sub"> 
         <div class="sub_top">
             <div class="top_title">
                 <h5>공지사항</h5>
             </div>
         </div>
-        <div class="content pd0">\
-            <form name="dataForm" id="dataForm" method="get" action="BD_selectBbsList.do" class="form-inline"></form>
+        <div class="content pd0">
+            <form name="dataForm" id="dataForm" method="get" action="BD_selectBbsList.do" class="form-inline"></form> 
                 <input type="hidden" name="q_bbsCode" id="q_bbsCode" value="1001"></input>
                 <input type="hidden" name="q_bbscttSn" id="q_bbscttSn" value=""></input>
-                <div class="Search">
-                    <fieldset>
+                <div class="Search"> </div> 
+                    
                         <div class="con_inner"></div>
                             <div class="Search_table">
                                 <table>
                                     <caption>공지사항 목록보기 검색창</caption>
-                                    <colgroup>
-                                        <col style="width:80px">
-                                        <col>
-                                    </colgroup>
+                                   
                                     <tbody>
                                         <tr>
                                             <th scope="row">
@@ -44,18 +43,20 @@ function Notice() {
                                             </th>
                                             <td>
                                                 <div class="input_group">
-                                                    <input type="text" name="q_searchVal" class="keyword" title="검색어"></input>
-                                                        placeholder="검색어를 입력하세요." value=""
+                                                    <input type="text" name="q_searchVal" class="keyword" title="검색어"
+                                                    placeholder="검색어를 입력하세요." value="" ></input>
+                                                   
+                                                        
                                                     <span class="input_addon"><button type="submit"
-                                                            class="btn_bbs_search">검색</button></span>
-                                                </div>
+                                                            class="btn_bbs_search">검색</button></span> </div>
+                                                           
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </fieldset>
+                    
                 </div>
     
                 <div class="con_inner">
@@ -77,12 +78,9 @@ function Notice() {
     
                         <table class="tb_list notice_list" summary=" 항목을 제공합니다."></table>
                             <caption class="hidden">HOME &gt; 커뮤니티 &gt; 공지사항 </caption>
-                            <colgroup>
-                                <col width="">
-                                <col width="">
-                                <col width="">
-                                <col width="">
-                            </colgroup>
+                        </div>
+                               
+                           
                             <thead>
                                 <tr>
                                     <th scope="col">번호</th>
@@ -97,7 +95,7 @@ function Notice() {
                                     <td class="tb_num"></td>
                                     <td class="tb_tit">
                                         <span class="ico_nt">공지</span>
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20240109172726430"
                                             onclick="opView('20240109172726430');return false;">용감한 아동(아동LAB e-book
                                             창간호)</a>
@@ -110,7 +108,7 @@ function Notice() {
                                     <td class="tb_num"></td>
                                     <td class="tb_tit">
                                         <span class="ico_nt">공지</span>
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20231201164020797"
                                             onclick="opView('20231201164020797');return false;">[용인청년LAB 기흥] 주말 운영 변경 안내</a>
     
@@ -123,7 +121,7 @@ function Notice() {
                                 <tr>
                                     <td class="tb_num">153</td>
                                     <td class="tb_tit">
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20240223171936269"
                                             onclick="opView('20240223171936269');return false;"> 2024년 1분기 청년 기본소득</a>
                                         <span class="ico_file"></span>
@@ -135,7 +133,7 @@ function Notice() {
                                 <tr>
                                     <td class="tb_num">152</td>
                                     <td class="tb_tit">
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20240223162441994"
                                             onclick="opView('20240223162441994');return false;">2024년 소프트웨어 구입 비용 지원사업
                                             확대</a>
@@ -148,7 +146,7 @@ function Notice() {
                                 <tr>
                                     <td class="tb_num">151</td>
                                     <td class="tb_tit">
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20240222112951406"
                                             onclick="opView('20240222112951406');return false;">용인 청년 LAB 2024년 3월 프로그램</a>
     
@@ -160,7 +158,7 @@ function Notice() {
                                 <tr>
                                     <td class="tb_num">150</td>
                                     <td class="tb_tit">
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20240219111947871"
                                             onclick="opView('20240219111947871');return false;">2024년 「용인특례시 2030 청년봉사단」
                                             모집</a>
@@ -173,7 +171,7 @@ function Notice() {
                                 <tr>
                                     <td class="tb_num">149</td>
                                     <td class="tb_tit">
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20240124143311254"
                                             onclick="opView('20240124143311254');return false;"> [공유물품] 용인 청년 LAB 처인 공유물품
                                             업데이트</a>
@@ -186,7 +184,7 @@ function Notice() {
                                 <tr>
                                     <td class="tb_num">148</td>
                                     <td class="tb_tit">
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20240123160112875"
                                             onclick="opView('20240123160112875');return false;">용인청년 소프트웨어 구입 비용 지원사업 </a>
                                         <span class="ico_file"></span>
@@ -198,7 +196,7 @@ function Notice() {
                                 <tr>
                                     <td class="tb_num">147</td>
                                     <td class="tb_tit">
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20240123152229195"
                                             onclick="opView('20240123152229195');return false;">용인청년 희망옷장(면접정장 무료대여서비스)
                                             안내</a>
@@ -211,7 +209,7 @@ function Notice() {
                                 <tr>
                                     <td class="tb_num">146</td>
                                     <td class="tb_tit">
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20240116173315861"
                                             onclick="opView('20240116173315861');return false;">용인청년 전·월세보증금 대출이자 지원 신청자
                                             모집</a>
@@ -224,7 +222,7 @@ function Notice() {
                                 <tr>
                                     <td class="tb_num">145</td>
                                     <td class="tb_tit">
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20240116170408733"
                                             onclick="opView('20240116170408733');return false;">2024년 용인 청년커뮤니티 지원 사업 공모</a>
                                         <span class="ico_file"></span>
@@ -236,7 +234,7 @@ function Notice() {
                                 <tr>
                                     <td class="tb_num">144</td>
                                     <td class="tb_tit">
-                                        <span class="bbsSjMargin" style="padding-left:0px;">&nbsp;</span><a
+                                        <span class="bbsSjMargin" style={{paddingLeft:'0px'}}>&nbsp;</span><a
                                             href="BD_selectBbs.do?q_bbsCode=1001&amp;q_bbscttSn=20231207095233505"
                                             onclick="opView('20231207095233505');return false;">용인문화도시플랫폼 아카데미 기술X예술 특강 참여자
                                             모집</a>
@@ -248,7 +246,7 @@ function Notice() {
     
     
                             </tbody>
-                        </table>
+                        
                        
     
     
@@ -288,6 +286,7 @@ function Notice() {
     
                             <a href="#next" class="direction next" onclick="opMovePage(11); return false;"
                                 title="다음페이지그룹 가기"><i class="entypo-right-open"></i></a>
+                                <br></br><br></br><hr></hr>
     
     
     
@@ -297,10 +296,8 @@ function Notice() {
                         
                         
                     </div>
-                </div>
-            </form>
-        </div>
-    
+                
+            
         <footer id="footer">
             
          <div class="footer_inner">
@@ -311,25 +308,18 @@ function Notice() {
                      <li><a href="/home/indvdlinfo/indvdlinfo_3.jsp">이메일무단수집거부</a></li>
                  </ul>
              </div>
-             <div class="footer_right">
-                 
-                 <ul class="addr">
-                     <li><span>처인구</span><p>[17055] 경기도 용인시 처인구 명지로40번길 8 삼가프라자 5층<br> TEL 031-337-4012, 4013</p></li>
-                     <li><span>기흥구</span><p>[16972] 경기도 용인시 기흥구 구갈로60번길 15 경영빌딩 2층<br> TEL 031-693-8332, 8333</p></li>
-                     <li><span>수지구</span><p>[16870] 경기도 용인시 수지구 포은대로 499 아르피아타워 2~3층<br> TEL 031-324-4852, 4853</p></li>
-                 </ul>
-                 
-             </div>
              <p class="footer_logo">
-                 <img src="/MyJavaScript/Project/logo.png" alt="용인 청년 LAB">
+                 
                  <cite>COPYRIGHT(C) YONGIN CITY. ALL RIGHTS RESERVED.</cite>
              </p>	
          </div>
          
-     </footer>
-    
-    </div></div>
+        </footer>
+    </div> 
     );
+    
+};
 
-}
+
+
 export default Notice;
