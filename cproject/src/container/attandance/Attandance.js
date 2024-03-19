@@ -1,14 +1,49 @@
+import { useState } from 'react';
 import './Attandance.css';
 
+import { addMonths, subMonths } from 'date-fns';
+import AttandanceRenderH from './AttandanceRenderH';
+
 function Attandance() {
+    const [currentMonth, setCurrentMonth] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const prevMonth = () => {
+        setCurrentMonth(subMonths(currentMonth, 1));
+    };
+    const nextMonth = () => {
+        setCurrentMonth(addMonths(currentMonth, 1));
+    };
+
+    const RenderDays = () => {
+        const days = [];
+        const date = ['Sun', 'Mon', 'Thu', 'Wed', 'Thrs', 'Fri', 'Sat'];
+
+        for (let i = 0; i < 31; i++) {
+            days.push(
+                <div className="col " key={i}>
+                    {date[i]}
+                </div>
+            );            
+        }
+
+        return <div className='days row'>{days}</div>
+
+    }
+
     return (
         <>
-            <b>출석관리</b>
-            <form>
+            <AttandanceRenderH
+                currentMonth={currentMonth}
+                prevMonth={prevMonth}
+                nextMonth={nextMonth}
+            ></AttandanceRenderH>
+            {RenderDays()}
+            {/* <form>
                 <div className='attandance'>
                     <div className='attandance_container'>
                         <div className='attandance_row_header'>
-                            <div className='attandance_cell'>체크란</div>
+                            <div className='attandance_cell'>□</div>
                             <div className='attandance_cell'>전체그룹select</div>
                             <div className='attandance_cell'>이름</div>
                             <div className='attandance_cell'>출석률</div>
@@ -28,7 +63,7 @@ function Attandance() {
                     </div>
 
                 </div>
-            </form>
+            </form> */}
         </>
 
     );

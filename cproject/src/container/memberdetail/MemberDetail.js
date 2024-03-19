@@ -58,32 +58,20 @@ function MemberDetail() {
                         </select>
                     </div>
 
-                    <div><sapn>*</sapn>연령(만나이)</div>
+                    <div><span>*</span>연령(만나이)</div>
                     <div className='mem_age'><input type='text' name='mem_age'></input>&nbsp;세</div>
 
                     <div>담당자</div>
                     <div className='mem_responsible_person'><input type='text' name='mem_responsible_person'></input></div>
 
-                    <div><sapn>*</sapn>전화번호</div>
+                    <div><span>*</span>전화번호</div>
                     <div className='mem_tel'>
-                        <select name='mem_tel1'>
-                            <option value='02' defaultChecked>02</option>
-                            <option value='031'>031</option>
-                            <option value='032'>032</option>
-                        </select>&nbsp;-&nbsp;
-                        <input type='tel' name='mem_tel2'></input>&nbsp;-&nbsp;
-                        <input type='tel' name='mem_tel3'></input>
+                        <input type='tel' name='mem_tel' placeholder='하이픈(-) 포함하여 작성'></input>
                     </div>
 
                     <div>휴대전화번호</div>
                     <div className='mem_phone'>
-                        <select name='mem_phone1'>
-                            <option value='010' defaultChecked>010</option>
-                            <option value='011'>011</option>
-                            <option value='019'>019</option>
-                        </select>&nbsp;-&nbsp;
-                        <input type='tel' name='mem_phone2'></input>&nbsp;-&nbsp;
-                        <input type='tel' name='mem_phone3'></input>
+                        <input type='tel' name='mem_phone' placeholder='하이픈(-) 포함하여 작성'></input>
                     </div>
 
 
@@ -126,7 +114,7 @@ function MemberDetail() {
                     </div>
 
                     <div>계좌번호</div>
-                    <div className='mem_account'><input type='text' name='mem_account'></input></div>
+                    <div className='mem_account'><input type='text' name='mem_account'  placeholder='하이픈(-) 포함하여 작성'></input></div>
 
                     <div>예금주</div>
                     <div><input type='text' name='mem_depositor'></input></div>

@@ -144,12 +144,6 @@ function MemberList() {
             birth: '1995-08-08'
         },
         {
-            serial: 'user2024ff001',
-            name: '김수옥',
-            gender: '여',
-            birth: '1995-08-08'
-        },
-        {
             serial: 'user2024ff002',
             name: '임시운',
             gender: '여',
@@ -192,8 +186,14 @@ function MemberList() {
     return (
         <>
             <b>대상자 리스트</b>
+<<<<<<< HEAD
             <div className="memberList">
                 {/* <table>
+=======
+            
+                <div className="memberList">
+                    {/* <table>
+>>>>>>> kso
                         <thead>
                             <tr>
                                 <th>번호</th>
@@ -231,6 +231,7 @@ function MemberList() {
                         <div className="memberList_cell">성별</div>
                         <div className="memberList_cell">생년월일</div>
                     </div>
+<<<<<<< HEAD
                     {testData.map((o, i) => (
                         <div className="memberList_row" key={i}>
                             <div className="memberList_cell">시퀀스 넘버</div>
@@ -242,6 +243,9 @@ function MemberList() {
                     ))}
                 </div>
             </div>
+=======
+           
+>>>>>>> kso
         </>
     );
 }

@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+.memberMainBox{
+    display: flex;
+    width: 1666px ;
+    height: 722px
+
+}
+
+>>>>>>> kso
 .searchBox {
     display: flex;
     align-items: center;
@@ -9,12 +19,6 @@
 
 .searchBox input{
     height: 22px;
-}
-
-.memberMainBox{
-    display: flex;
-    height: 100%;
-    /* flex: 1 0 auto; */
 }
 
 .mem_mng {
