@@ -1,6 +1,10 @@
 import './MemberDetail.css'
+import { useState } from 'react';
+import DaumPostcode from 'react-daum-postcode';
+import SignUp from './SignUp';
 
 function MemberDetail() {
+    // <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     return (
         <form method='get'>
@@ -93,7 +97,7 @@ function MemberDetail() {
                     <div className='mem_address1'>
                         <input type='text' name='mem_address1' placeholder='도로명 주소를 입력하세요' readOnly></input>&nbsp;&nbsp;
                         <input type='text' name='mem_address2' placeholder='상세주소'></input>&nbsp;&nbsp;
-                        <input type='button' value='주소검색'></input>
+                        <input type='button' value='주소입력' onClick={<SignUp />}></input>
                     </div>
                 </div>
 
@@ -114,7 +118,7 @@ function MemberDetail() {
                     </div>
 
                     <div>계좌번호</div>
-                    <div className='mem_account'><input type='text' name='mem_account'  placeholder='하이픈(-) 포함하여 작성'></input></div>
+                    <div className='mem_account'><input type='text' name='mem_account' placeholder='하이픈(-) 포함하여 작성'></input></div>
 
                     <div>예금주</div>
                     <div><input type='text' name='mem_depositor'></input></div>
@@ -150,8 +154,8 @@ function MemberDetail() {
                         <button type="submit" value='저장' formaction="/member/update">저장</button>
                     </div>
                 </div>
-            </div>
-        </form>
+            </div >
+        </form >
     )
 
 }
