@@ -77,8 +77,8 @@ button {border:0;background-color:transparent}
 .list_type a.on{background-color: #0d62e7;color: #fff;}
 
 .input_group {position: relative;display: table;width: 100%; border-collapse: collapse;}
-.input_group .keyword{height: 40px; width: 70px;   line-height: 100px;border-radius: 30px;}
-.input_group .searchKey{width: 100px;height: 44px;line-height: 50px; padding: 0 20px;margin-right: 10px;border-radius: 30px;}
+.input_group .keyword{height: 40px; width: 50px;   line-height: 100px;border-radius: 30px;}
+.input_group .searchKey{width: 160px;height: 44px;line-height: 42px;padding: 0 20px;margin-right: 10px;border-radius: 30px;}
 .input_group .input, .input_group input[type=text], .input_group input[type=password] {display: table-cell;width: 100% !important;}
 .input_group .input_addon + .input, .input_group .input_addon + input[type=text], .input_group .input_addon + input[type=password] {margin-left: 10px;border-right: 1px solid #ccc;}
 .input_group .input_addon {display: table-cell;width: 1%;padding-left: 10px;vertical-align: middle;}
@@ -116,90 +116,3 @@ button {border:0;background-color:transparent}
 
 
 
-/**** paging ****/
-.paging {padding-top: 40px;text-align:center;}
-.paging a, .paging strong {display:inline-block; position:relative; min-width:40px; height:40px; border:1px solid #d7dade; border-radius: 50%;box-sizing: border-box; color:#999; font-size:16px; line-height:40px; vertical-align:middle; text-decoration:none !important; z-index:10;}
-.paging a:hover, .paging a:focus {color:#333; border-color:#333;}
-.paging strong {color:#fff; border:1px solid #0d62e7; background:#0d62e7;}
-
-.footer_logo {
-    text-align: center;
-}
-
-.board_list {
-    .board_list {
-        font-family: Arial, sans-serif;
-        background-color: #f7f7f7;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 20px;
-    }
-    
-    .board_list {
-        color: #333;
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-    
-    .board_list {
-        margin-bottom: 20px;
-    }
-    
-    .board_list {
-        color: #555;
-        font-size: 18px;
-        margin-bottom: 5px;
-    }
-    
-    .board_list {
-        color: #777;
-        font-size: 16px;
-        line-height: 1.5;
-        margin-bottom: 10px;
-    }
-}
-
-.board_list {
-}
-.tb_list tbody tr:first-child td {
-    border-top: 0;
-}
-.tb_list td.tb_tit {
-    color: #222;
-    text-align: left;
-}
-.tb_list tbody td {
-    border-top: 1px solid #d7dade;
-}
-.tb_list th, .tb_list td {
-    height: 86px;
-    padding: 10px;
-    color: #666;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 20px;
-    text-align: center;
-    box-sizing: border-box;
-}
-th, td {
-    font-size: inherit;
-    line-height: inherit;
-    word-break: keep-all;
-}
-사용자 에이전트 스타일시트
-td {
-    display: table-cell;
-    vertical-align: inherit;
-}
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    font-size: inherit;
-}
-사용자 에이전트 스타일시트
-table {
-    border-collapse: separate;
-    text-indent: initial;
-    border-spacing: 2px;
-}

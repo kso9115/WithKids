@@ -5,6 +5,8 @@
 //     return { __html: '<iframe src={noticeSrc}</iframe>' };
 // }
 import './board_notice.css';
+// import './notice1.css';
+
 
 function Notice() {
 
@@ -297,24 +299,6 @@ function Notice() {
                         
                     </div>
                 
-            
-        <footer id="footer">
-            
-         <div class="footer_inner">
-             <div class="footer_left">
-                 <ul class="footer_menu">
-                     <li class="pinclr"><a href="/home/indvdlinfo/indvdlinfo_2.jsp">개인정보처리방침</a></li>
-                     <li><a href="/home/indvdlinfo/indvdlinfo_1.jsp">이용약관</a></li>
-                     <li><a href="/home/indvdlinfo/indvdlinfo_3.jsp">이메일무단수집거부</a></li>
-                 </ul>
-             </div>
-             <p class="footer_logo">
-                 
-                 <cite>COPYRIGHT(C) YONGIN CITY. ALL RIGHTS RESERVED.</cite>
-             </p>	
-         </div>
-         
-        </footer>
     </div> 
     );
     
