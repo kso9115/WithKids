@@ -9,9 +9,10 @@ import { prg_mng } from '../searchbox/searchData'
 import axios from "axios";
 
 function ProgramManagement() {
-    const [programId, setProgramId] = useState([]);
-    const [prgData, setPrgData] = useState('');
-
+    const [prgDataOne, setPrgDataOne] = useState({}); //프로그램 테이블 전체 보관
+    const [prgDetail, setPrgDetail] = useState([]); //프로그램 테이블 전체중에 트리에서 선택한 행의 프로그램 ID의 세부테이블 정보 보관
+    const [prgData, setPrgData] = useState({}); //프로그램 테이블 전체중에 트리에서 선택한 행 보관
+    const [subCurrentTab, setSubCurrentTab] = useState(0);
     // const [subMenuArr, setSubMenuArr] = useState([
     //     { name: '프로그램 상세정보', content: <ProgramDetails data={programId} setData={setProgramId} /> },
     //     { name: '세부 프로그램', content: <ProgramDetailsPrg data={programId} setData={setProgramId} /> }
@@ -21,18 +22,29 @@ function ProgramManagement() {
         { name: '프로그램 상세정보', content: '' },
         { name: '세부 프로그램', content: '' }
     ];
-    subMenuArr[0].content = <ProgramDetails data={programId} setData={setProgramId} />;
-    subMenuArr[1].content = <ProgramDetailsPrg data={programId} setData={setProgramId} />;
-
-    const [subCurrentTab, setSubCurrentTab] = useState(0);
+    subMenuArr[0].content = <ProgramDetails data={prgDataOne} />;
+    subMenuArr[1].content = <ProgramDetailsPrg data={prgDetail} />;
 
     useEffect(() => {
-        console.log("데이터 가져와요!!");
         axios.get('/api/prg/prgList')
             .then((res) => {
                 setPrgData(res.data);
             })
     }, []);
+
+    useEffect(() => {
+        if (prgDataOne.constructor === Object
+            && Object.keys(prgDataOne).length !== 0){
+            axios.get('/api/prg/prgDetails', {
+                params: {
+                    prg_id: prgDataOne.prg_id,
+                    rec: '프로그램세부'
+                }
+            }).then((res) => {
+                setPrgDetail(res.data);
+            })
+        }
+    }, [prgDataOne]);
 
     let treeCount = 2;
     let check = '';
@@ -80,8 +92,6 @@ function ProgramManagement() {
         check = '';   
     }
 
-    // console.log(prgTreeData);
-
     return (
         <div className='pgr_mng' >
             <SearchBox data={prg_mng} />
@@ -90,7 +100,7 @@ function ProgramManagement() {
                     width: '30%',
                     height: '100%',
                 }}>
-                    <ProgramTree name={'프로그램 목록'} setData={setProgramId}
+                    <ProgramTree name={'프로그램 목록'} setData={setPrgDataOne}
                         treeData={prgTreeData} prgData={prgData}
                     ></ProgramTree>
                 </div>

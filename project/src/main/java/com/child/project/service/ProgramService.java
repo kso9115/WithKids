@@ -3,13 +3,14 @@ package com.child.project.service;
 import java.util.List;
 
 import com.child.project.entity.Program;
-import com.child.project.entity.Program_details;
+import com.child.project.entity.ProgramDetails;
 
 public interface ProgramService {
 
 	List<Program> selectList();
-	
-	Program_details selectDetails(String rec,String prg_date,String prg_id);
+
+	// List<ProgramDetails> selectDetails();
+	List<ProgramDetails> selectDetails(String prgId, String rec);
 
 	Program selectOne(String prg_id);
 

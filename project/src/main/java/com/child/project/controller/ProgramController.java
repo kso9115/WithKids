@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.child.project.entity.Program;
-//import com.child.project.entity.Program_details;
+import com.child.project.entity.ProgramDetails;
 import com.child.project.service.ProgramService;
 
 import lombok.AllArgsConstructor;
@@ -30,14 +30,12 @@ public class ProgramController {
 		return list;
 	} // prgList
 
-	// @GetMapping("/prgDetails")
-	// public Program_details prgDetails(Model model, @RequestParam("rec")String rec,
-	// 		@RequestParam("prg_date")String prg_date,@RequestParam("prg_id")String prg_id) {
-		
-	// 	return prgService.selectDetails(rec,prg_date,prg_id);
-	// } // prgDetails
-	
-	
+	@GetMapping("/prgDetails")
+	public List<ProgramDetails> prgDetails(Model model, @RequestParam("prg_id") String prgId, String rec) {
+		System.out.println(prgId + ' ' + rec);
+		return prgService.selectDetails(prgId, rec);
+	} // prgDetails
+
 	@GetMapping("/hi")
 	public String hi() {
 
