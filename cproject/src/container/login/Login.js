@@ -84,8 +84,8 @@ function Login({ setSessionName }) {
                         </div>
                         
                         <div className='loginBtn'>
-                            <input className='custom-btn btn-6' type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
-                            <input className='custom-btn btn-6' type="reset" value="취소" />
+                            <input className='custom-btn' type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
+                            <input className='custom-btn' type="reset" value="취소" />
                         </div>    
                     </div>
                 </form>
