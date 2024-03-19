@@ -1,37 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './programDetails.css'
 
 function ProgramDetails({ data, setData }) {
-    const [prgd, setPrgd] = useState({
-        prg_id: '',
-        prg_big_cls: '',
-        prg_mid_cls: '',
-        prg_sub_cls: '',
-        prg_cls: '',
-        prg_nm: '',
-        prg_svc: '',
-        prg_str: '',
-        prg_end: '',
-        prg_mngr: '',
-        prg_mngr_phnn: '',
-        prg_mngr_eml: '',
-        prg_nmb_api: '',
-        prg_use: '',
-        bdg_exc: '',
-        bdg_amt: '',
-        sgnn_cntr: '',
-        cost_clsfc: '',
-        prg_fee: '',
-        pln_nmb_ppl: '',
-        wtl_rgs: '',
-        f_typ: '',
-        cls_inc: '',
-    });
 
+    // data = {
+    //     ...data,
+    //     cls_inc: Array.isArray(data.cls_inc) ? data.cls_inc.split(' ') : data.cls_inc ? [data.cls_inc] : [],
+    //     f_typ: Array.isArray(data.f_typ) ? data.f_typ.split(' ') : data.f_typ ? [data.f_typ] : [],
+    // };
+
+    // const [prgd, setPrgd] = useState({
+    //     ...data,
+    //     f_typ: !data.f_typ ?
+    //         [] : Array.isArray(data.f_typ) ?
+    //             data.cls_inc : data.f_typ.indexOf(' ') > 0 ?
+    //                 data.f_typ.split(' ') : [data.f_typ],
+    //     cls_inc: !data.cls_inc ?
+    //         [] : Array.isArray(data.cls_inc) ?
+    //             data.cls_inc : data.cls_inc.indexOf(' ') > 0 ?
+    //                 data.cls_inc.split(' ') : [data.cls_inc],
+    // });
+
+    // useEffect(() => {
+    //     setData({
+    //         ...data,
+    //         f_typ: !data.f_typ ?
+    //             [] : Array.isArray(data.f_typ) ?
+    //                 data.cls_inc : data.f_typ.indexOf(' ') > 0 ?
+    //                     data.f_typ.split(' ') : [data.f_typ],
+    //         cls_inc: !data.cls_inc ?
+    //             [] : Array.isArray(data.cls_inc) ?
+    //                 data.cls_inc : data.cls_inc.indexOf(' ') > 0 ?
+    //                     data.cls_inc.split(' ') : [data.cls_inc],
+    //     })
+    // }, [data]);
 
     let submitBool = false;
+    // console.log(data);
     console.log(data);
-
     function prg_essential(event) {
         let esntl_text = document.querySelectorAll('.esntl_text');
         let esntl_radio = document.querySelectorAll('.esntl_radio');
@@ -54,11 +60,11 @@ function ProgramDetails({ data, setData }) {
         }
 
         // input type = radio 유효성 검사
-        for (let i = 0; i < esntl_radio.length; i=i+2) {
+        for (let i = 0; i < esntl_radio.length; i = i + 2) {
             if (!esntl_radio[i].value && !esntl_radio[i + 1].value) {
                 esntl_radio[i].focus();
                 event.preventDefault()
-                return ;
+                return;
             };
         }
 
@@ -89,6 +95,46 @@ function ProgramDetails({ data, setData }) {
         }
     }
 
+    function CheckBoxTrue(array, str) {
+        
+        // if (!!array) {
+        //     console.log('=======');
+        //     console.log(str);
+        //     console.log(!!array);
+        //     console.log(array.has(str));
+        //     console.log('=======');
+        // }
+
+        if (!!array && array.has(str)) return true;
+        else return false;
+    }
+    console.log(CheckBoxTrue(data.cls_inc, '일반'));
+    const prgdChange = useCallback((event) => {
+        data[event.target.name] = event.target.value;
+        setData({ ...data });
+    }, []);
+
+    const prgdCkChange = useCallback((event) => {
+        const set = new Set(data[event.target.name]);
+
+        if (event.target.checked) {
+            set.add(event.target.id);
+        } else {
+            set.delete(event.target.id);
+        }
+        data[event.target.name] = set;
+        setData({ ...data });
+    }, []);
+
+    function timeTest() {
+        const date = new Date();
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
+        const seconds = String(date.getSeconds()).padStart(2, "0");
+
+        console.log(hours + minutes + seconds);
+    }
+
     return (
         <div style={{
             height: '100%'
@@ -99,62 +145,62 @@ function ProgramDetails({ data, setData }) {
                 <b>프로그램 기본정보</b>
                 <div className='prg_dtl_gridBox'>
                     <div><span>*</span>사업 대분류</div>
-                    <div><input className='esntl_text' type="text" name='prg_big_cls' /></div>
+                    <div><input className='esntl_text' type="text" name='prg_big_cls' value={data.prg_big_cls} onChange={prgdChange} /></div>
 
                     <div><span>*</span>사업 중분류</div>
-                    <div><input className='esntl_text' type="text" name='prg_mid_cls' /></div>
+                    <div><input className='esntl_text' type="text" name='prg_mid_cls' value={data.prg_mid_cls} onChange={prgdChange} /></div>
 
                     <div><span>*</span>사업 소분류</div>
-                    <div><input className='esntl_text' type="text" name='prg_sub_cls' /></div>
+                    <div><input className='esntl_text' type="text" name='prg_sub_cls' value={data.prg_sub_cls} onChange={prgdChange} /></div>
 
                     <div><span>*</span>프로그램 구분</div>
                     <div className='prg_dtl_radioBox'>
                         <div>
-                            <input className='esntl_radio' type="radio" id='interior' name='prg_cls' value='내부형프로그램' />
-                            <label for='interior'>내부형프로그램</label>
+                            <input className='esntl_radio' type="radio" id='interior' name='prg_cls' value='내부형프로그램'
+                                defaultChecked={data.prg_cls === '내부형프로그램' ? true : false} onChange={prgdChange} />
+                            <label htmlFor='interior'>내부형프로그램</label>
                         </div>
                         <div>
-                            <input className='esntl_radio' type="radio" id='application' name='prg_cls' value='신청형프로그램' />
-                            <label for='application'>신청형프로그램</label>
+                            <input className='esntl_radio' type="radio" id='application' name='prg_cls' value='신청형프로그램'
+                                defaultChecked={data.prg_cls !== '내부형프로그램' ? true : false} onChange={prgdChange} />
+                            <label htmlFor='application'>신청형프로그램</label>
                         </div>
                     </div>
 
                     <div><span>*</span>프로그램명</div>
-                    <div><input className='essential esntl_text' type="text" name='prg_nm' /></div>
+                    <div><input className='essential esntl_text' type="text" name='prg_nm' value={data.prg_nm} onChange={prgdChange} /></div>
 
                     <div>서비스 분류</div>
-                    <div><input type="text" name='prg_svc' /></div>
+                    <div><input type="text" name='prg_svc' value={data.prg_svc} /></div>
 
                     <div><span>*</span>프로그램 기간</div>
-                    <div><input className='esntl_text' type="date" name='prg_str' /> ~ <input type="date" name='prg_end' /></div>
+                    <div><input className='esntl_text' type="date" name='prg_str' value={data.prg_str} onChange={prgdChange} /> ~
+                        <input className='esntl_text' type="date" name='prg_end' value={data.prg_end} onChange={prgdChange} /></div>
 
                     <div><span>*</span>담당자</div>
-                    <div><input className='esntl_text' type="text" name='prg_mngr' /></div>
+                    <div><input className='esntl_text' type="text" name='prg_mngr' value={data.prg_mngr} onChange={prgdChange} /></div>
 
                     <div><span>*</span>담당자 전화번호</div>
-                    <div>
-                        <select className='prg_dtl_select'>
-                            <option value="010" key="010">010</option>
-                            <option value="011" key="011">011</option>
-                            <option value="016" key="016">016</option>
-                            <option value="017" key="017">017</option>
-                            <option value="019" key="019">019</option>
-                        </select>&nbsp;-&nbsp;
-                        {/* <input className='esntl_text' type="tel" name='prg_mngr_phnn1' />&nbsp;-&nbsp; */}
-                        <input className='esntl_text' type="tel" name='prg_mngr_phnn2' maxlength='4' />&nbsp;-&nbsp;
-                        <input className='esntl_text' type="tel" name='prg_mngr_phnn3' maxlength='4' />
-                    </div>
+                    <div><input className='esntl_text' type="tel" name='prg_mngr_phnn' value={data.prg_mngr_phnn} onChange={prgdChange} /></div>
 
                     <div><span>*</span>담당자 이메일</div>
-                    <div><input className='esntl_text' type="email" name='prg_mngr_eml' /></div>
+                    <div><input className='esntl_text' type="email" name='prg_mngr_eml' value={data.prg_mngr_eml} onChange={prgdChange} /></div>
 
                     <div><span>*</span>지원횟수</div>
-                    <div><input className='esntl_text' type="text" name='prg_nmb_api' /></div>
+                    <div><input className='esntl_text' type="text" name='prg_nmb_api' value={data.prg_nmb_api} onChange={prgdChange} /></div>
 
                     <div><span>*</span>사용여부</div>
                     <div className='prg_dtl_radioBox'>
-                        <div><input className='esntl_radio' type="radio" id='yes' name='prg_use' value='Y' /><label for='yes'>Y</label></div>
-                        <div><input className='esntl_radio' type="radio" id='no' name='prg_use' value='N' /><label for='no'>N</label></div>
+                        <div>
+                            <input className='esntl_radio' type="radio" id='yes' name='prg_use' value='Y'
+                                defaultChecked={data.prg_use === '1' ? true : false} onChange={prgdChange} />
+                            <label htmlFor='yes'>Y</label>
+                        </div>
+                        <div>
+                            <input className='esntl_radio' type="radio" id='no' name='prg_use' value='N'
+                                defaultChecked={data.prg_use !== '1' ? true : false} onChange={prgdChange} />
+                            <label htmlFor='no'>N</label>
+                        </div>
                     </div>
 
                 </div>
@@ -162,40 +208,64 @@ function ProgramDetails({ data, setData }) {
                 <div className='prg_dtl_gridBox2'>
                     <div>예산집행여부</div>
                     <div className='radioBox'>
-                        <div><input type="radio" id='execution' name='bdg_exc' value='집행' checked /><label for='execution'>집행</label></div>
-                        <div><input type="radio" id='nonexecution' name='bdg_exc' value='미집행' /><label for='nonexecution'>미집행</label></div>
+                        <div>
+                            <input type="radio" id='execution' name='bdg_exc' value='집행'
+                                defaultChecked={data.bdg_exc === '1' ? true : false} onChange={prgdChange} />
+                            <label htmlFor='execution'>집행</label>
+                        </div>
+                        <div>
+                            <input type="radio" id='nonexecution' name='bdg_exc' value='미집행'
+                                defaultChecked={data.bdg_exc !== '1' ? true : false} onChange={prgdChange} />
+                            <label htmlFor='nonexecution'>미집행</label>
+                        </div>
                     </div>
 
                     <div>예산금액</div>
-                    <div><input className='text_align' type="text" name='bdg_amt' />&nbsp;(원)</div>
+                    <div><input className='text_align' type="text" name='bdg_amt' value={data.bdg_amt} onChange={prgdChange} />&nbsp;(원)</div>
 
                     <div>이용계약체결</div>
                     <div className='prg_dtl_radioBox'>
-                        <div><input type="radio" id='Concluded' name='sgnn_cntr' value='체결' checked /><label for='Concluded'>체결</label></div>
-                        <div><input type="radio" id='notConcluded' name='sgnn_cntr' value='미체결' /><label for='notConcluded'>미체결</label></div>
+                        <div>
+                            <input type="radio" id='Concluded' name='sgnn_cntr' value='체결'
+                                defaultChecked={data.sgnn_cntr === '1' ? true : false} onChange={prgdChange} />
+                            <label htmlFor='Concluded'>체결</label>
+                        </div>
+                        <div>
+                            <input type="radio" id='notConcluded' name='sgnn_cntr' value='미체결'
+                                defaultChecked={data.sgnn_cntr !== '1' ? true : false} onChange={prgdChange} />
+                            <label htmlFor='notConcluded'>미체결</label>
+                        </div>
                     </div>
 
                     <div><span>*</span>비용구분</div>
                     <div className='prg_dtl_selectBox'>
-                        <select className='esntl_text' name='cost_clsfc'>
-                            <option value="무료" key="">무료</option>
-                            <option value="유료" key="">유료</option>
+                        <select className='esntl_text' name='cost_clsfc' value={data.cost_clsfc} onChange={prgdChange}>
+                            <option value="무료" key="무료" >무료</option>
+                            <option value="유료" key="유료" >유료</option>
                         </select>
                     </div>
 
                     <div>프로그램요금</div>
-                    <div><input className='text_align' type="text" name='prg_fee' />&nbsp;(원)</div>
+                    <div><input className='text_align' type="text" name='prg_fee' value={data.prg_fee} onChange={prgdChange} />&nbsp;(원)</div>
 
                     <div></div>
                     <div></div>
 
                     <div><span>*</span>계획인원(정원)</div>
-                    <div><input className='text_align esntl_text' type="text" name='pln_nmb_ppl' />&nbsp;(명)</div>
+                    <div><input className='text_align esntl_text' type="text" name='pln_nmb_ppl' value={data.pln_nmb_ppl} onChange={prgdChange} />&nbsp;(명)</div>
 
                     <div>대기자등록</div>
                     <div className='prg_dtl_radioBox'>
-                        <div><input type="radio" id='possible' name='wtl_rgs' value='가능' checked /><label for='possible'>가능</label></div>
-                        <div><input type="radio" id='impossible' name='wtl_rgs' value='불가능' /><label for='impossible'>불가능</label></div>
+                        <div>
+                            <input type="radio" id='possible' name='wtl_rgs' value='가능'
+                                defaultChecked={data.wtl_rgs === '1' ? true : false} onChange={prgdChange} />
+                            <label htmlFor='possible'>가능</label>
+                        </div>
+                        <div>
+                            <input type="radio" id='impossible' name='wtl_rgs' value='불가능'
+                                defaultChecked={data.wtl_rgs !== '1' ? true : false} onChange={prgdChange} />
+                            <label htmlFor='impossible'>불가능</label>
+                        </div>
                     </div>
 
                     <div></div>
@@ -207,52 +277,63 @@ function ProgramDetails({ data, setData }) {
                     <div><span>*</span>가구유형</div>
                     <div className='prg_dtl_checkBox'>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='none' name='f_typ' />
-                            <label for='none'>해당없음</label>
+                            <input className='esntl_f_typ' type="checkbox" id='해당없음' name='f_typ'
+                                checked={CheckBoxTrue(data.f_typ, '해당없음')} onChange={prgdCkChange} />
+                            <label htmlFor='해당없음'>해당없음</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='singleParent' name='f_typ' />
-                            <label for='singleParent'>한부모</label>
+                            <input className='esntl_f_typ' type="checkbox" id='한부모' name='f_typ'
+                                checked={CheckBoxTrue(data.f_typ, '한부모')} onChange={prgdCkChange} />
+                            <label htmlFor='한부모'>한부모</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='multicultural' name='f_typ' />
-                            <label for='multicultural'>다문화</label>
+                            <input className='esntl_f_typ' type="checkbox" id='다문화' name='f_typ'
+                                checked={CheckBoxTrue(data.f_typ, '다문화')} onChange={prgdCkChange} />
+                            <label htmlFor='다문화'>다문화</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='grandson' name='f_typ' />
-                            <label for='grandson'>조손</label>
+                            <input className='esntl_f_typ' type="checkbox" id='조손' name='f_typ'
+                                checked={CheckBoxTrue(data.f_typ, '조손')} onChange={prgdCkChange} />
+                            <label htmlFor='조손'>조손</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='defector' name='f_typ' />
-                            <label for='defector'>새터민</label>
+                            <input className='esntl_f_typ' type="checkbox" id='새터민' name='f_typ'
+                                checked={CheckBoxTrue(data.f_typ, '새터민')} onChange={prgdCkChange} />
+                            <label htmlFor='새터민'>새터민</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='BnG_hoh' name='f_typ' />
-                            <label for='BnG_hoh'>소년소녀가장</label>
+                            <input className='esntl_f_typ' type="checkbox" id='소년소녀가장' name='f_typ'
+                                checked={CheckBoxTrue(data.f_typ, '소년소녀가장')} onChange={prgdCkChange}/>
+                            <label htmlFor='소년소녀가장'>소년소녀가장</label>
                         </div>
                         <div>
-                            <input className='esntl_f_typ' type="checkbox" id='etc' name='f_typ' />
-                            <label for='etc'>독거노인</label>
+                            <input className='esntl_f_typ' type="checkbox" id='독거노인' name='f_typ'
+                                checked={CheckBoxTrue(data.f_typ, '독거노인')} onChange={prgdCkChange}/>
+                            <label htmlFor='독거노인'>독거노인</label>
                         </div>
                     </div>
 
                     <div><span>*</span>소득구분</div>
                     <div>
                         <div>
-                            <input className='esntl_cls_inc' type="checkbox" id='general' name='cls_inc' />
-                            <label for='general'>일반</label>
+                            <input className='esntl_cls_inc' type="checkbox" id='일반' name='cls_inc'
+                                checked={CheckBoxTrue(data.cls_inc, '일반')} onChange={prgdCkChange}/>
+                            <label htmlFor='일반'>일반</label>
                         </div>
                         <div>
-                            <input className='esntl_cls_inc' type="checkbox" id='beneficiary ' name='cls_inc' />
-                            <label for='beneficiary'>수급자</label>
+                            <input className='esntl_cls_inc' type="checkbox" id='수급자' name='cls_inc'
+                                checked={CheckBoxTrue(data.cls_inc, '수급자')} onChange={prgdCkChange}/>
+                            <label htmlFor='수급자'>수급자</label>
                         </div>
                         <div>
-                            <input className='esntl_cls_inc' type="checkbox" id='nearPoverty' name='cls_inc' />
-                            <label for='nearPoverty'>차상위</label>
+                            <input className='esntl_cls_inc' type="checkbox" id='차상위' name='cls_inc'
+                                checked={CheckBoxTrue(data.cls_inc, '차상위')} onChange={prgdCkChange}/>
+                            <label htmlFor='차상위'>차상위</label>
                         </div>
                         <div>
-                            <input className='esntl_cls_inc' type="checkbox" id='none' name='cls_inc' />
-                            <label for='none'>저소득</label>
+                            <input className='esntl_cls_inc' type="checkbox" id='저소득' name='cls_inc'
+                                checked={CheckBoxTrue(data.cls_inc, '저소득')} onChange={prgdCkChange}/>
+                            <label htmlFor='저소득'>저소득</label>
                         </div>
                     </div>
                 </div>
@@ -262,6 +343,7 @@ function ProgramDetails({ data, setData }) {
                         <button type="submit" value='삭제' formaction="/program/delete" onClick={(event) => prg_essential(event)} >삭제</button>
                         <button type="submit" value='신규' formaction="/program/insert">신규</button>
                         <button type="submit" value='저장' formaction="/program/update">저장</button>
+                        <button type="button" value='테스트' onClick={timeTest}>테스트</button>
                     </div>
                 </div>
             </form>

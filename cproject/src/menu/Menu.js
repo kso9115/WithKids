@@ -4,7 +4,7 @@ import ProgramManagement from '../container/program/ProgramManagement'
 import StaffManagement from '../container/staff/StaffManagement'
 import MemberMangement from '../container/memberdetail/MemberMangement'
 import Admission from '../container/admission/AdmLvng_Manager'
-import Attandance from '../container/attandance/Attandance'
+import AttandanceMangement from '../container/attandance/AttandanceMangement'
 import MealManagement from '../container/mealManagement/MealManagement'
 import PagesCollapse from './PagesCollapse'
 import Charts from './Charts'
@@ -14,13 +14,12 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     const map = new Map();
     map.set('MemberMangement', { name: '대상자 기본 정보', content: <MemberMangement /> });
     map.set('Admission', { name: '입소/퇴소 관리', content: <Admission /> });
-    map.set('Attandance', { name: '출석관리', content: <Attandance /> });
+    map.set('AttandanceMangement', { name: '출석관리', content: <AttandanceMangement /> });
     map.set('MealManagement', { name: '급식관리 ', content: <MealManagement /> });
     map.set('회원탈퇴', { name: 'Delete', content: null });
-    map.set('StaffManagement', { name: '직원정보', content: <StaffManagement/> });
+    map.set('StaffManagement', { name: '직원정보', content: <StaffManagement /> });
     map.set('Calender', { name: '캘린더', content: <Calender></Calender> });
     map.set('ProgramManagement', { name: '프로그램정보관리', content: <ProgramManagement></ProgramManagement> });
-    console.log(menuArr);
     function getTransTitle(menuName) {
         
         // menuArr.filter((it)=>it.isDone)
@@ -52,7 +51,7 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
                 </div>
                 <PagesCollapse getTransTitle={getTransTitle} name='출석'
                     menu={['출석관리', '출석그래프']}
-                    conName={['Attandance', 'Calender']} img='img/출석.png'/>
+                    conName={['AttandanceMangement', 'Calender']} img='img/출석.png'/>
                 <PagesCollapse getTransTitle={getTransTitle} name='아동관리'
                     menu={['대상자 기본 정보', '입소/퇴소 관리']}
                     conName={['MemberMangement', 'Admission']} img='img/사람.png'/>
