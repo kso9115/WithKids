@@ -1,11 +1,7 @@
 .memberList {
     font-size: 14px;
-<<<<<<< HEAD
-    height: calc(100% - 26px); 
-=======
     /* height: 100%; */
     height: calc(100% - 26px);
->>>>>>> kso
     margin-top: 5px;
 }
 

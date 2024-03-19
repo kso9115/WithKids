@@ -125,9 +125,9 @@ export const mem_mng = {
 
 export const stf_mng = {
     name: '직원관리 및 직원정보',
-    action: 'stfmng', 
+    action: 'stfmng',
     method: 'get',
-    content: [ 
+    content: [
         {
             name: '직위',
             state: 'staff_pst',
@@ -139,7 +139,7 @@ export const stf_mng = {
             name: '이름',
             state: 'staff_nm',
             type: 'text',
-            esntl: false, 
+            esntl: false,
             default: ''
         },
         {
@@ -160,15 +160,9 @@ export const stf_mng = {
 }
 
 export const att_mng = {
-<<<<<<< HEAD
     name: '출석관리',
     action: 'attmng',
     method: 'get',
-=======
-    name: '출석관리', 
-    action: 'attmng',
-    method: 'get', 
->>>>>>> kso
     content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
         {
             name: '재원 기간', // input/select 앞에 표현될 내용
