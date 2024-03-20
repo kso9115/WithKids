@@ -2,6 +2,7 @@
     font-size: 14px;
     /* height: 100%; */
     height: calc(100% - 26px);
+    /* min-height: 100vh; */
     margin-top: 5px;
 }
 
@@ -12,9 +13,10 @@
     display: grid;
     flex-direction: column;
     text-align: center;
+    height: 100%;
 
     /* 세로 스크롤 */
-    height: 722px;
+    
     overflow-x: hidden;
     overflow-y: auto;
 }
