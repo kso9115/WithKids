@@ -1,0 +1,188 @@
+.con_inner {
+    position: relative;
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+html, body, div, span, iframe, p, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, textarea, button, select, table, th, td, article, aside, section, figure, figcaption, img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+사용자 에이전트 스타일시트
+div {
+    display: block;
+}
+body {
+    font-size: 16px;
+    line-height: 1.6;
+    font-family: 'NanumSquareRound', sans-serif;
+    color: #666;
+    background-color: #fff;
+}
+
+
+
+
+.program_list ul li a {
+    display: block;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+사용자 에이전트 스타일시트
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+}
+ul, ol, li, dl {
+    list-style: none;
+}
+
+사용자 에이전트 스타일시트
+li {
+    text-align: -webkit-match-parent;
+}
+사용자 에이전트 스타일시트
+ul {
+    list-style-type: disc;
+}
+body {
+    font-size: 16px;
+    line-height: 1.6;
+    font-family: 'NanumSquareRound', sans-serif;
+    color: #666;
+    background-color: #fff;
+}
+
+/* 디테일 */
+
+.program_list ul {
+    overflow: hidden;
+    border-bottom: 1px solid #d7dade;
+}
+ul, ol, li, dl {
+    list-style: none;
+}
+html, body, div, span, iframe, p, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, textarea, button, select, table, th, td, article, aside, section, figure, figcaption, img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+body {
+    font-size: 16px;
+    line-height: 1.6;
+    font-family: 'NanumSquareRound', sans-serif;
+    color: #666;
+    background-color: #fff;
+}
+
+/* 글씨크기 */
+.program_tit {
+    margin-bottom: 5px;
+    font-size: 26px;
+    color: #222;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+.label03 {
+    max-width: 50px;
+    border: 1px solid #ff8a65;
+    color: #ff8a65;
+}
+
+.label04 {
+    border: 1px solid #2196f3e6;
+    color: #2196f3e6;
+}
+
+.label {
+    display: block;
+    max-width: 60px;
+    padding: 0 10px;
+    margin-bottom: 7px;
+    color: #0b0b0b;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+.fl {
+    float: left !important;
+}
+html, body, div, span, iframe, p, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, textarea, button, select, table, th, td, article, aside, section, figure, figcaption, img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+}
+ul, ol, li, dl {
+    list-style: none;
+}
+
+li {
+    text-align: -webkit-match-parent;
+}
+사용자 에이전트 스타일시트
+ul {
+    list-style-type: disc;
+}
+body {
+    font-size: 16px;
+    line-height: 1.6;
+    font-family: 'NanumSquareRound', sans-serif;
+    color: #666;
+    background-color: #fff;
+}
+
+
+
+
+사용자 에이전트 스타일시트
+form {
+    display: block;
+    margin-top: 0em;
+}
+body {
+    font-size: 16px;
+    line-height: 1.6;
+    font-family: 'NanumSquareRound', sans-serif;
+    color: #666;
+    background-color: #fff;
+}
