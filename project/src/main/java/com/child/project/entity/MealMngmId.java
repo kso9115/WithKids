@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MealMngmId implements Serializable {
 
-    private String mem_serial;
+    private String memSerial;
 
-    private String meal_date;
+    private String mealDate;
 }

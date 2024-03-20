@@ -1,16 +1,16 @@
 import './App.css';
-import Home from './home/Home.js'
-import Login from './container/login/Login.js'
-import Select from './select/Select'
-import UserHome from './user/UserHome'
-import UserMain from './user/userMain/UserMain'
+import Home from './pages/home/Home.js'
+import Login from './pages/login/Login.js'
+import Select from './pages/select/Select.js'
+import UserHome from './pages/user/UserHome'
+import UserMain from './pages/user/UserMain'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Notice from './user/notice/Notice'
-import Project from './user/project/Project'
-import Schedule from './user/schedule/Schedule'
-import Survety from './user/survery/Survery'
-import Userprogram from './user/userprogram/Userprogram.js';
-import NoneLogin from './err/errNoneLogin';
+import Notice from './pages/notice/Notice.js'
+import Project from './pages/project/Project.js'
+import Schedule from './pages/schedule/Schedule.js'
+import Survety from './pages/survery/Survery.js'
+import Userprogram from './pages/userprogram/Userprogram.js';
+import NoneLogin from './pages/err/errNoneLogin.js';
 
 function App() {
 
