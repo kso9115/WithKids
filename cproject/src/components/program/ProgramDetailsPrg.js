@@ -23,11 +23,11 @@ function ProgramDetailsPrg({ data, subData }) {
             ...data[i],
             prgBigCls: subData.prgBigCls,
             prgMidCls: subData.prgMidCls,
-            prgSubCls: subData.prgSubCls
-
+            prgSubCls: subData.prgSubCls,
+            prgFile: subData.prgFile !== null ? subData.prgFile.split(' ') : []
         })
     }
-    console.log(prgDetailData);
+    // console.log(prgDetailData);
     return (
         <div style={{
             height: '100%'
@@ -49,24 +49,24 @@ function ProgramDetailsPrg({ data, subData }) {
                 <b>세부프로그램 상세정보</b>
                 <div className='prg_dtlprg_gridBox2'>
                     <div><span>*</span>대분류명</div>
-                    <div><input type="text" name='prgBigCls' value={prgDetailData.prgBigCls} disabled /></div>
+                    <div><input type="text" name='prgBigCls' value={prgDetailData.prgBigCls} disabled={Object.keys(prgDetailData).length > 0} /></div>
 
                     <div><span>*</span>중분류명</div>
-                    <div><input type="text" name='prgMidCls' value={prgDetailData.prgMidCls} disabled /></div>
+                    <div><input type="text" name='prgMidCls' value={prgDetailData.prgMidCls} disabled={Object.keys(prgDetailData).length > 0} /></div>
 
                     <div><span>*</span>소분류명</div>
-                    <div><input type="text" name='prgSubCls' value={prgDetailData.prgSubCls} disabled /></div>
+                    <div><input type="text" name='prgSubCls' value={prgDetailData.prgSubCls} disabled={Object.keys(prgDetailData).length > 0} /></div>
 
                     <div><span>*</span>프로그램명</div>
-                    <div><input type="text" name='prgNm' value={prgDetailData.prgNm} disabled /></div>
+                    <div><input type="text" name='prgNm' value={prgDetailData.prgNm} disabled={Object.keys(prgDetailData).length > 0} /></div>
                 </div>
 
                 <div className='prg_dtlprg_gridBox3'>
                     <div><span>*</span>세부프로그램명</div>
-                    <div><input type="text" /></div>
+                    <div><input type="text" name='prgDnm' value={prgDetailData.prgDnm} /></div>
 
                     <div>세부프로그램 내용</div>
-                    <div><textarea cols="140" rows="6"></textarea></div>
+                    <div><textarea name='content' cols="140" rows="6" value={prgDetailData.content}></textarea></div>
 
                     <div>첨부파일</div>
                     <div><AttachedFile></AttachedFile></div>

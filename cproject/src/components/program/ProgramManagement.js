@@ -25,10 +25,6 @@ function ProgramManagement() {
     subMenuArr[0].content = <ProgramDetails data={prgDataOne} />;
     subMenuArr[1].content = <ProgramDetailsPrg data={prgDetail} subData={prgDataOne} />;
 
-    console.log(prgDetail);
-    console.log(prgDataOne);
-    console.log(prgData);
-
     useEffect(() => {
         axios.get('/api/prg/prgList')
             .then((res) => {
@@ -49,7 +45,7 @@ function ProgramManagement() {
             })
         }
     }, [prgDataOne]);
-
+    // console.log(prgData);
     let treeCount = 2;
     let check = '';
     let check2 = '';
@@ -95,7 +91,7 @@ function ProgramManagement() {
         }
         check = '';   
     }
-
+    // console.log(prgTreeData);
     return (
         <div className='pgr_mng' >
             <SearchBox data={prg_mng} />

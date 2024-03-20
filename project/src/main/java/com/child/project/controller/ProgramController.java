@@ -14,6 +14,8 @@ import com.child.project.service.ProgramService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Log4j2
 @RestController
@@ -36,6 +38,20 @@ public class ProgramController {
 		System.out.println(prgId + ' ' + rec);
 		return prgService.selectDetails(prgId, rec);
 	} // prgDetails
+
+	// @RequestBody
+	@PostMapping("/prgInsert")
+	public String prgInsert(Program entity) {
+
+		log.info(entity);
+		// try {
+		// log.info(" program insert 성공 => " + prgService.save(entity));
+		// } catch (Exception e) {
+		// log.info(" program insert Exception => " + e.toString());
+		// }
+
+		return "";
+	}
 
 	@GetMapping("/hi")
 	public String hi() {

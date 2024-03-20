@@ -41,6 +41,10 @@
     width: 100%;
 }
 
+.prg_dtl_gridBox select {
+    height: 21px;
+}
+
 .prg_dtl_gridBox2>div>input {
     width: 60%;
 }
@@ -88,11 +92,9 @@
 
 .prg_dtl_selectBox>select {
     width: 60%;
-}
-
-.prg_dtl_select{
     height: 21px;
 }
+
 
 .text_align{
     text-align: right;

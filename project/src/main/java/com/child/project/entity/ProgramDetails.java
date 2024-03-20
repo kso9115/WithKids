@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "program_details")
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @IdClass(ProgramDetailsId.class)
 public class ProgramDetails implements Serializable {
 
@@ -48,10 +50,10 @@ public class ProgramDetails implements Serializable {
 	private String plnTm;
 
 	@Column(name = "pln_cnt")
-	private int plnCnt;
+	private Integer plnCnt;
 
 	@Column(name = "pln_nmb_ppl")
-	private int plnNmbPpl;
+	private Integer plnNmbPpl;
 
 	@Column(name = "prg_hst")
 	private String prgHst;
@@ -68,13 +70,13 @@ public class ProgramDetails implements Serializable {
 	@Column(name = "rqd_tm")
 	private String rqdTm;
 
-	private int cnt;
+	private Integer cnt;
 
 	@Column(name = "nmb_ppl")
-	private int nmbPpl;
+	private Integer nmbPpl;
 
 	@Column(name = "stl_amn")
-	private int stlAmn;
+	private Integer stlAmn;
 
 	@Column(name = "evl_cls")
 	private String evlCls;
@@ -86,7 +88,7 @@ public class ProgramDetails implements Serializable {
 	private String endDt;
 
 	@Column(name = "evlt_nmbr")
-	private int evltNmbr;
+	private Integer evltNmbr;
 
 	@Column(name = "str_tm")
 	private String strTm;
