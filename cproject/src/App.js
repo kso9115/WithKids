@@ -9,6 +9,7 @@ import Notice from './user/notice/Notice'
 import Project from './user/project/Project'
 import Schedule from './user/schedule/Schedule'
 import Survety from './user/survery/Survery'
+import Userprogram from './user/userprogram/Userprogram.js';
 import NoneLogin from './err/errNoneLogin';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
                         <Route path="project" element={<Project />}></Route>
                         <Route path="schedule" element={<Schedule />}></Route>
                         <Route path="survety" element={<Survety />}></Route>
+                        <Route path="userprogram" element={<Userprogram />}></Route>
                     </Route>
 
                     <Route path="/errNoneLogin" element={<NoneLogin />}></Route>

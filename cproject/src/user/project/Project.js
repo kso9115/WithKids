@@ -9,7 +9,7 @@ function Project() {
         <div id="container" class="sub">
             <div class="sub_top">
                 <div class="top_title">
-                    <h5>프로그램</h5>
+                    <h5>프로그램 신청</h5>
                 </div>
                 <div class="sub_nav">
                     <ul>
