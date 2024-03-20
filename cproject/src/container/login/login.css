@@ -16,7 +16,7 @@
     position: absolute;
     right: 0%;
     top: 40%;
-    font-size: 25px;
+    font-size: 30px;
     z-index: 2;
     text-align: end;
 }
@@ -73,37 +73,26 @@
     width: 130px;
     height: 40px;
     color: #fff;
-    border-radius: 5px;
-    padding: 10px 25px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 500;
-    background: transparent;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-    position: relative;
-    display: inline-block;
-     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-     7px 7px 20px 0px rgba(0,0,0,.1),
-     4px 4px 5px 0px rgba(0,0,0,.1);
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+    background: rgb(247,150,192);
+    background: radial-gradient(circle, rgba(247,150,192,1) 0%, rgba(118,174,241,1) 100%);
+    border: none;
     outline: none;
+    font-size: 15px;
+}
+.custom-btn:hover{
+  border: 1.5px solid #76aef1 ;
+  background: transparent;
+  color: #76aef1;
+  box-shadow: none;
+  font-size: 18px;
+  font-weight: bold;
 }
 .loginTable>div {
     margin: 30px;
 }
-
-/* 버튼 가져옴 */
-.btn-6 {
-    background: rgb(247,150,192);
-    background: radial-gradient(circle, rgba(247,150,192,1) 0%, rgba(118,174,241,1) 100%);
-    line-height: 42px;
-    padding: 0;
-    border: none;
-  }
-
-  .btn-6:hover{
-    border: 1.5px solid #76aef1 ;
-    background: transparent;
-    color: #76aef1;
-    box-shadow: none;
-
-  }

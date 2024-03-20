@@ -48,6 +48,6 @@ public class Member {
     private String mem_end;
     private String mem_status;
 
-    
 
 }
+

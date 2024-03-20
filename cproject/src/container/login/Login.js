@@ -57,9 +57,9 @@ function Login({ setSessionName }) {
                 <div><img className="leftBackground" src={leftBackground} alt="배경"></img></div>
 
                 <div>
-                    <div className='hovering'><a href='/'>로그인페이지</a></div>
+                    <div className='hovering'><a href='/' style={{color:'var(--admin)' , fontFamily:'', fontWeight:'bold'}}>Sign In </a></div>
                     <br />
-                    <div className='hovering'><a href="/home">메인페이지</a></div>
+                    <div className='hovering'><a href="/home" style={{color:'var(--admin)'}}>Home </a></div>
                 </div>
                 
             </div>
@@ -68,7 +68,7 @@ function Login({ setSessionName }) {
                 <div className='logLogo'>
                     <img src='img/Community Child Center.png' alt="커뮤니티차일드센터"></img>
                     <h2 className="" style={{
-                        fontSize:50 , fontWeight:'bold' , color:'var(--admin)'
+                        fontSize:60 , fontWeight:'bold' , color:'var(--admin)'
                         }}>L O G I N</h2>
                 </div>
                 <form onSubmit={handleSubmit}>
@@ -84,8 +84,8 @@ function Login({ setSessionName }) {
                         </div>
                         
                         <div className='loginBtn'>
-                            <input className='custom-btn btn-6' type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
-                            <input className='custom-btn btn-6' type="reset" value="취소" />
+                            <input className='custom-btn' type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
+                            <input className='custom-btn' type="reset" value="취소" />
                         </div>    
                     </div>
                 </form>
