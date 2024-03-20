@@ -49,13 +49,13 @@ function ProgramDetailsPrg({ data, subData }) {
                 <b>세부프로그램 상세정보</b>
                 <div className='prg_dtlprg_gridBox2'>
                     <div><span>*</span>대분류명</div>
-                    <div><input type="text" name='prg_big_cls' value={prgDetailData.prg_big_cls} disabled /></div>
+                    <div><input type="text" name='prgBigCls' value={prgDetailData.prgBigCls} disabled /></div>
 
                     <div><span>*</span>중분류명</div>
-                    <div><input type="text" name='prg_mid_cls' value={prgDetailData.prg_mid_cls} disabled /></div>
+                    <div><input type="text" name='prgMidCls' value={prgDetailData.prgMidCls} disabled /></div>
 
                     <div><span>*</span>소분류명</div>
-                    <div><input type="text" name='prg_sub_cls' value={prgDetailData.prg_sub_cls} disabled /></div>
+                    <div><input type="text" name='prgSubCls' value={prgDetailData.prgSubCls} disabled /></div>
 
                     <div><span>*</span>프로그램명</div>
                     <div><input type="text" name='prgNm' value={prgDetailData.prgNm} disabled /></div>

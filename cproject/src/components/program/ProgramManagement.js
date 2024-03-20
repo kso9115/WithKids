@@ -25,6 +25,10 @@ function ProgramManagement() {
     subMenuArr[0].content = <ProgramDetails data={prgDataOne} />;
     subMenuArr[1].content = <ProgramDetailsPrg data={prgDetail} subData={prgDataOne} />;
 
+    console.log(prgDetail);
+    console.log(prgDataOne);
+    console.log(prgData);
+
     useEffect(() => {
         axios.get('/api/prg/prgList')
             .then((res) => {
@@ -70,7 +74,7 @@ function ProgramManagement() {
                         });
                         for (let k = 0; k < prgData.length; k++) {
                             if (prgData[k].prgBigCls === check && prgData[k].prgMidCls === check2 && prgData[k].prgSubCls !== check3) {
-                                check3 = prgData[k].prg_sub_cls;
+                                check3 = prgData[k].prgSubCls;
                                 prgTreeData.at(-1).contents.at(-1).contents.push({
                                     prgSubCls: prgData[k].prgSubCls,
                                     count: `${treeCount++}`,

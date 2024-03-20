@@ -31,7 +31,8 @@ public class ProgramController {
 	} // prgList
 
 	@GetMapping("/prgDetails")
-	public List<ProgramDetails> prgDetails(Model model, @RequestParam("prg_id") String prgId, String rec) {
+	public List<ProgramDetails> prgDetails(Model model, @RequestParam("prgId") String prgId,
+			@RequestParam("rec") String rec) {
 		System.out.println(prgId + ' ' + rec);
 		return prgService.selectDetails(prgId, rec);
 	} // prgDetails
