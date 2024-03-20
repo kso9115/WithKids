@@ -1,8 +1,12 @@
 import './MemberList.css';
+import React from "react";
 
-import './MemberList.css';
+// function MemberList(props) {
+function MemberList(props) {
 
-function MemberList() {
+    console.log(props);
+    
+    const {memList} = props;
 
     const testData = [
         {
@@ -187,6 +191,8 @@ function MemberList() {
         <>
             <b>대상자 리스트</b>
 
+
+
             <div className="memberList">
                 {/* <table>
                         <thead>
@@ -226,7 +232,8 @@ function MemberList() {
                         <div className="memberList_cell">성별</div>
                         <div className="memberList_cell">생년월일</div>
                     </div>
-                    {testData.map((o, i) => (
+                    
+                    {/* {testData.map((o, i) => (
                         <div className="memberList_row" key={i}>
                             <div className="memberList_cell">시퀀스 넘버</div>
                             <div className="memberList_cell">{o.serial}</div>
@@ -234,7 +241,26 @@ function MemberList() {
                             <div className="memberList_cell">{o.gender}</div>
                             <div className="memberList_cell">{o.birth}</div>
                         </div>
+                    ))} */}
+                    {memList && memList.map((o, i) => (
+                        <div className="memberList_row" key={i}>
+                            <div className="memberList_cell">순차번호..ㅎ</div>
+                            <div className="memberList_cell">{o.memSerial}</div>
+                            <div className="memberList_cell">{o.memName}</div>
+                            <div className="memberList_cell">{o.memSex}</div>
+                            <div className="memberList_cell">{o.memBirth}</div>
+                        </div>
                     ))}
+
+                    {/* {mList ? mList.map((o, i) => (
+                        <div className="memberList_row" key={i}>
+                            <div className="memberList_cell">시퀀스 넘버</div>
+                            <div className="memberList_cell">{o.memSerial}</div>
+                            <div className="memberList_cell">{o.memName}</div>
+                            <div className="memberList_cell">{o.memSex}</div>
+                            <div className="memberList_cell">{o.memBirth}</div>
+                        </div>
+                    )) : ''} */}
                 </div>
             </div>
         </>
