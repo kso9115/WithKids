@@ -9,7 +9,7 @@ import com.child.project.entity.Member;
 public interface MemberRepository extends JpaRepository<Member,Long> {
     
 
-    List<Member> findAll();
-    List<Member> findbyMembers(long mem_serial);
+    // List<Member> findAll();
+    // List<Member> findbyMembers(long mem_serial);
 
 }

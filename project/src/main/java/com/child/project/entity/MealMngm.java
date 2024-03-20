@@ -1,7 +1,10 @@
 package com.child.project.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +20,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class MealMngm {
+@IdClass(MealMngmId.class)
+public class MealMngm implements Serializable {
 
     @Id
     private String mem_serial;

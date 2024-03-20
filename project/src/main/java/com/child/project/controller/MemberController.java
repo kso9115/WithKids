@@ -13,8 +13,6 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
 @RestController
 @RequestMapping(value = "/api/mem")
 @AllArgsConstructor
@@ -22,12 +20,11 @@ public class MemberController {
 
     MemberService memService;
 
-    @GetMapping("/memList")
-    public List<Member> memList() {
-        List<Member> list = memService.selectList();
+    // @GetMapping("/memList")
+    // public List<Member> memList() {
+    // List<Member> list = memService.selectList();
 
-		return list;
-    }
-    
-    
+    // return list;
+    // }
+
 }
