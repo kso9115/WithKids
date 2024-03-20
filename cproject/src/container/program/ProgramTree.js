@@ -8,7 +8,7 @@ import React from "react";
 import './programTree.css'
 
 function ProgramTree({ name, setData, treeData, prgData }) {
-    
+
     let count = 1;
     let treeMake = treeData.map((e) => {
         return (

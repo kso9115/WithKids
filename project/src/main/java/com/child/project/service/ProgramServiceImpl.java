@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.child.project.entity.Program;
+import com.child.project.entity.ProgramDetails;
+import com.child.project.repository.ProgramDetailsRepository;
 import com.child.project.repository.ProgramRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import lombok.extern.log4j.Log4j2;
 public class ProgramServiceImpl implements ProgramService {
 
 	private final ProgramRepository repository;
+	private final ProgramDetailsRepository prgdrepository;
 
 	@Override
 	public List<Program> selectList() {
@@ -46,4 +49,12 @@ public class ProgramServiceImpl implements ProgramService {
 		repository.deleteById(prg_id);
 	}
 
+	@Override
+	public List<ProgramDetails> selectDetails(String prgId, String rec) {
+		return prgdrepository.selectDetails(prgId, rec);
+	}
+	// @Override
+	// public List<ProgramDetails> selectDetails() {
+	// return prgdrepository.findAll();
+	// }
 }
