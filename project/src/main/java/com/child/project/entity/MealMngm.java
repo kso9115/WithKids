@@ -2,6 +2,7 @@ package com.child.project.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -24,14 +25,22 @@ import lombok.ToString;
 public class MealMngm implements Serializable {
 
     @Id
-    private String mem_serial;
+    @Column(name="mem_serial")
+    private String memSerial;
     @Id
-    private String meal_date;
-
-    private String staff_id;
-    private String staff_nm;
-    private int brf_meal;
-    private int lnc_meal;
-    private int dnr_meal;
-    private int snk_meal;
+    @Column(name="meal_date")
+    private String mealDate;
+    
+    @Column(name="staff_id")
+    private String staffId;
+    @Column(name="staff_nm")
+    private String staffNm;
+    @Column(name="brf_meal")
+    private int brfMeal;
+    @Column(name="lnc_meal")
+    private int lncMeal;
+    @Column(name="dnr_meal")
+    private int dnrMeal;
+    @Column(name="snk_meal")
+    private int snkMeal;
 }

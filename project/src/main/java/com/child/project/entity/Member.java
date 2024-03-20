@@ -21,8 +21,7 @@ import lombok.ToString;
 public class Member {
 
     @Id
-    @Column(name="mem_serial")
-    private String memSerial;
+    private String mem_serial;
 
     @Column(name="mem_name")
     private String memName;

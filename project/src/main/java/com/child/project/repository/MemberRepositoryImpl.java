@@ -8,14 +8,14 @@
 
 //     @Override
 //     public List<Member> findAll() {
-        
+
 //         return null;
 //     }
 
 //     @Override
 //     public List<Member> findbyMembers(long mem_serial) {
-        
+
 //         return null;
 //     }
-    
+
 // }
