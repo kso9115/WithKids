@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.child.project.entity.Member;
 
-public interface MemberRepository extends JpaRepository<Member,Long> {
-    
+public interface MemberRepository extends JpaRepository<Member,String> {
+
 
     // List<Member> findAll();
     // List<Member> findbyMembers(long mem_serial);

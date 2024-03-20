@@ -1,4 +1,10 @@
 
 .adMainBox {
     display: flex;
+    width: 1666px;
+    height: 722px;
+}
+
+.adMainBox .sub-container {
+    height: calc(100% - 97px);
 }

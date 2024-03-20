@@ -1,6 +1,6 @@
 .memberList {
     font-size: 14px;
-    /* height: 100%; */
+    height: 100%;
     height: calc(100% - 26px);
     margin-top: 5px;
 }
@@ -14,7 +14,8 @@
     text-align: center;
 
     /* 세로 스크롤 */
-    height: 722px;
+    /* height: 722px; */
+    height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
 }

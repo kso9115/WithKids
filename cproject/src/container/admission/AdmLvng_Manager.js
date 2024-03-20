@@ -24,10 +24,10 @@ function AdmLvng_Manager() {
                 <div style={{
                     width: '30%',
                     height: '100%'}} >
-                    <div style={{
+                    {/* <div style={{
                         marginBottom: '5px'}}>
 
-                    </div>
+                    </div> */}
                     <MemberList />
                 </div>
                 <div style={{

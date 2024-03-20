@@ -57,9 +57,9 @@ function Login({ setSessionName }) {
                 <div><img className="leftBackground" src={leftBackground} alt="배경"></img></div>
 
                 <div>
-                    <div className='hovering'><a href='/' style={{color:'var(--admin)' , fontFamily:'', fontWeight:'bold'}}>Sign In </a></div>
+                    <div className='hovering'><a href='/' style={{color:'var(--admin)' , fontFamily:'', fontWeight:'bold'}}>Log In</a></div>
                     <br />
-                    <div className='hovering'><a href="/home" style={{color:'var(--admin)'}}>Home </a></div>
+                    <div className='hovering'><a href="/home" style={{color:'var(--admin)' , fontFamily:'', fontWeight:'bold'}}>Home</a></div>
                 </div>
                 
             </div>
