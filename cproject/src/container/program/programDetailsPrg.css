@@ -18,8 +18,16 @@
     overflow-y: auto;
     /* height: 100%; */
     position: relative;
+    
+}
+
+.prg_dtlprg_gridBox>div:nth-child(3n+5) {
     cursor: pointer;
 }
+.prg_dtlprg_gridBox>div:nth-child(3n+5):hover {
+    background-color: var(--mgray);
+}
+
 
 .prg_dtlprg_gridBox2,
 .prg_dtlprg_gridBox3 {
@@ -152,3 +160,4 @@
     grid-column: span 3;
     cursor: default;
 }
+

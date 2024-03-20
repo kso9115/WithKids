@@ -9,34 +9,33 @@ import './programTree.css'
 
 function ProgramTree({ name, setData, treeData, prgData }) {
 
-    let count = 1;
     let treeMake = treeData.map((e) => {
         return (
-            <TreeItem key={e.count} nodeId={e.count} label={e.prg_big_cls} >
+            <TreeItem key={e.count} nodeId={e.count} label={e.prgBigCls} >
                 {e.contents.map((e2) => {
                     return (
-                        <TreeItem key={e2.count} nodeId={e2.count} label={e2.prg_mid_cls} >
+                        <TreeItem key={e2.count} nodeId={e2.count} label={e2.prgMidCls} >
                             {e2.contents.map((e3) => {
                                 return (
-                                    <TreeItem key={e3.count} nodeId={e3.count} label={e3.prg_sub_cls} >
+                                    <TreeItem key={e3.count} nodeId={e3.count} label={e3.prgSubCls} >
                                         {e3.contents.map((e4) => {
                                             return (
                                                 <TreeItem key={e4.count} nodeId={e4.count} onClick={() => {
-                                                    let data = prgData[prgData.findIndex((item) => item.prg_id === e4.prg_id)];
+                                                    let data = prgData[prgData.findIndex((item) => item.prgId === e4.prgId)];
                                                     data = {
                                                         ...data,
-                                                        f_typ: !data.f_typ ?
-                                                            new Set() : Array.isArray(data.f_typ) ?
-                                                                data.cls_inc : data.f_typ.indexOf(' ') > 0 ?
-                                                                    new Set(data.f_typ.split(' ')) : new Set([data.f_typ]),
-                                                        cls_inc: !data.cls_inc ?
-                                                            new Set() : Array.isArray(data.cls_inc) ?
-                                                                data.cls_inc : data.cls_inc.indexOf(' ') > 0 ?
-                                                                    new Set(data.cls_inc.split(' ')) : new Set([data.cls_inc]),
+                                                        ffTyp: !data.ffTyp ?
+                                                            new Set() : Array.isArray(data.ffTyp) ?
+                                                                data.cls_inc : data.ffTyp.indexOf(' ') > 0 ?
+                                                                    new Set(data.ffTyp.split(' ')) : new Set([data.ffTyp]),
+                                                        clsInc: !data.clsInc ?
+                                                            new Set() : Array.isArray(data.clsInc) ?
+                                                                data.cls_inc : data.clsInc.indexOf(' ') > 0 ?
+                                                                    new Set(data.clsInc.split(' ')) : new Set([data.clsInc]),
                                                     };
                                                     setData(data)
                                                 }}
-                                                    label={e4.prg_nm} ></TreeItem>
+                                                    label={e4.prgNm} ></TreeItem>
                                             )
                                         })}
                                     </TreeItem>

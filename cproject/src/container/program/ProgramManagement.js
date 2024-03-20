@@ -23,7 +23,7 @@ function ProgramManagement() {
         { name: '세부 프로그램', content: '' }
     ];
     subMenuArr[0].content = <ProgramDetails data={prgDataOne} />;
-    subMenuArr[1].content = <ProgramDetailsPrg data={prgDetail} />;
+    subMenuArr[1].content = <ProgramDetailsPrg data={prgDetail} subData={prgDataOne} />;
 
     useEffect(() => {
         axios.get('/api/prg/prgList')
@@ -37,7 +37,7 @@ function ProgramManagement() {
             && Object.keys(prgDataOne).length !== 0){
             axios.get('/api/prg/prgDetails', {
                 params: {
-                    prg_id: prgDataOne.prg_id,
+                    prgId: prgDataOne.prgId,
                     rec: '프로그램세부'
                 }
             }).then((res) => {
@@ -53,30 +53,30 @@ function ProgramManagement() {
     const prgTreeData = [];
     if (prgData.length > 0) {
         for (let i = 0; i < prgData.length; i++) {
-            if (prgData[i].prg_big_cls !== check) {
-                check = prgData[i].prg_big_cls;
+            if (prgData[i].prgBigCls !== check) {
+                check = prgData[i].prgBigCls;
                 prgTreeData.push({
-                    prg_big_cls: prgData[i].prg_big_cls,
+                    prgBigCls: prgData[i].prgBigCls,
                     count: `${treeCount++}`,
                     contents: []
                 });
                 for (let j = 0; j < prgData.length; j++) {
-                    if (prgData[j].prg_big_cls === check && prgData[j].prg_mid_cls !== check2) {
-                        check2 = prgData[j].prg_mid_cls;
+                    if (prgData[j].prgBigCls === check && prgData[j].prgMidCls !== check2) {
+                        check2 = prgData[j].prgMidCls;
                         prgTreeData.at(-1).contents.push({
-                            prg_mid_cls: prgData[j].prg_mid_cls,
+                            prgMidCls: prgData[j].prgMidCls,
                             count: `${treeCount++}`,
                             contents: []
                         });
                         for (let k = 0; k < prgData.length; k++) {
-                            if (prgData[k].prg_big_cls === check && prgData[k].prg_mid_cls === check2 && prgData[k].prg_sub_cls !== check3) {
+                            if (prgData[k].prgBigCls === check && prgData[k].prgMidCls === check2 && prgData[k].prgSubCls !== check3) {
                                 check3 = prgData[k].prg_sub_cls;
                                 prgTreeData.at(-1).contents.at(-1).contents.push({
-                                    prg_sub_cls: prgData[k].prg_sub_cls,
+                                    prgSubCls: prgData[k].prgSubCls,
                                     count: `${treeCount++}`,
                                     contents: [{
-                                        prg_id: prgData[k].prg_id,
-                                        prg_nm: prgData[k].prg_nm,
+                                        prgId: prgData[k].prgId,
+                                        prgNm: prgData[k].prgNm,
                                         count: `${treeCount++}`,
                                     }]
                                 })

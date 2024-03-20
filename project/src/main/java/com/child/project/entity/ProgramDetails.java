@@ -51,7 +51,7 @@ public class ProgramDetails implements Serializable {
 	private int plnCnt;
 
 	@Column(name = "pln_nmb_ppl")
-	private int pln_nmbPpl;
+	private int plnNmbPpl;
 
 	@Column(name = "prg_hst")
 	private String prgHst;
@@ -99,7 +99,7 @@ public class ProgramDetails implements Serializable {
 	@Column(name = "prg_dnm")
 	private String prgDnm;
 
-	@Column(name = "prgFile")
+	@Column(name = "prg_file")
 	private String prgFile;
 
 	@Transient

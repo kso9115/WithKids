@@ -20,7 +20,7 @@ import lombok.ToString;
 public class Member {
 
     @Id
-    private long mem_serial;
+    private String mem_serial;
 
     private String mem_name;
     private String mem_loginPW;
@@ -48,6 +48,4 @@ public class Member {
     private String mem_end;
     private String mem_status;
 
-
 }
-

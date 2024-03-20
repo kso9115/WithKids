@@ -1,6 +1,7 @@
 #menuContainer {
     width: 224px !important;
-    min-height: 100vh;
+    height: 100vh;
+    min-height: 945px;
     background-color: var(--blue);
     color: white;
     margin-bottom: 0;
