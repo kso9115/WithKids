@@ -4,14 +4,16 @@ import MemberAssortment from "./Member_assortment";
 import MemberLeaving from "./Member_Leaving";
 import SearchBox from "../../hooks/searchbox/SearchBox";
 import Container from "../container/Container";
-import { admLvng_mng } from "../../hooks/searchbox/searchData";
-
 import './AdmLvng_Manager.css';
-import { useState } from "react";
+
+import { admLvng_mng } from "../../hooks/searchbox/searchData";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 
 function AdmLvng_Manager() {
+
     // 컨테이너에 정보 전달 
     const [subMenuArr,setSubMenuArr] = useState([
         {name : '입소/이용',content:<MemberAdmission></MemberAdmission>},
@@ -19,7 +21,28 @@ function AdmLvng_Manager() {
     ]);
     const [subCurrentTab,setSubCurrentTab] = useState(0);
 
-    
+
+
+    // Manager에 DATA 가져오기
+    const[memList, setMList]= useState();
+
+    useEffect(()=>{
+        SpringData();
+    },[]);
+
+    async function SpringData(){
+        await axios
+            .get("/api/mem/memList")
+            .then((response)=>{
+                console.log(response.data);
+                setMList(response.data);
+            })
+            .catch((err)=>{
+                console.log(`SpringData 오류 발생 => ${err}`);
+            })
+    }
+
+    // 화면
     return (
         <div className="admLvngBox">
             <SearchBox data={admLvng_mng}/>
@@ -31,7 +54,7 @@ function AdmLvng_Manager() {
                         marginBottom: '5px'}}>
 
                     </div> */}
-                    <MemberList />
+                    <MemberList memList={memList}/>
                 </div>
                 <div style={{
                     borderWidth: 1,

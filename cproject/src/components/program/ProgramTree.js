@@ -27,7 +27,7 @@ function ProgramTree({ name, setData, treeData, prgData }) {
                                                         ffTyp: !data.ffTyp ?
                                                             new Set() : Array.isArray(data.ffTyp) ?
                                                                 data.cls_inc : data.ffTyp.indexOf(' ') > 0 ?
-                                                                    new Set(data.ffTyp.split(' ')) : new Set([data.ffTyp]),
+                                                                    new  Set(data.ffTyp.split(' ')) : new Set([data.ffTyp]),
                                                         clsInc: !data.clsInc ?
                                                             new Set() : Array.isArray(data.clsInc) ?
                                                                 data.cls_inc : data.clsInc.indexOf(' ') > 0 ?

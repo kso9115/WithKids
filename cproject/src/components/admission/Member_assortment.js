@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import './Member_assortment.css';
 
-function Member_adssortment(){
+function Member_assortment(){
+
 
     return (
         <div className='asgridBox'>
@@ -24,4 +26,4 @@ function Member_adssortment(){
         </div>
     );
 }
-export default Member_adssortment;
+export default Member_assortment;
