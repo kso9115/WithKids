@@ -6,7 +6,7 @@ function MemberList(props) {
 
     console.log(props);
     
-    const {memList} = props;
+    const {memData} = props;
 
     const testData = [
         {
@@ -242,7 +242,7 @@ function MemberList(props) {
                             <div className="memberList_cell">{o.birth}</div>
                         </div>
                     ))} */}
-                    {memList && memList.map((o, i) => (
+                    {memData && memData.map((o, i) => (
                         // key값에 인덱스보다는 식별번호 넣어주기 -> 인덱스는 최후의 수단?으로 입력
                         <div className="memberList_row" key={o.memSerial}> 
                             <div className="memberList_cell">순차번호..ㅎ</div>

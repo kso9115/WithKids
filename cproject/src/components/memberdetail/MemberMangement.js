@@ -20,8 +20,8 @@ function MemberMangement() {
 
     // 신규 버전 sub탭에 전달할 데이터(상태값) : 초기값은 빈 객체
     const [memDataOne, setMemDataOne] = useState({});   // 멤버 테이블 전체 중 멤버 한명 데이터
-    const [memData, setMemData] = useState({});         // 멤버 테이블 전체 데이터
-    const [memDetail, setMemDetail] = useState({});     // 멤버 테이블 전체중..? 멤버리스트에서 선택한 행 id의 세부데이터
+    const [memData, setMemData] = useState([]);         // 멤버 테이블 전체 데이터
+    const [memDetail, setMemDetail] = useState([]);     // 멤버 테이블 전체중..? 멤버리스트에서 선택한 행 id의 세부데이터
 
     // 신규 버전 sub 탭
     const subMenuArr = [
@@ -31,31 +31,32 @@ function MemberMangement() {
     subMenuArr[0].content = <MemberDetail data={memDataOne} />;
     subMenuArr[1].content = <MemberDetailNote data={memDetail} subdata={memDataOne} />;
 
-    // 기존 memList DB 당겨오기(서버연결)
-    const [memList, setMList] = useState(); // memData 였던..넘
+    // 기존ver memList DB 당겨오기(서버연결)
+    // const [memList, setMList] = useState(); // memData 였던..넘
 
-    useEffect(() => {
-        SpringData();
+    // useEffect(() => {
+    //     SpringData();
 
-    }, [])
+    // }, [])
 
-    async function SpringData() {
-        await axios
-            .get("/api/mem/memList")
-            .then((response) => {
-                console.log(response.data);
-                setMList(response.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
+    // async function SpringData() {
+    //     await axios
+    //         .get("/api/mem/memList")
+    //         .then((response) => {
+    //             console.log(response.data);
+    //             setMList(response.data);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         })
+    // }
 
     // 신규ver 멤버 테이블 서버 연결 : memList DB 당겨오기
     useEffect(() => {
         axios
             .get("/api/mem/memList")
             .then((res) => {
+                console.log(res.data);
                 setMemData(res.data);
             })
     }, []);
@@ -96,9 +97,10 @@ function MemberMangement() {
                         <div>성별: {datas.memSex}</div>
                     </div>
                 )) : ''} */}
-                    <MemberList memList={memList} 
+                    <MemberList memData={memData} 
                                 setData={setMemDataOne}
-                                memData={memData}/>
+                                // memData={memData}
+                                />
                 </div>
 
                 <div style={{
