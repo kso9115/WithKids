@@ -31,8 +31,6 @@ function MemberMangement() {
     subMenuArr[0].content = <MemberDetail data={memDataOne} />;
     subMenuArr[1].content = <MemberDetailNote data={memDetail} subdata={memDataOne} />;
 
-
-
     // 기존 memList DB 당겨오기(서버연결)
     const [memList, setMList] = useState(); // memData 였던..넘
 
