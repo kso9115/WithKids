@@ -13,7 +13,7 @@ public class ProgramDetailsId implements Serializable {
 
 	private String rec;
 
-	private String prgDate;
-
 	private String prgId;
+
+	private String prgDnm;
 }

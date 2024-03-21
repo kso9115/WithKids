@@ -1,6 +1,8 @@
 package com.child.project.entity;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +32,6 @@ public class ProgramDetails implements Serializable {
 	@Id
 	private String rec;
 
-	@Id
 	@Column(name = "prg_date")
 	private String prgDate;
 
@@ -98,6 +101,7 @@ public class ProgramDetails implements Serializable {
 
 	private String content;
 
+	@Id
 	@Column(name = "prg_dnm")
 	private String prgDnm;
 
@@ -105,5 +109,6 @@ public class ProgramDetails implements Serializable {
 	private String prgFile;
 
 	@Transient
-	private String prgFilef;
+	private List<MultipartFile> prgFilef;
+	// private HashMap<String,MultipartFile> prgFilef;
 }

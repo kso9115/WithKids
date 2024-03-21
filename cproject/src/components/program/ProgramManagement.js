@@ -26,7 +26,7 @@ function ProgramManagement() {
     ];
     subMenuArr[0].content = <ProgramDetails data={prgDataOne} setData={setPrgDataOne}
         treeUpdate={treeUpdate} setTreeUpdate={setTreeUpdate} />;
-    subMenuArr[1].content = <ProgramDetailsPrg data={prgDetail} subData={prgDataOne}
+    subMenuArr[1].content = <ProgramDetailsPrg data={prgDataOne} setData={setPrgDataOne} subData={prgDetail}
         treeUpdate={treeUpdate} setTreeUpdate={setTreeUpdate} />;
 
     

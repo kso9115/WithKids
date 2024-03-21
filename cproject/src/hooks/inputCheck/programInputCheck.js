@@ -124,7 +124,7 @@ export function prg_dtls_inp_ck(prgDataOneD, type) { // 필수입력확인
         console.log("일단왔다");
         // useConfirm("프로젝트를 신규 생성하시겠습니까?",true,false);
         if (type === "prgInsert") {
-            return window.confirm("신규 프로젝트를 생성하시겠습니까?");
+            return window.confirm("신규 프로그램을 생성하시겠습니까?");
         } else if (type === "prgUpdate") {
             return window.confirm("입력하신 정보를 저장하시겠습니까?");
         } else {
@@ -134,6 +134,35 @@ export function prg_dtls_inp_ck(prgDataOneD, type) { // 필수입력확인
 
     } else {
         alert("사업 대분류를 입력해주세요.");
+        return false;
+    }
+}
+
+export function prg_dtls_prg_inp_ck(prgDetailData, type) { // 필수입력확인
+    if (Object.keys(prgDetailData).length > 0) {
+
+        //세부프로그램명 prgDnm
+        if (!prgDetailData.prgDnm) {
+            alert("세부프로그램명을 입력해주세요.");
+            return false;
+        }
+
+        //세부프로그램 내용 content
+
+        //첨부파일 prgFile
+        
+        console.log("일단왔다");
+        // useConfirm("프로젝트를 신규 생성하시겠습니까?",true,false);
+        if (type === "prgDtInsert") {
+            return window.confirm("신규 세부프로그램을 생성하시겠습니까?");
+        } else if (type === "prgDtUpdate") {
+            return window.confirm("입력하신 정보를 저장하시겠습니까?");
+        } else {
+            alert("잘못된 요청입니다.");
+            return false;
+        }
+    } else {
+        alert("세부프로그램명을 입력해주세요");
         return false;
     }
 }

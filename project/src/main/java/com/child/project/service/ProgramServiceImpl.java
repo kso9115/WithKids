@@ -30,6 +30,11 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 
 	@Override
+	public Integer detailsCnt(String prgId, String prgDnm) {
+		return prgdrepository.detailsCnt(prgId, prgDnm);
+	}
+
+	@Override
 	public Program selectOne(ProgramId programId) {
 		Optional<Program> result = repository.findById(programId);
 
@@ -43,6 +48,14 @@ public class ProgramServiceImpl implements ProgramService {
 	public Program save(Program entity) {
 		log.info("** register : entity => " + entity);
 		repository.save(entity); // 처리후 entity 를 return
+
+		return entity;
+	}
+
+	@Override
+	public ProgramDetails dtSave(ProgramDetails entity) {
+		log.info("** register : entity => " + entity);
+		prgdrepository.save(entity); // 처리후 entity 를 return
 
 		return entity;
 	}

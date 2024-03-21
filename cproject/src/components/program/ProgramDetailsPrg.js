@@ -1,31 +1,33 @@
 import './programDetailsPrg.css'
 import React, { useState, useCallback, useEffect } from 'react';
 import AttachedFile from '../../hooks/func/AttachedFile';
+import { prg_dtls_prg_inp_ck } from '../../hooks/inputCheck/programInputCheck'
 import axios from 'axios';
 
+// 서브 컴포넌트
 function MakeDiv({ e, i, detailsChange }) {
-    return (<><div>{i + 1}</div><div onClick={() => detailsChange(i)}>{e.title}</div><div>{e.content}</div></>);
+    return (<><div>{i + 1}</div><div onClick={() => detailsChange(i)}>{e.prgDnm}</div><div>{e.content}</div></>);
 }
 
-function ProgramDetailsPrg({ data, subData, treeUpdate, setTreeUpdate }) {
+// 메인 컴포넌트
+function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }) {
     console.log("ProgramDetailsPrg");
-    console.log(subData);
+    
+    const [prgDataOneD, setPrgDataOneD] = useState({}); // 대,중,소 분류 프로그램명
     const [prgDetailData, setPrgDetailData] = useState({});
-
+    const [files, setFiles] = useState([]);
+    console.log(prgDetailData);
     useEffect(() => {
-        setPrgDetailData({
-            prgBigCls: subData.prgBigCls,
-            prgMidCls: subData.prgMidCls,
-            prgSubCls: subData.prgSubCls,
-            prgNm: subData.prgNm
+        setPrgDataOneD({
+            ...data
         });
-    }, [subData])
+    }, [data])
 
     // data를 바탕으로 div 생성
     function makeDiv() {
-        if (Array.isArray(data) && data.length > 0) {
-            // console.log(data);
-            return data.map((e, i) => (<MakeDiv key={e.rec + e.prgDate + e.prgId} e={e} i={i} detailsChange={detailsChange}></MakeDiv>));
+        if (Array.isArray(subData) && subData.length > 0) {
+            // console.log(subData);
+            return subData.map((e, i) => (<MakeDiv key={e.rec + e.prgDate + e.prgId} e={e} i={i} detailsChange={detailsChange}></MakeDiv>));
         } else {
             return <div className='notPrgDetail'>정보가 없습니다.</div>;
         }
@@ -35,12 +37,8 @@ function ProgramDetailsPrg({ data, subData, treeUpdate, setTreeUpdate }) {
     function detailsChange(i) {
         // console.log(data[i]);
         setPrgDetailData({
-            ...data[i],
-            // prgId: subData.prgId,
-            // prgBigCls: subData.prgBigCls,
-            // prgMidCls: subData.prgMidCls,
-            // prgSubCls: subData.prgSubCls,
-            prgFile: data[i].prgFile !== null ? data[i].prgFile.split(' ') : []
+            ...subData[i],
+            prgFile: subData[i].prgFile !== null ? subData[i].prgFile.split(' ') : []
         })
     }
 
@@ -53,26 +51,21 @@ function ProgramDetailsPrg({ data, subData, treeUpdate, setTreeUpdate }) {
 
     function deleteData() {
         if (prgDetailData.prgId && window.confirm("프로젝트를 삭제하시겠습니까?")) {
-            console.log({
-                prgId: prgDetailData.prgId,
-                prgDate: prgDetailData.prgDate,
-                rec: prgDetailData.rec
-            });
+            // console.log({
+            //     prgId: prgDetailData.prgId,
+            //     prgDate: prgDetailData.prgDate,
+            //     rec: prgDetailData.rec
+            // });
             axios.post('/api/prg/prgDtdelete', null, {
                 params: {
                     prgId: prgDetailData.prgId,
-                    prgDate: prgDetailData.prgDate,
+                    prgDnm: prgDetailData.prgDnm,
                     rec: prgDetailData.rec
                 }
             })
                 .then(function (response) {
                     // handle success
-                    setPrgDetailData({
-                        prgBigCls: subData.prgBigCls,
-                        prgMidCls: subData.prgMidCls,
-                        prgSubCls: subData.prgSubCls,
-                        prgNm: subData.prgNm
-                    });
+                    setPrgDetailData({});
                     setTreeUpdate(!treeUpdate);
                     alert(response.data);
                     console.log(response.data);
@@ -87,15 +80,35 @@ function ProgramDetailsPrg({ data, subData, treeUpdate, setTreeUpdate }) {
 
         } else alert("선택된 프로그램이 없습니다.");
     }
+
+    function saveData(type) {
+        //유효성검사
+        if (prg_dtls_prg_inp_ck(prgDetailData, type)) {
+
+            axios.post(`/api/prg/${type}`, null, {
+                ...prgDetailData,
+                prgFilef: files
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    // setData(prgDataOneD);
+                    // setTreeUpdate(!treeUpdate);
+                    // alert(response.data);
+                }).catch(function (error) {
+                    console.log(error);
+                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                }).then(function () {
+                    // 항상 실행
+                });
+        }
+    }
+
     return (
         <div style={{
             height: '100%'
         }}>
             <b>세부프로그램 목록</b>
             <div className='prg_dtlprg_grid'>
-                {/* <div className='prg_dtlprg_gridBoxT'>
-                        <div>번호</div><div>세부프로그램명</div><div>세부프로그램내용</div><div></div>
-                    </div> */}
                 <div className='prg_dtlprg_gridBox'>
                     <div>번호</div><div>세부프로그램명</div><div>세부프로그램내용</div>
                     {makeDiv()}
@@ -105,19 +118,19 @@ function ProgramDetailsPrg({ data, subData, treeUpdate, setTreeUpdate }) {
             <b>세부프로그램 상세정보</b>
             <div className='prg_dtlprg_gridBox2'>
                 <div><span>*</span>대분류명</div>
-                <div><input type="text" name='prgBigCls' value={prgDetailData.prgBigCls || ""}
+                <div><input type="text" name='prgBigCls' value={prgDataOneD.prgBigCls || ""}
                     onChange={prgdChange} disabled={true} /></div>
 
                 <div><span>*</span>중분류명</div>
-                <div><input type="text" name='prgMidCls' value={prgDetailData.prgMidCls || ""}
+                <div><input type="text" name='prgMidCls' value={prgDataOneD.prgMidCls || ""}
                     onChange={prgdChange} disabled={true} /></div>
 
                 <div><span>*</span>소분류명</div>
-                <div><input type="text" name='prgSubCls' value={prgDetailData.prgSubCls || ""}
+                <div><input type="text" name='prgSubCls' value={prgDataOneD.prgSubCls || ""}
                     onChange={prgdChange} disabled={true} /></div>
 
                 <div><span>*</span>프로그램명</div>
-                <div><input type="text" name='prgNm' value={prgDetailData.prgNm || ""}
+                <div><input type="text" name='prgNm' value={prgDataOneD.prgNm || ""}
                     onChange={prgdChange} disabled={true} /></div>
             </div>
 
@@ -129,14 +142,14 @@ function ProgramDetailsPrg({ data, subData, treeUpdate, setTreeUpdate }) {
                 <div><textarea name='content' cols="140" rows="6" value={prgDetailData.content || ""} onChange={prgdChange}></textarea></div>
 
                 <div>첨부파일</div>
-                <div><AttachedFile setData={setPrgDetailData}></AttachedFile></div>
+                <div><AttachedFile data={files} setData={setFiles}></AttachedFile></div>
             </div>
             <div className='buttonBox'>
                 <div>
                     <button type="button" onClick={() => setPrgDetailData({})}>입력취소</button>
                     <button type="button" value='삭제' onClick={deleteData}>삭제</button>
-                    {/* <button type="button" value='신규' onClick={() => saveData("prgInsert")}>신규</button>
-                    <button type="button" value='저장' onClick={() => saveData("prgUpdate")}>저장</button> */}
+                    <button type="button" value='신규' onClick={() => saveData("prgDtInsert")}>신규</button>
+                    <button type="button" value='저장' onClick={() => saveData("prgDtUpdate")}>저장</button>
                 </div>
             </div>
         </div>

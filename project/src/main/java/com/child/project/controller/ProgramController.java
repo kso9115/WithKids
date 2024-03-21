@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,18 +54,50 @@ public class ProgramController {
 		// String formatedNow = now.format(formatter);
 
 		entity.setPrgId(entity.getPrgBigCls() + entity.getPrgMidCls() + entity.getPrgSubCls());
-
-		try {
-			if (prgService.saveCat(entity.getPrgBigCls(), entity.getPrgMidCls(), entity.getPrgSubCls()) == 0) {
+		if (prgService.saveCat(entity.getPrgBigCls(), entity.getPrgMidCls(), entity.getPrgSubCls()) == 0) {
+			try {
 				log.info(" program insert 성공 => " + prgService.save(entity));
 				message = "신규생성에 성공 했습니다.";
-			} else {
-				message = "신규생성에 실패 했습니다.\n사업 분류(대,중,소)가 같은 프로그램이 존재합니다.";
+			} catch (Exception e) {
+				log.info(" program insert Exception => " + e.toString());
+				message = "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
 			}
-		} catch (Exception e) {
-			log.info(" program insert Exception => " + e.toString());
-			message = "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
+		} else {
+			message = "신규생성에 실패 했습니다.\n사업 분류(대,중,소)가 같은 프로그램이 존재합니다.";
 		}
+		
+
+		return message;
+	}
+
+	@PostMapping("/prgDtInsert")
+	public String prgDtInsert(HttpServletRequest request, ProgramDetails entity) {
+		String message = "";
+		// LocalDate now = LocalDate.now(); // 포맷 정의
+		// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+		// String formatedNow = now.format(formatter);
+		if (prgService.detailsCnt(entity.getPrgId(), entity.getPrgDnm()) == 0) {
+			String realPath = request.getRealPath("/");
+			log.info("** realPath => " + realPath);
+
+			if (!realPath.contains("tomcat"))
+				realPath = "D:\\MTest\\childProject\\project\\src\\main\\file\\"; // 개발중.
+			else
+				realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\demoM\\resources\\uploadImages\\";
+
+
+
+			try {
+				// log.info(" program insert 성공 => " + prgService.dtSave(entity));
+				message = "신규생성에 성공 했습니다.";
+			} catch (Exception e) {
+				log.info(" program insert Exception => " + e.toString());
+				message = "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
+			}
+		} else {
+			message = "신규생성에 실패 했습니다.\n같은 세부프로그램명이 존재합니다.";
+		}
+		
 
 		return message;
 	}

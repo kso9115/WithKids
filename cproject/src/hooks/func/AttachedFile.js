@@ -1,12 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import './AttachedFile.css'
 
-function AttachedFile({ setData }) {
+function AttachedFile({ data, setData }) {
     const selectFile = useRef();
     // 파일을 저장
-    const [files, setFiles] = useState([]);
     const [isActive, setActive] = useState(false);
-
+    console.log(data);
+    // useEffect(() => {
+    //     setFiles({
+    //         ...data
+    //     });
+    // }, [data])
     //파일 드래그 시의 css 제어를 위해
     const handleDragStart = () => setActive(true);
     const handleDragEnd = () => setActive(false);
@@ -14,19 +18,19 @@ function AttachedFile({ setData }) {
     //파일 저장 함수
     function onLoadFile(event) {
         const file = event.target.files;
-        const set = new Set([...files, file]);
+        const set = new Set([...data, file]);
         console.log([...set]);
-        setFiles([...set]);
+        setData([...set]);
     }
 
     function fileMake() {
-        if (files.length > 0) {
-            return (files.map((o,i) => {
+        if (data.length > 0) {
+            return (data.map((o, i) => {
                 return (
                     <>
                         <div key={i}>
-                            <input type="checkbox" id=''  value={o[0].name}
-                                className='deleteCheck'/>
+                            <input type="checkbox" id='' value={o[0].name}
+                                className='deleteCheck' />
                         </div>
                         <div>{o[0].name}</div>
                         <div>{o[0].size} byte</div>
@@ -52,9 +56,9 @@ function AttachedFile({ setData }) {
         event.preventDefault();
 
         const file = event.dataTransfer.files;
-        const set = new Set([...files, file]);
+        const set = new Set([...data, file]);
         console.log([...set]);
-        setFiles([...set]);
+        setData([...set]);
         setActive(false);
 
     };
@@ -65,10 +69,10 @@ function AttachedFile({ setData }) {
         const file = [];
         deleteCheck.forEach((e, i) => {
             console.log(e.checked + " " + i);
-            if (!e.checked) file.push(files[i])
+            if (!e.checked) file.push(data[i])
             else deleteCheck[i].checked = false;
         })
-        setFiles(file);
+        setData(file);
     }
 
     function downloadFile(event) {
@@ -92,10 +96,10 @@ function AttachedFile({ setData }) {
                 <div>용량</div>
             </div>
 
-            <label 
+            <label
                 onDragEnter={handleDragStart}
-                onDragOver={handleDragOver}  
-                onDragLeave={handleDragEnd}  
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragEnd}
                 onDrop={handleDrop}
             >
                 <div>
@@ -104,15 +108,15 @@ function AttachedFile({ setData }) {
                 <input
                     type="file"
                     style={{ display: "none" }}
-                    ref={selectFile} 
+                    ref={selectFile}
                     onChange={onLoadFile}
                 />
             </label>
-                
+
             <div>
                 <div></div>
                 <div>
-                    
+
                     <button type='button' onClick={() => selectFile.current.click()}>추가</button>
                     <button type='button' onClick={deleteFile}>삭제</button>
                     <button type='button' onClick={downloadFile}>다운로드</button>
