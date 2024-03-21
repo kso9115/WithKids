@@ -9,20 +9,21 @@ import { prg_mng } from '../../hooks/searchbox/searchData'
 import axios from "axios";
 
 function ProgramManagement() {
-    const [prgDataOne, setPrgDataOne] = useState({}); //프로그램 테이블 전체 보관
+    const [prgDataOne, setPrgDataOne] = useState({}); //프로그램 테이블 전체중에 트리에서 선택한 행 보관
     const [prgDetail, setPrgDetail] = useState([]); //프로그램 테이블 전체중에 트리에서 선택한 행의 프로그램 ID의 세부테이블 정보 보관
-    const [prgData, setPrgData] = useState({}); //프로그램 테이블 전체중에 트리에서 선택한 행 보관
+    const [prgData, setPrgData] = useState({}); //프로그램 테이블 전체 보관
     const [subCurrentTab, setSubCurrentTab] = useState(0);
     // const [subMenuArr, setSubMenuArr] = useState([
     //     { name: '프로그램 상세정보', content: <ProgramDetails data={programId} setData={setProgramId} /> },
     //     { name: '세부 프로그램', content: <ProgramDetailsPrg data={programId} setData={setProgramId} /> }
     // ]);
-    // console.log(programId);
+    console.log(prgData);
+
     const subMenuArr = [
         { name: '프로그램 상세정보', content: '' },
         { name: '세부 프로그램', content: '' }
     ];
-    subMenuArr[0].content = <ProgramDetails data={prgDataOne} />;
+    subMenuArr[0].content = <ProgramDetails data={prgDataOne} setData={setPrgDataOne} />;
     subMenuArr[1].content = <ProgramDetailsPrg data={prgDetail} subData={prgDataOne} />;
 
     useEffect(() => {
@@ -34,7 +35,7 @@ function ProgramManagement() {
 
     useEffect(() => {
         if (prgDataOne.constructor === Object
-            && Object.keys(prgDataOne).length !== 0){
+            && Object.keys(prgDataOne).length !== 0) {
             axios.get('/api/prg/prgDetails', {
                 params: {
                     prgId: prgDataOne.prgId,
@@ -74,24 +75,34 @@ function ProgramManagement() {
                                 prgTreeData.at(-1).contents.at(-1).contents.push({
                                     prgSubCls: prgData[k].prgSubCls,
                                     count: `${treeCount++}`,
-                                    contents: [{
-                                        prgId: prgData[k].prgId,
-                                        prgNm: prgData[k].prgNm,
-                                        count: `${treeCount++}`,
-                                    }]
+                                    // contents: [{
+                                    //     prgId: prgData[k].prgId,
+                                    //     prgNm: prgData[k].prgNm,
+                                    //     count: `${treeCount++}`,
+                                    // }]
+                                    contents: []
                                 })
+                                for (let l = 0; l < prgData.length; l++) {
+                                    if (prgData[l].prgBigCls === check && prgData[l].prgMidCls === check2 && prgData[l].prgSubCls === check3) {
+                                        prgTreeData.at(-1).contents.at(-1).contents.at(-1).contents.push({
+                                            prgId: prgData[l].prgId,
+                                            prgNm: prgData[l].prgNm,
+                                            count: `${treeCount++}`,
+                                        })
+                                    }
+                                }
                             }
                         }
-                        check3 = ''; 
+                        check3 = '';
                     }
                 }
-                check2 = ''; 
+                check2 = '';
             }
-            
+
         }
-        check = '';   
+        check = '';
     }
-    // console.log(prgTreeData);
+    console.log(prgTreeData);
     return (
         <div className='pgr_mng' >
             <SearchBox data={prg_mng} />

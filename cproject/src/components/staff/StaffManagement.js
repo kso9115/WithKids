@@ -3,6 +3,7 @@ import { stf_mng } from '../../hooks/searchbox/searchData'
 import ListComponent from '../../hooks/ListComponent';
 import './staffManagement.css'
 import { staffData } from './data'
+import { useState } from 'react';
 
 const staffList = {
     name: 'stf',
@@ -13,6 +14,8 @@ const staffList = {
 
 
 function StaffManagement() {
+    const [stfData, setStfData] = useState(staffData);
+    const [stfDataOne, setStfDataOne] = useState({});
     
     return (
         <div className='stf_mng' >
@@ -22,7 +25,7 @@ function StaffManagement() {
                     width: '40%',
                     height: '100%',
                 }}>
-                    <ListComponent name={staffList} data={staffData} />
+                    <ListComponent name={staffList} data={stfData} setData={setStfDataOne} />
                 </div>
                 <div style={{
                     borderWidth: 1,

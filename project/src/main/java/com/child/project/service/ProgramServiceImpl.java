@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+// import com.child.project.domain.ProgramDTO;
 import com.child.project.entity.Program;
 import com.child.project.entity.ProgramDetails;
 import com.child.project.repository.ProgramDetailsRepository;
@@ -19,6 +20,7 @@ import lombok.extern.log4j.Log4j2;
 public class ProgramServiceImpl implements ProgramService {
 
 	private final ProgramRepository repository;
+	// private final ProgramDTO DTO;
 	private final ProgramDetailsRepository prgdrepository;
 
 	@Override
@@ -45,6 +47,11 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 
 	@Override
+	public Integer saveCat(String prgBigCls, String prgMidCls, String prgSubCls) {
+		return repository.saveCat(prgBigCls, prgMidCls, prgSubCls);
+	}
+
+	@Override
 	public void deleteById(String prg_id) {
 		repository.deleteById(prg_id);
 	}
@@ -53,6 +60,10 @@ public class ProgramServiceImpl implements ProgramService {
 	public List<ProgramDetails> selectDetails(String prgId, String rec) {
 		return prgdrepository.selectDetails(prgId, rec);
 	}
+
+	
+
+
 	// @Override
 	// public List<ProgramDetails> selectDetails() {
 	// return prgdrepository.findAll();

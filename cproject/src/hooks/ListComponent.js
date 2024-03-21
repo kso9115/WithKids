@@ -1,4 +1,4 @@
-function ListComponent({ name, data }) {
+function ListComponent({ name, data, setData }) {
 
     return (
         <>
@@ -33,7 +33,7 @@ function ListComponent({ name, data }) {
                         </div>
                         {data.map((e, i) => {
                             return (
-                                <div key={e + i} style={{display: 'grid'}}>
+                                <div key={e + i} style={{ display: 'grid' }} onClick={() => setData(e)}>
                                     {name.menu.map((e2, i2) => {
                                         return (<div key={e2 + i2}>{e[e2]}</div>)
                                     })}

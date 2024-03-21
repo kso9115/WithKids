@@ -1,8 +1,11 @@
 package com.child.project.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -18,18 +21,22 @@ import lombok.ToString;
 @Entity
 @ToString
 @Table(name = "program")
-public class Program {
+@IdClass(ProgramId.class)
+public class Program implements Serializable {
 
 	@Id
 	@Column(name = "prg_id")
 	private String prgId;
 
+	@Id
 	@Column(name = "prg_big_cls")
 	private String prgBigCls;
 
+	@Id
 	@Column(name = "prg_mid_cls")
 	private String prgMidCls;
 
+	@Id
 	@Column(name = "prg_sub_cls")
 	private String prgSubCls;
 

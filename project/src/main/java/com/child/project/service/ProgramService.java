@@ -2,6 +2,7 @@ package com.child.project.service;
 
 import java.util.List;
 
+import com.child.project.domain.ProgramDTO;
 import com.child.project.entity.Program;
 import com.child.project.entity.ProgramDetails;
 
@@ -15,6 +16,8 @@ public interface ProgramService {
 	Program selectOne(String prg_id);
 
 	Program save(Program entity);
+
+	Integer saveCat(String prgBigCls, String prgMidCls, String prgSubCls);
 
 	void deleteById(String prg_id);
 }

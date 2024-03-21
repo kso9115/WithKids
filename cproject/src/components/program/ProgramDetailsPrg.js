@@ -18,13 +18,13 @@ function ProgramDetailsPrg({ data, subData }) {
     }
     
     function detailsChange(i) {
-        
+        console.log(data[i]);
         setPrgDetailData({
             ...data[i],
             prgBigCls: subData.prgBigCls,
             prgMidCls: subData.prgMidCls,
             prgSubCls: subData.prgSubCls,
-            prgFile: subData.prgFile !== null ? subData.prgFile.split(' ') : []
+            prgFile: data[i].prgFile !== null ? data[i].prgFile.split(' ') : []
         })
     }
     // console.log(prgDetailData);

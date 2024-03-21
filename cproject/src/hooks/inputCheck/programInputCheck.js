@@ -123,7 +123,7 @@ export function prg_dtls_inp_ck(prgDataOneD) { // 필수입력확인
 
         console.log("일단왔다");
         // useConfirm("프로젝트를 신규 생성하시겠습니까?",true,false);
-        return window.confirm("프로젝트를 신규 생성하시겠습니까?");
+        return window.confirm("신규 프로젝트를 생성하시겠습니까?");
     } else {
         alert("사업 대분류를 입력해주세요.");
         return false;
