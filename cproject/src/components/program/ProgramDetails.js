@@ -1,11 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './programDetails.css'
 import { prg_dtls_inp_ck } from '../../hooks/inputCheck/programInputCheck'
 import axios from "axios";
 
-function ProgramDetails({ data, setData }) {
-    
+function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
+    console.log("ProgramDetails");
+    // 프로그램 정보를 저장하고 제어하기 위해
     const [prgDataOneD, setPrgDataOneD] = useState({});
+
+    // 가져온 프로그램 정보를 useState에 넣는과정()
     useEffect(() => {
         setPrgDataOneD({
             ...data,
@@ -13,18 +16,21 @@ function ProgramDetails({ data, setData }) {
             prgNmbApi: data.prgNmbApi ? data.prgNmbApi.substr(1) : null,
         })
     }, [data])
-    console.log(prgDataOneD);
+    // console.log(prgDataOneD);
 
+    // checkbox타입 input태그의 checked 값을 제어
     function CheckBoxTrue(array, str) {
         if (!!array && array.has(str)) return true;
         else return false;
     }
 
+    // text,radio타입 input태그와 select 태그의 value 값을 제어
     const prgdChange = useCallback((event) => {
         prgDataOneD[event.target.name] = event.target.value;
         setPrgDataOneD({ ...prgDataOneD });
     }, [prgDataOneD]);
 
+    // checkbox타입 input태그의 value 값을 useState에 저장 및 삭제
     const prgdCkChange = useCallback((event) => {
         const set = new Set(prgDataOneD[event.target.name]);
         if (event.target.checked) {
@@ -36,26 +42,42 @@ function ProgramDetails({ data, setData }) {
         setPrgDataOneD({ ...prgDataOneD });
     }, [prgDataOneD]);
 
-    // function timeTest() {
-    //     const date = new Date();
-    //     const hours = String(date.getHours()).padStart(2, "0");
-    //     const minutes = String(date.getMinutes()).padStart(2, "0");
-    //     const seconds = String(date.getSeconds()).padStart(2, "0");
+    function deleteData() {
+        if (prgDataOneD.prgId && window.confirm("프로젝트를 삭제하시겠습니까?")) {
+            console.log({
+                prgId: prgDataOneD.prgId,
+                prgBigCls: prgDataOneD.prgBigCls,
+                prgMidCls: prgDataOneD.prgMidCls
+            });
+            axios.post('/api/prg/prgdelete', null , {
+                params: {
+                    prgId: prgDataOneD.prgId,
+                    prgBigCls: prgDataOneD.prgBigCls,
+                    prgMidCls: prgDataOneD.prgMidCls
+                }
+            })
+                .then(function (response) {
+                    // handle success
+                    setData({});
+                    setTreeUpdate(!treeUpdate);
+                    alert(response.data);
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .then(function () {
+                    // always executed
+                });
 
-    //     console.log(hours + minutes + seconds);
-    // }
-
-    function resetData() {
-        setPrgDataOneD({});
+        } else alert("선택된 프로그램이 없습니다.");
     }
 
-    function deleteData(event) {
-
-        // event.preventDefault();
-    }
-
-    function insertData(event) {
-        if (prg_dtls_inp_ck(prgDataOneD)) {
+    //insert/update 요청
+    function saveData(type) {
+        //유효성검사
+        if (prg_dtls_inp_ck(prgDataOneD, type)) {
             const clsInc = [...prgDataOneD.clsInc].join(' '); // 소득구분
             const ffTyp = [...prgDataOneD.ffTyp].join(' '); //가구유형
             const prgNmbApi = prgDataOneD.prgNmbApiSub + prgDataOneD.prgNmbApi;
@@ -67,13 +89,14 @@ function ProgramDetails({ data, setData }) {
                 prgNmbApi
             };
 
-            axios.post("/api/prg/prgInsert", null, {
+            axios.post(`/api/prg/${type}`, null, {
                 params
             })
                 .then(function (response) {
                     console.log(response.data);
                     setData({
                         ...params,
+                        prgId: type === "prgUpdate" ? prgDataOneD.prgId : prgDataOneD.prgBigCls + prgDataOneD.prgMidCls + prgDataOneD.prgSubCls,
                         ffTyp: !params.ffTyp ?
                             new Set() : Array.isArray(params.ffTyp) ?
                                 params.cls_inc : params.ffTyp.indexOf(' ') > 0 ?
@@ -85,21 +108,15 @@ function ProgramDetails({ data, setData }) {
                         prgNmbApiSub: params.prgNmbApi ? params.prgNmbApi.substr(0, 1) : null,
                         prgNmbApi: params.prgNmbApi ? params.prgNmbApi.substr(1) : null,
                     });
+                    setTreeUpdate(!treeUpdate);
                     alert(response.data);
                 }).catch(function (error) {
                     console.log(error);
-                    alert("서버 통신 에러로 신규 요청에 실패했습니다.");
+                    alert("서버 통신 에러로 요청에 실패했습니다.");
                 }).then(function () {
                     // 항상 실행
                 });
         }
-
-        // event.preventDefault();
-    }
-
-    function updateData(event) {
-
-        // event.preventDefault();
     }
 
     return (
@@ -318,11 +335,11 @@ function ProgramDetails({ data, setData }) {
             </div>
             <div className='buttonBox'>
                 <div>
-                    <button type="button" onClick={resetData}>입력취소</button>
+                    <button type="button" onClick={() => setPrgDataOneD({})}>입력취소</button>
                     <button type="button" value='삭제' onClick={deleteData}>삭제</button>
-                    <button type="button" value='신규' onClick={insertData}>신규</button>
-                    <button type="button" value='저장' onClick={updateData}>저장</button>
-                    <button type="button" value='테스트' onClick={() => prg_dtls_inp_ck(prgDataOneD)}>테스트</button>
+                    <button type="button" value='신규' onClick={() => saveData("prgInsert")}>신규</button>
+                    <button type="button" value='저장' onClick={() => saveData("prgUpdate")}>저장</button>
+                    {/* <button type="button" value='테스트' onClick={() => prg_dtls_inp_ck(prgDataOneD)}>테스트</button> */}
 
                     {/* <button type="submit" value='삭제' formAction="/api/prg/delete" onClick={(event) => deleteData(event)}>삭제</button>
                         <button type="submit" value='신규' formAction="/api/prg/insert" onClick={(event) => insertData(event)}>신규</button>
@@ -336,4 +353,4 @@ function ProgramDetails({ data, setData }) {
     )
 }
 
-export default ProgramDetails;
+export default React.memo(ProgramDetails);

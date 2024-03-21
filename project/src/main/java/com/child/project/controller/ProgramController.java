@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.child.project.domain.ProgramDTO;
 import com.child.project.entity.Program;
 import com.child.project.entity.ProgramDetails;
+import com.child.project.entity.ProgramId;
 import com.child.project.service.ProgramService;
 
 import lombok.AllArgsConstructor;
@@ -46,12 +47,12 @@ public class ProgramController {
 	@PostMapping("/prgInsert")
 	public String prgInsert(Program entity) {
 		String message = "";
-		LocalDate now = LocalDate.now(); // 포맷 정의
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
-		String formatedNow = now.format(formatter);
+		// LocalDate now = LocalDate.now(); // 포맷 정의
+		// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+		// String formatedNow = now.format(formatter);
 
-		entity.setPrgId("prg" + formatedNow + entity.getPrgNm().substring(0, entity.getPrgNm().indexOf("(")));
-		log.info(entity);
+		entity.setPrgId(entity.getPrgBigCls() + entity.getPrgMidCls() + entity.getPrgSubCls());
+
 		try {
 			if (prgService.saveCat(entity.getPrgBigCls(), entity.getPrgMidCls(), entity.getPrgSubCls()) == 0) {
 				log.info(" program insert 성공 => " + prgService.save(entity));
@@ -62,6 +63,37 @@ public class ProgramController {
 		} catch (Exception e) {
 			log.info(" program insert Exception => " + e.toString());
 			message = "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
+		}
+
+		return message;
+	}
+
+	@PostMapping("/prgUpdate")
+	public String prgUpdate(Program entity) {
+		String message = "";
+
+		try {
+			log.info(" program insert 성공 => " + prgService.save(entity));
+			message = "저장에 성공 했습니다.";
+		} catch (Exception e) {
+			log.info(" program insert Exception => " + e.toString());
+			message = "저장에 실패 했습니다. 관리자에게 문의하세요.";
+		}
+
+		return message;
+	}
+
+	@PostMapping("/prgdelete")
+	public String prgdelete(ProgramId programId) {
+		String message = "";
+
+		try {
+			prgService.deleteById(programId);
+			log.info(" member delete 성공 ");
+			message = "삭제에 성공 했습니다.";
+		} catch (Exception e) {
+			log.info(" member delete Exception => " + e.toString());
+			message = "삭제에 실패 했습니다. 관리자에게 문의하세요.";
 		}
 
 		return message;

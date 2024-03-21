@@ -9,9 +9,11 @@ import { prg_mng } from '../../hooks/searchbox/searchData'
 import axios from "axios";
 
 function ProgramManagement() {
+    console.log("ProgramManagement");
     const [prgDataOne, setPrgDataOne] = useState({}); //프로그램 테이블 전체중에 트리에서 선택한 행 보관
     const [prgDetail, setPrgDetail] = useState([]); //프로그램 테이블 전체중에 트리에서 선택한 행의 프로그램 ID의 세부테이블 정보 보관
-    
+    const [treeUpdate, setTreeUpdate] = useState(true);
+
     const [subCurrentTab, setSubCurrentTab] = useState(0);
     // const [subMenuArr, setSubMenuArr] = useState([
     //     { name: '프로그램 상세정보', content: <ProgramDetails data={programId} setData={setProgramId} /> },
@@ -22,8 +24,10 @@ function ProgramManagement() {
         { name: '프로그램 상세정보', content: '' },
         { name: '세부 프로그램', content: '' }
     ];
-    subMenuArr[0].content = <ProgramDetails data={prgDataOne} setData={setPrgDataOne} />;
-    subMenuArr[1].content = <ProgramDetailsPrg data={prgDetail} subData={prgDataOne} />;
+    subMenuArr[0].content = <ProgramDetails data={prgDataOne} setData={setPrgDataOne}
+        treeUpdate={treeUpdate} setTreeUpdate={setTreeUpdate} />;
+    subMenuArr[1].content = <ProgramDetailsPrg data={prgDetail} subData={prgDataOne}
+        treeUpdate={treeUpdate} setTreeUpdate={setTreeUpdate} />;
 
     
     useEffect(() => {
@@ -50,7 +54,7 @@ function ProgramManagement() {
                     width: '30%',
                     height: '100%',
                 }}>
-                    <ProgramTree name={'프로그램 목록'} data={prgDataOne} setData={setPrgDataOne}></ProgramTree>
+                    <ProgramTree name={'프로그램 목록'} setData={setPrgDataOne} treeUpdate={treeUpdate}></ProgramTree>
                 </div>
                 <div style={{
                     borderWidth: 1,

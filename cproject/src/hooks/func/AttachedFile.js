@@ -1,14 +1,17 @@
 import React, { useRef, useState } from 'react';
 import './AttachedFile.css'
 
-function AttachedFile() {
+function AttachedFile({ setData }) {
     const selectFile = useRef();
+    // 파일을 저장
     const [files, setFiles] = useState([]);
     const [isActive, setActive] = useState(false);
 
+    //파일 드래그 시의 css 제어를 위해
     const handleDragStart = () => setActive(true);
     const handleDragEnd = () => setActive(false);
 
+    //파일 저장 함수
     function onLoadFile(event) {
         const file = event.target.files;
         const set = new Set([...files, file]);

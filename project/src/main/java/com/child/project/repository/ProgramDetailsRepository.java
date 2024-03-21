@@ -14,4 +14,6 @@ public interface ProgramDetailsRepository extends JpaRepository<ProgramDetails, 
 
 	@Query(value = "select * from program_details where prg_id=:prg_id and rec=:rec", nativeQuery = true)
 	List<ProgramDetails> selectDetails(@Param("prg_id") String prgId, @Param("rec") String rec);
+
+	
 }

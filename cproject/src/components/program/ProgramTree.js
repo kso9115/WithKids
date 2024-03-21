@@ -10,15 +10,15 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 
-function ProgramTree({ name, data, setData }) {
-
+function ProgramTree({ name, setData, treeUpdate }) {
+    console.log("ProgramTree");
     const [prgData, setPrgData] = useState({}); //프로그램 테이블 전체 보관
     useEffect(() => {
         axios.get('/api/prg/prgList')
-            .then((res) => {
-                setPrgData(res.data);
+            .then((response) => {
+                setPrgData(response.data);
             })
-    }, []);
+    }, [treeUpdate]);
 
     let treeCount = 2;
     let check = '';
@@ -75,7 +75,7 @@ function ProgramTree({ name, data, setData }) {
         }
         check = '';
     }
-    console.log(treeData);
+    // console.log(treeData);
 
     let treeMake = treeData.map((e) => {
         return (

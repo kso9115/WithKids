@@ -16,6 +16,4 @@ public class ProgramId implements Serializable {
 	private String prgBigCls;
 
 	private String prgMidCls;
-
-	private String prgSubCls;
 }

@@ -36,7 +36,6 @@ public class Program implements Serializable {
 	@Column(name = "prg_mid_cls")
 	private String prgMidCls;
 
-	@Id
 	@Column(name = "prg_sub_cls")
 	private String prgSubCls;
 

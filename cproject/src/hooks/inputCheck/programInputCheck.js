@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function prg_dtls_inp_ck(prgDataOneD) { // 필수입력확인
+export function prg_dtls_inp_ck(prgDataOneD, type) { // 필수입력확인
     var regex = /^[0-9]*$/;
     if (Object.keys(prgDataOneD).length > 0) {
         //사업 대분류 prgBigCls
@@ -90,7 +90,7 @@ export function prg_dtls_inp_ck(prgDataOneD) { // 필수입력확인
         if (!prgDataOneD.costClsfc) {
             alert("비용구분을 입력해주세요.");
             return false;
-        } 
+        }
 
         //프로그램요금 prgFee
         if (!regex.test(prgDataOneD.prgFee)) {
@@ -123,7 +123,15 @@ export function prg_dtls_inp_ck(prgDataOneD) { // 필수입력확인
 
         console.log("일단왔다");
         // useConfirm("프로젝트를 신규 생성하시겠습니까?",true,false);
-        return window.confirm("신규 프로젝트를 생성하시겠습니까?");
+        if (type === "prgInsert") {
+            return window.confirm("신규 프로젝트를 생성하시겠습니까?");
+        } else if (type === "prgUpdate") {
+            return window.confirm("입력하신 정보를 저장하시겠습니까?");
+        } else {
+            alert("잘못된 요청입니다.");
+            return false;
+        }
+
     } else {
         alert("사업 대분류를 입력해주세요.");
         return false;
