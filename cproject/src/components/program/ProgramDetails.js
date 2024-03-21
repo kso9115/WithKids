@@ -56,6 +56,12 @@ function ProgramDetails({ data }) {
     function insertData(event) {
         const clsInc = [...prgDataOneD.clsInc].join(' ');
         const ffTyp = [...prgDataOneD.ffTyp].join(' ');
+        console.log(prgDataOneD);
+        console.log( {
+            ...prgDataOneD,
+            clsInc,
+            ffTyp
+        });
         if (prg_dtls_inp_ck(prgDataOneD)) {
             axios.post("/api/prg/prgInsert", null, {
                 params: {
