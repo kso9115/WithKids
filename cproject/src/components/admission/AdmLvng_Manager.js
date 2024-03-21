@@ -42,6 +42,22 @@ function AdmLvng_Manager() {
             })
     }
 
+    // Manager 에서 대상자 성명, 번호, 생년월일, 번호, 성별구분, 입소이용상태 값을 전달하기 
+    // const[memOne,SetMemOne] = useState();
+
+    // async function memListOne(){
+    //     await axios
+    //         .get("/api/adm/assort")
+    //         .then((response)=>{
+    //             console.log(response.data[0]);
+    //             setMemOne(response.data[0]);
+    //         })
+    //         .catch((err)=>{
+    //             console.log(`SpringData 오류 발생 => ${err}`);
+    //         })
+    // }
+
+    
     // 화면
     return (
         <div className="admLvngBox">
