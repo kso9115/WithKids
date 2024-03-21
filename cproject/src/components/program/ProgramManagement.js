@@ -43,6 +43,7 @@ function ProgramManagement() {
                 }
             }).then((res) => {
                 setPrgDetail(res.data);
+                
             })
         }
     }, [prgDataOne]);
