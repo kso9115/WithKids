@@ -1,6 +1,7 @@
 package com.child.project.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.child.project.entity.Member;
@@ -29,6 +30,13 @@ public class MemberController {
     
 
     return list;
+    }
+
+    @GetMapping("/memSelectOne")
+    public Member selectOne ( @RequestParam("memSerial") String memSerial){
+        Member selectOneMembers = memService.selectOne(memSerial);
+        return selectOneMembers;
+
     }
 
 }

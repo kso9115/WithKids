@@ -3,8 +3,11 @@ import { useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import SignUp from './SignUp';
 
-function MemberDetail() {
+function MemberDetail({data, subData}) {
     // <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    console.log("data 확인"+[data]);
+    console.log("data 확인"+subData);
+
 
     return (
         <form method='get'>
