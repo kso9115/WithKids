@@ -55,17 +55,6 @@ function ProgramDetails({ data, setData }) {
     }
 
     function insertData(event) {
-<<<<<<< HEAD
-=======
-        const clsInc = [...prgDataOneD.clsInc].join(' ');
-        const ffTyp = [...prgDataOneD.ffTyp].join(' ');
-        console.log(prgDataOneD);
-        console.log( {
-            ...prgDataOneD,
-            clsInc,
-            ffTyp
-        });
->>>>>>> kso
         if (prg_dtls_inp_ck(prgDataOneD)) {
             const clsInc = [...prgDataOneD.clsInc].join(' '); // 소득구분
             const ffTyp = [...prgDataOneD.ffTyp].join(' '); //가구유형

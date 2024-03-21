@@ -5,6 +5,7 @@ import java.util.List;
 import com.child.project.domain.ProgramDTO;
 import com.child.project.entity.Program;
 import com.child.project.entity.ProgramDetails;
+import com.child.project.entity.ProgramId;
 
 public interface ProgramService {
 
@@ -13,11 +14,11 @@ public interface ProgramService {
 	// List<ProgramDetails> selectDetails();
 	List<ProgramDetails> selectDetails(String prgId, String rec);
 
-	Program selectOne(String prg_id);
+	Program selectOne(ProgramId programId);
 
 	Program save(Program entity);
 
 	Integer saveCat(String prgBigCls, String prgMidCls, String prgSubCls);
 
-	void deleteById(String prg_id);
+	void deleteById(ProgramId programId);
 }

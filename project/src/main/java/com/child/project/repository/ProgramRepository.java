@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.child.project.entity.Program;
+import com.child.project.entity.ProgramId;
 
-public interface ProgramRepository extends JpaRepository<Program, String> {
+public interface ProgramRepository extends JpaRepository<Program, ProgramId> {
 
     @Query(value = "select * from program order by prg_big_cls,prg_mid_cls,prg_sub_cls", nativeQuery = true)
     List<Program> findAll();

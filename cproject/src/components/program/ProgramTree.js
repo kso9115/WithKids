@@ -6,8 +6,76 @@ import treeclose from '../../assets/images/treeclose.png';
 import treeopen from '../../assets/images/treeopen.png';
 import React from "react";
 import './programTree.css'
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
-function ProgramTree({ name, setData, treeData, prgData }) {
+function ProgramTree({ name, data, setData }) {
+
+    const [prgData, setPrgData] = useState({}); //프로그램 테이블 전체 보관
+    useEffect(() => {
+        axios.get('/api/prg/prgList')
+            .then((res) => {
+                setPrgData(res.data);
+            })
+    }, []);
+
+    let treeCount = 2;
+    let check = '';
+    let check2 = '';
+    let check3 = '';
+    const treeData = [];
+    if (prgData.length > 0) {
+        for (let i = 0; i < prgData.length; i++) {
+            if (prgData[i].prgBigCls !== check) {
+                check = prgData[i].prgBigCls;
+                treeData.push({
+                    prgBigCls: prgData[i].prgBigCls,
+                    count: `${treeCount++}`,
+                    contents: []
+                });
+                for (let j = 0; j < prgData.length; j++) {
+                    if (prgData[j].prgBigCls === check && prgData[j].prgMidCls !== check2) {
+                        check2 = prgData[j].prgMidCls;
+                        treeData.at(-1).contents.push({
+                            prgMidCls: prgData[j].prgMidCls,
+                            count: `${treeCount++}`,
+                            contents: []
+                        });
+                        for (let k = 0; k < prgData.length; k++) {
+                            if (prgData[k].prgBigCls === check && prgData[k].prgMidCls === check2 && prgData[k].prgSubCls !== check3) {
+                                check3 = prgData[k].prgSubCls;
+                                treeData.at(-1).contents.at(-1).contents.push({
+                                    prgSubCls: prgData[k].prgSubCls,
+                                    count: `${treeCount++}`,
+                                    // contents: [{
+                                    //     prgId: prgData[k].prgId,
+                                    //     prgNm: prgData[k].prgNm,
+                                    //     count: `${treeCount++}`,
+                                    // }]
+                                    contents: []
+                                })
+                                for (let l = 0; l < prgData.length; l++) {
+                                    if (prgData[l].prgBigCls === check && prgData[l].prgMidCls === check2 && prgData[l].prgSubCls === check3) {
+                                        treeData.at(-1).contents.at(-1).contents.at(-1).contents.push({
+                                            prgId: prgData[l].prgId,
+                                            prgNm: prgData[l].prgNm,
+                                            count: `${treeCount++}`,
+                                        })
+                                    }
+                                }
+                            }
+                        }
+                        check3 = '';
+                    }
+                }
+                check2 = '';
+            }
+
+        }
+        check = '';
+    }
+    console.log(treeData);
 
     let treeMake = treeData.map((e) => {
         return (
@@ -27,15 +95,16 @@ function ProgramTree({ name, setData, treeData, prgData }) {
                                                         ffTyp: !data.ffTyp ?
                                                             new Set() : Array.isArray(data.ffTyp) ?
                                                                 data.cls_inc : data.ffTyp.indexOf(' ') > 0 ?
-                                                                    new  Set(data.ffTyp.split(' ')) : new Set([data.ffTyp]),
+                                                                    new Set(data.ffTyp.split(' ')) : new Set([data.ffTyp]),
                                                         clsInc: !data.clsInc ?
                                                             new Set() : Array.isArray(data.clsInc) ?
                                                                 data.cls_inc : data.clsInc.indexOf(' ') > 0 ?
                                                                     new Set(data.clsInc.split(' ')) : new Set([data.clsInc]),
                                                     };
-                                                    setData(data)
+                                                    setData(data);
                                                 }}
-                                                    label={e4.prgNm} ></TreeItem>
+                                                    label={e4.prgNm} >
+                                                </TreeItem>
                                             )
                                         })}
                                     </TreeItem>
