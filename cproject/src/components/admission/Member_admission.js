@@ -10,10 +10,24 @@ function Member_addission(){
                 <div><input type="date" /></div>
                 
                 <div><span style={{color:"red"}}>*</span>입소/이용유형</div>
-                <div><input type="select" /></div>
+                <div><select name="admission_type">
+                        <option value="secondHighest">차상위 계층</option>
+                        <option value='bsLivingSecurity'>국민기초생활보장수급자</option>
+                        <option value='SpecialCare'>돌봄특례 아동</option>
+                        <option value='eduExpensesSup'>초중고 교육비지원대상자</option>
+                        <option value='multiChildren'>일반아동,다자녀 가족</option>
+                        <option value='eduBenefitTarget'>교육급여대상가정 아동</option>
+                        <option value='singleParent'>한부모 가족 아동</option>
+                    </select>
+                </div>
                 
                 <div><span style={{color:"red"}}>*</span>입소/이용자격</div>
-                <div><input type="select" /></div>
+                <div>
+                    <select name="admission_qualification">
+                        <option value="free">무료</option>
+                        <option value='pay'>유료</option>
+                    </select>    
+                </div>
                  
                 <div><span></span>전입여부</div>
                 <div><input type="checkbox" /></div>
@@ -31,7 +45,16 @@ function Member_addission(){
                 <div><input type="date" /></div>
                
                 <div><span style={{color:"red"}}>*</span>입소/이용사유</div>
-                <div><input type="select" /></div>
+                <div><select name="admission_rs">
+                        <option value="dualIncome">맞벌이 부모</option>
+                        <option value='multiculture'>다문화가정</option>
+                        <option value='withsibling'>형제,자매가 재원중</option>
+                        <option value='threeormore'>자녀가 3명이상</option>
+                        <option value='unrelatedps'>무연고자</option>
+                        <option value='grandParents'>조부모 돌봄</option>
+                        <option value='singleParent'>한부모 가족 아동</option>
+                    </select>
+                </div>
                 
                 <div><span></span>입소/이용사유내용</div>
                 <div><input type="text" /></div>
@@ -42,7 +65,10 @@ function Member_addission(){
                 <div><input type="time" /><span style={{fontSize:10}}>(예시:13:00)</span></div>
                 
                 <div><span style={{color:"red"}}>*</span>프로그램</div>
-                <div><input type="text" /></div>
+                <div><select name="program">
+                        <option value="internal">내부 프로그램</option>
+                        <option value='external'>신청형 프로그램</option>
+                    </select></div>
 
                 <div><span></span>담당자 성명</div>
                 <div><input type="text" /></div>

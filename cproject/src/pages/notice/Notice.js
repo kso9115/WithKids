@@ -4,7 +4,7 @@
     //     // return { __html: 'First &middot; Second' };
     //     return { __html: '<iframe src={noticeSrc}</iframe>' };
     // }
-    import './board_notice.css';
+    // import './board_notice.css';
         
 
 

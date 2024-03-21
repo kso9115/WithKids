@@ -12,11 +12,14 @@ import { useState } from "react";
 
 
 function AdmLvng_Manager() {
+    // 컨테이너에 정보 전달 
     const [subMenuArr,setSubMenuArr] = useState([
         {name : '입소/이용',content:<MemberAdmission></MemberAdmission>},
         {name : '퇴소/종결',content:<MemberLeaving></MemberLeaving>},
     ]);
     const [subCurrentTab,setSubCurrentTab] = useState(0);
+
+    
     return (
         <div className="admLvngBox">
             <SearchBox data={admLvng_mng}/>
