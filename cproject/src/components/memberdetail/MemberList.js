@@ -243,7 +243,8 @@ function MemberList(props) {
                         </div>
                     ))} */}
                     {memList && memList.map((o, i) => (
-                        <div className="memberList_row" key={i}>
+                        // key값에 인덱스보다는 식별번호 넣어주기 -> 인덱스는 최후의 수단?으로 입력
+                        <div className="memberList_row" key={o.memSerial}> 
                             <div className="memberList_cell">순차번호..ㅎ</div>
                             <div className="memberList_cell">{o.memSerial}</div>
                             <div className="memberList_cell">{o.memName}</div>
