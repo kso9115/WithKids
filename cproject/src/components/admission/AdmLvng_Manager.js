@@ -13,72 +13,45 @@ import axios from "axios";
 
 
 function AdmLvng_Manager() {
+
+    // 2. memberManager 에서 선택한 아동 한명을 전달 받아, set 해주어, memDataOne 에 저장 
+    const[memDataOne, setMemDataOne]= useState({});
+    //console.log(memDataOne);
+
+
+    // 3. NemberAdmission에 detail DATA 전달하기 
+    const[admMemOne,setAdmMemOne] = useState({});
+    // console.log(admMemOne);
     
-    // 1. MemAdmission 에서 detail정보를 가져옴. 
-    const[admMemOne,setAdmMemOne] = useState({});   
-    // 2. Manager에 DATA 가져오기
-    const[memData, setMemData]= useState();
-    
-    // 3. 컨테이너에 정보 전달 
+    // 1. 컨테이너에 정보 전달 
     const [subMenuArr,setSubMenuArr] = useState([
-        {name : '입소/이용',content:<MemberAdmission admMemOne={admMemOne}></MemberAdmission>},
+        {name : '입소/이용',content:<MemberAdmission admMemOne={admMemOne} setAdmMemOne={setAdmMemOne}></MemberAdmission>},
         {name : '퇴소/종결',content:<MemberLeaving></MemberLeaving>},
     ]);
     const [subCurrentTab,setSubCurrentTab] = useState(0);
-    
-    // 1. MemAdmission 에서 detail정보를 가져옴. 
+
+    // 3. NemberAdmission에 detail DATA 전달하기 
+    // 실행되는 시점을 제어하기 위해 if문 안에 매핑 요청
     useEffect(()=>{
-        if(admMemOne.constructor === Object
-            && Object.keys(admMemOne).length !==0 ){
-                // 빈객체가 넘어 오지 않도록 방어코드를 넣어줌 -> 넣지 않는 경우, 동기화 문제가 발생함. 
+        if(memDataOne.constructor === Object
+            && Object.keys(memDataOne).length !==0){
             axios
             .get("/api/adm/admMemOne",{
                 params:{
-                    memSerial :admMemOne.memSerial
+                    memSerial :memDataOne.memSerial
                 }
-            }).then((response)=>{
-                console.log(response.data);
-                setAdmMemOne(response.data);
-            })
-            .catch((err)=>{
-                console.log(`admMemOne 아동1명 불러오기 오류 발생 => ${err}`);
+            }).then((res)=>{
+                // console.log(res.data);
+                setAdmMemOne(res.data);
+            }).catch((err)=>{
+                console.log(err);
             })
         }
-    });
-    
-    
-    // 2. Manager에 memList DATA 가져오기
-    useEffect(() => {
-        axios
-        .get("/api/mem/memList")
-        .then((res) => {
-            console.log(res.data);
-            setMemData(res.data);
-        })
-        .catch((err)=>{
-            console.log(`Manager에서 아동 List 불러오기 => ${err}`);
-        })
-    }, []);
-
-    // Manager 에서 대상자 성명, 번호, 생년월일, 번호, 성별구분, 입소이용상태 값을 전달하기 
-    // const[assort,SetAssort] = useState();
-    // useEffect(()=>{
-    //     axios
-    //     .get("/api/mem/memList")
-    //     .then((response)=>{
-    //         console.log(response.data);
-    //         setMList(response.data);
-    //     })
-    //     .catch((err)=>{
-    //         console.log(`SpringData 오류 발생 => ${err}`);
-    //     })
-    // });
+    },[memDataOne]);
 
 
 
- 
-    
-    // 화면
+
     return (
         <div className="admLvngBox">
             <SearchBox data={admLvng_mng}/>
@@ -88,9 +61,9 @@ function AdmLvng_Manager() {
                     height: '100%'}} >
                     {/* <div style={{
                         marginBottom: '5px'}}>
-
+                        
                     </div> */}
-                    <MemberList memData={memData}/>
+                    <MemberList setData={setMemDataOne} />
                 </div>
                 <div style={{
                     borderWidth: 1,
@@ -103,7 +76,7 @@ function AdmLvng_Manager() {
                     width: '70%',
                     height: '100%'
                 }}>
-                    <MemberAssortment />
+                    <MemberAssortment memDataOne={memDataOne}/>
                     <Container menuArr={subMenuArr} setMenuArr={setSubMenuArr} 
                         currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={'sub'}></Container>
                 </div>

@@ -22,8 +22,8 @@ public class AdmissionController {
 
     MemAdmissionService admService;
 
-    @GetMapping("/admList")
-    public List<MemAdmission> admList(){
+    @GetMapping("/admMem")
+    public List<MemAdmission> admMem(){
         List<MemAdmission> list = admService.selectList();
 
         log.info("admission List 입소 아동들 확인 " + list);
@@ -36,7 +36,7 @@ public class AdmissionController {
     public MemAdmission admMemOne(@RequestParam("memSerial") String memSerial) {
         MemAdmission admOne =  admService.selectOne(memSerial);
         
-        log.info("admission List 입소 아동 detail 확인 " + admOne);
+        log.info("admission List 입소 아동 detail 확인 => " + admOne);
 
         return admOne;
     }
