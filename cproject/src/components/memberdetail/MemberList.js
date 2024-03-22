@@ -1,12 +1,22 @@
 import './MemberList.css';
 import React from "react";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 // function MemberList(props) {
-function MemberList(props) {
+function MemberList({ setData}) {   // memData 는 6줄에서~
+    const [memData, setMemData] = useState([]); 
+    // console.log(props);
+    // const {memData} = memData;   // memData로 받아왔으니까 구조분해할당필요음슴
+    useEffect(() => {
+        axios
+            .get("/api/mem/memList")
+            .then((res) => {
+                // console.log(res.data); // 데이터 전달 확인용
+                setMemData(res.data);
+            })
+    }, []);
 
-    console.log(props);
-    
-    const {memList} = props;
 
     const testData = [
         {
@@ -185,8 +195,18 @@ function MemberList(props) {
         }
     ]
 
+    
+
+    let selectOne = memData.map((e)=>{
+        return(
+            <>
+                
+            </>
+        )
+    })
 
 
+    
     return (
         <>
             <b>대상자 리스트</b>
@@ -242,10 +262,10 @@ function MemberList(props) {
                             <div className="memberList_cell">{o.birth}</div>
                         </div>
                     ))} */}
-                    {memList && memList.map((o, i) => (
+                    {memData && memData.map((o, i) => (
                         // key값에 인덱스보다는 식별번호 넣어주기 -> 인덱스는 최후의 수단?으로 입력
-                        <div className="memberList_row" key={o.memSerial}> 
-                            <div className="memberList_cell">순차번호..ㅎ</div>
+                        <div className="memberList_row" key={o.memSerial} onClick={()=>setData(o)}> 
+                            <div className="memberList_cell">★</div>
                             <div className="memberList_cell">{o.memSerial}</div>
                             <div className="memberList_cell">{o.memName}</div>
                             <div className="memberList_cell">{o.memSex}</div>

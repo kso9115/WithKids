@@ -3,6 +3,7 @@ package com.child.project.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -18,16 +19,19 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@IdClass(AttandanceId.class)
 public class Attandance {
 
     @Id
     @Column(name="mem_serial")
     private String memSerial;
-
-    @Column(name="mem_name")
-    private String memName;
+    
+    @Id
     @Column(name="attandance_date")
     private String attDate;
+    
+    @Column(name="mem_name")
+    private String memName;
     @Column(name="attandance_status")
     private String attStatus;
 
