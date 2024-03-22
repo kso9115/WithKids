@@ -1,7 +1,21 @@
 import './Member_admission.css';
+import { useState, useEffect } from 'react';
 
-function Member_addission(){
+function Member_addission(admMemOne){
+    // AdmLvng_Manager에서 admMemOne={admMemOne}를 넘겨 받은 것을 다시, useState하여 이 부분만 랜더링 할 수 있게 함.
+    const[admMemOneD,SetAdmMemOneD]=useState({});
 
+    useEffect(() => {
+        SetAdmMemOneD({
+            ...admMemOne
+        })
+    }, [admMemOne])
+    console.log(admMemOneD);
+
+
+
+
+    
     return (
         <form action="" method="get">
             <div style={{color:'black',fontWeight:'bold'}}>입소/이용 정보</div>

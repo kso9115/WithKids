@@ -13,50 +13,70 @@ import axios from "axios";
 
 
 function AdmLvng_Manager() {
-
-    // 컨테이너에 정보 전달 
+    
+    // 1. MemAdmission 에서 detail정보를 가져옴. 
+    const[admMemOne,setAdmMemOne] = useState({});   
+    // 2. Manager에 DATA 가져오기
+    const[memData, setMemData]= useState();
+    
+    // 3. 컨테이너에 정보 전달 
     const [subMenuArr,setSubMenuArr] = useState([
-        {name : '입소/이용',content:<MemberAdmission></MemberAdmission>},
+        {name : '입소/이용',content:<MemberAdmission admMemOne={admMemOne}></MemberAdmission>},
         {name : '퇴소/종결',content:<MemberLeaving></MemberLeaving>},
     ]);
     const [subCurrentTab,setSubCurrentTab] = useState(0);
-
-
-
-    // Manager에 DATA 가져오기
-    const[memList, setMList]= useState();
-
+    
+    // 1. MemAdmission 에서 detail정보를 가져옴. 
     useEffect(()=>{
-        SpringData();
-    },[]);
-
-    async function SpringData(){
-        await axios
-            .get("/api/mem/memList")
-            .then((response)=>{
+        if(admMemOne.constructor === Object
+            && Object.keys(admMemOne).length !==0 ){
+                // 빈객체가 넘어 오지 않도록 방어코드를 넣어줌 -> 넣지 않는 경우, 동기화 문제가 발생함. 
+            axios
+            .get("/api/adm/admMemOne",{
+                params:{
+                    memSerial :admMemOne.memSerial
+                }
+            }).then((response)=>{
                 console.log(response.data);
-                setMList(response.data);
+                setAdmMemOne(response.data);
             })
             .catch((err)=>{
-                console.log(`SpringData 오류 발생 => ${err}`);
+                console.log(`admMemOne 아동1명 불러오기 오류 발생 => ${err}`);
             })
-    }
+        }
+    });
+    
+    
+    // 2. Manager에 memList DATA 가져오기
+    useEffect(() => {
+        axios
+        .get("/api/mem/memList")
+        .then((res) => {
+            console.log(res.data);
+            setMemData(res.data);
+        })
+        .catch((err)=>{
+            console.log(`Manager에서 아동 List 불러오기 => ${err}`);
+        })
+    }, []);
 
     // Manager 에서 대상자 성명, 번호, 생년월일, 번호, 성별구분, 입소이용상태 값을 전달하기 
-    // const[memOne,SetMemOne] = useState();
+    // const[assort,SetAssort] = useState();
+    // useEffect(()=>{
+    //     axios
+    //     .get("/api/mem/memList")
+    //     .then((response)=>{
+    //         console.log(response.data);
+    //         setMList(response.data);
+    //     })
+    //     .catch((err)=>{
+    //         console.log(`SpringData 오류 발생 => ${err}`);
+    //     })
+    // });
 
-    // async function memListOne(){
-    //     await axios
-    //         .get("/api/adm/assort")
-    //         .then((response)=>{
-    //             console.log(response.data[0]);
-    //             setMemOne(response.data[0]);
-    //         })
-    //         .catch((err)=>{
-    //             console.log(`SpringData 오류 발생 => ${err}`);
-    //         })
-    // }
 
+
+ 
     
     // 화면
     return (
@@ -70,7 +90,7 @@ function AdmLvng_Manager() {
                         marginBottom: '5px'}}>
 
                     </div> */}
-                    <MemberList memList={memList}/>
+                    <MemberList memData={memData}/>
                 </div>
                 <div style={{
                     borderWidth: 1,

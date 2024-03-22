@@ -24,12 +24,13 @@ public class MemberController {
 
     @GetMapping("/memList")
     public List<Member> memList() {
-    List<Member> list = memService.selectList();
+        log.info("memList확인");
+        List<Member> list = memService.selectList();
     
-    log.info("memList확인"+list);
+        log.info("memList확인"+list);
     
 
-    return list;
+        return list;
     }
 
     @GetMapping("/memSelectOne")
