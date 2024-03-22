@@ -6,5 +6,5 @@ import com.child.project.entity.MemAdmission;
 import com.child.project.entity.Program;
 
 public interface MemAdmissionRepository extends JpaRepository<MemAdmission, String>  {
-
+    
 }
