@@ -11,7 +11,7 @@ function MakeDiv({ e, i, detailsChange }) {
 
 // 메인 컴포넌트
 function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }) {
-    console.log("ProgramDetailsPrg");
+    // console.log("ProgramDetailsPrg");
 
     const [prgDataOneD, setPrgDataOneD] = useState({}); // data 대,중,소 분류 프로그램명
     const [prgDetailData, setPrgDetailData] = useState({}); // subData
@@ -26,14 +26,17 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
             prgMngr: data.prgMngr,
             title: data.prgSubCls + " 세부",
             prgNm: data.prgNm,
-            prgId: data.prgId
+            prgId: data.prgId,
+            prgFile: data.prgFile ? data.prgFile.split(' ') : [],
+            prgFilef: data.prgFilef
+            // prgFile : "data.prgFile".split(' ')
         })
     }, [data])
     useEffect(() => {
         setFiles([])
     }, [prgDetailData])
-    console.log(prgDetailData);
-    console.log(data);
+    // console.log(prgDetailData);
+    // console.log(data);
     // data를 바탕으로 div 생성
     function makeDiv() {
         if (Array.isArray(subData) && subData.length > 0) {
@@ -49,7 +52,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         // console.log(data[i]);
         setPrgDetailData({
             ...subData[i],
-            prgFile: subData[i].prgFile !== null ? subData[i].prgFile.split(' ') : []
+            prgFile: subData[i].prgFile ? subData[i].prgFile.split(' ') : []
         })
     }
 
@@ -74,7 +77,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     rec: prgDetailData.rec
                 }
             })
-                .then(function (response) {
+                .then((response) => {
                     // handle success
                     setPrgDetailData({});
                     setData(prgDataOneD);
@@ -82,11 +85,11 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     alert(response.data);
                     console.log(response.data);
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     // handle error
                     console.log(error);
                 })
-                .then(function () {
+                .then(() => {
                     // always executed
                 });
 
@@ -135,16 +138,16 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                 params
             })
             // axios.post(`/api/prg/${type}`)
-                .then(function (response) {
+                .then((response) => {
                     console.log(response.data);
                     setData(prgDataOneD);
                     setTreeUpdate(!treeUpdate);
                     // fileTransmit(files);
                     alert(response.data);
-                }).catch(function (error) {
+                }).catch((error) => {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
-                }).then(function () {
+                }).then(() => {
                     // 항상 실행
                 });
         }
@@ -159,13 +162,13 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                 prgFilef: files
             }
         })
-            .then(function (response) {
+            .then((response) => {
                 console.log(response.data);
                 // alert(response.data);
-            }).catch(function (error) {
+            }).catch((error) => {
                 console.log(error);
                 alert("첨부파일 전송에 실패했습니다.");
-            }).then(function () {
+            }).then(() => {
                 // 항상 실행
             });
     }
@@ -205,11 +208,11 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                 <div><span>*</span>세부프로그램명</div>
                 <div><input type="text" name='prgDnm' value={prgDetailData.prgDnm || ""} onChange={prgdChange} /></div>
 
-                <div>세부프로그램 내용</div>
+                <div><span>*</span>세부프로그램 내용</div>
                 <div><textarea name='content' cols="140" rows="6" value={prgDetailData.content || ""} onChange={prgdChange}></textarea></div>
 
                 <div>첨부파일</div>
-                <div><AttachedFile data={files} setData={setFiles}></AttachedFile></div>
+                <div><AttachedFile data={prgDetailData} setData={setPrgDetailData} name={'prgFile'} files={'prgFilef'}></AttachedFile></div>
             </div>
             <div className='buttonBox'>
                 <div>

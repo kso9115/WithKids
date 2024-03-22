@@ -11,14 +11,34 @@ import axios from 'axios';
 import { useState } from 'react';
 
 function ProgramTree({ name, setData, treeUpdate }) {
-    console.log("ProgramTree");
+    // console.log("ProgramTree");
     const [prgData, setPrgData] = useState({}); //프로그램 테이블 전체 보관
     useEffect(() => {
-        axios.get('/api/prg/prgList')
-            .then((response) => {
-                setPrgData(response.data);
+
+        if (treeUpdate !== true && treeUpdate !== false) {
+            axios.get('/api/prg/prgSearch', {
+                params: treeUpdate
             })
+                .then((response) => {
+                    console.log(response.data);
+                    setPrgData(response.data);
+                    setData({})
+                }).catch((error) => {
+                    // handle error
+                    console.log(error);
+                })
+        } else {
+            axios.get('/api/prg/prgList')
+                .then((response) => {
+                    setPrgData(response.data);
+                }).catch((error) => {
+                    // handle error
+                    console.log(error);
+                })
+        }
     }, [treeUpdate]);
+
+    console.log(treeUpdate);
 
     let treeCount = 2;
     let check = '';

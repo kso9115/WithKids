@@ -31,6 +31,12 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 
 	@Override
+	public List<Program> findSearch(Program entity) {
+		return repository.findSearch(entity.getPrgStr(), entity.getPrgEnd(),
+			entity.getPrgNm(), entity.getPrgMngr(), entity.getPrgCls());
+	}
+
+	@Override
 	public Integer detailsCnt(String prgId, String prgDnm) {
 		return prgdrepository.detailsCnt(prgId, prgDnm);
 	}
@@ -75,13 +81,11 @@ public class ProgramServiceImpl implements ProgramService {
 	public void deleteDtById(ProgramDetailsId entityId) {
 		prgdrepository.deleteById(entityId);
 	}
-	
+
 	@Override
 	public List<ProgramDetails> selectDetails(String prgId, String rec) {
 		return prgdrepository.selectDetails(prgId, rec);
 	}
-
-	
 
 	// @Override
 	// public List<ProgramDetails> selectDetails() {

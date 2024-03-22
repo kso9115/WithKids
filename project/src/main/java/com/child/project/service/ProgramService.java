@@ -11,6 +11,8 @@ public interface ProgramService {
 
 	List<Program> selectList();
 
+	List<Program> findSearch(Program entity);
+
 	Integer detailsCnt(String prgId,String prgDnm);
 
 	// List<ProgramDetails> selectDetails();
