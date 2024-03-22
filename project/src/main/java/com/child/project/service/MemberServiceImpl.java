@@ -36,5 +36,11 @@ public class MemberServiceImpl implements MemberService {
         
     //     return repository.selectDetail(memSerial);
     // }
+
+    @Override
+    public void deleteByMemserial(String memSerial) {
+        repository.deleteById(memSerial);
+    }
+
     
 }

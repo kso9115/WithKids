@@ -6,14 +6,11 @@
     margin-bottom: 40px;
 
     border-top: 0.3px solid var(--lgray);
-    border-bottom: 0.3px solid var(--lgray);
+    /* border-bottom: 0.3px solid var(--lgray); */
 }
 
-.mem_gridBox {
-    grid-template-columns: 10% 24% 10% 24% 12% 20%;
-}
-
-
+.mem_gridBox,
+.mem_gridBox2,
 .mem_gridBox3 {
     grid-template-columns: 10% 24% 10% 24% 12% 20%;
 }
@@ -30,39 +27,45 @@
     border-bottom: 1px solid var(--lgray);
 }
 
-/* 대상자명, 담당자명, 이메일 */
-.mem_name>input:nth-child(1),
-.mem_responsible_person>input:nth-child(1),
-.mem_mail>input:nth-child(1),
-.mem_zipcode>input:nth-child(1){
-    width: 40%;
+/* 시리얼번호, 대상자명, 전화번호, 메일, 우편번호, 담당자명 */
+.mem_serial>input,
+.mem_name>input,
+.mem_responsible_person>input,
+.mem_age>input,
+.mem_tel>input,
+.mem_phone>input,
+.mem_mail>input,
+.mem_address1>input,
+.mem_address2>input,
+.mem_account>input,
+.mem_depositor>input{
+    width: 100%;
+    height: 22px;
+}
+
+.mem_zipcode>input{
+    width: 50%;
+    height: 22px;
+}
+
+.mem_address1>input:nth-child(1),
+.mem_address1>input:nth-child(2){
+    width: 300%
 }
 
 /* 주민번호 */
 .mem_resident_registration_number>input:nth-child(1),
 .mem_resident_registration_number>input:nth-child(2){
-    width: 300%;
+    width: 100%;
 }
 
 .mem_resident_registration_number>input:nth-child(4){
     height: auto;
 }
 
-/* 연령 */
-.mem_age>input:nth-child(1){
-    width: 25%; 
-}
-
-/* 전화번호, 핸드폰번호 */
-.mem_tel>input:nth-child(2),
-.mem_tel>input:nth-child(3),
-.mem_phone>input:nth-child(2),
-.mem_phone>input:nth-child(3){
-    width: 20%;
-}
 .mem_tel>select,
 .mem_phone>select{
-    width:20%;
+    width:100%;
     height:22px;
 }
 
@@ -70,9 +73,6 @@
 .mem_address1>input:nth-child(3){
     height: auto;
 }
-
-/* 학력 */
-
 
 /* 기본인적사항 전체 박스 정렬 */
 .mem_gridBox>div,
@@ -95,7 +95,7 @@
 
 .mem_gridBox>div:not(:nth-child(6n+1)),
 .mem_gridBox2>div:not(:nth-child(6n+1)),
-.mem_gridBox3>div:not(:nth-child(2n+1)) {
+.mem_gridBox3>div:not(:nth-child(6n+1)) {
     border-left: 1px solid var(--lgray);
 }
 
@@ -114,4 +114,9 @@
     gap: 5px;
     margin-left: auto;
     margin-top: 80px;
+}
+
+/* 학력 */
+.mem_gridBox3>div>input{
+    width: 100%;
 }
