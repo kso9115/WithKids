@@ -4,7 +4,7 @@ import { prg_dtls_inp_ck } from '../../hooks/inputCheck/programInputCheck'
 import axios from "axios";
 
 function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
-    console.log("ProgramDetails");
+    // console.log("ProgramDetails");
     // 프로그램 정보를 저장하고 제어하기 위해
     const [prgDataOneD, setPrgDataOneD] = useState({});
 
@@ -52,18 +52,18 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                         prgMidCls: prgDataOneD.prgMidCls
                     }
                 })
-                    .then(function (response) {
+                    .then((response) => {
                         // handle success
                         setData({});
                         setTreeUpdate(!treeUpdate);
                         alert(response.data);
                         console.log(response.data);
                     })
-                    .catch(function (error) {
+                    .catch((error) => {
                         // handle error
                         console.log(error);
                     })
-                    .then(function () {
+                    .then(() => {
                         // always executed
                     });
             } else alert("취소되었습니다.");
@@ -88,7 +88,7 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
             axios.post(`/api/prg/${type}`, null, {
                 params
             })
-                .then(function (response) {
+                .then((response) => {
                     console.log(response.data);
                     setData({
                         ...params,
@@ -106,10 +106,10 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                     });
                     setTreeUpdate(!treeUpdate);
                     alert(response.data);
-                }).catch(function (error) {
+                }).catch((error) => {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
-                }).then(function () {
+                }).then(() => {
                     // 항상 실행
                 });
         }

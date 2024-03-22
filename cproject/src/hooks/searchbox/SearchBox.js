@@ -1,47 +1,62 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 function SearchBox({ data, searchBoxClick }) {
+    const [sbVal, setSbVal] = useState({});
 
-    const [sbVal, setSbVal] = useState(...[data.content.map((o) => { return o.default })]);
+    function isTrue(element) {
+        if (element.check === true) return true;
+    }
+    const initialization = useCallback(() => {
+        const value = {};
+        for (let i = 0; i < data.content.length; i++) {
+            if (Array.isArray(data.content[i].state)) {
+                for (let j = 0; j < data.content[i].state.length; j++) {
+                    value[data.content[i].state[j]] = data.content[i].default[j]
+                }
+            } else {
+                if (Array.isArray(data.content[i].default)) {
+                    value[data.content[i].state] = data.content[i].default.find(isTrue) ?
+                        data.content[i].default.find(isTrue).value : "";
+                } else {
+                    value[data.content[i].state] = data.content[i].default;
+                }
+            }
+        }
+        setSbVal(value);
+    }, [data]);
+
+    useEffect(() => {
+        initialization();
+    }, [data])
+    // const 
 
     // input 입력시 useState 값 바꿔주는 함수
-    function change(i, e, d) {
-
-        if (d !== undefined) {
-            sbVal[i][d] = e.target.value;
-            setSbVal({
-                ...sbVal
-            });
-
-        } else {
-            sbVal[i] = e.target.value;
-            setSbVal({
-                ...sbVal
-            });
-        }
+    function change(event, state) {
+        sbVal[state] = event.target.value;
+        setSbVal({ ...sbVal });
     } //change
-
+    
     // 가져온 data 바탕으로 input/select 생성
-    function inputBox(o, i) {
+    function inputBox(o) {
         switch (o.type) {
             case "text":
-                return <input name={o.state} type="text" value={sbVal[i]} onChange={(e) => { change(i, e) }} />;
+                return <input name={o.state} type="text" value={sbVal[o.state]} onChange={(event) => { change(event, o.state) }} />;
             case "date":
                 if (Array.isArray(o.default)) {
                     return <>
-                        <input name={o.state[0]} type="date" value={sbVal[i][0]} onChange={(e) => { change(i, e, 0) }} />
-                        ~<input name={o.state[1]} type="date" value={sbVal[i][1]} onChange={(e) => { change(i, e, 1) }} />
+                        <input name={o.state[0]} type="date" value={sbVal[o.state[0]]} onChange={(event) => { change(event, o.state[0]) }} />
+                        ~<input name={o.state[1]} type="date" value={sbVal[o.state[1]]} onChange={(event) => { change(event, o.state[1]) }} />
                     </>
                 } else {
-                    return <input name={o.state} type="date" value={sbVal[i]} onChange={(e) => { change(i, e) }} />;
+                    return <input name={o.state} type="date" value={sbVal[o.state]} onChange={(event) => { change(event, o.state) }} />;
                 }
             case "select":
                 return <>
-                    <select>
-                        <option name={o.state} value="" key="">전체</option>
+                    <select name={o.state} value={sbVal[o.state]} onChange={(event) => { change(event, o.state) }} >
+                        <option name="" value="" key="">전체</option>
                         {
                             o.default.map((j, i) => {
-                                return <option value={j.value} key={i}>{j.name}</option>
+                                return <option value={j.value} key={j.name}>{j.name}</option>
                             })
                         }
                     </select>
@@ -68,7 +83,7 @@ function SearchBox({ data, searchBoxClick }) {
                         })
                     }
                     <div>
-                        <button type="reset">리셋</button>&nbsp;
+                        <button type="button" onClick={() => { searchBoxClick(true); initialization(); }}>리셋</button>&nbsp;
                         <button type="button" onClick={() => searchBoxClick(sbVal)}>조회</button>
                     </div>
                 </div>

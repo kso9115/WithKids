@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './AttachedFile.css'
 
-function AttachedFile({ data, setData }) {
+function AttachedFile({ data, setData, name, files }) {
     const selectFile = useRef();
     // 파일을 저장
     const [isActive, setActive] = useState(false);
@@ -14,34 +14,45 @@ function AttachedFile({ data, setData }) {
     //파일 드래그 시의 css 제어를 위해
     const handleDragStart = () => setActive(true);
     const handleDragEnd = () => setActive(false);
-
+    const dataTransfer = new DataTransfer();
     //파일 저장 함수
     function onLoadFile(event) {
         const file = event.target.files;
-        const set = new Set([...data, file]);
-        setData([...set]);
-        // if (data.length > 0) setData(data.add(file)); 
-        // else setData(file);
+
+        for (var i = 0; i < file.length; i++) {
+            dataTransfer.items.add(file[i])
+        }
+        selectFile.current.files = dataTransfer.files;
+        console.log("dataTransfer =>", dataTransfer.files);
+        console.log("input FIles =>", selectFile.current.files);
+
+        data[files] = selectFile.current.files;
+
+        let dataName = []
+        for (let i = 0; i < selectFile.current.files.length; i++) {
+            dataName.push(selectFile.current.files[i].name)
+        }
+        data[name] = dataName
+        console.log(data);
+        // const set = new Set([...data, file]);
+        setData({...data});
     }
 
     function fileMake() {
-        if (data.length > 0) {
-            setData(data);
-            return (data.map((o, i) => {
+        console.log(Array.isArray(data[name]) && data[name].length > 0);
+        // console.log(data[files].constructor === Object);
+        // console.log(Object.keys(data[files]).length > 0);
+        if (Array.isArray(data[name]) && data[name].length > 0) {
+            // setData(data);
+            return (data[name].map((o, i) => {
                 return (
                     <>
-                        <div key={i}>
-                            <input type="checkbox" id='' value={o[0].name}
+                        <div key={data[files][i].name}>
+                            <input type="checkbox" id='' 
                                 className='deleteCheck' />
                         </div>
-                        <div>{o[0].name}</div>
-                        <div>{o[0].size} byte</div>
-                        <input
-                            type="file"
-                            style={{ display: "none" }}
-                            name='prg_file'
-                            files={o[0]}
-                        />
+                        <div>{data[files][i].name}</div>
+                        <div>{data[files][i].size} byte</div>
                     </>
                 );
             }))
@@ -114,6 +125,7 @@ function AttachedFile({ data, setData }) {
                     style={{ display: "none" }}
                     ref={selectFile}
                     onChange={onLoadFile}
+                    files={data[files]}
                 />
             </label>
 

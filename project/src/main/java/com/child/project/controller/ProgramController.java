@@ -41,14 +41,21 @@ public class ProgramController {
 	ProgramService prgService;
 
 	@GetMapping("/prgList")
-	public List<Program> prgList(Model model) {
+	public List<Program> prgList() {
 		List<Program> list = prgService.selectList();
 
 		return list;
 	} // prgList
 
+	@GetMapping("/prgSearch")
+	public List<Program> prgSearch(Program entity) {
+		List<Program> list = prgService.findSearch(entity);
+
+		return list;
+	} // prgList
+
 	@GetMapping("/prgDetails")
-	public List<ProgramDetails> prgDetails(Model model, @RequestParam("prgId") String prgId,
+	public List<ProgramDetails> prgDetails( @RequestParam("prgId") String prgId,
 			@RequestParam("rec") String rec) {
 		System.out.println(prgId + ' ' + rec);
 		return prgService.selectDetails(prgId, rec);
@@ -141,7 +148,7 @@ public class ProgramController {
 				// }
 				// }
 
-				// log.info(" program insert 성공 => " + prgService.dtSave(entity));
+				log.info(" program insert 성공 => " + prgService.dtSave(entity));
 				message = "신규생성에 성공 했습니다.";
 			} catch (Exception e) {
 				log.info(" program insert Exception => " + e.toString());

@@ -5,21 +5,21 @@ export const prg_mng = {
     content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
         {
             name: '프로그램 기간', // input/select 앞에 표현될 내용
-            state: ['prg_str', 'prg_end'], // 테이블과 연결될 컬럼명
+            state: ['prgStr', 'prgEnd'], // 테이블과 연결될 컬럼명
             type: 'date', //input 타입이나 select
             esntl: true, // 필수 요소 표현 유무
-            default: ['2024-01-01', '2024-12-31'] // 표현될 default 값
+            default: ["", ""] // 표현될 default 값
         },
         {
             name: '프로그램명',
-            state: 'prg_nm',
+            state: 'prgNm',
             type: 'text',
             esntl: false,
             default: ''
         },
         {
             name: '담당자',
-            state: 'prg_mngr',
+            state: 'prgMngr',
             type: 'text',
             esntl: false,
             default: ''
@@ -27,10 +27,10 @@ export const prg_mng = {
         ,
         {
             name: '프로그램 구분',
-            state: 'prg_cls',
+            state: 'prgCls',
             type: 'select',
             esntl: false,
-            default: [{ name: '내부형프로그램', value: '내부형프로그램' }, { name: '신청형프로그램', value: '신청형프로그램' }]
+            default: [{ name: '내부형프로그램', value: '내부형프로그램', check: false }, { name: '신청형프로그램', value: '신청형프로그램', check: false }],
         }
     ]
 }
