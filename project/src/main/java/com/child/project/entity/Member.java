@@ -50,6 +50,8 @@ public class Member {
     private String memTel;
     @Column(name="mem_phone")
     private String memPhone;
+    @Column(name="mem_zipcode")
+    private String memZipCode;
     @Column(name="mem_address1")
     private String memAddress1;
     @Column(name="mem_address2")

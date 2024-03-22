@@ -12,6 +12,11 @@ public interface MemberService {
 
     // select Detail 디테일..엔티티..필요해..
     // List<Member> selectDetail(String memSerial);
+
+    // delete : 별도로 리턴할게 없으므로 void
+    void deleteByMemserial(String memSerail);
+
+
     
     
 }

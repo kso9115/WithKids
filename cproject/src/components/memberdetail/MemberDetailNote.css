@@ -7,11 +7,3 @@
     display: flex;
 
 }
-
-.mem_gridBox2 {
-    grid-template-columns: 10% 15% 10% 35% 10% 20%;
-}
-
-.mem_account>input:nth-child(1){
-    width: 90%;
-}
