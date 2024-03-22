@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.child.project.entity.Program;
 import com.child.project.entity.ProgramDetails;
+import com.child.project.entity.ProgramDetailsId;
 import com.child.project.entity.ProgramId;
 
 public interface ProgramService {
@@ -23,5 +24,7 @@ public interface ProgramService {
 
 	Integer saveCat(String prgBigCls, String prgMidCls, String prgSubCls);
 
-	void deleteById(ProgramId programId);
+	void deleteById(ProgramId entityId);
+
+	void deleteDtById(ProgramDetailsId entityId);
 }

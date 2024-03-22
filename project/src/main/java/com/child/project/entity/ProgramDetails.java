@@ -35,7 +35,8 @@ public class ProgramDetails implements Serializable {
 	@Column(name = "prg_date")
 	private String prgDate;
 
-	private String mngr;
+	@Column(name = "mngr")
+	private String prgMngr;
 
 	private String title;
 
@@ -109,6 +110,8 @@ public class ProgramDetails implements Serializable {
 	private String prgFile;
 
 	@Transient
+	// private MultipartFile prgFilef;
+	// private String prgFilef;
 	private List<MultipartFile> prgFilef;
 	// private HashMap<String,MultipartFile> prgFilef;
 }

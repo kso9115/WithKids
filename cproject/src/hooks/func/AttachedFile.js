@@ -19,12 +19,14 @@ function AttachedFile({ data, setData }) {
     function onLoadFile(event) {
         const file = event.target.files;
         const set = new Set([...data, file]);
-        console.log([...set]);
         setData([...set]);
+        // if (data.length > 0) setData(data.add(file)); 
+        // else setData(file);
     }
 
     function fileMake() {
         if (data.length > 0) {
+            setData(data);
             return (data.map((o, i) => {
                 return (
                     <>
@@ -38,7 +40,7 @@ function AttachedFile({ data, setData }) {
                             type="file"
                             style={{ display: "none" }}
                             name='prg_file'
-                            files={o}
+                            files={o[0]}
                         />
                     </>
                 );
@@ -58,6 +60,7 @@ function AttachedFile({ data, setData }) {
         const file = event.dataTransfer.files;
         const set = new Set([...data, file]);
         console.log([...set]);
+   
         setData([...set]);
         setActive(false);
 
@@ -107,6 +110,7 @@ function AttachedFile({ data, setData }) {
                 </div>
                 <input
                     type="file"
+                    multiple
                     style={{ display: "none" }}
                     ref={selectFile}
                     onChange={onLoadFile}
@@ -123,6 +127,7 @@ function AttachedFile({ data, setData }) {
                 </div>
             </div>
         </div>
+
     );
 }
 

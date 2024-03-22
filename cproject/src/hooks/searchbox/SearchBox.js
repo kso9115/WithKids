@@ -1,7 +1,7 @@
-import React,{ useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-function SearchBox({ data }) {
-    
+function SearchBox({ data, searchBoxClick }) {
+
     const [sbVal, setSbVal] = useState(...[data.content.map((o) => { return o.default })]);
 
     // input 입력시 useState 값 바꿔주는 함수
@@ -12,7 +12,7 @@ function SearchBox({ data }) {
             setSbVal({
                 ...sbVal
             });
-            
+
         } else {
             sbVal[i] = e.target.value;
             setSbVal({
@@ -25,7 +25,7 @@ function SearchBox({ data }) {
     function inputBox(o, i) {
         switch (o.type) {
             case "text":
-                return <input name={o.state} type="text" value={sbVal[i]} onChange={(e) => { change(i,e) }} />;
+                return <input name={o.state} type="text" value={sbVal[i]} onChange={(e) => { change(i, e) }} />;
             case "date":
                 if (Array.isArray(o.default)) {
                     return <>
@@ -40,7 +40,7 @@ function SearchBox({ data }) {
                     <select>
                         <option name={o.state} value="" key="">전체</option>
                         {
-                            o.default.map((j,i) => {
+                            o.default.map((j, i) => {
                                 return <option value={j.value} key={i}>{j.name}</option>
                             })
                         }
@@ -53,13 +53,13 @@ function SearchBox({ data }) {
 
     return (
         <>
-            <p style={{ marginBottom:'5px'}}>{data.name}</p>
+            <p style={{ marginBottom: '5px' }}>{data.name}</p>
             <form action={data.action} method={data.method}>
                 <div className='searchBox'>
                     {
                         data.content.map((o, i) => {
                             return (
-                                <div key={"search"+i}>{
+                                <div key={"search" + i}>{
                                     o.esntl ? <span style={{ color: "red" }}>*</span> : null
                                 }{o.name}&nbsp;&nbsp;
                                     {inputBox(o, i)}
@@ -69,10 +69,9 @@ function SearchBox({ data }) {
                     }
                     <div>
                         <button type="reset">리셋</button>&nbsp;
-                        <button type="submit">조회</button>
+                        <button type="button" onClick={() => searchBoxClick(sbVal)}>조회</button>
                     </div>
                 </div>
-
             </form>
         </>
     );

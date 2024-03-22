@@ -43,34 +43,30 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     }, [prgDataOneD]);
 
     function deleteData() {
-        if (prgDataOneD.prgId && window.confirm("프로젝트를 삭제하시겠습니까?")) {
-            console.log({
-                prgId: prgDataOneD.prgId,
-                prgBigCls: prgDataOneD.prgBigCls,
-                prgMidCls: prgDataOneD.prgMidCls
-            });
-            axios.post('/api/prg/prgdelete', null , {
-                params: {
-                    prgId: prgDataOneD.prgId,
-                    prgBigCls: prgDataOneD.prgBigCls,
-                    prgMidCls: prgDataOneD.prgMidCls
-                }
-            })
-                .then(function (response) {
-                    // handle success
-                    setData({});
-                    setTreeUpdate(!treeUpdate);
-                    alert(response.data);
-                    console.log(response.data);
+        if (prgDataOneD.prgId ) {
+            if (window.confirm("프로젝트를 삭제하시겠습니까?")) {
+                axios.post('/api/prg/prgdelete', null, {
+                    params: {
+                        prgId: prgDataOneD.prgId,
+                        prgBigCls: prgDataOneD.prgBigCls,
+                        prgMidCls: prgDataOneD.prgMidCls
+                    }
                 })
-                .catch(function (error) {
-                    // handle error
-                    console.log(error);
-                })
-                .then(function () {
-                    // always executed
-                });
-
+                    .then(function (response) {
+                        // handle success
+                        setData({});
+                        setTreeUpdate(!treeUpdate);
+                        alert(response.data);
+                        console.log(response.data);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
+            } else alert("취소되었습니다.");
         } else alert("선택된 프로그램이 없습니다.");
     }
 

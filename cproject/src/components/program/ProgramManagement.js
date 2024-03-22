@@ -10,6 +10,7 @@ import axios from "axios";
 
 function ProgramManagement() {
     console.log("ProgramManagement");
+    const [srcData, setSrcData] = useState({});
     const [prgDataOne, setPrgDataOne] = useState({}); //프로그램 테이블 전체중에 트리에서 선택한 행 보관
     const [prgDetail, setPrgDetail] = useState([]); //프로그램 테이블 전체중에 트리에서 선택한 행의 프로그램 ID의 세부테이블 정보 보관
     const [treeUpdate, setTreeUpdate] = useState(true);
@@ -45,10 +46,19 @@ function ProgramManagement() {
         }
     }, [prgDataOne]);
     // console.log(prgData);
-    
+    function searchBoxClick(sbVal) {
+        axios.post('/api/prg/prgSearch', null,{
+            params: {
+                prgId: sbVal,
+                rec: sbVal
+            }
+        }).then((res) => {
+            setPrgDetail(res.data);
+        })
+    }
     return (
         <div className='pgr_mng' >
-            <SearchBox data={prg_mng} />
+            <SearchBox data={prg_mng} searchBoxClick={searchBoxClick} />
             <div className='pgr_mng_mainBox'>
                 <div style={{
                     width: '30%',

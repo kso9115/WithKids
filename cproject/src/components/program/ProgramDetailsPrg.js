@@ -12,17 +12,28 @@ function MakeDiv({ e, i, detailsChange }) {
 // 메인 컴포넌트
 function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }) {
     console.log("ProgramDetailsPrg");
-    
-    const [prgDataOneD, setPrgDataOneD] = useState({}); // 대,중,소 분류 프로그램명
-    const [prgDetailData, setPrgDetailData] = useState({});
+
+    const [prgDataOneD, setPrgDataOneD] = useState({}); // data 대,중,소 분류 프로그램명
+    const [prgDetailData, setPrgDetailData] = useState({}); // subData
+    // const formData = new FormData();
     const [files, setFiles] = useState([]);
-    console.log(prgDetailData);
     useEffect(() => {
         setPrgDataOneD({
             ...data
         });
+        setPrgDetailData({
+            rec: "프로그램세부",
+            prgMngr: data.prgMngr,
+            title: data.prgSubCls + " 세부",
+            prgNm: data.prgNm,
+            prgId: data.prgId
+        })
     }, [data])
-
+    useEffect(() => {
+        setFiles([])
+    }, [prgDetailData])
+    console.log(prgDetailData);
+    console.log(data);
     // data를 바탕으로 div 생성
     function makeDiv() {
         if (Array.isArray(subData) && subData.length > 0) {
@@ -47,7 +58,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         prgDetailData[event.target.name] = event.target.value;
         setPrgDetailData({ ...prgDetailData });
     }, [prgDetailData]);
-    // console.log(prgDetailData);
+
 
     function deleteData() {
         if (prgDetailData.prgId && window.confirm("프로젝트를 삭제하시겠습니까?")) {
@@ -66,6 +77,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                 .then(function (response) {
                     // handle success
                     setPrgDetailData({});
+                    setData(prgDataOneD);
                     setTreeUpdate(!treeUpdate);
                     alert(response.data);
                     console.log(response.data);
@@ -84,16 +96,51 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
     function saveData(type) {
         //유효성검사
         if (prg_dtls_prg_inp_ck(prgDetailData, type)) {
+            let prgFile;
+            let params;
+            
+            if (type === 'prgDtInsert') {
+                const today = new Date();
+                // 현재 날짜를 가져옵니다.
+                const formattedDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+                // 원하는 형식으로 날짜를 설정합니다.
+                prgFile = "programDefault.png";
+
+                if (files.length > 0) {
+                    files.forEach((e, i) => {
+                        prgFile += " " + e.name;
+                        // formData.append(`files${i+1}`, files[i]);
+                    });
+                };
+                params = {
+                    ...prgDetailData,
+                    prgFile,
+                    prgDate: formattedDate
+                };
+            } else if (type === 'prgDtUpdate') {
+                prgFile = "";
+                if (files.length > 0) {
+                    files.forEach((e, i) => {
+                        if (i === 0) prgFile += e.name;
+                        else prgFile += " " + e.name;
+                    });
+                };
+                params = {
+                    ...prgDetailData,
+                    prgFile
+                }
+            } else return alert("잘못된 요청입니다.");
 
             axios.post(`/api/prg/${type}`, null, {
-                ...prgDetailData,
-                prgFilef: files
+                params
             })
+            // axios.post(`/api/prg/${type}`)
                 .then(function (response) {
                     console.log(response.data);
-                    // setData(prgDataOneD);
-                    // setTreeUpdate(!treeUpdate);
-                    // alert(response.data);
+                    setData(prgDataOneD);
+                    setTreeUpdate(!treeUpdate);
+                    // fileTransmit(files);
+                    alert(response.data);
                 }).catch(function (error) {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
@@ -101,6 +148,26 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     // 항상 실행
                 });
         }
+    }
+
+    function fileTransmit(files) {
+        console.log("???");
+        axios.post('/api/prg/fileTransmit', null, {
+            params: {
+                prgId: prgDetailData.prgId,
+                prgDnm: prgDetailData.prgDnm,
+                prgFilef: files
+            }
+        })
+            .then(function (response) {
+                console.log(response.data);
+                // alert(response.data);
+            }).catch(function (error) {
+                console.log(error);
+                alert("첨부파일 전송에 실패했습니다.");
+            }).then(function () {
+                // 항상 실행
+            });
     }
 
     return (
@@ -150,6 +217,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     <button type="button" value='삭제' onClick={deleteData}>삭제</button>
                     <button type="button" value='신규' onClick={() => saveData("prgDtInsert")}>신규</button>
                     <button type="button" value='저장' onClick={() => saveData("prgDtUpdate")}>저장</button>
+                    <button type="button" value='삭제' onClick={() => fileTransmit(files)}>테스트</button>
                 </div>
             </div>
         </div>

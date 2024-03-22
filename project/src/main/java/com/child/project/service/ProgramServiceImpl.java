@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 // import com.child.project.domain.ProgramDTO;
 import com.child.project.entity.Program;
 import com.child.project.entity.ProgramDetails;
+import com.child.project.entity.ProgramDetailsId;
 import com.child.project.entity.ProgramId;
 import com.child.project.repository.ProgramDetailsRepository;
 import com.child.project.repository.ProgramRepository;
@@ -66,14 +67,21 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 
 	@Override
-	public void deleteById(ProgramId programId) {
-		repository.deleteById(programId);
+	public void deleteById(ProgramId entityId) {
+		repository.deleteById(entityId);
 	}
 
+	@Override
+	public void deleteDtById(ProgramDetailsId entityId) {
+		prgdrepository.deleteById(entityId);
+	}
+	
 	@Override
 	public List<ProgramDetails> selectDetails(String prgId, String rec) {
 		return prgdrepository.selectDetails(prgId, rec);
 	}
+
+	
 
 	// @Override
 	// public List<ProgramDetails> selectDetails() {
