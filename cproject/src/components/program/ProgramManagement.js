@@ -30,7 +30,7 @@ function ProgramManagement() {
     subMenuArr[1].content = <ProgramDetailsPrg data={prgDataOne} setData={setPrgDataOne} subData={prgDetail}
         treeUpdate={treeUpdate} setTreeUpdate={setTreeUpdate} />;
 
-    
+
     useEffect(() => {
         if (prgDataOne.constructor === Object
             && Object.keys(prgDataOne).length !== 0) {
@@ -41,16 +41,19 @@ function ProgramManagement() {
                 }
             }).then((res) => {
                 setPrgDetail(res.data);
-                
+
             })
         }
     }, [prgDataOne]);
     // console.log(prgData);
     function searchBoxClick(sbVal) {
-        axios.post('/api/prg/prgSearch', null,{
+        axios.post('/api/prg/prgSearch', null, {
             params: {
-                prgId: sbVal,
-                rec: sbVal
+                prgMngr: sbVal,
+                prgNm: sbVal,
+                prgStr: sbVal,
+                prgEnd: sbVal,
+                prgCls: sbVal
             }
         }).then((res) => {
             setPrgDetail(res.data);
