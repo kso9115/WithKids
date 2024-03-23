@@ -1,23 +1,23 @@
-.stf_mng_mainBox {
+.staff_mng_mainBox {
     display: flex;
     /* flex: 1 0 auto; */
     width: 1666px;
     height: 722px;
 }
 
-.stfList_row>div{
-    grid-template-columns: 10% 10% 10% 28% 14% 14% 14%;
+.staffList_row>div{
+    grid-template-columns: 17% 10% 16% 21% 12% 12% 12%;
 }
-.stfList_row>div:nth-child(1)>div {
+.staffList_row>div:nth-child(1)>div {
     border-top: 2px solid var(--lgray);
 }
-.stfList_row>div>div {
+.staffList_row>div>div {
     border-bottom: 1px solid var(--lgray);
 }
-.stfList_row>div>div:nth-child(n+2){
+.staffList_row>div>div:nth-child(n+2){
     border-left: 1px solid var(--lgray);
 }
-.stfList_row>div>div {
+.staffList_row>div>div {
     display: flex;
     justify-content: center;
     align-items: center;

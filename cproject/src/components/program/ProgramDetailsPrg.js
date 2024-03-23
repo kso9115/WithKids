@@ -3,6 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import AttachedFile from '../../hooks/func/AttachedFile';
 import { prg_dtls_prg_inp_ck } from '../../hooks/inputCheck/programInputCheck'
 import axios from 'axios';
+import qs from "qs";
 
 // 서브 컴포넌트
 function MakeDiv({ e, i, detailsChange }) {
@@ -16,7 +17,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
     const [prgDataOneD, setPrgDataOneD] = useState({}); // data 대,중,소 분류 프로그램명
     const [prgDetailData, setPrgDetailData] = useState({}); // subData
     // const formData = new FormData();
-    const [files, setFiles] = useState([]);
+    // const [files, setFiles] = useState([]);
     useEffect(() => {
         setPrgDataOneD({
             ...data
@@ -32,9 +33,9 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
             // prgFile : "data.prgFile".split(' ')
         })
     }, [data])
-    useEffect(() => {
-        setFiles([])
-    }, [prgDetailData])
+    // useEffect(() => {
+    //     setFiles([])
+    // }, [prgDetailData])
     // console.log(prgDetailData);
     // console.log(data);
     // data를 바탕으로 div 생성
@@ -61,6 +62,21 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         prgDetailData[event.target.name] = event.target.value;
         setPrgDetailData({ ...prgDetailData });
     }, [prgDetailData]);
+
+    function leftPad(value) {
+        if (value >= 10) {
+            return value;
+        }
+        return `0${value}`;
+    }
+    
+    function toStringByFormatting(source, delimiter = '-') {
+        const year = source.getFullYear();
+        const month = leftPad(source.getMonth() + 1);
+        const day = leftPad(source.getDate());
+
+        return [year, month, day].join(delimiter);
+    }
 
 
     function deleteData() {
@@ -99,49 +115,46 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
     function saveData(type) {
         //유효성검사
         if (prg_dtls_prg_inp_ck(prgDetailData, type)) {
-            let prgFile;
             let params;
-            
             if (type === 'prgDtInsert') {
-                const today = new Date();
-                // 현재 날짜를 가져옵니다.
-                const formattedDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
                 // 원하는 형식으로 날짜를 설정합니다.
-                prgFile = "programDefault.png";
+                const formattedDate = toStringByFormatting(new Date());
 
-                if (files.length > 0) {
-                    files.forEach((e, i) => {
-                        prgFile += " " + e.name;
-                        // formData.append(`files${i+1}`, files[i]);
-                    });
-                };
                 params = {
                     ...prgDetailData,
-                    prgFile,
-                    prgDate: formattedDate
+                    prgFile: prgDetailData.prgFile.join(' '),
+                    prgDate: formattedDate,
+                    prgFilef: prgDetailData.prgFilef || [],
+                    type: 'prgDtInsert'
                 };
             } else if (type === 'prgDtUpdate') {
-                prgFile = "";
-                if (files.length > 0) {
-                    files.forEach((e, i) => {
-                        if (i === 0) prgFile += e.name;
-                        else prgFile += " " + e.name;
-                    });
-                };
                 params = {
                     ...prgDetailData,
-                    prgFile
+                    prgFile: prgDetailData.prgFile.join(' '),
+                    prgFilef: prgDetailData.prgFilef || [],
+                    type: 'prgDtUpdate'
                 }
             } else return alert("잘못된 요청입니다.");
-
-            axios.post(`/api/prg/${type}`, null, {
-                params
-            })
-            // axios.post(`/api/prg/${type}`)
+            console.log(params);
+            
+            let formData = new FormData();
+            if (prgDetailData.prgFilef) {
+                for (let i = 0; i < prgDetailData.prgFilef.length; i++) {
+                    formData.append("prgFilef", prgDetailData.prgFilef[i]);
+                }
+            }
+            
+            axios.post(`/api/prg/prgDtSave`, prgDetailData.prgFilef ? formData : null,{
+                    params,
+                    paramsSerializer: (params) => {
+                        return qs.stringify(params, { arrayFormat: "repeat" });
+                    }
+                }
+            )
                 .then((response) => {
                     console.log(response.data);
-                    setData(prgDataOneD);
-                    setTreeUpdate(!treeUpdate);
+                    // setData(prgDataOneD);
+                    // setTreeUpdate(!treeUpdate);
                     // fileTransmit(files);
                     alert(response.data);
                 }).catch((error) => {
@@ -220,7 +233,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     <button type="button" value='삭제' onClick={deleteData}>삭제</button>
                     <button type="button" value='신규' onClick={() => saveData("prgDtInsert")}>신규</button>
                     <button type="button" value='저장' onClick={() => saveData("prgDtUpdate")}>저장</button>
-                    <button type="button" value='삭제' onClick={() => fileTransmit(files)}>테스트</button>
+                    {/* <button type="button" value='삭제' onClick={() => fileTransmit(files)}>테스트</button> */}
                 </div>
             </div>
         </div>

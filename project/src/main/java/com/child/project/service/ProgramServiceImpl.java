@@ -3,6 +3,7 @@ package com.child.project.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 // import com.child.project.domain.ProgramDTO;
@@ -33,7 +34,7 @@ public class ProgramServiceImpl implements ProgramService {
 	@Override
 	public List<Program> findSearch(Program entity) {
 		return repository.findSearch(entity.getPrgStr(), entity.getPrgEnd(),
-			entity.getPrgNm(), entity.getPrgMngr(), entity.getPrgCls());
+				entity.getPrgNm(), entity.getPrgMngr(), entity.getPrgCls());
 	}
 
 	@Override

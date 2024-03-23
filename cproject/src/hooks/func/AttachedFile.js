@@ -5,27 +5,31 @@ function AttachedFile({ data, setData, name, files }) {
     const selectFile = useRef();
     // 파일을 저장
     const [isActive, setActive] = useState(false);
-    console.log(data);
-    // useEffect(() => {
-    //     setFiles({
-    //         ...data
-    //     });
-    // }, [data])
+
     //파일 드래그 시의 css 제어를 위해
     const handleDragStart = () => setActive(true);
     const handleDragEnd = () => setActive(false);
     const dataTransfer = new DataTransfer();
-    //파일 저장 함수
-    function onLoadFile(event) {
-        const file = event.target.files;
+    console.log(data);
+    // if (Array.isArray(data[name]) && data[name].length > 0) {
+    //     for (var i = 0; i < data[name].length; i++) {
+    //         dataTransfer.items.add(data[files][i])
+    //     }
+    // }
+    
+    function handleDragOver(event) {
+        event.preventDefault();  // 필수 1
+    };
 
+    //드래그로 파일 저장 함수
+    function handleDrop(event) {
+        event.preventDefault();
+
+        const file = event.dataTransfer.files;
         for (var i = 0; i < file.length; i++) {
             dataTransfer.items.add(file[i])
         }
         selectFile.current.files = dataTransfer.files;
-        console.log("dataTransfer =>", dataTransfer.files);
-        console.log("input FIles =>", selectFile.current.files);
-
         data[files] = selectFile.current.files;
 
         let dataName = []
@@ -33,26 +37,61 @@ function AttachedFile({ data, setData, name, files }) {
             dataName.push(selectFile.current.files[i].name)
         }
         data[name] = dataName
-        console.log(data);
-        // const set = new Set([...data, file]);
+
+        setData({ ...data });
+        setActive(false);
+    };
+
+    //버튼 클릭으로 파일 저장 함수
+    function onLoadFile(event) {
+        const file = event.target.files;
+
+        for (var i = 0; i < file.length; i++) {
+            dataTransfer.items.add(file[i])
+        }
+        selectFile.current.files = dataTransfer.files;
+        data[files] = selectFile.current.files;
+
+        // let dataName = []
+        for (let i = 0; i < selectFile.current.files.length; i++) {
+            data[name].push(selectFile.current.files[i].name)
+        }
+        // data[name] = dataName
+
         setData({...data});
     }
 
+    //
+    function deleteFile(event) {
+        const deleteCheck = document.querySelectorAll('.deleteCheck');
+        console.log(deleteCheck);
+        const liveTransfer = new DataTransfer();
+        const liveName = [];
+        deleteCheck.forEach((e, i) => {
+            if (!e.checked) {
+                liveTransfer.items.add(data[files][i])
+                liveName.push(data[name][i])
+            } else e.checked = false;
+        })
+        selectFile.current.files = liveTransfer.files;
+        data[files] = selectFile.current.files;
+        data[name] = liveName;
+        setData({ ...data });
+    }
+
+    // 파일 추가시 생성
     function fileMake() {
-        console.log(Array.isArray(data[name]) && data[name].length > 0);
-        // console.log(data[files].constructor === Object);
-        // console.log(Object.keys(data[files]).length > 0);
         if (Array.isArray(data[name]) && data[name].length > 0) {
             // setData(data);
             return (data[name].map((o, i) => {
                 return (
                     <>
-                        <div key={data[files][i].name}>
-                            <input type="checkbox" id='' 
-                                className='deleteCheck' />
+                        <div key={data[name][i]}>
+                            <input type="checkbox" id={data[name][i]} 
+                                className='deleteCheck' onChange={oneCheck} value={i}/>
                         </div>
-                        <div>{data[files][i].name}</div>
-                        <div>{data[files][i].size} byte</div>
+                        <div><label for={data[name][i]} >{data[name][i]}</label></div>
+                        <div>기존</div>
                     </>
                 );
             }))
@@ -61,32 +100,21 @@ function AttachedFile({ data, setData, name, files }) {
         }
     }
 
-    function handleDragOver(event) {
-        event.preventDefault();  // 필수 1
-    };
-
-    function handleDrop(event) {
-        event.preventDefault();
-
-        const file = event.dataTransfer.files;
-        const set = new Set([...data, file]);
-        console.log([...set]);
-   
-        setData([...set]);
-        setActive(false);
-
-    };
-
-    function deleteFile(event) {
+    function fullCheck(event) {
         const deleteCheck = document.querySelectorAll('.deleteCheck');
-        console.log(deleteCheck);
-        const file = [];
         deleteCheck.forEach((e, i) => {
-            console.log(e.checked + " " + i);
-            if (!e.checked) file.push(data[i])
-            else deleteCheck[i].checked = false;
+            e.checked = event.target.checked
         })
-        setData(file);
+    }
+
+    function oneCheck() {
+        const deleteCheck = document.querySelectorAll('.deleteCheck');
+        let count = 0;
+        deleteCheck.forEach(e => {
+            if (e.checked === false) return document.getElementById('fullCheck').checked = false;
+            else count++;
+        })
+        if (count === deleteCheck.length) return document.getElementById('fullCheck').checked = true;
     }
 
     function downloadFile(event) {
@@ -105,9 +133,9 @@ function AttachedFile({ data, setData, name, files }) {
     return (
         <div className={`attachedFile preview${isActive ? ' active' : ''}`}>
             <div>
-                <div><input type="checkbox" /></div>
+                <div><input type="checkbox" id='fullCheck' onChange={(event) => fullCheck(event)}/></div>
                 <div>파일</div>
-                <div>용량</div>
+                <div>기존/신규</div>
             </div>
 
             <label
@@ -132,7 +160,6 @@ function AttachedFile({ data, setData, name, files }) {
             <div>
                 <div></div>
                 <div>
-
                     <button type='button' onClick={() => selectFile.current.click()}>추가</button>
                     <button type='button' onClick={deleteFile}>삭제</button>
                     <button type='button' onClick={downloadFile}>다운로드</button>

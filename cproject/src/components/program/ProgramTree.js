@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 function ProgramTree({ name, setData, treeUpdate }) {
     // console.log("ProgramTree");
-    const [prgData, setPrgData] = useState({}); //프로그램 테이블 전체 보관
+    const [prgData, setPrgData] = useState([]); //프로그램 테이블 전체 보관
     useEffect(() => {
 
         if (treeUpdate !== true && treeUpdate !== false) {
@@ -22,7 +22,7 @@ function ProgramTree({ name, setData, treeUpdate }) {
                 .then((response) => {
                     console.log(response.data);
                     setPrgData(response.data);
-                    setData({})
+                    setData([])
                 }).catch((error) => {
                     // handle error
                     console.log(error);
@@ -37,8 +37,6 @@ function ProgramTree({ name, setData, treeUpdate }) {
                 })
         }
     }, [treeUpdate]);
-
-    console.log(treeUpdate);
 
     let treeCount = 2;
     let check = '';

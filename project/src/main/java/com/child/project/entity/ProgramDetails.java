@@ -1,5 +1,6 @@
 package com.child.project.entity;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -110,8 +111,6 @@ public class ProgramDetails implements Serializable {
 	private String prgFile;
 
 	@Transient
-	// private MultipartFile prgFilef;
-	// private String prgFilef;
 	private List<MultipartFile> prgFilef;
-	// private HashMap<String,MultipartFile> prgFilef;
+
 }

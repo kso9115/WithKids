@@ -1,4 +1,33 @@
-function ListComponent({ name, data, setData }) {
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+
+function ListComponent({ name, setData, listUpdate }) {
+    const [listData, setListData] = useState([]);
+    //프로그램 테이블 전체 보관
+    useEffect(() => {
+        if (listUpdate !== true && listUpdate !== false) {
+            axios.get('/api/staff/staffSearch', {
+                params: listUpdate
+            })
+                .then((response) => {
+                    console.log(response.data);
+                    setListData(response.data);
+                    setData([])
+                }).catch((error) => {
+                    // handle error
+                    console.log(error);
+                })
+        } else {
+            axios.get('/api/staff/staffList')
+                .then((response) => {
+                    console.log(response.data)
+                    setListData(response.data);
+                }).catch((error) => {
+                    // handle error
+                    console.log(error);
+                })
+        }
+    }, [listUpdate]);
 
     return (
         <>
@@ -16,7 +45,7 @@ function ListComponent({ name, data, setData }) {
                     height: '100%',
                 }}>
                     <div className={`${name.name}List_row`} style={{
-                        height:'100%',
+                        height: '100%',
                         overflow: 'auto'
                     }}>
                         {/* 클릭 이벤트를 위한 한줄 감싸기 */}
@@ -25,21 +54,24 @@ function ListComponent({ name, data, setData }) {
                             backgroundColor: 'var(--admin)',
                             fontWeight: 'bold',
                             position: 'sticky',
-                            top:'0'
+                            top: '0'
                         }}>
                             {name.title.map((e, i) => {
                                 return (<div key={`${name.name}head${i}`}>{e}</div>);
                             })}
                         </div>
-                        {data.map((e, i) => {
-                            return (
-                                <div key={e + i} style={{ display: 'grid' }} onClick={() => setData(e)}>
-                                    {name.menu.map((e2, i2) => {
-                                        return (<div key={e2 + i2}>{e[e2]}</div>)
-                                    })}
-                                </div>
-                            );
-                        })}
+                        {listData.length > 0 ?
+                            listData.map((e, i) => {
+                                return (
+                                    <div key={e + i} style={{ display: 'grid' }} onClick={() => setData(e)}>
+                                        {name.menu.map((e2, i2) => {
+                                            return (<div key={e2 + i2}>{e[e2]}</div>)
+                                        })}
+                                    </div>
+                                );
+                            }) :
+                            <div>정보가 없습니다.</div>
+                        }
                     </div>
                 </div>
             </div>
@@ -47,4 +79,4 @@ function ListComponent({ name, data, setData }) {
     );
 }
 
-export default ListComponent;
+export default React.memo(ListComponent);

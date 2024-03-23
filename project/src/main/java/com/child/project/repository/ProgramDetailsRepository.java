@@ -16,5 +16,6 @@ public interface ProgramDetailsRepository extends JpaRepository<ProgramDetails, 
 	List<ProgramDetails> selectDetails(@Param("prg_id") String prgId, @Param("rec") String rec);
 
 	@Query(value = "select count(*) from program_details where prg_id=:prg_id and prg_dnm=:prg_dnm and rec='프로그램세부'", nativeQuery = true)
-	Integer detailsCnt(@Param("prg_id")String prgId, @Param("prg_dnm")String prgDnm);
+	Integer detailsCnt(@Param("prg_id") String prgId, @Param("prg_dnm") String prgDnm);
+	
 }

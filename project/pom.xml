@@ -123,6 +123,13 @@
 			<version>1.6.1</version>
 		</dependency>
 
+		<!-- File을 MultipartFile 타입으로 변환 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
+
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> 
 	</dependencies>
 
