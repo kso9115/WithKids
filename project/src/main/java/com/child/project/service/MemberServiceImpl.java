@@ -16,31 +16,39 @@ import lombok.RequiredArgsConstructor;
 @Log4j2
 @Service
 public class MemberServiceImpl implements MemberService {
-    
+
     private final MemberRepository repository;
 
     @Override
     public List<Member> selectList() {
-        log.info("리스트 출력 테스트"+repository.findAll());
+        // log.info("리스트 출력 테스트" + repository.findAll());
         return repository.findAll();
     }
 
     @Override
     public Member selectOne(String memSerial) {
-        Optional<Member> result = repository.findById(memSerial);        
+        Optional<Member> result = repository.findById(memSerial);
         return result.get();
     }
 
     // @Override
     // public List<Member> selectDetail(String memSerial) {
-        
-    //     return repository.selectDetail(memSerial);
+
+    // return repository.selectDetail(memSerial);
     // }
 
+    // Delete
     @Override
     public void deleteByMemserial(String memSerial) {
         repository.deleteById(memSerial);
     }
 
-    
+    // Insert & Update
+    @Override
+    public Member save(Member memEntity) {
+        // memEntity에 저장
+        Member result = repository.save(memEntity);
+        return result;
+    }
+
 }
