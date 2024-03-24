@@ -44,4 +44,11 @@ public class MemAdmission {
     @Column(name="admission_qualification")
     private String admissionQualification;
 
+    // 수정사항. 2024-03.24
+    @Column(name="pre_fac_nm")
+    private String preFacNm;
+    @Column(name="pre_fac__admission_date")
+    private String preFacAdmissionDate;
+    @Column(name="pre_fac_leaving_date")
+    private String preFacLeavingDate;
 }

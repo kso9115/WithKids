@@ -12,6 +12,9 @@ import com.child.project.service.MemAdmissionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Log4j2
@@ -26,7 +29,7 @@ public class AdmissionController {
     public List<MemAdmission> admMem(){
         List<MemAdmission> list = admService.selectList();
 
-        log.info("admission List 입소 아동들 확인 " + list);
+        // log.info("admission List 입소 아동들 확인 " + list);
         
         return list;
     }
@@ -42,6 +45,21 @@ public class AdmissionController {
     }
     
 
+    @PostMapping("/admInsert")
+    public String admInsert(MemAdmission entity) {
+        String url="";
+
+        if(admService.save(entity) != null){
+            try{
+                log.info(" MemAdmission insert 성공 => " + admService.save(entity) );
+            } catch (Exception e){
+                log.info(" MemAdmission insert 실패(에러남) => " + e.toString() );
+            }
+        }
+        
+        return url;
+    }
+    
 
 
 }
