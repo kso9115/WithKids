@@ -23,9 +23,9 @@ public class StaffPrv {
     @Column(name = "staff_pst")
     private String staffPst;
     @Column(name = "staff_chl_cr")
-    private String staffChlCr;
+    protected int staffChlCr;
     @Column(name = "staff_cmn_mng")
-    private String staffCmnMng;
+    protected int staffCmnMng;
     @Column(name = "staff_cnt_mng")
-    private String staffCntMng;
+    protected int staffCntMng;
 }

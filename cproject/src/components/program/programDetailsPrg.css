@@ -1,7 +1,7 @@
 .prg_dtlprg_grid {
     margin-bottom: 20px;
     text-align: center;
-    height: 32.6%;
+    height: 23.5%;
     border: 1px solid var(--lgray);
     border-top: 2px solid var(--lgray);
 }
@@ -16,7 +16,7 @@
 .prg_dtlprg_gridBox {
     grid-template-columns: 4% 48% 48%;
     overflow-y: auto;
-    /* height: 100%; */
+    height: 100%;
     position: relative;
     
 }
@@ -134,7 +134,7 @@
 
 .prg_dtlprg_gridBox3>div:nth-child(5),
 .prg_dtlprg_gridBox3>div:nth-child(6) {
-    height: 120px;
+    height: 180px;
     /* line-height: 120px; */
 }
 

@@ -6,7 +6,7 @@ function ListComponent({ name, setData, listUpdate }) {
     //프로그램 테이블 전체 보관
     useEffect(() => {
         if (listUpdate !== true && listUpdate !== false) {
-            axios.get('/api/staff/staffSearch', {
+            axios.get(`/api/${name.name}/${name.name}Search`, {
                 params: listUpdate
             })
                 .then((response) => {
@@ -18,7 +18,7 @@ function ListComponent({ name, setData, listUpdate }) {
                     console.log(error);
                 })
         } else {
-            axios.get('/api/staff/staffList')
+            axios.get(`/api/${name.name}/${name.name}List`)
                 .then((response) => {
                     console.log(response.data)
                     setListData(response.data);
@@ -63,7 +63,7 @@ function ListComponent({ name, setData, listUpdate }) {
                         {listData.length > 0 ?
                             listData.map((e, i) => {
                                 return (
-                                    <div key={e + i} style={{ display: 'grid' }} onClick={() => setData(e)}>
+                                    <div key={e + i} style={{ display: 'grid' }} onClick={() => setData({...e})}>
                                         {name.menu.map((e2, i2) => {
                                             return (<div key={e2 + i2}>{e[e2]}</div>)
                                         })}

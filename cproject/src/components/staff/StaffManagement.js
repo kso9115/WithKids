@@ -3,8 +3,8 @@ import { stf_mng } from '../../hooks/searchbox/searchData'
 import ListComponent from '../../hooks/ListComponent';
 import Container from '../container/Container'
 import './staffManagement.css'
-import { staffData } from './data'
 import { useState } from 'react';
+import StaffDetails from './StaffDetails';
 
 const staffList = {
     name: 'staff',
@@ -17,17 +17,18 @@ const staffList = {
 function StaffManagement() {
      
     const [stfDataOne, setStfDataOne] = useState({}); //직원 테이블 전체중에 리스트에서 선택한 행 보관
-    const [stfDetail, setStfDetail] = useState([]); //직원 테이블 전체중에 트리에서 선택한 행의 직원 ID의 세부테이블 정보 보관
+    // const [stfDetail, setStfDetail] = useState([]); //직원 테이블 전체중에 트리에서 선택한 행의 직원 ID의 세부테이블 정보 보관
     const [listUpdate, setListUpdate] = useState(true); // 리스트 업데이트 용
 
     const [subCurrentTab, setSubCurrentTab] = useState(0);
     const subMenuArr = [
-        { name: '프로그램 상세정보', content: '' },
-        { name: '세부 프로그램', content: '' }
+        { name: '직원 정보', content: '' },
+        { name: '직원 근태', content: '' }
     ];
-    // subMenuArr[0].content = <ProgramDetails />;
+    subMenuArr[0].content = <StaffDetails data={stfDataOne} setData={setStfDataOne}
+        listUpdate={listUpdate} setListUpdate={setListUpdate} />;
     // subMenuArr[1].content = <ProgramDetailsPrg />;
-
+    console.log(stfDataOne);
     return (
         <div className='staff_mng' >
             <SearchBox data={stf_mng} />

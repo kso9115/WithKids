@@ -10,41 +10,42 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class StaffDTO extends Staff_prvDTO {
+public class StaffDTO extends StaffPrvDTO {
 
     // StaffPrv getStaffPrv();
 
     // Staff getStaff();
 
-    private String staff_pst;
+    private String staffPst;
 
-    private String staff_nm;
+    private String staffNm;
 
-    private String staff_id;
+    private String staffId;
 
-    private String staff_psw;
+    private String staffPsw;
 
-    private String staff_phnn;
+    private String staffPhnn;
 
-    private boolean staff_leave;
+    private Integer staffLeave;
 
-    private String staff_lvdy;
+    private String staffLvdy;
 
     private String rmr;
 
-    public StaffDTO(String staff_pst, String staff_nm, String staff_id, String staff_psw,
-            String staff_phnn, boolean staff_leave, String staff_lvdy, String rmr,
-            boolean staff_chl_cr, boolean staff_cmn_mng, boolean staff_cnt_mng) {
-        this.staff_pst = staff_pst;
-        this.staff_nm = staff_nm;
-        this.staff_id = staff_id;
-        this.staff_psw = staff_psw;
-        this.staff_phnn = staff_phnn;
-        this.staff_leave = staff_leave;
-        this.staff_lvdy = staff_lvdy;
+    public StaffDTO(String staffPst, String staffNm, String staffId,
+            String staffPsw,
+            String staffPhnn, Integer staffLeave, String staffLvdy, String rmr,
+            Integer staffChlCr, Integer staffCmnMng, Integer staffCntMng) {
+        this.staffPst = staffPst;
+        this.staffNm = staffNm;
+        this.staffId = staffId;
+        this.staffPsw = staffPsw;
+        this.staffPhnn = staffPhnn;
+        this.staffLeave = staffLeave;
+        this.staffLvdy = staffLvdy;
         this.rmr = rmr;
-        super.staff_chl_cr = staff_chl_cr;
-        super.staff_cmn_mng = staff_cmn_mng;
-        super.staff_cnt_mng = staff_cnt_mng;
+        super.staffChlCr = staffChlCr;
+        super.staffCmnMng = staffCmnMng;
+        super.staffCntMng = staffCntMng;
     }
 }

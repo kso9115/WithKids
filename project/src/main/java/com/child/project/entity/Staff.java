@@ -41,15 +41,13 @@ public class Staff {
     private String staffPhnn;
 
     @Column(name = "staff_leave")
-    private boolean staffLeave;
+    private int staffLeave;
 
     @Column(name = "staff_lvdy")
     private String staffLvdy;
 
     @Column(name = "rmr")
     private String rmr;
-
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "staff_prv", joinColumns = @JoinColumn(name = "staff_pst"), inverseJoinColumns = @JoinColumn(name = "staff_pst", insertable = false, updatable = false))
-    private StaffPrv staffPrv;
 }
+
+

@@ -1,0 +1,74 @@
+.staff_dtl_gridBox,
+.staff_spcNt_gridBox {
+    font-size: 14px;
+    display: grid;
+    margin-bottom: 20px;
+    border-top: 2px solid var(--lgray);
+    border-bottom: 2px solid var(--lgray);
+}
+
+.staff_dtl_gridBox {
+    grid-template-columns: 12% 22% 11% 22% 11% 22%;
+}
+
+.staff_spcNt_gridBox{
+    grid-template-columns: 12% 22% 12% 54%;
+}
+
+.staff_dtl_gridBox>div,
+.staff_spcNt_gridBox>div
+/* ,.staff_dtl_gridBox>div>div  */
+{
+    padding: 5px;
+    border-bottom: 1px solid var(--lgray);
+    display: flex;
+    align-items: center;
+}
+
+.staff_dtl_gridBox>div>input,
+.staff_spcNt_gridBox>div>input{
+    width: 100%;
+}
+
+.staff_dtl_gridBox select,
+.staff_spcNt_gridBox select {
+    height: 21px;
+    width: 100%;
+}
+
+.staff_dtl_gridBox>div:nth-child(2n+1),
+.staff_spcNt_gridBox>div:nth-child(2n+1) {
+    justify-content: end;
+    background-color: var(--admin);
+    font-weight: bold;
+}
+
+.staff_dtl_gridBox>div:not(:nth-child(6n+1)){
+    border-left: 1px solid var(--lgray);
+}
+.staff_spcNt_gridBox>div:nth-child(6) {
+    grid-column: span 3;
+}
+.staff_dtl_gridBox>div:nth-child(14) {
+    grid-column: span 5;
+    height: 90px;
+}
+
+.staff_dtl_gridBox>div>span ,
+.staff_spcNt_gridBox>div>span{
+    color: red;
+}
+
+.staff_dtl_radioBox {
+    gap: 20px;
+}
+
+.staff_spcNt_date{
+    width: 26% !important;
+}
+
+.buttonMargin{
+    margin-bottom: 50px;
+}
+
+
