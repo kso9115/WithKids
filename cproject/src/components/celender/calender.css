@@ -1,7 +1,8 @@
-.calendar { 
+.calendar {
     font-weight: bold;
     width: 100%;
     height: 100%;
+
     .header {
         width: 100%;
         height: 7%;
@@ -9,21 +10,25 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
         .col.col-start {
             width: 80%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+
             .text {
                 font-size: 0.8em;
             }
+
             .text.month {
-                 margin-right: 5px;
-                 font-size: 1.6em;
+                margin-right: 5px;
+                font-size: 1.6em;
                 font-weight: 600;
             }
         }
+
         .col.col-end {
             width: 20%;
             height: 100%;
@@ -32,12 +37,14 @@
             justify-content: flex-end;
             align-items: center;
             margin-right: 10px;
+
             svg {
                 width: 25px;
                 height: fit-content;
                 margin-left: 5%;
                 color: rgba(128, 128, 128, 0.5);
             }
+
             svg:hover {
                 cursor: pointer;
                 transition: 0.2s ease-in-out;
@@ -46,6 +53,7 @@
             }
         }
     }
+
     .days {
         width: 100%;
         height: fit-content;
@@ -59,25 +67,28 @@
         font-size: 0.65em;
         padding: 2px;
         color: #686868;
+
         .col {
             width: 12.9%;
             height: 100%;
-        
+
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             align-items: flex-start;
-        
+
             padding-left: 1%;
-            background:#ebcfc699;
+            background: #ebcfc699;
             border-radius: 10px;
         }
     }
+
     .body {
         width: 100%;
         height: 89%;
         display: flex;
         flex-direction: column;
+
         .row {
             width: 100%;
             height: 100%;
@@ -86,47 +97,92 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
+
             .col {
                 width: 13.5%;
                 height: 93%;
                 display: flex;
-                flex-direction: row;
+                position: relative;
+                flex-direction: column;
                 justify-content: flex-start;
                 align-items: flex-start;
                 border: 0.4px solid rgba(128, 128, 128, 0.4);
                 border-radius: 3px;
                 font-size: 0.8em;
+
                 span {
                     margin: 4px 0 0 4px;
                 }
+
                 .not-valid {
                     color: #c4c4c4;
                 }
+
                 img {
                     opacity: 0.1;
                 }
+
+                .atnContent {
+                    margin-left: 20px;
+                }
+
+                .atnContent:hover {
+                    background-color: #c4c4c480;
+                    cursor: pointer;
+                }
+
+                .atnHoverBox1,
+                .atnHoverBox2 {
+                    border-radius: 10px;
+                    display: none;
+                    padding: 5px;
+                    position: absolute;
+                    border: 1px solid black;
+                    z-index: 50;
+                    background-color: white;
+                    
+                    width: 200px;
+                    height: 60px;
+
+                    p {
+                        width: 100%;
+                        word-break: break-all;
+                    }
+                }
+
+                .atnHoverBox1 {
+                    left: 103%;
+                    bottom: 104%;
+                }
+
+                .atnHoverBox2 {
+                    bottom: 104%;
+                    right: 103%;
+                }
             }
+
             .colRed {
                 color: red;
             }
+
             .colBlue {
                 color: blue;
-             }
+            }
         }
     }
 }
 
-.col.cell.valid:hover{
+/* .col.cell.valid:hover{
     cursor: pointer;
     transition: 0.2s ease-in-out;
     box-shadow: 1.5px 1.5px 0px 0px #6868681a;
     transform: scale(1.01);
-    /* border: none; */
+
     background: #c4c4c480
-}
+} */
 
 .col.cell.selected {
-    cursor: pointer;
+    /* cursor: pointer; */
     box-shadow: 1.5px 1.5px 0px 0px #aa5b421a;
     transform: scale(1.02);
     border: none;
@@ -135,6 +191,6 @@
     /* font-weight: 600; */
 }
 
-.col.cell.selected:hover {
+/* .col.cell.selected:hover {
     background: #e7a48e;
-}
+} */

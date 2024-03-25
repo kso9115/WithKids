@@ -4,6 +4,7 @@
     height: 23.5%;
     border: 1px solid var(--lgray);
     border-top: 2px solid var(--lgray);
+    overflow-y: auto;
 }
 
 .prg_dtlprg_gridBox,
@@ -15,8 +16,8 @@
 
 .prg_dtlprg_gridBox {
     grid-template-columns: 4% 48% 48%;
-    overflow-y: auto;
-    height: 100%;
+    /* overflow-y: auto;
+    height: 100%; */
     position: relative;
     
 }
@@ -158,6 +159,9 @@
 
 .notPrgDetail {
     grid-column: span 3;
+    /* grid-row : span 3 !important; */
+    height: 120.4px !important;
+    line-height: 120.4px !important;
     cursor: default;
 }
 

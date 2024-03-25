@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function StaffSpecialNote({ staffDataOneD }) {
 
+    // useEffect(() => {
+        
+    // }, []);
 
+    console.log(staffDataOneD);
 
     return (
         <>
+            <b>직원 휴가/결근/특이사항</b>
+            <div className='staff_dtl_grid'>
+                <div className='staff_dtl_gridBox2'>
+                    <div>종류</div><div>날짜</div><div>내용</div>
+                    {/* {makeDiv()} */}
+                </div>
+            </div>
+
             <b>직원 휴가/결근/특이사항</b>
             <div className='staff_spcNt_gridBox'>
                 <div><span>*</span>종류</div>
@@ -53,4 +65,4 @@ function StaffSpecialNote({ staffDataOneD }) {
 }
 
 // export default React.memo(staffSpecialNote);
-export default StaffSpecialNote;
+export default React.memo(StaffSpecialNote);

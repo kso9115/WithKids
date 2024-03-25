@@ -49,7 +49,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
     function makeDiv() {
         if (Array.isArray(subData) && subData.length > 0) {
             // console.log(subData);
-            return subData.map((e, i) => (<MakeDiv key={e.rec + e.prgDate + e.prgId} e={e} i={i} detailsChange={detailsChange}></MakeDiv>));
+            return subData.map((e, i) => (<MakeDiv key={e.rec + e.prgDnm + e.prgId} e={e} i={i} detailsChange={detailsChange}></MakeDiv>));
         } else {
             return <div className='notPrgDetail'>정보가 없습니다.</div>;
         }

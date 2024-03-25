@@ -8,8 +8,6 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
     const [staffDataOneD, setStaffDataOneD] = useState({});
     const [staffPst, setStaffPst] = useState([]);
 
-    console.log(staffDataOneD)
-    console.log(staffPst)
     useEffect(() => {
         setStaffDataOneD(data);
 
@@ -154,6 +152,7 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
                 <div><input type="password" id='staffPsw' name='staffPsw' value={""} onChange={StaffDetailsChange}
                     disabled={false} /></div> */}
             </div>
+
             <div className='buttonBox buttonMargin'>
                 <div>
                     <button type="button" onClick={() => resetPswrd()}
@@ -168,6 +167,7 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
                     >저장</button>
                 </div>
             </div>
+
             <StaffSpecialNote staffDataOneD={staffDataOneD}></StaffSpecialNote>
         </div>
     );
