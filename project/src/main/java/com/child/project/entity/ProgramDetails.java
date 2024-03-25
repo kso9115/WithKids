@@ -113,4 +113,6 @@ public class ProgramDetails implements Serializable {
 	@Transient
 	private List<MultipartFile> prgFilef;
 
+	@Transient
+	private String type;
 }

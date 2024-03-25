@@ -8,6 +8,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,4 +49,7 @@ public class Staff {
 
     @Column(name = "rmr")
     private String rmr;
+    
+    @Transient
+    private String type;
 }

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
+import axios from 'axios';
 
 function RenderCells({ currentMonth, selectedDate, onDateClick }) {
+    const [stfAtn, setStfAtn] = useState([]);
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
@@ -14,6 +16,17 @@ function RenderCells({ currentMonth, selectedDate, onDateClick }) {
     let day = startDate;
     let formattedDate = '';
 
+    useEffect(() => {
+        axios.get(`/api/staff/staffAtnList`)
+            .then((response) => {
+                console.log(response.data)
+                setStfAtn(response.data);
+            }).catch((error) => {
+                // handle error
+                console.log(error);
+            })
+    },[])
+    console.log(stfAtn);
     while (day <= endDate) {
         for (let i = 0; i < 7; i++) {
             let coler;

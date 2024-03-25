@@ -5,6 +5,7 @@ import Container from '../container/Container'
 import './staffManagement.css'
 import { useState } from 'react';
 import StaffDetails from './StaffDetails';
+import StaffAttendance from './StaffAttendance';
 
 const staffList = {
     name: 'staff',
@@ -27,7 +28,7 @@ function StaffManagement() {
     ];
     subMenuArr[0].content = <StaffDetails data={stfDataOne} setData={setStfDataOne}
         listUpdate={listUpdate} setListUpdate={setListUpdate} />;
-    // subMenuArr[1].content = <ProgramDetailsPrg />;
+    subMenuArr[1].content = <StaffAttendance />;
     console.log(stfDataOne);
     return (
         <div className='staff_mng' >

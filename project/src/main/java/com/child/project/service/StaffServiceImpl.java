@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.child.project.domain.StaffDTO;
 import com.child.project.entity.Staff;
+import com.child.project.entity.StaffAtn;
 import com.child.project.entity.StaffPrv;
+import com.child.project.repository.StaffAtnRepository;
 import com.child.project.repository.StaffPrvRepositoty;
 import com.child.project.repository.StaffRepository;
 
@@ -20,6 +22,7 @@ public class StaffServiceImpl implements StaffService {
 
     private final StaffRepository repository;
     private final StaffPrvRepositoty prepository;
+    private final StaffAtnRepository arepository;
 
     @Override
     public List<Staff> findAll() {
@@ -33,6 +36,35 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public List<StaffPrv> findPrvAll() {
-        return prepository.findAll();
+        return prepository.findPrvAll();
     }
+
+    @Override
+    public List<StaffAtn> findAtnAll() {
+        return arepository.findAll();
+    }
+
+    @Override
+    public void updataPassword(String staffId, String staffPsw) {
+        repository.updataPassword(staffId, staffPsw);
+    }
+
+    @Override
+    public int countId(String staffId) {
+        return repository.countId(staffId);
+    }
+
+    @Override
+    public Staff save(Staff entity) {
+        repository.save(entity);
+        log.info("** register : entity => " + entity);
+
+        return entity;
+    }
+
+    @Override
+    public void deleteById(String staffId) {
+        repository.deleteById(staffId);
+    }
+
 }

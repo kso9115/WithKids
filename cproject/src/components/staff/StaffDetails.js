@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import StaffSpecialNote from './StaffSpecialNote'
 import './staffDetails.css'
 import axios from 'axios';
+import { stf_dtls_inp_ck } from '../../hooks/inputCheck/staffInputCheck';
 
 function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
     const [staffDataOneD, setStaffDataOneD] = useState({});
@@ -23,7 +24,10 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
     }, [data]);
 
     function resetPswrd() {
-        axios.get(`/api/staff/resetPswrd`)
+        if(window.confirm("정말로 초기화 하시겠습니까?(되돌릴 수 없습니다.)"))
+            axios.get(`/api/staff/resetPswrd`, {
+                params: { staffId:staffDataOneD.staffId }
+            })
             .then((response) => {
                 console.log(response.data)
             }).catch((error) => {
@@ -32,7 +36,63 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
             })
     }
 
+    function saveData(type) {
+        //유효성검사
+        if (stf_dtls_inp_ck(staffDataOneD, type)) {
+            // let formData = new FormData();
+            // const entity = {
+            //     ...staffDataOneD,
+            //     type
+            // }
+            // formData.append("entity", entity);
+            // formData.append("type", type);
+            axios.post(`/api/staff/staffSave`, { ...staffDataOneD,type })
+            // axios.post(`/api/staff/staffSave`, null, {
+            //     params: {
+            //         ...staffDataOneD,
+            //         type
+            //     }
+            // })
+                .then((response) => {
+                    console.log(response.data);
+                    setData({
+                        ...staffDataOneD
+                    });
+                    setListUpdate(!listUpdate);
+                    alert(response.data);
+                }).catch((error) => {
+                    console.log(error);
+                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                }).then(() => {
+                    // 항상 실행
+                });
+        }
+    }
+
+    function deleteData() {
+        if (staffDataOneD.staffId) {
+            if (window.confirm("직원정보를 삭제하시겠습니까?")) {
+                axios.post('/api/staff/staffdelete', staffDataOneD)
+                    .then((response) => {
+                        // handle success
+                        setData({});
+                        setListUpdate(!listUpdate);
+                        alert(response.data);
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(() => {
+                        // always executed
+                    });
+            } else alert("취소되었습니다.");
+        } else alert("선택된 직원정보가 없습니다.");
+    }
+
     const StaffDetailsChange = useCallback((event) => {
+        console.log(staffDataOneD[event.target.name] + " " + event.target.value);
         staffDataOneD[event.target.name] = event.target.value;
         setStaffDataOneD({ ...staffDataOneD });
     }, [staffDataOneD]);
@@ -71,21 +131,21 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
                 <div className='staff_dtl_radioBox' >
                     <div>
                         <input type="radio" id='staffLeave' name='staffLeave' value={0} onChange={StaffDetailsChange}
-                            checked={staffDataOneD.staffLeave === 0} />
-                        <label htmlFor='interior'>근무중</label>
+                            checked={staffDataOneD.staffLeave == 0} />
+                        <label htmlFor='staffLeave'>근무중</label>
                     </div>
                     <div>
-                        <input type="radio" id='staffLeave2' name='staffLeave2' value={1} onChange={StaffDetailsChange}
-                            checked={staffDataOneD.staffLeave === 1} />
-                        <label htmlFor='prgCls2'>휴직</label>
+                        <input type="radio" id='staffLeave2' name='staffLeave' value={1} onChange={StaffDetailsChange}
+                            checked={staffDataOneD.staffLeave == 1} />
+                        <label htmlFor='staffLeave2'>휴직</label>
                     </div>
                 </div>
                 
-                <div><span>*</span>휴직일</div>
+                <div>휴직일</div>
                 <div><input type="date" id='staffLvdy' name='staffLvdy' value={staffDataOneD.staffLvdy || ""} onChange={StaffDetailsChange}
                     disabled={false} /></div>
 
-                <div><span>*</span>비고</div>
+                <div>비고</div>
                 <div>
                     <textarea cols="120" rows="5" id='rmr' name='rmr' value={staffDataOneD.rmr || ""} onChange={StaffDetailsChange}></textarea>
                 </div>
@@ -96,16 +156,15 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
             </div>
             <div className='buttonBox buttonMargin'>
                 <div>
-                    <button type="button"
-                    // onClick={() => }
+                    <button type="button" onClick={() => resetPswrd()}
                     >비밀번호 초기화</button>
                     <button type="button" onClick={() => setStaffDataOneD({})} >입력취소</button>
-                    <button type="button" value='삭제'onClick={()=> setStaffDataOneD({})} >삭제</button>
+                    <button type="button" value='삭제' onClick={deleteData} >삭제</button>
                     <button type="button" value='신규'
-                        // onClick={() => saveData("prgInsert")}
+                        onClick={() => saveData("stfInsert")}
                     >신규</button>
                     <button type="button" value='저장'
-                        // onClick={() => saveData("prgUpdate")}
+                        onClick={() => saveData("stfUpdate")}
                     >저장</button>
                 </div>
             </div>

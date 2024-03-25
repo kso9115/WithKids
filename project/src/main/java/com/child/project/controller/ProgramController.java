@@ -14,8 +14,10 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.child.project.entity.Program;
@@ -59,15 +61,16 @@ public class ProgramController {
 	} // prgDetails
 
 	// @RequestBody
-	@PostMapping("/prgInsert")
-	public String prgInsert(Program entity) {
+	@PostMapping("/prgSave")
+	public String prgInsert(@RequestBody Program entity) {
 		String message = "";
 		// LocalDate now = LocalDate.now(); // 포맷 정의
 		// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
 		// String formatedNow = now.format(formatter);
 
 		entity.setPrgId(entity.getPrgBigCls() + entity.getPrgMidCls() + entity.getPrgSubCls());
-		if (prgService.saveCat(entity.getPrgBigCls(), entity.getPrgMidCls(), entity.getPrgSubCls()) == 0) {
+		if (prgService.saveCat(entity.getPrgBigCls(), entity.getPrgMidCls(), entity.getPrgSubCls()) == 0
+				&& "prgInsert".equals(entity.getType())) {
 			try {
 				log.info(" program insert 성공 => " + prgService.save(entity));
 				message = "신규생성에 성공 했습니다.";
@@ -75,23 +78,21 @@ public class ProgramController {
 				log.info(" program insert Exception => " + e.toString());
 				message = "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
 			}
-		} else {
-			message = "신규생성에 실패 했습니다.\n사업 분류(대,중,소)가 같은 프로그램이 존재합니다.";
-		}
-
-		return message;
-	}
-
-	@PostMapping("/prgUpdate")
-	public String prgUpdate(Program entity) {
-		String message = "";
-
-		try {
-			log.info(" program Update 성공 => " + prgService.save(entity));
-			message = "저장에 성공 했습니다.";
-		} catch (Exception e) {
-			log.info(" program Update Exception => " + e.toString());
+		} else if (prgService.saveCat(entity.getPrgBigCls(), entity.getPrgMidCls(), entity.getPrgSubCls()) == 1
+				&& "prgUpdate".equals(entity.getType())) {
+			try {
+				log.info(" program Update 성공 => " + prgService.save(entity));
+				message = "저장에 성공 했습니다.";
+			} catch (Exception e) {
+				log.info(" program Update Exception => " + e.toString());
+				message = "저장에 실패 했습니다. 관리자에게 문의하세요.";
+			}
+		} else if("prgInsert".equals(entity.getType())){
+			message = "신규생성에 실패 했습니다. 같은 프로그램이 있는지 확인하세요.";
+		} else if("prgUpdate".equals(entity.getType())){
 			message = "저장에 실패 했습니다. 관리자에게 문의하세요.";
+		} else {
+			message = "요청에 실패했습니다. 관리자에게 문의하세요.";
 		}
 
 		return message;
@@ -99,15 +100,19 @@ public class ProgramController {
 
 	// @PostMapping("/prgDtInsert")
 	@PostMapping("/prgDtSave")
-	public String prgDtSave(ProgramDetails entity, @RequestParam("type") String type, HttpServletRequest request)
+	public String prgDtSave(
+			@RequestBody ProgramDetails entity
+			//@RequestParam("entity") ProgramDetails entity, @RequestParam("prgFilef") List<MultipartFile> prgFilef
+			// @RequestPart(value = "entity") ProgramDetails entity
+		, HttpServletRequest request)
 			throws IOException {
 		String message = "";
 
 		log.info(" entity => " + entity);
-		log.info(" type => " + type);
-		log.info("prgDtUpdate".equals(type));
+		log.info(" type => " + entity.getType());
+		log.info("prgDtUpdate".equals(entity.getType()));
 
-		if (entity.getPrgId() != null && entity.getPrgDnm() != null && "prgDtInsert".equals(type)
+		if (entity.getPrgId() != null && entity.getPrgDnm() != null && "prgDtInsert".equals(entity.getType())
 				&& prgService.detailsCnt(entity.getPrgId(), entity.getPrgDnm()) == 0) {
 			try {
 				log.info(" program insert 성공 => " + prgService.dtSave(entity));
@@ -116,7 +121,7 @@ public class ProgramController {
 				log.info(" program insert Exception => " + e.toString());
 				return "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
 			}
-		} else if (entity.getPrgId() != null && entity.getPrgDnm() != null && "prgDtUpdate".equals(type)
+		} else if (entity.getPrgId() != null && entity.getPrgDnm() != null && "prgDtUpdate".equals(entity.getType())
 				&& prgService.detailsCnt(entity.getPrgId(), entity.getPrgDnm()) > 0) {
 			try {
 				log.info(" program Update 성공 => " + prgService.dtSave(entity));
@@ -201,7 +206,7 @@ public class ProgramController {
 	// }
 
 	@PostMapping("/prgdelete")
-	public String prgdelete(ProgramId entityId) {
+	public String prgdelete(@RequestBody ProgramId entityId) {
 		String message = "";
 
 		try {
@@ -217,7 +222,7 @@ public class ProgramController {
 	}
 
 	@PostMapping("/prgDtdelete")
-	public String prgdelete(ProgramDetailsId entityId) {
+	public String prgdelete(@RequestBody ProgramDetailsId entityId) {
 		String message = "";
 
 		try {
@@ -233,35 +238,40 @@ public class ProgramController {
 	}
 
 	// @PostMapping("/prgFile")
-	// public List<MultipartFile> prgFile(ProgramDetails entity, HttpServletRequest request) throws IOException {
-	// 	List<MultipartFile> filed = new ArrayList<MultipartFile>();
+	// public List<MultipartFile> prgFile(ProgramDetails entity, HttpServletRequest
+	// request) throws IOException {
+	// List<MultipartFile> filed = new ArrayList<MultipartFile>();
 
-	// 	String realPath = request.getRealPath("/");
-	// 	log.info("** realPath => " + realPath);
-	// 	// // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-	// 	if (!realPath.contains("apache-tomcat"))
-	// 		realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\uploadFile\\"
-	// 				+ entity.getPrgId() + entity.getPrgDnm() + "\\"; // 개발중.
-	// 	else
-	// 		realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\uploadFile\\"
-	// 				+ entity.getPrgId() + entity.getPrgDnm() + "\\";
-	// 	log.info("** entity => " + entity);
-	// 	log.info("** getPrgFile => " + entity.getPrgFile());
-	// 	String files[] = entity.getPrgFile().split(" ");
+	// String realPath = request.getRealPath("/");
+	// log.info("** realPath => " + realPath);
+	// // // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
+	// if (!realPath.contains("apache-tomcat"))
+	// realPath =
+	// "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\uploadFile\\"
+	// + entity.getPrgId() + entity.getPrgDnm() + "\\"; // 개발중.
+	// else
+	// realPath =
+	// "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\uploadFile\\"
+	// + entity.getPrgId() + entity.getPrgDnm() + "\\";
+	// log.info("** entity => " + entity);
+	// log.info("** getPrgFile => " + entity.getPrgFile());
+	// String files[] = entity.getPrgFile().split(" ");
 
-	// 	for (String filedata : files) {
-	// 		// filed.add(new File(realPath + file));
-	// 		File file = new File(realPath + filedata);
-	// 		FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()),
-	// 				false, file.getName(), (int) file.length(), file.getParentFile());
-	// 		try (InputStream input = new FileInputStream(file); OutputStream os = fileItem.getOutputStream()) {
-	// 			IOUtils.copy(input, os);
-	// 		} catch (IOException ex) {
-	// 			log.error("### file -> MultipartFile 변환 error : {}", ex.getMessage(), ex);
-	// 		}
-	// 		filed.add(new CommonsMultipartFile(fileItem));
-	// 	}
-	// 	return filed;
+	// for (String filedata : files) {
+	// // filed.add(new File(realPath + file));
+	// File file = new File(realPath + filedata);
+	// FileItem fileItem = new DiskFileItem("mainFile",
+	// Files.probeContentType(file.toPath()),
+	// false, file.getName(), (int) file.length(), file.getParentFile());
+	// try (InputStream input = new FileInputStream(file); OutputStream os =
+	// fileItem.getOutputStream()) {
+	// IOUtils.copy(input, os);
+	// } catch (IOException ex) {
+	// log.error("### file -> MultipartFile 변환 error : {}", ex.getMessage(), ex);
+	// }
+	// filed.add(new CommonsMultipartFile(fileItem));
+	// }
+	// return filed;
 	// }
 
 	@GetMapping("/hi")

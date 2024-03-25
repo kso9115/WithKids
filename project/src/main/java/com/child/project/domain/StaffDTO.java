@@ -33,13 +33,13 @@ public class StaffDTO extends StaffPrvDTO {
     private String rmr;
 
     public StaffDTO(String staffPst, String staffNm, String staffId,
-            String staffPsw,
+            // String staffPsw,
             String staffPhnn, Integer staffLeave, String staffLvdy, String rmr,
             Integer staffChlCr, Integer staffCmnMng, Integer staffCntMng) {
         this.staffPst = staffPst;
         this.staffNm = staffNm;
         this.staffId = staffId;
-        this.staffPsw = staffPsw;
+        // this.staffPsw = staffPsw;
         this.staffPhnn = staffPhnn;
         this.staffLeave = staffLeave;
         this.staffLvdy = staffLvdy;

@@ -1,7 +1,7 @@
 .calendar { 
     font-weight: bold;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     .header {
         width: 100%;
         height: 7%;
@@ -31,8 +31,9 @@
             flex-direction: row;
             justify-content: flex-end;
             align-items: center;
+            margin-right: 10px;
             svg {
-                width: 30px;
+                width: 25px;
                 height: fit-content;
                 margin-left: 5%;
                 color: rgba(128, 128, 128, 0.5);
@@ -48,7 +49,7 @@
     .days {
         width: 100%;
         height: fit-content;
-
+        margin-top: 5px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -125,10 +126,15 @@
 }
 
 .col.cell.selected {
+    cursor: pointer;
     box-shadow: 1.5px 1.5px 0px 0px #aa5b421a;
     transform: scale(1.02);
     border: none;
     background: #f3c5b6;
     color: #aa5b42;
     /* font-weight: 600; */
+}
+
+.col.cell.selected:hover {
+    background: #e7a48e;
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -96,4 +97,6 @@ public class Program implements Serializable {
 	@Column(name = "cls_inc")
 	private String clsInc;
 
+	@Transient
+	private String type;
 }

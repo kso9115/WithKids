@@ -76,7 +76,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         }
         return `0${value}`;
     }
-    
+
     function toStringByFormatting(source, delimiter = '-') {
         const year = source.getFullYear();
         const month = leftPad(source.getMonth() + 1);
@@ -93,12 +93,10 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
             //     prgDate: prgDetailData.prgDate,
             //     rec: prgDetailData.rec
             // });
-            axios.post('/api/prg/prgDtdelete', null, {
-                params: {
-                    prgId: prgDetailData.prgId,
-                    prgDnm: prgDetailData.prgDnm,
-                    rec: prgDetailData.rec
-                }
+            axios.post('/api/prg/prgDtdelete', {
+                prgId: prgDetailData.prgId,
+                prgDnm: prgDetailData.prgDnm,
+                rec: prgDetailData.rec
             })
                 .then((response) => {
                     // handle success
@@ -131,33 +129,46 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     ...prgDetailData,
                     prgFile: prgDetailData.prgFile.join(' '),
                     prgDate: formattedDate,
-                    prgFilef: prgDetailData.prgFilef || [],
+                    // prgFilef: prgDetailData.prgFilef || [],
                     type: 'prgDtInsert'
                 };
             } else if (type === 'prgDtUpdate') {
                 params = {
                     ...prgDetailData,
                     prgFile: prgDetailData.prgFile.join(' '),
-                    prgFilef: prgDetailData.prgFilef || [],
+                    // prgFilef: prgDetailData.prgFilef || [],
                     type: 'prgDtUpdate'
                 }
             } else return alert("잘못된 요청입니다.");
             console.log(params);
-            
+
             let formData = new FormData();
             if (prgDetailData.prgFilef) {
                 for (let i = 0; i < prgDetailData.prgFilef.length; i++) {
                     formData.append("prgFilef", prgDetailData.prgFilef[i]);
                 }
+                formData.append("entity", new Blob([JSON.stringify(params)], { type: "application/json" }));
+            } else {
+                // alert("여기?");
+                formData.append("entity", params);
             }
-            
-            axios.post(`/api/prg/prgDtSave`, prgDetailData.prgFilef ? formData : null,{
-                    params,
-                    paramsSerializer: (params) => {
-                        return qs.stringify(params, { arrayFormat: "repeat" });
+
+            axios.post(`/api/prg/prgDtSave`, prgDetailData.prgFilef ? formData : params
+                , {
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
+                    // paramsSerializer: (formData) => {
+                    //     return qs.stringify(formData, { arrayFormat: "repeat" });
+                    // }
                 }
             )
+                // axios.post(`/api/prg/prgDtSave`, prgDetailData.prgFilef ? formData : null, {
+                //     params,
+                //     paramsSerializer: (params) => {
+                //         return qs.stringify(params, { arrayFormat: "repeat" });
+                //     }
+                // })
                 .then((response) => {
                     console.log(response.data);
                     setData(prgDataOneD);
@@ -171,26 +182,6 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     // 항상 실행
                 });
         }
-    }
-
-    function fileTransmit(files) {
-        console.log("???");
-        axios.post('/api/prg/fileTransmit', null, {
-            params: {
-                prgId: prgDetailData.prgId,
-                prgDnm: prgDetailData.prgDnm,
-                prgFilef: files
-            }
-        })
-            .then((response) => {
-                console.log(response.data);
-                // alert(response.data);
-            }).catch((error) => {
-                console.log(error);
-                alert("첨부파일 전송에 실패했습니다.");
-            }).then(() => {
-                // 항상 실행
-            });
     }
 
     return (
@@ -230,12 +221,12 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
 
                 <div><span>*</span>세부프로그램 내용</div>
                 <div><textarea name='content' cols="140" rows="6" value={prgDetailData.content || ""} onChange={prgdChange}></textarea></div>
-                
+
                 <div onClick={() => setFileToggle(!fileToggle)}>첨부파일</div>
                 <div>{
                     fileToggle ?
-                    <ExistingFile></ExistingFile>    
-                    : <AttachedFile data={prgDetailData} setData={setPrgDetailData} name={'prgFile'} files={'prgFilef'}></AttachedFile>
+                        <ExistingFile></ExistingFile>
+                        : <AttachedFile data={prgDetailData} setData={setPrgDetailData} name={'prgFile'} files={'prgFilef'}></AttachedFile>
                 }</div>
             </div>
             <div className='buttonBox'>

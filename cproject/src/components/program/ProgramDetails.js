@@ -45,12 +45,10 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     function deleteData() {
         if (prgDataOneD.prgId ) {
             if (window.confirm("프로젝트를 삭제하시겠습니까?")) {
-                axios.post('/api/prg/prgdelete', null, {
-                    params: {
-                        prgId: prgDataOneD.prgId,
-                        prgBigCls: prgDataOneD.prgBigCls,
-                        prgMidCls: prgDataOneD.prgMidCls
-                    }
+                axios.post('/api/prg/prgdelete', {
+                    prgId: prgDataOneD.prgId,
+                    prgBigCls: prgDataOneD.prgBigCls,
+                    prgMidCls: prgDataOneD.prgMidCls
                 })
                     .then((response) => {
                         // handle success
@@ -82,12 +80,11 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                 ...prgDataOneD,
                 clsInc,
                 ffTyp,
-                prgNmbApi
+                prgNmbApi,
+                type
             };
 
-            axios.post(`/api/prg/${type}`, null, {
-                params
-            })
+            axios.post(`/api/prg/prgSave`, params)
                 .then((response) => {
                     console.log(response.data);
                     setData({
