@@ -34,7 +34,7 @@ public class Staff {
     @Column(name = "staff_id")
     private String staffId;
 
-    @Column(name = "staff_psw")
+    @Column(name = "staff_psw", updatable = false) //
     private String staffPsw;
 
     @Column(name = "staff_phnn")
@@ -49,5 +49,3 @@ public class Staff {
     @Column(name = "rmr")
     private String rmr;
 }
-
-
