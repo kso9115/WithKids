@@ -27,24 +27,26 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
         setPopup(!popup);
     }
 
+    //=================================================
+
     // input 태그 입력 시 데이터
-    const formData = useRef({
-        memSerial: 'formData.memSerial',
-    })
+    // const formData = useRef({
+    //     memSerial: 'formData.memSerial',
+    // })
 
     // 입력된 값을 상태에 업데이트하는 함수를 정의
-    const handleChange = (e) => {
-        const { name, value } = e.target.value;
-        // useRef로 생성한 객체의 current 프로퍼티를 통해 직접 접근하여 값을 업데이트
-        formData.current[name] = value;
-    };
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target.value;
+    //     // useRef로 생성한 객체의 current 프로퍼티를 통해 직접 접근하여 값을 업데이트
+    //     formData.current[name] = value;
+    // };
 
     // 입력된 값들을 저장하는 함수를 정의
-    const handleSubmit = (e) => {
-        e.preventDefault(); // 폼 기본 동작 방지
-        console.log(formData.current); // 입력된 데이터들을 출력 : 가긴함..
-        // 이후 이 값을 서버로 전송하거나 다른 처리
-    };
+    // const handleSubmit = (e) => {
+    //     e.preventDefault(); // 폼 기본 동작 방지
+    //     console.log(formData.current); // 입력된 데이터들을 출력 : 가긴함..
+    //     // 이후 이 값을 서버로 전송하거나 다른 처리
+    // };
 
     //=================================================
 
@@ -88,24 +90,35 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
 
     //=================================================
 
-    
+
 
     // 1. insert & update 기능 요청 : 입력한 DB 업데이트
     function saveMemDate() {
-        const params = {
-            // memSerial: memDataOneD.memSerial,
-            ...memDataOneD
+        // const params = {
+        //     // memSerial: memDataOneD.memSerial,
+        //     ...memDataOneD
+        // }
+        // 자체가 객체이므로 memDataOneD 바로 전달
+        if (!memDataOneD) {
+            console.error('데이터가 유효하지 않습니다.');
+            return;
         }
-        axios.post('/api/mem/memInesert', params)
+        axios.post('/api/mem/memInesert', memDataOneD, {
+            // 통신 타입을 
+            headers: { 'Content-Type': 'application/json' }
+        })
+
             // params: { memSerial: memDataOneD.memSerial }
             // }).then((response) =>  {     // 자꾸 홈으로 다시 가서 일단 수정했는데 똑같음;;;;;
-            .then(function (response) {
+            .then((response) => {
+
                 console.log("데이터 넘어오나? response.data =>" + response.data);
-                console.log("==============");
-                console.log(params);
-                setData({
-                    ...params,
-                });
+
+                // setData({
+                //     ...memDataOneD,
+                // });
+                setData(response.data);
+                // console.log(memDataOneD);
                 // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
             }).catch((err) => {
                 alert("memInesert 요청 실패")
@@ -152,7 +165,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div className='mem_serial'>
                     <input type='text' name='memSerial'
                         defaultValue={memDataOneD.memSerial}
-                        onChange={handleChange} disabled={memDataOneD.memSerial || ""}>
+                        onChange={memDataChange} disabled={memDataOneD.memSerial || ""}>
                     </input>
                 </div>
 
@@ -229,7 +242,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div><span>*</span>연령(만나이)</div>
                 <div className='mem_age'>
                     <input type='text' name='memAge'
-                        defaultValue={memDataOneD.memAge || ""} onChange={handleChange}>
+                        defaultValue={memDataOneD.memAge || ""} onChange={memDataChange}>
                     </input>
                 </div>
 

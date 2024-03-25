@@ -60,6 +60,8 @@ function MemberMangement() {
 
     // Post 요청을 보낼 시 : 학력 데이터 요청전달 후 출력
     useEffect(() => {
+        // 왜오류나는지..?모르것다
+        // if (memDataOne.constructor === Object && Object.keys(memDataOne).length !== 0) {
         if (memDataOne.memSerial) {
             console.log(memDataOne.memSerial); // 클릭시 들어옴
             // const memSerial = memDataOne.memSerial;
@@ -68,12 +70,15 @@ function MemberMangement() {
                 .post('/api/mem/memSelectOneEdu', { memSerial: memDataOne.memSerial })
                 .then(response => {
                     console.log(response.data); // 데이터 전달 확인용
+
                     setEduDataOne(response.data);
                 }).catch(function (err) {
                     console.log("error => ", err);
                 })
         }
     }, [memDataOne.memSerial]);
+    // 테이블이 두개니까 하나의 테이블에 memSerial이 들어가면 다른 테이블에 강제적으로 넣어주기
+    // if (!response.data) setMemDataOne({ memSerial: memDataOne.memSerial });
 
 
 

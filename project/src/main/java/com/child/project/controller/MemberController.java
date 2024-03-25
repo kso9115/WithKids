@@ -38,27 +38,27 @@ public class MemberController {
 
     // @GetMapping("/memEduList")
     // public List<Education> selectEduList() {
-    //     log.info("memEduList 확인");
-    //     List<Education> list = memService.selectEduList();
-        
-    //     // log.info("memEduList 확인" + list); 
-        
-    //     return list;
-    // }  
-    
+    // log.info("memEduList 확인");
+    // List<Education> list = memService.selectEduList();
+
+    // // log.info("memEduList 확인" + list);
+
+    // return list;
+    // }
+
     // Get방식 하나의 Edu 데이터 전달
     // @GetMapping("/memSelectOneEdu")
     // public Education selectEduData(@RequestParam("memSerial") String memSerial) {
-    //     log.info("11111111111111111111111");
-    //     Education selectOneEdu = memService.selectEduData(memSerial);
-    //     return selectOneEdu;
+    // log.info("11111111111111111111111");
+    // Education selectOneEdu = memService.selectEduData(memSerial);
+    // return selectOneEdu;
     // }
-    
+
     // Post방식 하나의 Edu 데이터 전달 : Education타입의 바디에 담아서 전달
     @PostMapping("/memSelectOneEdu")
     public Education selectEduData(@RequestBody Education entity) {
-        
-        String memSerial = entity.getMemSerial();   // memSerial 파라미터 값 저장
+
+        String memSerial = entity.getMemSerial(); // memSerial 파라미터 값 저장
         Education selectOneEdu = memService.selectEduData(memSerial);
         return selectOneEdu;
     }
@@ -69,7 +69,6 @@ public class MemberController {
         Member selectOneMembers = memService.selectOne(memSerial);
         return selectOneMembers;
     }
-    
 
     @PostMapping("/memDelete")
     public String deleteByMemserial(@RequestParam("memSerial") String memSerial) {
@@ -91,15 +90,19 @@ public class MemberController {
     @PostMapping("/memInesert")
     public String memInsert(@RequestBody Member entity) {
         String message = "";
-        try {
-            log.info(entity); 
-            log.info("넘어오나?" + entity.getMemSerial());  // 파라미터 값 저장
-            // log.info("member insert 성공 => " + memService.save(memEntity)); // 넘어오는거 확인완
-            memService.save(entity);
-            message = "아동 추가 입력 성공";
-        } catch (Exception e) {
-            log.info("member insert 성공 => " + e.toString());
-            message = "아동 추가 입력 실패";
+
+        // save하려는 값이 없으면 실행x
+        if (memService.save(entity) != null) {
+            try {
+                log.info(entity);
+                log.info("넘어오나?" + entity.getMemSerial()); // 파라미터 값 저장
+                // log.info("member insert 성공 => " + memService.save(memEntity)); // 넘어오는거 확인완
+                memService.save(entity);
+                message = "아동 추가 입력 성공";
+            } catch (Exception e) {
+                log.info("member insert 성공 => " + e.toString());
+                message = "아동 추가 입력 실패";
+            }
         }
         return message;
     }
