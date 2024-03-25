@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.child.project.entity.Education;
 import com.child.project.entity.Member;
 import com.child.project.service.MemberService;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Log4j2
 @RestController
@@ -23,6 +25,7 @@ public class MemberController {
 
     MemberService memService;
 
+    // 파라미터로 데이터를 전달하는게 아니니까 get매핑 사용해도 무방
     @GetMapping("/memList")
     public List<Member> memList() {
         log.info("memList확인");
@@ -33,12 +36,40 @@ public class MemberController {
         return list;
     }
 
+    // @GetMapping("/memEduList")
+    // public List<Education> selectEduList() {
+    //     log.info("memEduList 확인");
+    //     List<Education> list = memService.selectEduList();
+        
+    //     // log.info("memEduList 확인" + list); 
+        
+    //     return list;
+    // }  
+    
+    // Get방식 하나의 Edu 데이터 전달
+    // @GetMapping("/memSelectOneEdu")
+    // public Education selectEduData(@RequestParam("memSerial") String memSerial) {
+    //     log.info("11111111111111111111111");
+    //     Education selectOneEdu = memService.selectEduData(memSerial);
+    //     return selectOneEdu;
+    // }
+    
+    // Post방식 하나의 Edu 데이터 전달 : Education타입의 바디에 담아서 전달
+    @PostMapping("/memSelectOneEdu")
+    public Education selectEduData(@RequestBody Education entity) {
+        
+        String memSerial = entity.getMemSerial();   // memSerial 파라미터 값 저장
+        Education selectOneEdu = memService.selectEduData(memSerial);
+        return selectOneEdu;
+    }
+
+    // 안씀;
     @GetMapping("/memSelectOne")
     public Member selectOne(@RequestParam("memSerial") String memSerial) {
         Member selectOneMembers = memService.selectOne(memSerial);
         return selectOneMembers;
-
     }
+    
 
     @PostMapping("/memDelete")
     public String deleteByMemserial(@RequestParam("memSerial") String memSerial) {
@@ -56,13 +87,15 @@ public class MemberController {
         return message;
     }
 
+    // 멤버 엔티티, memSerial 가져올 entity추가
     @PostMapping("/memInesert")
-    public String memInsert(Member memEntity, @RequestParam("memSerial") String memSerial) {
+    public String memInsert(@RequestBody Member entity) {
         String message = "";
         try {
-            log.info("넘어오나?" + memSerial);
+            log.info(entity); 
+            log.info("넘어오나?" + entity.getMemSerial());  // 파라미터 값 저장
             // log.info("member insert 성공 => " + memService.save(memEntity)); // 넘어오는거 확인완
-            memService.save(memEntity);
+            memService.save(entity);
             message = "아동 추가 입력 성공";
         } catch (Exception e) {
             log.info("member insert 성공 => " + e.toString());
