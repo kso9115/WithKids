@@ -4,6 +4,7 @@ import axios from 'axios';
 import DaumPostcode from 'react-daum-postcode';
 
 import Postcode from './Postcode';
+import DaumPost from './DaumPost';
 
 
 function MemberDetail({ data, setData }) {
@@ -54,6 +55,9 @@ function MemberDetail({ data, setData }) {
         console.log(formData.current); // 입력된 데이터들을 출력 : 가긴함..
         // 이후 이 값을 서버로 전송하거나 다른 처리
     };
+
+
+    //=================================================
 
     // text,radio 타입 input 태그 ,select 태그 defaultValue 값 제어
     const memDataChange = useCallback((event) => {
@@ -245,6 +249,9 @@ function MemberDetail({ data, setData }) {
                         {/* <input className="user_enroll_text" placeholder="주소" type="text" required={true} name="address" onChange={handleInput} defaultValue={enroll_company.address} /> */}
                         {/* <button onClick={handleComplete}>우편번호 찾기</button> */}
                         {/* {popup && <Postcode company={enroll_company} setcompany={setEnroll_company}></Postcode>} */}
+                        
+                        {/* 안됨 */}
+                        {/* <DaumPost setAddressObj={setAddressObj} setLocationObj={setLocationObj} /> */}
                     </div>
 
 
