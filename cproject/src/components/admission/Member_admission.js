@@ -57,29 +57,29 @@ function Member_addission({admMemOne } ){
                 
                 <div><span style={{color:"red"}}>*</span>입소/이용자격</div>
                 <div>
-                    <select name="admission_qualification" value={admMemOneD.admissionQualification} onChange={admdChange}>
+                    <select name="admission_qualification" value={admMemOneD.admissionQualification || ''} onChange={admdChange}>
                         <option value="free">무료</option>
                         <option value='pay'>유료</option>
                     </select>    
                 </div>
                  
                 <div><span></span>전입여부</div>
-                <div><input type="checkbox" value={admMemOneD.transfer} onChange={admdChange}/></div>
+                <div><input type="checkbox" value={admMemOneD.transfer || ''} onChange={admdChange}/></div>
 
                 <div></div><div></div>
                 <div></div><div></div>
 
                 <div><span></span>이전시설명</div>
-                <div><input type="text"  value={admMemOneD.preFacNm} onChange={admdChange}/></div>
+                <div><input type="text" value={admMemOneD.preFacNm || ''} onChange={admdChange}/></div>
                
                 <div><span></span>이전시설입소일자</div>
-                <div><input type="date" value={admMemOneD.preFacAdmissionDate} onChange={admdChange}/></div>
+                <div><input type="date" value={admMemOneD.preFacAdmissionDate || ''} onChange={admdChange}/></div>
 
                 <div><span></span>이전시설퇴소일자</div>
-                <div><input type="date" value={admMemOneD.preFacLeavingDate} onChange={admdChange}/></div>
+                <div><input type="date" value={admMemOneD.preFacLeavingDate || ''} onChange={admdChange}/></div>
                
                 <div><span style={{color:"red"}}>*</span>입소/이용사유</div>
-                <div><select name="admission_rs" value={admMemOneD.admissionRs} onChange={admdChange}>
+                <div><select name="admission_rs" value={admMemOneD.admissionRs || ''} onChange={admdChange}>
                         <option value="dualIncome">맞벌이 부모</option>
                         <option value='multiculture'>다문화가정</option>
                         <option value='withsibling'>형제,자매가 재원중</option>
@@ -91,12 +91,12 @@ function Member_addission({admMemOne } ){
                 </div>
                 
                 <div><span></span>입소/이용사유내용</div>
-                <div><input type="text" value={admMemOneD.admissionDetail} onChange={admdChange}/></div>
+                <div><input type="text" value={admMemOneD.admissionDetail || ''} onChange={admdChange}/></div>
 
                 <div></div><div></div>
                 
                 <div><span></span>입소/이용시작시간</div>
-                <div><input type="time" value={admMemOneD.memRegisterTime} onChange={admdChange}/><span style={{fontSize:10 , color:"var(--lgray)"}}>(예시: 오후1:00)</span></div>
+                <div><input type="time" value={admMemOneD.memRegisterTime || ''} onChange={admdChange}/><span style={{fontSize:10 , color:"var(--lgray)"}}>(예시: 오후1:00)</span></div>
                 
                 <div><span style={{color:"red"}}>*</span>프로그램</div>
                 <div><select name="program" onChange={admdChange}>
@@ -112,10 +112,10 @@ function Member_addission({admMemOne } ){
             <div style={{color:'black',fontWeight:'bold'}}>입소/이용 상황 및 경위</div>
             <div className="adgridBox2" onChange={admdChange}>
                 <div><span></span>입소/이용상황</div>
-                <div><textarea value={admMemOneD.admissionStatus}></textarea></div>
+                <div><textarea value={admMemOneD.admissionStatus || ''}></textarea></div>
 
                 <div><span></span>입소/이용경위</div>
-                <div><textarea value={admMemOneD.admissionStatusDetail}></textarea></div>
+                <div><textarea value={admMemOneD.admissionStatusDetail || ''}></textarea></div>
             </div>   
 
             <div className='buttonBox'>

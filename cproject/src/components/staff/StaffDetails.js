@@ -20,7 +20,17 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
                 // handle error
                 console.log(error);
             })
-    }, [data])
+    }, [data]);
+
+    function resetPswrd() {
+        axios.get(`/api/staff/resetPswrd`)
+            .then((response) => {
+                console.log(response.data)
+            }).catch((error) => {
+                // handle error
+                console.log(error);
+            })
+    }
 
     const StaffDetailsChange = useCallback((event) => {
         staffDataOneD[event.target.name] = event.target.value;
