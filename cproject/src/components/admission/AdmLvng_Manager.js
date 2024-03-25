@@ -32,7 +32,7 @@ function AdmLvng_Manager() {
         { name: '입소/이용', content: '' },
         { name: '퇴소/종결', content: '' },
     ];
-    subMenuArr[0].content = <MemberAdmission admMemOne={admMemOne}></MemberAdmission>
+    subMenuArr[0].content = <MemberAdmission admMemOne={admMemOne} setAdmMemOne={setAdmMemOne}></MemberAdmission>
     subMenuArr[1].content = <MemberLeaving memDataOne={memDataOne} lvngMem={lvngMem}></MemberLeaving>
 
     const [subCurrentTab, setSubCurrentTab] = useState(0);
@@ -83,7 +83,8 @@ function AdmLvng_Manager() {
             .get(url, { params })
             .then((res) => {
                 console.log(res.data);
-                setData(res.data);
+                if(!res.data) setData({memSerial: memDataOne.memSerial});
+                else setData(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -94,8 +95,9 @@ function AdmLvng_Manager() {
     useEffect(() => {
         if (memDataOne.constructor === Object && Object.keys(memDataOne).length !== 0) {
             // NemberAdmission 데이터 요청
+            
             axiF("/api/adm/admMemOne", { memSerial: memDataOne.memSerial }, setAdmMemOne);
-
+            
             // 퇴소 데이터 요청
             axiF("/api/lvng/lvngMemOne", { memSerial: memDataOne.memSerial }, setLvngMem);
         }

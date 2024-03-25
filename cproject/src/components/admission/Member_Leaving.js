@@ -8,36 +8,35 @@ function Member_Leaving({memDataOne , lvngMem}){
     console.log({memDataOne});
 
     useEffect(()=>{
-        if(lvngMem.constructor === Object
-            && Object.keys(lvngMem).length !==0){
             console.log("Leaving");
-            setLvngMemD({...lvngMem })  
-        }
-    },[memDataOne])
+            setLvngMemD({...lvngMem }) ; 
+        
+    },[memDataOne]);
+    
     console.log({lvngMemD});
 
     return (
         <form action="" method="get">
             <div className="lvnggridBox">
                 <div>퇴소/종결 일자</div>
-                <div><input type="date" value={lvngMemD.leavingDate}/></div>
+                <div><input type="date" value={lvngMemD.leavingDate || ''}/></div>
 
                 <div>퇴소/종결 유형</div>
-                <div><input type="text" value={lvngMemD.leavingType}/></div>
+                <div><input type="text" value={lvngMemD.leavingType || ''}/></div>
 
                 <div>퇴소/종결 예정일자</div>
-                <div><input type="date" value={lvngMemD.leaving_prop_date}/></div>
+                <div><input type="date" value={lvngMemD.leaving_prop_date || ''}/></div>
 
                 <div>퇴소/종결 신청일자</div>
-                <div><input type="date" value={lvngMemD.leavingExpctDate}/></div>
+                <div><input type="date" value={lvngMemD.leavingExpctDate || ''}/></div>
 
                 <div>퇴소/종결 사유</div>
-                <div><input type="text" value={lvngMemD.leavingRs} /></div>
+                <div><input type="text" value={lvngMemD.leavingRs || ''} /></div>
 
                 <div></div><div></div>
 
                 <div>퇴소/종결 비고</div>
-                <div><textarea value={lvngMemD.leavingDetail}></textarea></div>
+                <div><textarea value={lvngMemD.leavingDetail || ''}></textarea></div>
             </div>
 
             <div className='buttonBox'>
