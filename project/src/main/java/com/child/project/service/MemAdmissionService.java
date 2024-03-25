@@ -13,6 +13,7 @@ public interface MemAdmissionService {
     // 입소 맴버 선택한 아동의 정보만 불러오기 
     MemAdmission selectOne(String memSerial);
 
-
+    // 입소 맴버 정보 입력하여 새로 insert 하기 
+    MemAdmission save(MemAdmission entity);
 
 }

@@ -2,7 +2,7 @@ import axios from 'axios';
 import './Member_admission.css';
 import { useState, useEffect, useCallback } from 'react';
 
-function Member_addission({admMemOne ,setAdmMemOne } ){
+function Member_addission({admMemOne } ){
     // 발자취 남기기 => 생각을 잘 못함 
     // const[admMem,SetAdmMem]=useState([]);
     // useEffect(()=>{
@@ -13,6 +13,8 @@ function Member_addission({admMemOne ,setAdmMemOne } ){
     //         SetAdmMem(res.data);
     //     })
     // })
+    
+    //전달된 데이터를 저장 및 제어 
     const[admMemOneD,setAdmMemOneD] = useState({});
     useEffect(()=>{
         if(admMemOne.constructor === Object 
@@ -21,15 +23,17 @@ function Member_addission({admMemOne ,setAdmMemOne } ){
                 setAdmMemOneD({
                     ...admMemOne
                 })
-        }else{
-            console.log("왜안오는데!");
         }
     },[admMemOne]);
+    console.log(admMemOneD);
 
+    
+    //태그 하나하나가 변경 될 때, 변경된 값을 인식하고 제어함
     const admdChange = useCallback((event) => {
         admMemOneD[event.target.name] = event.target.value;
         setAdmMemOneD({ ...admMemOneD});
     }, [admMemOneD]);
+
     console.log(admMemOneD);
 
     return (
@@ -66,13 +70,13 @@ function Member_addission({admMemOne ,setAdmMemOne } ){
                 <div></div><div></div>
 
                 <div><span></span>이전시설명</div>
-                <div><input type="text"  onChange={admdChange}/></div>
+                <div><input type="text"  value={admMemOneD.preFacNm} onChange={admdChange}/></div>
                
                 <div><span></span>이전시설입소일자</div>
-                <div><input type="date"  onChange={admdChange}/></div>
+                <div><input type="date" value={admMemOneD.preFacAdmissionDate} onChange={admdChange}/></div>
 
                 <div><span></span>이전시설퇴소일자</div>
-                <div><input type="date" onChange={admdChange}/></div>
+                <div><input type="date" value={admMemOneD.preFacLeavingDate} onChange={admdChange}/></div>
                
                 <div><span style={{color:"red"}}>*</span>입소/이용사유</div>
                 <div><select name="admission_rs" value={admMemOneD.admissionRs} onChange={admdChange}>
@@ -108,10 +112,10 @@ function Member_addission({admMemOne ,setAdmMemOne } ){
             <div style={{color:'black',fontWeight:'bold'}}>입소/이용 상황 및 경위</div>
             <div className="adgridBox2" onChange={admdChange}>
                 <div><span></span>입소/이용상황</div>
-                <div><textarea></textarea></div>
+                <div><textarea value={admMemOneD.admissionStatus}></textarea></div>
 
                 <div><span></span>입소/이용경위</div>
-                <div><textarea></textarea></div>
+                <div><textarea value={admMemOneD.admissionStatusDetail}></textarea></div>
             </div>   
 
             <div className='buttonBox'>

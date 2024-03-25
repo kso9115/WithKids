@@ -19,40 +19,87 @@ function AdmLvng_Manager() {
     //console.log(memDataOne);
 
 
-    // 3. NemberAdmission에 detail DATA 전달하기 
+    // 3. MemberAdmission에 detail DATA 전달하기 
     const [admMemOne, setAdmMemOne] = useState({});
     // console.log(admMemOne);
 
+    // 4. 퇴소 데이터 가져오기 
+    const[lvngMem,setLvngMem]=useState({});
+
+    
     // 1. 컨테이너에 정보 전달 
     const subMenuArr = [
         { name: '입소/이용', content: '' },
         { name: '퇴소/종결', content: '' },
     ];
-    subMenuArr[0].content = <MemberAdmission admMemOne={admMemOne} setAdmMemOne={setAdmMemOne}></MemberAdmission>
-    subMenuArr[1].content = <MemberLeaving></MemberLeaving>
+    subMenuArr[0].content = <MemberAdmission admMemOne={admMemOne}></MemberAdmission>
+    subMenuArr[1].content = <MemberLeaving memDataOne={memDataOne} lvngMem={lvngMem}></MemberLeaving>
 
     const [subCurrentTab, setSubCurrentTab] = useState(0);
 
-    // 3. NemberAdmission에 detail DATA 전달하기 
-    // 실행되는 시점을 제어하기 위해 if문 안에 매핑 요청
+    // // 3. MemberAdmission에 detail DATA 전달하기 
+    // // 실행되는 시점을 제어하기 위해 if문 안에 매핑 요청
+    // useEffect(() => {
+    //     if (memDataOne.constructor === Object
+    //         && Object.keys(memDataOne).length !== 0) {
+    //         axios
+    //             .get("/api/adm/admMemOne", {
+    //                 params: {
+    //                     memSerial: memDataOne.memSerial
+    //                 }
+    //             }).then((res) => {
+    //                 // console.log(res.data);
+    //                 setAdmMemOne(res.data);
+    //             }).catch((err) => {
+    //                 console.log(err);
+    //             })
+    //     }
+    // }, [memDataOne]);
+
+    // // 4. 퇴소 데이터 가져오기 
+    // useEffect(()=>{
+    //     if(memDataOne.constructor === Object
+    //         && Object.keys(memDataOne).length !== 0){
+    //         axios
+    //         .get("/api/lvng/lvngMemOne",{
+    //             params:{
+    //                 memSerial: memDataOne.memSerial
+    //             }
+    //         })
+    //         .then((res)=>{
+    //             console.log(res.data);
+    //             setLvngMem(res.data);
+    //         })
+    //     }
+    // },[memDataOne])
+    // console.log({lvngMem});
+     
+
+    // 5. 3번과 4번의 중복을 제거함. 
+    
+    // 공통된 로직을 함수로 분리
+    const axiF = (url, params, setData) => {
+        axios
+            .get(url, { params })
+            .then((res) => {
+                console.log(res.data);
+                setData(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    // useEffect 내에서 fetchData 함수를 호출하여 데이터 가져오도록 변경
     useEffect(() => {
-        if (memDataOne.constructor === Object
-            && Object.keys(memDataOne).length !== 0) {
-            axios
-                .get("/api/adm/admMemOne", {
-                    params: {
-                        memSerial: memDataOne.memSerial
-                    }
-                }).then((res) => {
-                    // console.log(res.data);
-                    setAdmMemOne(res.data);
-                }).catch((err) => {
-                    console.log(err);
-                })
+        if (memDataOne.constructor === Object && Object.keys(memDataOne).length !== 0) {
+            // NemberAdmission 데이터 요청
+            axiF("/api/adm/admMemOne", { memSerial: memDataOne.memSerial }, setAdmMemOne);
+
+            // 퇴소 데이터 요청
+            axiF("/api/lvng/lvngMemOne", { memSerial: memDataOne.memSerial }, setLvngMem);
         }
-    }, [memDataOne]);
-
-
+    }, [memDataOne]); 
 
 
     return (

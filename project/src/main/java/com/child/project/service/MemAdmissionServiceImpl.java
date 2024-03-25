@@ -35,8 +35,16 @@ public class MemAdmissionServiceImpl implements MemAdmissionService  {
         } else {
 		    return null;
         }
-        
+    }
+
+    @Override
+    public MemAdmission save(MemAdmission entity) {
+        log.info("** MemAdmission insert : MemAdmission entity => " + entity);
+
+        admRepository.save(entity);
+        return entity;
     }
 
 
+    
 }
