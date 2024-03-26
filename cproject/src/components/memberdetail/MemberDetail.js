@@ -78,6 +78,9 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
     useEffect(() => {
         setEduMemOneD({
             ...eduData
+            // 기본적으로 memSerial이랑 memName을 가지게 해주면댄다...!! 아래에서 함수 내 인자로 전달할 필요가 없음
+            ,memSerial:data.memSerial
+            ,memName:data.memName
         })
     }, [eduData])
     // console.log(eduDataOneD);
@@ -90,68 +93,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
 
     //=================================================
 
-    console.log(memDataOneD);
-
-    // 1. insert & update 기능 요청 : 입력한 DB 업데이트
-    // function saveMemData() {
-    //     // const params = {
-    //     //     // memSerial: memDataOneD.memSerial,
-    //     //     ...memDataOneD
-    //     // }
-    //     // 자체가 객체이므로 memDataOneD 바로 전달
-    //     if (!memDataOneD) {
-    //         console.error('아동 데이터가 유효하지 않습니다.');
-    //         return;
-    //     }
-    //     console.log(memDataOneD);
-
-    //     axios.post('/api/mem/memInesert', memDataOneD, {
-    //         // 통신 타입을 
-    //         headers: { 'Content-Type': 'application/json' }
-    //     })
-
-    //         // params: { memSerial: memDataOneD.memSerial }
-    //         // }).then((response) =>  {     // 자꾸 홈으로 다시 가서 일단 수정했는데 똑같음;;;;;
-    //         .then((response) => {
-    //             console.log("넘어오는 데이터 확인");
-    //             console.log(response.data);
-
-    //             // 기존에는 memDataOneD를 넣어주고있었다..ㅠㅠ
-    //             // setData({
-    //             //     ...memDataOneD,
-    //             // });
-    //             setData(response.data);
-    //             alert("아동 추가를 성공하셨습니다")
-
-    //             // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
-    //         }).catch((err) => {
-    //             alert("memInesert 요청 실패")
-    //             console.log(err);
-    //         }).then(() => {
-    //         });
-    // }
-
-    // function saveEduData() {
-    //     if (!eduDataOneD) {
-    //         console.error('아동의 학력 데이터가 유효하지 않습니다.');
-    //         return;
-    //     }
-    //     axios.post('/api/mem/memEduInesert', eduDataOneD)
-    //         .then((response) => {
-    //             console.log("넘어오는 데이터 확인");
-    //             console.log(response.data);
-
-    //             setEduDataOne(response.data);
-    //             alert("아동의 학력 추가 성공")
-    //         }).catch((err)=>{
-    //             alert("memEduInesert 요청 실패")
-    //             console.log(err);
-    //         }).then
-    // }
-
-    //===========================
-
-    // postURL
+    // INSERT UPDATE 기능 요청 : 선택한 DB 추가,업데이트
     function saveData(data, endpoint) {
         if (!data) {
             console.error('데이터가 유효하지 않습니다.');
@@ -163,7 +105,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 console.log("넘어오는 데이터 확인");
                 console.log(response.data);
     
-                alert("데이터 추가 성공");
+                alert("데이터 추가 성공");  // 요청을 두번 보내버려서 alert창이 두번뜨고있음
             })
             .catch((err) => {
                 alert("요청 실패");
@@ -172,44 +114,22 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
     }
     
     function saveMemData() {
-        
         saveData(memDataOneD, '/api/mem/memInesert');
     }
     
     function saveEduData() {
-        saveData(eduDataOneD, '/api/mem/memEduInesert');
-    }
-
-    function saveMemAndEduData() {
-        if (!memDataOneD || !eduDataOneD) {
-            console.error('데이터가 유효하지 않습니다.');
-            return;
+        if(memDataOneD.memSerial){
+            saveData(eduDataOneD, '/api/mem/memEduInesert');
         }
-    
-        Promise.all([
-            axios.post('/api/mem/memInesert', memDataOneD),
-            axios.post('/api/mem/memEduInesert', eduDataOneD)
-        ])
-            .then((responses) => {
-                console.log("넘어오는 데이터 확인");
-                console.log("memInesert 응답:", responses[0].data);
-                console.log("memEduInesert 응답:", responses[1].data);
-    
-                alert("데이터 추가 성공");
-            })
-            .catch((err) => {
-                alert("요청 실패");
-                console.error(err);
-            });
     }
-    
 
-    //===========================
+    // 입력 데이터 수정 콘솔 확인용
+    // console.log(memDataOneD);
+    console.log(eduDataOneD);   
 
 
-
-    // 2. Delete 기능 요청 : 선택한 DB 삭제
-    function deleteByMemserial() {
+    // 2. DELETE 기능 요청 : 선택한 DB 삭제
+    function deleteMemByMemserial() {
         if (memDataOneD.memSerial && window.confirm("해당 아동을 삭제하시겠습니까?")) {
             axios
                 .post('/api/mem/memDelete', null, { params: { memSerial: memDataOneD.memSerial } })
@@ -224,6 +144,24 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 });
         } else {
             alert("아동 삭제 취소")
+        }
+    }
+    
+    function deleteEduByMemserial() {
+        if (eduDataOneD.memSerial) {
+            axios
+                .post('/api/mem/eduDelete', null, { params: { memSerial: eduDataOneD.memSerial } })
+                // .then((response) => {    // 자꾸 홈으로 다시 가서 일단 수정
+                .then(function (response) {
+                    setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
+                    alert(response.data);
+                    console.log(response.data);
+                    // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
+                }).catch(function (err) {
+                    console.log(err);
+                });
+        } else {
+            alert("아동 학력 삭제 취소")
         }
     }
 
@@ -400,11 +338,9 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                         <option value='국민'>국민</option>
                         <option value='농협'>농협</option>
                         <option value='기업'>기업</option>
-                        <option value='쉽게'>쉽게</option>
-                        <option value='하는'>하는</option>
-                        <option value='방법'>방법</option>
-                        <option value='없을'>없을</option>
-                        <option value='까요'>까요</option>
+                        <option value='하나'>하나</option>
+                        <option value='우리'>우리</option>
+                        <option value='신한'>신한</option>
                     </select>
                 </div>
 
@@ -479,9 +415,10 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
             <div className='buttonBox'>
                 <div>
                     <button type="reset" onClick={resutData}>입력취소</button>
-                    <button type="submit" value='삭제' onClick={deleteByMemserial}>삭제</button>
-                    <button type="submit" value='신규등록' onClick={() => saveMemAndEduData()}>신규등록</button>
-                    <button type="submit" value='업데이트' >업데이트</button>
+                    <button type="submit" value='삭제' onClick={() => {deleteMemByMemserial(); deleteEduByMemserial();}}>삭제</button>
+                    <button type="submit" value='신규등록' onClick={() => {saveMemData(); saveEduData();}}>등록 및 수정</button>
+                    {/* <button type="submit" value='업데이트' >업데이트</button> */}
+                    <button type="submit" value='pw초기화' >PW초기화</button>
                 </div>
             </div>
         </div >

@@ -71,12 +71,12 @@ public class MemberController {
     }
 
     @PostMapping("/memDelete")
-    public String deleteByMemserial(@RequestParam("memSerial") String memSerial) {
+    public String deleteMemByMemserial(@RequestParam("memSerial") String memSerial) {
 
         String message = "";
 
         try {
-            memService.deleteByMemserial(memSerial);
+            memService.deleteMemByMemserial(memSerial);
             message = "삭제 성공";
         } catch (Exception e) {
             log.info("member delete Exception" + e.toString());
@@ -86,14 +86,14 @@ public class MemberController {
         return message;
     }
 
-    // 멤버 엔티티, memSerial 가져올 entity추가
+    // Member 엔티티, memSerial 가져올 entity추가
     @PostMapping("/memInesert")
     public String memInsert(@RequestBody Member entity) {
         String message = "";
-        log.info("데이터 전달되는 부분 확인");
-        log.info("entity 값을 확인해보자" + entity);
-        log.info("넘어오나?" + entity.getMemSerial());
-        // 초기 기본 비밀번호 설정을 위한 값 부여
+        // log.info("데이터 전달되는 부분 확인");
+        // log.info("entity 값을 확인해보자" + entity);
+        // log.info("넘어오나?" + entity.getMemSerial());
+        
         
         
         // save하려는 값이 없으면 실행x
@@ -101,6 +101,8 @@ public class MemberController {
                 // if (memService.save(entity) != null) {
 
                 // }
+
+                // 초기 기본 비밀번호 설정을 위한 값 부여
                 entity.setMemLoginPW("12345!");
                 entity.setMemRegisterDate("2023-03-26");
                 memService.save(entity);
@@ -114,6 +116,48 @@ public class MemberController {
                 message = "아동 추가 입력 실패";
             }
       
+        return message;
+    }
+    
+    // Education 엔티티에 접근
+    @PostMapping("/memEduInesert")
+    public String memEduInsert(@RequestBody Education entity) {
+        String message = "";
+        // log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%데이터 전달되는 부분 확인");
+        // log.info("entity 값을 확인해보자" + entity);
+        // log.info("넘어오나?" + entity.getMemSerial());
+        log.info(entity);
+            try {
+                
+                memService.save(entity);
+                // entity.setMemRegisterDate("2023-03-26");
+                // memService.save(entity);
+                
+                 // 파라미터 값 저장
+                // log.info("member insert 성공 => " + memService.save(memEntity)); // 넘어오는거 확인완
+                
+                message = "아동 추가 입력 성공";
+            } catch (Exception e) {
+                log.info("member insert 실패 => " + e.toString());
+                message = "아동 추가 입력 실패";
+            }
+      
+        return message;
+    }
+
+    @PostMapping("/eduDelete")
+    public String deleteEduByMemserial(@RequestParam("memSerial") String memSerial) {
+
+        String message = "";
+
+        try {
+            memService.deleteEduByMemserial(memSerial);
+            message = "삭제 성공";
+        } catch (Exception e) {
+            log.info("member delete Exception" + e.toString());
+            message = "삭제 실패";
+        }
+
         return message;
     }
 }

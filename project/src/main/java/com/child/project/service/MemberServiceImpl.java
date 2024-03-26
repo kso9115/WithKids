@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
 
     // Delete
     @Override
-    public void deleteByMemserial(String memSerial) {
+    public void deleteMemByMemserial(String memSerial) {
         repository.deleteById(memSerial);
     }
 
@@ -66,6 +66,19 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<Education> selectEduList() {
         return eduRepository.findAll();
+    }
+
+    // Insert & Update
+    @Override
+    public Education save(Education eduEntity) {
+        Education result = eduRepository.save(eduEntity);
+        return result;   
+    }
+
+    // Delete
+    @Override
+    public void deleteEduByMemserial(String memSerial) {
+        eduRepository.deleteById(memSerial);
     }
 
 }

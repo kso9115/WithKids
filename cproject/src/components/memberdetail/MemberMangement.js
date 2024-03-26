@@ -10,18 +10,12 @@ import { mem_mng } from "../../hooks/searchbox/searchData"
 import './MemberMangement.css'
 
 function MemberMangement() {
-    // 신규 버전 sub탭에 전달할 데이터(상태값) : 초기값은 빈 객체
-    // 멤버 테이블 전체 중 멤버 한명 데이터
+    
+    // Member 테이블 전체 중 멤버 한명 선택 데이터 : sub탭에 전달, 초기값은 빈 객체
     const [memDataOne, setMemDataOne] = useState({});
 
-    // 멤버 테이블 전체중..? 멤버리스트에서 선택한 행 id의 세부데이터
-    // const [memDetail, setMemDetail] = useState();       
-    //console.log(memDataOne);
-
-    // member Education DB연결
+    // member Education DB연결 : sub탭에 전달, 초기값은 빈 객체
     const [eduDataOne, setEduDataOne] = useState();
-    // console.log(eduDataOne);
-    // console.log(memDataOne);
 
     // main, sub 탭
     const [subCurrentTab, setSubCurrentTab] = useState(0);
