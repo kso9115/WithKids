@@ -3,13 +3,17 @@ import './attandanceTest.css'
 import { Icon } from '@iconify/react'
 import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays, addMonths } from 'date-fns';
 
-// function ChildComponent() {
-//     const list = useRef();
-
-//     return (
-
-//     );
-// }
+function ChildComponent({ rows }) {
+    
+    return (
+        <div className='att_mng_list' style={{
+            display: 'grid',
+            gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows
+        }}>
+            
+        </div>
+    );
+}
 
 function AttandanceMangement() {
     const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -21,6 +25,7 @@ function AttandanceMangement() {
     const endDate = endOfWeek(monthEnd);
     let day = startDate;
     let count = 0;
+    let color = ""
     const thisMonth = format(currentMonth, 'yyyy') + format(currentMonth, 'M')
         === format(selectedDate, 'yyyy') + format(selectedDate, 'M') ? "block" : "none";
     let size = format(monthEnd, 'd');
@@ -42,9 +47,7 @@ function AttandanceMangement() {
     } else {
         count = format(addDays(startDate, 7), 'd') * 1
     }
-    // console.log(format(monthStart, 'M'));
-    // console.log(format(startDate, 'M'));
-    console.log(count + 1);
+
     return (
         <div className="att_mng">
             <div>
@@ -67,16 +70,19 @@ function AttandanceMangement() {
                     <div>출석</div>
                     <div>결석</div>
                     {Array.from({ length: size }, (_, index) => {
-                        if ((index + 1) % 7 === 0) {
-                            count += 7;
+                        if ((index + 1) % 7 === (count - 1) % 7) {
+                            color = "colorBlue"
+                        } else if ((index + 1) % 7 === (count) % 7) {
+                            color = "colorRed"
+                        } else {
+                            color = ""
                         }
                         return (
-                            <div className={index + 1 === count - 1 ? "colorBlue" :
-                                index + 1 === count ? "colorRed" : ""} key={index + 1}>{index + 1}</div>
+                            <div className={color} key={index + 1}>{index + 1}</div>
                         );
                     })}
                 </div>
-                {/* <ChildComponent /> */}
+                <ChildComponent rows={rows} />
             </div>
         </div>
     );
