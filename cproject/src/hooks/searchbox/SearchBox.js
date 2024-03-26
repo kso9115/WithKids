@@ -40,19 +40,19 @@ function SearchBox({ data, searchBoxClick }) {
     function inputBox(o) {
         switch (o.type) {
             case "text":
-                return <input name={o.state} type="text" value={sbVal[o.state]} onChange={(event) => { change(event, o.state) }} />;
+                return <input name={o.state} type="text" value={sbVal[o.state] || ""} onChange={(event) => { change(event, o.state) }} />;
             case "date":
                 if (Array.isArray(o.default)) {
                     return <>
-                        <input name={o.state[0]} type="date" value={sbVal[o.state[0]]} onChange={(event) => { change(event, o.state[0]) }} />
-                        ~<input name={o.state[1]} type="date" value={sbVal[o.state[1]]} onChange={(event) => { change(event, o.state[1]) }} />
+                        <input name={o.state[0]} type="date" value={sbVal[o.state[0]] || ""} onChange={(event) => { change(event, o.state[0]) }} />
+                        ~<input name={o.state[1]} type="date" value={sbVal[o.state[1]] || ""} onChange={(event) => { change(event, o.state[1]) }} />
                     </>
                 } else {
-                    return <input name={o.state} type="date" value={sbVal[o.state]} onChange={(event) => { change(event, o.state) }} />;
+                    return <input name={o.state} type="date" value={sbVal[o.state] || ""} onChange={(event) => { change(event, o.state) }} />;
                 }
             case "select":
                 return <>
-                    <select name={o.state} value={sbVal[o.state]} onChange={(event) => { change(event, o.state) }} >
+                    <select name={o.state} value={sbVal[o.state] || ""} onChange={(event) => { change(event, o.state) }} >
                         <option name="" value="" key="">전체</option>
                         {
                             o.default.map((j, i) => {

@@ -30,6 +30,11 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public Staff findOne(String staffId) {
+        return repository.findOne(staffId);
+    }
+
+    @Override
     public List<StaffDTO> findJoinAll() {
         return repository.findJoinAll();
     }
@@ -45,6 +50,11 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public List<StaffAtn> findAtnId(String staffId) {
+        return arepository.findAtnId(staffId);
+    }
+
+    @Override
     public void updataPassword(String staffId, String staffPsw) {
         repository.updataPassword(staffId, staffPsw);
     }
@@ -57,6 +67,14 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public Staff save(Staff entity) {
         repository.save(entity);
+        log.info("** register : entity => " + entity);
+
+        return entity;
+    }
+
+    @Override
+    public StaffAtn save(StaffAtn entity) {
+        arepository.save(entity);
         log.info("** register : entity => " + entity);
 
         return entity;

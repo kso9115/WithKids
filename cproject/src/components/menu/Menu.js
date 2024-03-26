@@ -17,9 +17,9 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     map.set('AttandanceMangement', { name: '출석관리', content: <AttandanceMangement /> });
     map.set('MealManagement', { name: '급식관리 ', content: <MealManagement /> });
     map.set('회원탈퇴', { name: 'Delete', content: null });
-    map.set('StaffManagement', { name: '직원정보', content: <StaffManagement /> });
+    map.set('StaffManagement', { name: '직원관리', content: <StaffManagement/> });
     map.set('Calender', { name: '캘린더', content: <Calender></Calender> });
-    map.set('ProgramManagement', { name: '프로그램정보관리', content: <ProgramManagement></ProgramManagement> });
+    map.set('ProgramManagement', { name: '프로그램정보관리', content: <ProgramManagement /> });
     function getTransTitle(menuName) {
         
         // menuArr.filter((it)=>it.isDone)
@@ -28,7 +28,7 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
                 return;
             };
         }
-
+        console.log(menuArr.length)
         setCurrentTab(menuArr.length);
         onCreate(map.get(menuName).name, map.get(menuName).content)
     }

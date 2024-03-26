@@ -22,6 +22,9 @@ public interface StaffRepository extends JpaRepository<Staff, String> {
     +"b.staffChlCr,b.staffCmnMng,b.staffCntMng) FROM Staff a LEFT JOIN StaffPrv b ON a.staffPst=b.staffPst WHERE NOT a.staffId='master'")
     List<StaffDTO> findJoinAll();
 
+    @Query(value = "select * from staff where staff_id=:staff_id", nativeQuery = true)
+    Staff findOne(@Param("staff_id") String staffId);
+
     @Modifying
 	@Transactional
     @Query(value = "update staff set staff_psw=:staff_psw where staff_id=:staff_id", nativeQuery = true)

@@ -7,7 +7,7 @@
     overflow-y: auto;
 }
 .staff_dtl_gridBox,
-.staff_dtl_gridBox2,
+.staff_dtl_gridBox2>div,
 .staff_spcNt_gridBox {
     font-size: 14px;
     display: grid;
@@ -23,22 +23,22 @@
     grid-template-columns: 12% 22% 11% 22% 11% 22%;
     position: relative;
 }
-.staff_dtl_gridBox2>div:nth-child(3n+5) {
+.staff_dtl_gridBox2>div>div:nth-child(3n+5) {
     cursor: pointer;
 }
-.staff_dtl_gridBox2>div:nth-child(3n+5):hover {
+.staff_dtl_gridBox2>div>div:nth-child(3n+5):hover {
     background-color: var(--mgray);
 }
-.staff_dtl_gridBox2>div {
+.staff_dtl_gridBox2>div>div {
     height: 30px;
     line-height: 30px;
     border-bottom: 1px solid var(--lgray);
 }
-.staff_dtl_gridBox2>div:nth-child(3n-1) {
+.staff_dtl_gridBox2>div>div:nth-child(3n-1) {
     border-left: 1px solid var(--lgray);
     border-right: 1px solid var(--lgray);
 }
-.staff_dtl_gridBox2>div:nth-child(-n+3) {
+.staff_dtl_gridBox2>div:nth-child(1) {
     background-color: var(--admin);
     font-weight: bold;
     position: sticky;
@@ -51,11 +51,11 @@
     line-height: 30px;
     border-bottom: 1px solid var(--lgray);
 }
-.staff_dtl_gridBox2{
-    grid-template-columns: 20% 20% 60% ;
+.staff_dtl_gridBox2>div{
+    grid-template-columns: 10% 20% 70% ;
 }
 .staff_spcNt_gridBox{
-    grid-template-columns: 12% 22% 12% 54%;
+    grid-template-columns: 12% 22% 11% 22% 11% 22%;
 }
 
 .staff_dtl_gridBox>div,
@@ -66,6 +66,11 @@
     border-bottom: 1px solid var(--lgray);
     display: flex;
     align-items: center;
+}
+
+.staff_dtl_gridBox2>div:nth-child(n+2):hover {
+    cursor: pointer;
+    background-color: var(--mgray);
 }
 
 .staff_dtl_gridBox>div>input,
@@ -86,11 +91,12 @@
     font-weight: bold;
 }
 
-.staff_dtl_gridBox>div:not(:nth-child(6n+1)){
+.staff_dtl_gridBox>div:not(:nth-child(6n+1)),
+.staff_spcNt_gridBox>div:not(:nth-child(6n+1)){
     border-left: 1px solid var(--lgray);
 }
-.staff_spcNt_gridBox>div:nth-child(6) {
-    grid-column: span 3;
+.staff_spcNt_gridBox>div:nth-child(8) {
+    grid-column: span 5;
 }
 .staff_dtl_gridBox>div:nth-child(14) {
     grid-column: span 5;
@@ -107,7 +113,7 @@
 }
 
 .staff_spcNt_date{
-    width: 26% !important;
+    /* width: 26% !important; */
 }
 
 /* .buttonMargin{

@@ -6,10 +6,23 @@ import Main from '../../components/main/Main'
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from '../../components/menu/Navbar';
+import axios from 'axios';
 
 function Home() {
     const navigate = useNavigate();
-
+    
+    // useEffect(() => {
+    //     const param = {
+    //         staffId: "master",
+    //         staffPsw: "mysql"
+    //     }
+    //     axios.post(`/api/staff/staffLogin`, param)
+    //         .then((response) => {
+    //             console.log(response.data)
+    //         }).catch((error) => {
+    //             console.log(error);
+    //         })
+    // },[])
     useEffect(() => {
 
         let loginId = "admin";

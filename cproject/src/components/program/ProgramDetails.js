@@ -17,7 +17,6 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
         })
     }, [data])
     // console.log(prgDataOneD);
-
     // checkbox타입 input태그의 checked 값을 제어
     function CheckBoxTrue(array, str) {
         if (!!array && array.has(str)) return true;
@@ -150,7 +149,7 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                 <div><input type="text" id='prgNm' name='prgNm' value={prgDataOneD.prgNm || ""} onChange={prgdChange} /></div>
 
                 <div>서비스 분류</div>
-                <div><input type="text" id='prgSvc' name='prgSvc' value={prgDataOneD.prgSvc || ""} /></div>
+                <div><input type="text" id='prgSvc' name='prgSvc' value={prgDataOneD.prgSvc || ""} onChange={prgdChange} /></div>
 
                 <div><span>*</span>프로그램 기간</div>
                 <div><input id='prgStr' type="date" name='prgStr' value={prgDataOneD.prgStr || ""} onChange={prgdChange} /> ~

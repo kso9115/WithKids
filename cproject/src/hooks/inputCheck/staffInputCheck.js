@@ -59,3 +59,39 @@ export function stf_dtls_inp_ck(staffDataOneD, type) { // 필수입력확인
         return false;
     }
 }
+
+export function stf_spcn_inp_ck(staffDataOneD, type) { // 필수입력확인
+    var regex = /^[0-9]*$/;
+    if (Object.keys(staffDataOneD).length > 0) {
+
+        //종류 staffAtn
+        if (!staffDataOneD.staffAtn) {
+            alert("종류를 선택해주세요.");
+            return false;
+        }
+        //날짜 staffDate
+        if (!staffDataOneD.staffDate) {
+            alert("날짜를 입력해주세요.");
+            return false;
+        }
+        //내용 content
+        if (!staffDataOneD.content) {
+            alert("내용을 입력해주세요.");
+            return false;
+        }
+
+        // useConfirm("프로젝트를 신규 생성하시겠습니까?",true,false);
+        if (type === "stfSpcnInsert") {
+            return window.confirm("직원 휴가/결근/특이사항을 생성하시겠습니까?");
+        } else if (type === "stfSpcnUpdate") {
+            return window.confirm("입력하신 정보를 저장하시겠습니까?");
+        } else {
+            alert("잘못된 요청입니다.");
+            return false;
+        }
+
+    } else {
+        alert("종류를 선택해주세요.");
+        return false;
+    }
+}

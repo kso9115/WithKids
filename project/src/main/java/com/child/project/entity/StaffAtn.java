@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
@@ -40,4 +41,7 @@ public class StaffAtn implements Serializable {
 
     @Column(name = "content")
     private String content;
+
+    @Transient
+    private String type;
 }

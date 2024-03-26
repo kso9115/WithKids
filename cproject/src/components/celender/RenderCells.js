@@ -7,7 +7,6 @@ import axios from 'axios';
 function RenderCells({ currentMonth, selectedDate, onDateClick }) {
     const [stfAtn, setStfAtn] = useState([]);
 
-    const hide = useRef();
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
@@ -24,7 +23,6 @@ function RenderCells({ currentMonth, selectedDate, onDateClick }) {
                 console.log(response.data)
                 setStfAtn(response.data);
             }).catch((error) => {
-                // handle error
                 console.log(error);
             })
     }, [])
@@ -70,7 +68,7 @@ function RenderCells({ currentMonth, selectedDate, onDateClick }) {
                 coler = 'colBlue';
             }
             formattedDate = format(day, 'd');
-            // yymmddformatDate = toStringByFormatting(day);
+
             const cloneDay = day;
             days.push(
                 <div

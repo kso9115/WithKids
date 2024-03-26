@@ -14,30 +14,31 @@ function ProgramTree({ name, setData, treeUpdate }) {
     // console.log("ProgramTree");
     const [prgData, setPrgData] = useState([]); //프로그램 테이블 전체 보관
     useEffect(() => {
-
+        const prgSearch = async () => {
+            try {
+                const response = await axios.get('/api/prg/prgSearch', {
+                    params: treeUpdate
+                });
+                setPrgData(response.data);
+                setData([])
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const prgList = async () => {
+            try {
+                const response = await axios.get('/api/prg/prgList');
+                setPrgData(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
         if (treeUpdate !== true && treeUpdate !== false) {
-            axios.get('/api/prg/prgSearch', {
-                params: treeUpdate
-            })
-                .then((response) => {
-                    console.log(response.data);
-                    setPrgData(response.data);
-                    setData([])
-                }).catch((error) => {
-                    // handle error
-                    console.log(error);
-                })
+            prgSearch();
         } else {
-            axios.get('/api/prg/prgList')
-                .then((response) => {
-                    setPrgData(response.data);
-                }).catch((error) => {
-                    // handle error
-                    console.log(error);
-                })
+            prgList();
         }
     }, [treeUpdate]);
-
     let treeCount = 2;
     let check = '';
     let check2 = '';

@@ -2,7 +2,7 @@ import './programManagement.css';
 import ProgramTree from './ProgramTree'
 import ProgramDetails from './ProgramDetails'
 import ProgramDetailsPrg from './ProgramDetailsPrg';
-import Container from '../container/Container'
+import Container2 from '../container/Container'
 import { useState, useEffect } from 'react'
 import SearchBox from '../../hooks/searchbox/SearchBox';
 import { prg_mng } from '../../hooks/searchbox/searchData'
@@ -13,7 +13,7 @@ function ProgramManagement() {
     // const [srcData, setSrcData] = useState({});
     const [prgDataOne, setPrgDataOne] = useState({}); //프로그램 테이블 전체중에 트리에서 선택한 행 보관
     const [prgDetail, setPrgDetail] = useState([]); //프로그램 테이블 전체중에 트리에서 선택한 행의 프로그램 ID의 세부테이블 정보 보관
-    const [treeUpdate, setTreeUpdate] = useState(true);
+    const [treeUpdate, setTreeUpdate] = useState(true);//변화 감지
 
     const [subCurrentTab, setSubCurrentTab] = useState(0);
     // const [subMenuArr, setSubMenuArr] = useState([
@@ -34,17 +34,31 @@ function ProgramManagement() {
     useEffect(() => {
         if (prgDataOne.constructor === Object
             && Object.keys(prgDataOne).length !== 0) {
-            axios.get('/api/prg/prgDetails', {
-                params: {
-                    prgId: prgDataOne.prgId,
-                    rec: '프로그램세부'
+            const prgDetails = async () => {
+                try {
+                    const response = await axios.get('/api/prg/prgDetails', {
+                        params: {
+                            prgId: prgDataOne.prgId,
+                            rec: '프로그램세부'
+                        }
+                    });
+                    setPrgDetail(response.data);
+                } catch (error) {
+                    console.log(error);
                 }
-            }).then((res) => {
-                setPrgDetail(res.data);
-            })
+            }
+            prgDetails();
+            // axios.get('/api/prg/prgDetails', {
+            //     params: {
+            //         prgId: prgDataOne.prgId,
+            //         rec: '프로그램세부'
+            //     }
+            // }).then((res) => {
+            //     setPrgDetail(res.data);
+            // })
         }
     }, [prgDataOne]);
-    // console.log(prgData);
+    console.log(prgDetail);
     function searchBoxClick(sbVal) {
         setTreeUpdate(sbVal);
     }
@@ -69,7 +83,7 @@ function ProgramManagement() {
                     width: '70%',
                     height: '100%'
                 }}>
-                    <Container menuArr={subMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={'sub'} ></Container>
+                    <Container2 subMenuArr={subMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={'sub'} ></Container2>
                 </div>
             </div>
         </div>

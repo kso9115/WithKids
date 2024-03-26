@@ -37,20 +37,8 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
     function saveData(type) {
         //유효성검사
         if (stf_dtls_inp_ck(staffDataOneD, type)) {
-            // let formData = new FormData();
-            // const entity = {
-            //     ...staffDataOneD,
-            //     type
-            // }
-            // formData.append("entity", entity);
-            // formData.append("type", type);
             axios.post(`/api/staff/staffSave`, { ...staffDataOneD,type })
-            // axios.post(`/api/staff/staffSave`, null, {
-            //     params: {
-            //         ...staffDataOneD,
-            //         type
-            //     }
-            // })
+
                 .then((response) => {
                     console.log(response.data);
                     setData({
@@ -90,7 +78,6 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
     }
 
     const StaffDetailsChange = useCallback((event) => {
-        console.log(staffDataOneD[event.target.name] + " " + event.target.value);
         staffDataOneD[event.target.name] = event.target.value;
         setStaffDataOneD({ ...staffDataOneD });
     }, [staffDataOneD]);
