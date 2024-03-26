@@ -69,13 +69,13 @@ export const admLvng_mng = {
             esntl: false,
             default: [{ name: '이용', value: '이용' }, { name: '종결', value: '종결' }]
         },
-        {
-            name: '입소/이용결정 상태',
-            state: 'admStatus',
-            type: 'select',
-            esntl: false,
-            default: [{ name: '대기', value: '대기' }, { name: '결정', value: '결정' }, { name: '취소', value: '취소' }]
-        }
+        // {
+        //     name: '입소/이용결정 상태',
+        //     state: 'admStatus',
+        //     type: 'select',
+        //     esntl: false,
+        //     default: [{ name: '대기', value: '대기' }, { name: '결정', value: '결정' }, { name: '취소', value: '취소' }]
+        // }
     ]
 }
 
@@ -118,7 +118,7 @@ export const mem_mng = {
             state: 'mem_status',
             type: 'select',
             esntl: false,
-            default: [{ name: '전체', value: '전체' }, { name: '이용', value: '이용' }]
+            default: [{ name: '이용', value: '이용' }, { name: '종결', value: '종결' }]
         }
     ]
 }

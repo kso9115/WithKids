@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // setData={setMemDataOne}  serEduData={setEduMemOne}
-function MemberList({ setData, setEduDataOne }) {
+function MemberList({ setData, memListUpdate, setMemListUpdate }) {
     const [memData, setMemData] = useState([]); // memData : DB 멤버 전체 테이블 저장
 
     // 멤버 테이블 전체 데이터에 접근
@@ -15,7 +15,7 @@ function MemberList({ setData, setEduDataOne }) {
                 // console.log(res.data); // 데이터 전달 확인용
                 setMemData(res.data);
             })
-    }, []);
+    }, [memListUpdate]);
 
     // setData, setEduDataOne 둘다 실행하기 위한 함수 추가
     // const handleRowClick = (memData) => {
