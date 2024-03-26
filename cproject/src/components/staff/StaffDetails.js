@@ -7,10 +7,14 @@ import { stf_dtls_inp_ck } from '../../hooks/inputCheck/staffInputCheck';
 function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
     const [staffDataOneD, setStaffDataOneD] = useState({}); // 클릭한 직원정보 저장
     
-
     useEffect(() => {
-        setStaffDataOneD(data);
+        if (data.constructor === Object
+            && Object.keys(data).length > 0) {
+            setStaffDataOneD(data);
+        }
     }, [data]);
+
+    console.log(staffDataOneD);
 
     function resetPswrd() {
         if(window.confirm("정말로 초기화 하시겠습니까?(되돌릴 수 없습니다.)"))

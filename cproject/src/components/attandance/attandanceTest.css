@@ -1,0 +1,17 @@
+.att_mng>div:nth-child(1){
+    display: flex;
+    gap: 10px;
+}
+
+.att_mng_list>div {
+    text-align: center;
+    font-weight: bold;
+}
+
+.att_mng_list .colorRed {
+    color: red;
+}
+
+.att_mng_list .colorBlue {
+    color: blue;
+}

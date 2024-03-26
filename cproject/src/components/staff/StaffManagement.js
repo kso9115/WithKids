@@ -8,21 +8,24 @@ import StaffDetails from './StaffDetails';
 import StaffAttendance from './StaffAttendance';
 import axios from 'axios';
 
-const staffList = {
-    name: 'staff',
-    list: '직원 목록',
-    title: ['직위', '이름', '아이디', '휴대전화', '아동관리', '소통관리', '센터관리'],
-    menu: ['staffPst', 'staffNm', 'staffId', 'staffPhnn', 'staffChlCr', 'staffCmnMng', 'staffCntMng']
-}
-
+// const staffList = {
+//     name: 'staff',
+//     list: '직원 목록',
+//     title: ['직위', '이름', '아이디', '휴대전화', '아동관리', '소통관리', '센터관리'],
+//     menu: ['staffPst', 'staffNm', 'staffId', 'staffPhnn', 'staffChlCr', 'staffCmnMng', 'staffCntMng']
+// }
 
 function StaffManagement() {
-
+    const staffList = {
+        name: 'staff',
+        list: '직원 목록',
+        title: ['직위', '이름', '아이디', '휴대전화', '아동관리', '소통관리', '센터관리'],
+        menu: ['staffPst', 'staffNm', 'staffId', 'staffPhnn', 'staffChlCr', 'staffCmnMng', 'staffCntMng']
+    }
     const [stfDataOne, setStfDataOne] = useState({}); //직원 테이블 전체중에 리스트에서 선택한 행 보관
-    // const [stfDetail, setStfDetail] = useState([]); //직원 테이블 전체중에 트리에서 선택한 행의 직원 ID의 세부테이블 정보 보관
     const [listUpdate, setListUpdate] = useState(true); // 리스트 업데이트 용
-    const [staffPst, setStaffPst] = useState([]); // 직위 정보를 호출
-    const [subCurrentTab, setSubCurrentTab] = useState(0);
+    const staffPst = stf_mng.staffPstList; // 직위 정보를 호출
+    const [subCurrentTab, setSubCurrentTab] = useState(0); // 탭창용
     const subMenuArr = [
         { name: '직원 정보', content: '' },
         { name: '직원 근태', content: '' }
@@ -31,21 +34,10 @@ function StaffManagement() {
         listUpdate={listUpdate} setListUpdate={setListUpdate} />;
     subMenuArr[1].content = <StaffAttendance />;
 
-    useEffect(() => {
-        axios.get(`/api/staff/staffPstList`)
-            .then((response) => {
-                console.log(response.data)
-                setStaffPst(response.data);
-            }).catch((error) => {
-                // handle error
-                console.log(error);
-            })
-    },[])
-
     function searchBoxClick(sbVal) {
         setListUpdate(sbVal);
     }
-    console.log(stf_mng);
+    
     return (
         <div className='staff_mng' >
             <SearchBox data={stf_mng} searchBoxClick={searchBoxClick } />

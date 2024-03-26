@@ -44,9 +44,8 @@ public class StaffController {
         return list;
     } // staffList
 
-    @GetMapping("/prgSearch")
-
-    public List<StaffDTO> prgSearch(Staff entity) {
+    @GetMapping("/staffSearch")
+    public List<StaffDTO> staffSearch(Staff entity) {
         log.info(" entity " + entity);
 		List<StaffDTO> list = service.findSearch(entity);
         log.info(" list " + list);

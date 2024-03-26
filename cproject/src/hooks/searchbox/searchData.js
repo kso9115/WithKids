@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const prg_mng = {
     name: '프로그램 정보 관리', // 서치 박스 위에 표시될 이름
     action: 'prgmng', // form 태그로 전달할 요청명
@@ -123,6 +125,8 @@ export const mem_mng = {
     ]
 }
 
+
+
 export const stf_mng = {
     name: '직원관리 및 직원정보',
     action: 'stfmng',
@@ -133,9 +137,11 @@ export const stf_mng = {
             state: 'staffPst',
             type: 'select',
             esntl: false,
-            default: [{ name: '시설장', value: '시설장' }, { name: '생활복지사', value: '생활복지사' }
-                , { name: '돌봄교사', value: '돌봄교사' }, { name: '공익요원', value: '공익요원' }
-                , { name: '영양사', value: '영양사' }, { name: '외부강사', value: '외부강사' }]
+            default: [
+                // { name: '시설장', value: '시설장' }, { name: '생활복지사', value: '생활복지사' }
+                // , { name: '돌봄교사', value: '돌봄교사' }, { name: '공익요원', value: '공익요원' }
+                // , { name: '영양사', value: '영양사' }, { name: '외부강사', value: '외부강사' }
+            ]
         },
         {
             name: '이름',
@@ -158,8 +164,26 @@ export const stf_mng = {
             esntl: false,
             default: ''
         }
-    ]
+    ],
+    staffPstList:{}
 }
+
+axios.get(`/api/staff/staffPstList`)
+    .then((response) => {
+        console.log(response.data)
+        if (Array.isArray(response.data)) {
+            for (let i = 0; i < response.data.length; i++) {
+                stf_mng.content[0].default.push({
+                    name: response.data[i].staffPst,
+                    value: response.data[i].staffPst
+                })
+            }
+        }
+        stf_mng.staffPstList = response.data
+    }).catch((error) => {
+        // handle error
+        console.log(error);
+    })
 
 export const att_mng = {
     name: '출석관리',
