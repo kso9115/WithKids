@@ -3,7 +3,7 @@ import MemberList from "../memberdetail/MemberList";
 import MemberAssortment from "./Member_assortment";
 import MemberLeaving from "./Member_Leaving";
 import SearchBox from "../../hooks/searchbox/SearchBox";
-import ContainerSub from "../container/ContainerSub";
+import Container from "../container/Container";
 import './AdmLvng_Manager.css';
 
 import { admLvng_mng } from "../../hooks/searchbox/searchData";
@@ -24,18 +24,18 @@ function AdmLvng_Manager() {
     // console.log(admMemOne);
 
     // 4. 퇴소 데이터 가져오기 
-    const[lvngMem,setLvngMem]=useState({});
+    const [lvngMem, setLvngMem] = useState({});
 
-    
+
     // 1. 컨테이너에 정보 전달 
     const subMenuArr = [
         { name: '입소/이용', content: '' },
         { name: '퇴소/종결', content: '' },
     ];
-    subMenuArr[0].content = <MemberAdmission admMemOne={admMemOne} setAdmMemOne={setAdmMemOne} 
-                                dataDML={dataDML}></MemberAdmission>
+    subMenuArr[0].content = <MemberAdmission admMemOne={admMemOne} setAdmMemOne={setAdmMemOne}
+        dataDML={dataDML}></MemberAdmission>
     subMenuArr[1].content = <MemberLeaving memDataOne={memDataOne} lvngMem={lvngMem}
-                                dataDML={dataDML}></MemberLeaving>
+        dataDML={dataDML}></MemberLeaving>
 
     const [subCurrentTab, setSubCurrentTab] = useState(0);
 
@@ -75,17 +75,17 @@ function AdmLvng_Manager() {
     //     }
     // },[memDataOne])
     // console.log({lvngMem});
-     
+
 
     // 5. 3번과 4번의 중복을 제거함. 
-    
+
     // 공통된 로직을 함수로 분리
     const axiF = (url, params, setData) => {
         axios
             .get(url, { params })
             .then((res) => {
                 console.log(res.data);
-                if(!res.data) setData({memSerial: memDataOne.memSerial});
+                if (!res.data) setData({ memSerial: memDataOne.memSerial });
                 else setData(res.data);
             })
             .catch((err) => {
@@ -97,13 +97,13 @@ function AdmLvng_Manager() {
     useEffect(() => {
         if (memDataOne.constructor === Object && Object.keys(memDataOne).length !== 0) {
             // NemberAdmission 데이터 요청
-            
+
             axiF("/api/adm/admMemOne", { memSerial: memDataOne.memSerial }, setAdmMemOne);
-            
+
             // 퇴소 데이터 요청
             axiF("/api/lvng/lvngMemOne", { memSerial: memDataOne.memSerial }, setLvngMem);
         }
-    }, [memDataOne]); 
+    }, [memDataOne]);
 
 
 
@@ -132,8 +132,8 @@ function AdmLvng_Manager() {
     //     }  else alert(" admMemOne에 memSerial 없다? ");
     // }
     // console.log(admMemOne.memSerial);
-    
-    
+
+
     // // 7. update을 작성 
     // function saveUpdate() {
     //     if(admMemOne.memSerial){
@@ -179,22 +179,22 @@ function AdmLvng_Manager() {
     // }
 
     // 코드 중복 정리 함수 작성. 
-    function dataDML(type,dml, data){
-        if(admMemOne.memSerial){
-            if(window.confirm(" 데이터 신규 등록 및 수정 하시겠습니까?")){
-            axios
-                .post(`/api/${type=="1" ? "adm":"lvn"}/${dml}`, {data} ,{
-                    headers: {
-                         'Content-Type': 'application/json'
-                    }
-                })
-                .then((res)=>{
-                    {type=="1" ? setAdmMemOne(res.data) : setLvngMem(res.data) };
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-            }  else alert(" 취소하셨습니다.");
+    function dataDML(type, dml, data) {
+        if (admMemOne.memSerial) {
+            if (window.confirm(" 데이터 신규 등록 및 수정 하시겠습니까?")) {
+                axios
+                    .post(`/api/${type == "1" ? "adm" : "lvn"}/${dml}`, { data }, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then((res) => {
+                        { type == "1" ? setAdmMemOne(res.data) : setLvngMem(res.data) };
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+            } else alert(" 취소하셨습니다.");
         } else alert(" admMemOne에 memSerial 없다? ");
     }
 
@@ -226,8 +226,8 @@ function AdmLvng_Manager() {
                     height: '100%'
                 }}>
                     <MemberAssortment memDataOne={memDataOne} />
-                    <ContainerSub menuArr={subMenuArr} currentTab={subCurrentTab}
-                        setCurrentTab={setSubCurrentTab} ></ContainerSub>
+                    <Container menuArr={subMenuArr} currentTab={subCurrentTab}
+                        setCurrentTab={setSubCurrentTab} mainSub={"sub"}></Container>
                 </div>
             </div>
         </div>

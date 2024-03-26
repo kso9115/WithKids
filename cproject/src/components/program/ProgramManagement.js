@@ -2,7 +2,7 @@ import './programManagement.css';
 import ProgramTree from './ProgramTree'
 import ProgramDetails from './ProgramDetails'
 import ProgramDetailsPrg from './ProgramDetailsPrg';
-import Container2 from '../container/Container2'
+import Container from '../container/Container'
 import { useState, useEffect } from 'react'
 import SearchBox from '../../hooks/searchbox/SearchBox';
 import { prg_mng } from '../../hooks/searchbox/searchData'
@@ -83,7 +83,7 @@ function ProgramManagement() {
                     width: '70%',
                     height: '100%'
                 }}>
-                    <Container2 menuArr={subMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={"sub"}></Container2>
+                    <Container menuArr={subMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={"sub"}></Container>
                 </div>
             </div>
         </div>

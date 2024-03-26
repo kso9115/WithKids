@@ -1,7 +1,7 @@
 import MemberList from "./MemberList";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ContainerSub from "../container/ContainerSub";   // 메인&서브 분리하여 컴포넌트 재설정
+import Container from "../container/Container";   // 메인&서브 분리하여 컴포넌트 재설정
 import MemberDetail from "./MemberDetail";
 import MemberDetailNote from "./MemberDetailNote";
 
@@ -69,7 +69,7 @@ function MemberMangement() {
                     <MemberList
                         //리스트에도 memListUpdate얘를 전달해야하는거아닌가?
                         // memListUpdate={memListUpdate}
-                        
+
                         setData={setMemDataOne}
                         // memDataOne={memDataOne}
                         setEduDataOne={setEduDataOne}
@@ -89,12 +89,13 @@ function MemberMangement() {
                     width: '70%',
                     height: '100%'
                 }}>
-                    <ContainerSub
+                    <Container
                         menuArr={subMenuArr}    //
                         // setMenuArr={setSubMenuArr}   // setMenuArr 신규 버전 변경으로 삭제
                         currentTab={subCurrentTab}
-                        setCurrentTab={setSubCurrentTab}>
-                    </ContainerSub>
+                        setCurrentTab={setSubCurrentTab}
+                        mainSub={"sub"}>
+                    </Container>
                 </div>
             </div>
         </div>
