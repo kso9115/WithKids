@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import './MemberDetailNote.css'
 
 function MemberDetailNote() {
+    // 멤버리스트로 연결하지말고 아예 새로운 엔티티생성해서 비고 데이터만 전달받기
+    // 매칭은 memSerial로 하면서 바로 띄워줄 수 있게끔
+    // const []= useState();
 
     return (
         <div>

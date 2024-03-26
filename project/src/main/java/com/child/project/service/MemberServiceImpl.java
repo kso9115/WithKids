@@ -6,8 +6,9 @@ import java.util.Optional;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import com.child.project.entity.Education;
 import com.child.project.entity.Member;
-import com.child.project.entity.Program;
+import com.child.project.repository.MemberEduRepository;
 import com.child.project.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository repository;
+    private final MemberEduRepository eduRepository;
 
     @Override
     public List<Member> selectList() {
@@ -39,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
 
     // Delete
     @Override
-    public void deleteByMemserial(String memSerial) {
+    public void deleteMemByMemserial(String memSerial) {
         repository.deleteById(memSerial);
     }
 
@@ -49,6 +51,34 @@ public class MemberServiceImpl implements MemberService {
         // memEntity에 저장
         Member result = repository.save(memEntity);
         return result;
+    }
+
+    // ============================
+    // Education 엔티티 접근
+    @Override
+    public Education selectEduData(String memSerial) {
+        Optional <Education> result = eduRepository.findById(memSerial);
+        log.info("&&&&&&&&&&&&&&"+result);
+        return result.get();
+    }
+
+    // memSerial 매칭해서 맞는 학력정보 리턴하기 위함
+    @Override
+    public List<Education> selectEduList() {
+        return eduRepository.findAll();
+    }
+
+    // Insert & Update
+    @Override
+    public Education save(Education eduEntity) {
+        Education result = eduRepository.save(eduEntity);
+        return result;   
+    }
+
+    // Delete
+    @Override
+    public void deleteEduByMemserial(String memSerial) {
+        eduRepository.deleteById(memSerial);
     }
 
 }

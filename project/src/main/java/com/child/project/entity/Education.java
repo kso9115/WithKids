@@ -35,8 +35,11 @@ public class Education {
     private String eduGrade;
     @Column(name="education_teacher")
     private String eduTeacher;
-    @Column(name="education_teacherPhone")
-    private String eduTeachPhone;
+    
+    // @Column(name="education_teacherPhone") 
+    // JPA에서 가져올 때 지멋대로 teacher_phone으로..;;
+    @Column(name="education_teacher_phone")
+    private String eduTeacherPhone;
 
     
 }
