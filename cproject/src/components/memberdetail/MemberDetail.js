@@ -135,10 +135,11 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
         if (memDataOneD.memSerial && window.confirm("해당 아동을 삭제하시겠습니까?")) {
             axios
                 .post('/api/mem/memDelete', null, { params: { memSerial: memDataOneD.memSerial } })
+                // .post('/api/mem/memDelete', { memSerial: memDataOneD.memSerial })
                 // .then((response) => {    // 자꾸 홈으로 다시 가서 일단 수정
                 .then(function (response) {
                     setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
-                    
+
                     alert(response.data);
 
                     // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
@@ -161,7 +162,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 // .then((response) => {    // 자꾸 홈으로 다시 가서 일단 수정
                 .then(function (response) {
                     setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
-                    
+
                     alert(response.data);
 
                     // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
@@ -429,7 +430,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
 
             <div className='buttonBox'>
                 <div>
-                    <button type="reset" onClick={()=>setData({})}>입력취소11</button>
+                    <button type="reset" onClick={() => setData({})}>입력취소11</button>
                     <button type="reset" onClick={resutData}>입력취소</button>
                     <button type="submit" value='삭제' onClick={() => { deleteMemByMemserial(); deleteEduByMemserial(); }}>삭제</button>
                     <button type="submit" value='신규등록' onClick={() => { saveMemData(); saveEduData(); }}>등록 및 수정</button>
