@@ -16,4 +16,6 @@ public interface MemAdmissionService {
     // 입소 맴버 정보 입력하여 새로 insert 하기 
     MemAdmission save(MemAdmission entity);
 
+    //delete
+    MemAdmission delete(MemAdmission entity);
 }

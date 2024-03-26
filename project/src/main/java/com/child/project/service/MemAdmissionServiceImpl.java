@@ -45,6 +45,14 @@ public class MemAdmissionServiceImpl implements MemAdmissionService  {
         return entity;
     }
 
+    @Override
+    public MemAdmission delete(MemAdmission entity) {
+        log.info("** MemAdmission delete : MemAdmission entity => " + entity);
+        admRepository.delete(entity);
+
+        return entity;
+    }
+
 
     
 }
