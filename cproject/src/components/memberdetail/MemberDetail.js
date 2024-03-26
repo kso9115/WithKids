@@ -20,7 +20,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
     const handleInput = (e) => {
         setEnroll_company({
             ...enroll_company,
-            [e.target.name]: e.target.defaultValue,
+            [e.target.name]: e.target.value,
         })
     }
     const handleComplete = (data) => {
@@ -59,9 +59,9 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
     }, [data])
     // console.log(memDataOneD.memSerial);   // 입력해도 업데이트가 안된다....ㅠㅠ그럼 따로 저장을?
 
-    // text,radio 타입 input 태그 ,select 태그 defaultValue 값 제어
+    // text,radio 타입 input 태그 ,select 태그 value 값 제어
     const memDataChange = useCallback((event) => {
-        memDataOneD[event.target.name] = event.target.defaultValue;
+        memDataOneD[event.target.name] = event.target.value;
         setMemDataOneD({ ...memDataOneD });
     }, [memDataOneD]);
 
@@ -69,7 +69,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
     // const memDataChange = useCallback((event) => {
     //     setMemDataOneD(data => ({
     //         ...data,
-    //         [event.target.name]: event.target.defaultValue
+    //         [event.target.name]: event.target.value
     //     }));
     // }, []);
 
@@ -82,50 +82,131 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
     }, [eduData])
     // console.log(eduDataOneD);
 
-    // text,radio 타입 input 태그 ,select 태그 defaultValue 값 제어
+    // text,radio 타입 input 태그 ,select 태그 value 값 제어
     const eduDataChange = useCallback((event) => {
-        eduDataOneD[event.target.name] = event.target.defaultValue;
+        eduDataOneD[event.target.name] = event.target.value;
         setEduMemOneD({ ...eduDataOneD });
     }, [eduDataOneD]);
 
     //=================================================
 
-
+    console.log(memDataOneD);
 
     // 1. insert & update 기능 요청 : 입력한 DB 업데이트
-    function saveMemDate() {
-        // const params = {
-        //     // memSerial: memDataOneD.memSerial,
-        //     ...memDataOneD
-        // }
-        // 자체가 객체이므로 memDataOneD 바로 전달
-        if (!memDataOneD) {
+    // function saveMemData() {
+    //     // const params = {
+    //     //     // memSerial: memDataOneD.memSerial,
+    //     //     ...memDataOneD
+    //     // }
+    //     // 자체가 객체이므로 memDataOneD 바로 전달
+    //     if (!memDataOneD) {
+    //         console.error('아동 데이터가 유효하지 않습니다.');
+    //         return;
+    //     }
+    //     console.log(memDataOneD);
+
+    //     axios.post('/api/mem/memInesert', memDataOneD, {
+    //         // 통신 타입을 
+    //         headers: { 'Content-Type': 'application/json' }
+    //     })
+
+    //         // params: { memSerial: memDataOneD.memSerial }
+    //         // }).then((response) =>  {     // 자꾸 홈으로 다시 가서 일단 수정했는데 똑같음;;;;;
+    //         .then((response) => {
+    //             console.log("넘어오는 데이터 확인");
+    //             console.log(response.data);
+
+    //             // 기존에는 memDataOneD를 넣어주고있었다..ㅠㅠ
+    //             // setData({
+    //             //     ...memDataOneD,
+    //             // });
+    //             setData(response.data);
+    //             alert("아동 추가를 성공하셨습니다")
+
+    //             // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
+    //         }).catch((err) => {
+    //             alert("memInesert 요청 실패")
+    //             console.log(err);
+    //         }).then(() => {
+    //         });
+    // }
+
+    // function saveEduData() {
+    //     if (!eduDataOneD) {
+    //         console.error('아동의 학력 데이터가 유효하지 않습니다.');
+    //         return;
+    //     }
+    //     axios.post('/api/mem/memEduInesert', eduDataOneD)
+    //         .then((response) => {
+    //             console.log("넘어오는 데이터 확인");
+    //             console.log(response.data);
+
+    //             setEduDataOne(response.data);
+    //             alert("아동의 학력 추가 성공")
+    //         }).catch((err)=>{
+    //             alert("memEduInesert 요청 실패")
+    //             console.log(err);
+    //         }).then
+    // }
+
+    //===========================
+
+    // postURL
+    function saveData(data, endpoint) {
+        if (!data) {
             console.error('데이터가 유효하지 않습니다.');
             return;
         }
-        axios.post('/api/mem/memInesert', memDataOneD, {
-            // 통신 타입을 
-            headers: { 'Content-Type': 'application/json' }
-        })
-
-            // params: { memSerial: memDataOneD.memSerial }
-            // }).then((response) =>  {     // 자꾸 홈으로 다시 가서 일단 수정했는데 똑같음;;;;;
+    
+        axios.post(endpoint, data)
             .then((response) => {
-
-                console.log("데이터 넘어오나? response.data =>" + response.data);
-
-                // setData({
-                //     ...memDataOneD,
-                // });
-                setData(response.data);
-                // console.log(memDataOneD);
-                // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
-            }).catch((err) => {
-                alert("memInesert 요청 실패")
-                console.log(err);
-            }).then(() => {
+                console.log("넘어오는 데이터 확인");
+                console.log(response.data);
+    
+                alert("데이터 추가 성공");
+            })
+            .catch((err) => {
+                alert("요청 실패");
+                console.error(err);
             });
     }
+    
+    function saveMemData() {
+        
+        saveData(memDataOneD, '/api/mem/memInesert');
+    }
+    
+    function saveEduData() {
+        saveData(eduDataOneD, '/api/mem/memEduInesert');
+    }
+
+    function saveMemAndEduData() {
+        if (!memDataOneD || !eduDataOneD) {
+            console.error('데이터가 유효하지 않습니다.');
+            return;
+        }
+    
+        Promise.all([
+            axios.post('/api/mem/memInesert', memDataOneD),
+            axios.post('/api/mem/memEduInesert', eduDataOneD)
+        ])
+            .then((responses) => {
+                console.log("넘어오는 데이터 확인");
+                console.log("memInesert 응답:", responses[0].data);
+                console.log("memEduInesert 응답:", responses[1].data);
+    
+                alert("데이터 추가 성공");
+            })
+            .catch((err) => {
+                alert("요청 실패");
+                console.error(err);
+            });
+    }
+    
+
+    //===========================
+
+
 
     // 2. Delete 기능 요청 : 선택한 DB 삭제
     function deleteByMemserial() {
@@ -164,7 +245,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div><span>*</span>대상자번호</div>
                 <div className='mem_serial'>
                     <input type='text' name='memSerial'
-                        defaultValue={memDataOneD.memSerial}
+                        value={memDataOneD.memSerial}
                         onChange={memDataChange} disabled={memDataOneD.memSerial || ""}>
                     </input>
                 </div>
@@ -172,7 +253,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div><span>*</span>대상자명</div>
                 <div className='mem_name'>
                     <input type='text' name='memName'
-                        onChange={memDataChange} defaultValue={memDataOneD.memName || ""} >
+                        onChange={memDataChange} value={memDataOneD.memName || ""} >
                     </input>
                 </div>
 
@@ -180,14 +261,14 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>
                     <div>
                         {/* checked가안먹는다.. */}
-                        <input type='radio' name='memAgreeP' defaultValue='Y'
+                        <input type='radio' name='memAgreeP' value='Y'
                             checked={memDataOneD.memAgreeP === 'Y'}
-                            onChange={memDataChange} defaultChecked>
+                            onChange={memDataChange} >
                         </input>
                         <label htmlFor='agreeP'>&nbsp;Y&nbsp;&nbsp;</label>
                     </div>
                     <div>
-                        <input type='radio' name='memAgreeP' defaultValue='N'
+                        <input type='radio' name='memAgreeP' value='N'
                             checked={memDataOneD.memAgreeP === 'Y'}
                             onChange={memDataChange}>
                         </input>
@@ -198,23 +279,23 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div><span>*</span>주민등록번호</div>
                 <div className='mem_responsible_person'>
                     <input type='text' name='memRegNum'
-                        defaultValue={memDataOneD.memRegNum}
-                        onChange={memDataChange} disabled={memDataOneD.memSerial}>
+                        value={memDataOneD.memRegNum || ""}
+                        onChange={memDataChange} >
                     </input>
                     &nbsp;
                     <label htmlFor='memRegNum'></label>
-                    <input type='button' defaultValue='중복확인'></input>
+                    <input type='button' value='중복확인'></input>
                 </div>
 
                 <div>실명확인여부</div>
                 <div>
                     <div>
-                        <input type='radio' name='memAgreeN' defaultValue='Y'
-                            defaultChecked={memDataOneD.memAgreeN === 'Y'} onChange={memDataChange}></input>
+                        <input type='radio' name='memAgreeN' value='Y'
+                            checked={memDataOneD.memAgreeN === 'Y'} onChange={memDataChange}></input>
                         <label htmlFor='agreeN'>&nbsp;Y&nbsp;&nbsp;</label>
                     </div>
                     <div>
-                        <input type='radio' name='memAgreeN' defaultValue='N'
+                        <input type='radio' name='memAgreeN' value='N'
                             checked={memDataOneD.memAgreeN === 'N'} onChange={memDataChange} ></input>
                         <label htmlFor='agreeN'>&nbsp;N</label>
                     </div>
@@ -223,7 +304,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div><span>*</span>생년월일</div>
                 <div>
                     <input type='date' name='memBirth'
-                        defaultValue={memDataOneD.memBirth || ""}
+                        value={memDataOneD.memBirth || ""}
                         onChange={memDataChange}>
                     </input>
                 </div>
@@ -231,32 +312,32 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div><span>*</span>성별</div>
                 <div>
                     <select name="memSex"
-                        defaultValue={memDataOneD.memSex || ""}
+                        value={memDataOneD.memSex || ""}
                         onChange={memDataChange}>
-                        <option defaultValue="none">전체</option>
-                        <option defaultValue='1'>여성</option>
-                        <option defaultValue='2'>남성</option>
+                        <option value="none">전체</option>
+                        <option value='1'>여성</option>
+                        <option value='2'>남성</option>
                     </select>
                 </div>
 
                 <div><span>*</span>연령(만나이)</div>
                 <div className='mem_age'>
                     <input type='text' name='memAge'
-                        defaultValue={memDataOneD.memAge || ""} onChange={memDataChange}>
+                        value={memDataOneD.memAge || ""} onChange={memDataChange}>
                     </input>
                 </div>
 
                 <div>담당자</div>
                 <div className='mem_responsible_person'>
                     <input type='text' name='memResPerson'
-                        onChange={memDataChange} defaultValue={memDataOneD.memResPerson || ""}>
+                        onChange={memDataChange} value={memDataOneD.memResPerson || ""}>
                     </input>
                 </div>
 
                 <div><span>*</span>전화번호</div>
                 <div className='mem_tel'>
                     <input type='tel' name='memTel' placeholder='하이픈(-) 포함하여 작성'
-                        defaultValue={memDataOneD.memTel || ""}
+                        value={memDataOneD.memTel || ""}
                         onChange={memDataChange}>
                     </input>
                 </div>
@@ -264,7 +345,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>휴대전화번호</div>
                 <div className='mem_phone'>
                     <input type='tel' name='memPhone' placeholder='하이픈(-) 포함하여 작성'
-                        defaultValue={memDataOneD.memPhone || ""}
+                        value={memDataOneD.memPhone || ""}
                         onChange={memDataChange}>
 
                     </input>
@@ -274,7 +355,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>이메일</div>
                 <div className='mem_mail'>
                     <input type='email' name='memMail'
-                        defaultValue={memDataOneD.memMail || ""}
+                        value={memDataOneD.memMail || ""}
                         onChange={memDataChange}>
 
                     </input>
@@ -282,10 +363,10 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
 
                 <div>우편번호</div>
                 <div className='mem_zipcode'>
-                    {/* <input type='text' name='memZipCode' defaultValue={memDataOneD.memZipCode} onChange={memDataChange}>
+                    {/* <input type='text' name='memZipCode' value={memDataOneD.memZipCode} onChange={memDataChange}>
                         </input>&nbsp;
-                        <input type='button' defaultValue='주소검색' onClick={<Postcode />}></input> */}
-                    {/* <input className="user_enroll_text" placeholder="주소" type="text" required={true} name="address" onChange={handleInput} defaultValue={enroll_company.address} /> */}
+                        <input type='button' value='주소검색' onClick={<Postcode />}></input> */}
+                    {/* <input className="user_enroll_text" placeholder="주소" type="text" required={true} name="address" onChange={handleInput} value={enroll_company.address} /> */}
                     {/* <button onClick={handleComplete}>우편번호 찾기</button> */}
                     {/* {popup && <Postcode company={enroll_company} setcompany={setEnroll_company}></Postcode>} */}
 
@@ -297,7 +378,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>주소</div>
                 <div className='mem_address1'>
                     <input type='text' name='memAddress1' placeholder='도로명 주소'
-                        defaultValue={memDataOneD.memAddress1}
+                        value={memDataOneD.memAddress1 || ""}
                         onChange={memDataChange} readOnly>
                     </input>
                 </div>
@@ -305,7 +386,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>상세주소</div>
                 <div className='mem_address2'>
                     <input type='text' name='memAddress2' placeholder='상세주소'
-                        defaultValue={memDataOneD.memAddress2}
+                        value={memDataOneD.memAddress2 || ""}
                         onChange={memDataChange}>
                     </input>
                 </div>
@@ -316,21 +397,21 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>은행명</div>
                 <div className='mem_bank'>
                     <select name='mem_bank' onChange={memDataChange}>
-                        <option defaultValue='국민'>국민</option>
-                        <option defaultValue='농협'>농협</option>
-                        <option defaultValue='기업'>기업</option>
-                        <option defaultValue='쉽게'>쉽게</option>
-                        <option defaultValue='하는'>하는</option>
-                        <option defaultValue='방법'>방법</option>
-                        <option defaultValue='없을'>없을</option>
-                        <option defaultValue='까요'>까요</option>
+                        <option value='국민'>국민</option>
+                        <option value='농협'>농협</option>
+                        <option value='기업'>기업</option>
+                        <option value='쉽게'>쉽게</option>
+                        <option value='하는'>하는</option>
+                        <option value='방법'>방법</option>
+                        <option value='없을'>없을</option>
+                        <option value='까요'>까요</option>
                     </select>
                 </div>
 
                 <div>계좌번호</div>
                 <div className='mem_account'>
                     <input type='text' name='memAccount' placeholder='하이픈(-) 포함하여 작성'
-                        defaultValue={memDataOneD.memAccount}
+                        value={memDataOneD.memAccount || ""}
                         onChange={memDataChange}>
                     </input>
                 </div>
@@ -338,7 +419,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>예금주</div>
                 <div className='mem_depositor'>
                     <input type='text' name='memDepositor'
-                        defaultValue={memDataOneD.memDepositor}
+                        value={memDataOneD.memDepositor || ""}
                         onChange={memDataChange}>
                     </input>
                 </div>
@@ -351,7 +432,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>학력구분</div>
                 <div>
                     <input type='text' name='eduBack'
-                        Value={eduDataOneD.eduBack || ""}
+                        value={eduDataOneD.eduBack || ""}
                         onChange={eduDataChange}>
 
                     </input>
@@ -360,7 +441,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>학교명</div>
                 <div>
                     <input type='text' name='eduName'
-                        Value={eduDataOneD.eduName || ""}
+                        value={eduDataOneD.eduName || ""}
                         onChange={eduDataChange}>
                     </input>
                 </div>
@@ -368,7 +449,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>학년(반)</div>
                 <div>
                     <input type='text' name='eduGrade'
-                        Value={eduDataOneD.eduGrade || ""}
+                        value={eduDataOneD.eduGrade || ""}
                         onChange={eduDataChange}>
                     </input>
                 </div>
@@ -376,7 +457,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>담임명</div>
                 <div>
                     <input type='text' name='eduTeacher'
-                        Value={eduDataOneD.eduTeacher || ""}
+                        value={eduDataOneD.eduTeacher || ""}
                         onChange={eduDataChange}>
                     </input>
                 </div>
@@ -384,7 +465,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>담임연락처</div>
                 <div>
                     <input type='tel' name='eduTeacherPhone'
-                        Value={eduDataOneD.eduTeacherPhone || ""}
+                        value={eduDataOneD.eduTeacherPhone || ""}
                         onChange={eduDataChange}>
                     </input>
                 </div>
@@ -398,9 +479,9 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
             <div className='buttonBox'>
                 <div>
                     <button type="reset" onClick={resutData}>입력취소</button>
-                    <button type="submit" defaultValue='삭제' onClick={deleteByMemserial}>삭제</button>
-                    <button type="submit" defaultValue='신규등록' onClick={() => saveMemDate()}>신규등록</button>
-                    <button type="submit" defaultValue='업데이트' >업데이트</button>
+                    <button type="submit" value='삭제' onClick={deleteByMemserial}>삭제</button>
+                    <button type="submit" value='신규등록' onClick={() => saveMemAndEduData()}>신규등록</button>
+                    <button type="submit" value='업데이트' >업데이트</button>
                 </div>
             </div>
         </div >

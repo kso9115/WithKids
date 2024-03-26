@@ -2,18 +2,20 @@ package com.child.project.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Table(name = "member")
 @Entity
-@Getter
+@Data   // get, set
 @Builder
 @ToString
 @AllArgsConstructor
@@ -21,12 +23,13 @@ import lombok.ToString;
 public class Member {
 
     @Id
+    // @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="mem_serial")
     private String memSerial;
 
     @Column(name="mem_name")
     private String memName;
-    @Column(name="mem_loginPW")
+    @Column(name="mem_login_pw")
     private String memLoginPW;
     @Column(name="mem_resident_registration_number")    // 주민번호
     private String memRegNum;

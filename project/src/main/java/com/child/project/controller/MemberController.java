@@ -90,20 +90,30 @@ public class MemberController {
     @PostMapping("/memInesert")
     public String memInsert(@RequestBody Member entity) {
         String message = "";
-
+        log.info("데이터 전달되는 부분 확인");
+        log.info("entity 값을 확인해보자" + entity);
+        log.info("넘어오나?" + entity.getMemSerial());
+        // 초기 기본 비밀번호 설정을 위한 값 부여
+        
+        
         // save하려는 값이 없으면 실행x
-        if (memService.save(entity) != null) {
             try {
-                log.info(entity);
-                log.info("넘어오나?" + entity.getMemSerial()); // 파라미터 값 저장
-                // log.info("member insert 성공 => " + memService.save(memEntity)); // 넘어오는거 확인완
+                // if (memService.save(entity) != null) {
+
+                // }
+                entity.setMemLoginPW("12345!");
+                entity.setMemRegisterDate("2023-03-26");
                 memService.save(entity);
+                
+                 // 파라미터 값 저장
+                // log.info("member insert 성공 => " + memService.save(memEntity)); // 넘어오는거 확인완
+                
                 message = "아동 추가 입력 성공";
             } catch (Exception e) {
-                log.info("member insert 성공 => " + e.toString());
+                log.info("member insert 실패 => " + e.toString());
                 message = "아동 추가 입력 실패";
             }
-        }
+      
         return message;
     }
 }
