@@ -4,21 +4,12 @@ import './staffDetails.css'
 import axios from 'axios';
 import { stf_dtls_inp_ck } from '../../hooks/inputCheck/staffInputCheck';
 
-function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
-    const [staffDataOneD, setStaffDataOneD] = useState({});
-    const [staffPst, setStaffPst] = useState([]);
+function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
+    const [staffDataOneD, setStaffDataOneD] = useState({}); // 클릭한 직원정보 저장
+    
 
     useEffect(() => {
         setStaffDataOneD(data);
-
-        axios.get(`/api/staff/staffPstList`)
-            .then((response) => {
-                console.log(response.data)
-                setStaffPst(response.data);
-            }).catch((error) => {
-                // handle error
-                console.log(error);
-            })
     }, [data]);
 
     function resetPswrd() {
@@ -155,7 +146,7 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate }) {
                 </div>
             </div>
 
-            <StaffSpecialNote staffDataOneD={staffDataOneD}></StaffSpecialNote>
+            <StaffSpecialNote staffDataOneD={staffDataOneD} setStaffDataOneD={setStaffDataOneD}></StaffSpecialNote>
         </div>
     );
 }

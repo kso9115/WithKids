@@ -28,7 +28,7 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
                 return;
             };
         }
-        console.log(menuArr.length)
+        
         setCurrentTab(menuArr.length);
         onCreate(map.get(menuName).name, map.get(menuName).content)
     }

@@ -130,28 +130,30 @@ export const stf_mng = {
     content: [
         {
             name: '직위',
-            state: 'staff_pst',
+            state: 'staffPst',
             type: 'select',
             esntl: false,
-            default: [{ name: '시설장', value: '시설장' }, { name: '생활복지사', value: '생활복지사' }]
+            default: [{ name: '시설장', value: '시설장' }, { name: '생활복지사', value: '생활복지사' }
+                , { name: '돌봄교사', value: '돌봄교사' }, { name: '공익요원', value: '공익요원' }
+                , { name: '영양사', value: '영양사' }, { name: '외부강사', value: '외부강사' }]
         },
         {
             name: '이름',
-            state: 'staff_nm',
+            state: 'staffNm',
             type: 'text',
             esntl: false,
             default: ''
         },
         {
             name: '아이디',
-            state: 'staff_id',
+            state: 'staffId',
             type: 'text',
             esntl: false,
             default: ''
         },
         {
             name: '전화번호',
-            state: 'staff_phnn',
+            state: 'staffPhnn',
             type: 'text',
             esntl: false,
             default: ''
@@ -160,9 +162,9 @@ export const stf_mng = {
 }
 
 export const att_mng = {
-    name: '출석관리', 
+    name: '출석관리',
     action: 'attmng',
-    method: 'get', 
+    method: 'get',
     content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
         {
             name: '재원 기간', // input/select 앞에 표현될 내용

@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.child.project.jwtToken.TokenProvider;
 import com.child.project.domain.StaffDTO;
 import com.child.project.domain.UserDTO;
+import com.child.project.entity.Program;
 import com.child.project.entity.ProgramId;
 // import com.child.project.domain.StaffDTO;
 import com.child.project.entity.Staff;
@@ -42,6 +43,15 @@ public class StaffController {
 
         return list;
     } // staffList
+
+    @GetMapping("/prgSearch")
+
+    public List<StaffDTO> prgSearch(Staff entity) {
+        log.info(" entity " + entity);
+		List<StaffDTO> list = service.findSearch(entity);
+        log.info(" list " + list);
+		return list;
+	} // prgList
 
     @GetMapping("/staffPstList")
     public List<StaffPrv> staffPst() {
@@ -146,7 +156,7 @@ public class StaffController {
         String message = "";
         log.info(" staffAtn => " + entity);
         log.info(" type => " + entity.getType());
-        if (service.countId(entity.getStaffId()) == 0 && "stfSpcnInsert".equals(entity.getType())) {
+        if (service.countAtn(entity.getStaffId(), entity.getStaffDate()) == 0 && "stfSpcnInsert".equals(entity.getType())) {
             try {
                 log.info(" staffAtn insert 성공 => " + service.save(entity));
                 message = "신규생성에 성공 했습니다.";
@@ -154,7 +164,7 @@ public class StaffController {
                 log.info(" staffAtn insert Exception => " + e.toString());
                 message = "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
             }
-        } else if (service.countId(entity.getStaffId()) == 1 && "stfSpcnUpdate".equals(entity.getType())) {
+        } else if (service.countAtn(entity.getStaffId(), entity.getStaffDate()) == 1 && "stfSpcnUpdate".equals(entity.getType())) {
             try {
                 log.info(" staffAtn Update 성공 => " + service.save(entity));
                 message = "저장에 성공 했습니다.";

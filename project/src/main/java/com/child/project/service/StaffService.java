@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.query.Param;
 
 import com.child.project.domain.StaffDTO;
+import com.child.project.entity.Program;
 import com.child.project.entity.ProgramId;
 import com.child.project.entity.Staff;
 import com.child.project.entity.StaffAtn;
@@ -18,6 +19,8 @@ public interface StaffService {
 
     List<StaffDTO> findJoinAll();
 
+    List<StaffDTO> findSearch(Staff entity);
+
     List<StaffPrv> findPrvAll();
 
     List<StaffAtn> findAtnAll();
@@ -27,6 +30,8 @@ public interface StaffService {
     void updataPassword(String staffId, String staffPsw);
 
     int countId(String staffId);
+
+    int countAtn(String staffId, String staffDate);
 
     Staff save(Staff entity);
 

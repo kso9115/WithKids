@@ -2,14 +2,10 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { stf_spcn_inp_ck } from "../../hooks/inputCheck/staffInputCheck";
 
-// 서브 컴포넌트
-function MakeDiv({ e, i, detailsChange }) {
-    return (<><div>{i + 1}</div><div onClick={() => detailsChange(i)}>{e.prgDnm}</div><div>{e.content}</div></>);
-}
 // 메인 컴포넌트
-function StaffSpecialNote({ staffDataOneD }) {
+function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
     const [staffAtnId, setStaffAtnId] = useState([]); // 클릭한 아이디 하나
-    const [staffAtnOne, setStaffAtnOne] = useState([]); // 클릭한 날짜 하나
+    const [staffAtnOne, setStaffAtnOne] = useState({}); // 클릭한 날짜 하나
     useEffect(() => {
         if (staffDataOneD.constructor === Object && Object.keys(staffDataOneD).length > 0) {
             console.log(staffDataOneD.staffId);
@@ -24,7 +20,10 @@ function StaffSpecialNote({ staffDataOneD }) {
                     console.log(error);
                 })
         }
-        setStaffAtnOne({});
+        setStaffAtnOne({
+            staffId: staffDataOneD.staffId,
+            staffNm: staffDataOneD.staffNm
+        });
     }, [staffDataOneD]);
 
     function detailsChange(i) {
@@ -32,20 +31,18 @@ function StaffSpecialNote({ staffDataOneD }) {
             ...staffAtnId[i],
         })
     }
-
     function saveData(type) {
         //유효성검사
 
-        if (staffDataOneD.staffLeave == 0) {
+        if (staffDataOneD.staffLeave == 1) {
             alert("휴직중인 직원입니다.");
-        }else if (stf_spcn_inp_ck(staffAtnOne, type)) {
+        } else if (stf_spcn_inp_ck(staffAtnOne, type)) {
             axios.post(`/api/staff/staffAtnSave`, { ...staffAtnOne, type })
 
                 .then((response) => {
                     console.log(response.data);
-                    // setData({
-                    //     ...staffDataOneD
-                    // });
+                    setStaffAtnId([]);
+                    setStaffDataOneD({});
                     // setListUpdate(!listUpdate);
                     alert(response.data);
                 }).catch((error) => {
@@ -60,7 +57,7 @@ function StaffSpecialNote({ staffDataOneD }) {
     function deleteData() {
         if (staffDataOneD.staffLeave == 1) {
             alert("휴직중인 직원입니다.");
-        } else if (staffAtnOne.staffId ) {
+        } else if (staffAtnOne.staffId) {
             if (window.confirm("직원 휴가/결근/특이사항을 삭제하시겠습니까?")) {
                 axios.post('/api/staff/staffAtnDelete', staffAtnOne)
                     .then((response) => {

@@ -40,6 +40,12 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public List<StaffDTO> findSearch(Staff entity) {
+        return repository.findSearch(entity.getStaffPst(), entity.getStaffNm(),
+                entity.getStaffId(), entity.getStaffPhnn());
+    }
+
+    @Override
     public List<StaffPrv> findPrvAll() {
         return prepository.findPrvAll();
     }
@@ -62,6 +68,11 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public int countId(String staffId) {
         return repository.countId(staffId);
+    }
+
+    @Override
+    public int countAtn(String staffId, String staffDate) {
+        return arepository.countAtn(staffId, staffDate);
     }
 
     @Override

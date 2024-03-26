@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 
 function Container({ menuArr, setMenuArr, currentTab, setCurrentTab, mainSub }) {
     const [menus, setMenus] = useState();
-    console.log(menus);
+
     useEffect(() => {
         setMenus(menuArr);
     }, [menuArr])
-    console.log(menuArr)
+
     const selectMenuHandler = (index) => {
         setCurrentTab(index);
     }
