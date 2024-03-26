@@ -51,7 +51,7 @@ function Home() {
             <div>
                 <div id='homeContainerMain'>
                     <Navbar />
-                    <Container menuArr={menuArr} setMenuArr={setMenuArr} currentTab={currentTab} setCurrentTab={setCurrentTab} mainSub={'main'}></Container>
+                    <Container menuArr={menuArr} setMenuArr={setMenuArr} currentTab={currentTab} setCurrentTab={setCurrentTab}></Container>
                 </div>
             </div>
         </div>

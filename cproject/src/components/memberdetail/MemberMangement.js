@@ -1,7 +1,7 @@
 import MemberList from "./MemberList";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Container from "../container/Container";
+import ContainerSub from "../container/ContainerSub";
 import MemberDetail from "./MemberDetail";
 import MemberDetailNote from "./MemberDetailNote";
 
@@ -10,7 +10,7 @@ import { mem_mng } from "../../hooks/searchbox/searchData"
 import './MemberMangement.css'
 
 function MemberMangement() {
-    
+
     // Member 테이블 전체 중 멤버 한명 선택 데이터 : sub탭에 전달, 초기값은 빈 객체
     const [memDataOne, setMemDataOne] = useState({});
 
@@ -105,13 +105,12 @@ function MemberMangement() {
                     width: '70%',
                     height: '100%'
                 }}>
-                    <Container
+                    <ContainerSub
                         menuArr={subMenuArr}
                         // setMenuArr={setSubMenuArr}   // setMenuArr 신규 버전 변경으로 삭제
                         currentTab={subCurrentTab}
-                        setCurrentTab={setSubCurrentTab}
-                        mainSub={'sub'}>
-                    </Container>
+                        setCurrentTab={setSubCurrentTab}>
+                    </ContainerSub>
                 </div>
             </div>
         </div>

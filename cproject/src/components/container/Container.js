@@ -1,6 +1,6 @@
 import './container.css';
 
-function Container({ menuArr, subMenuArr, setMenuArr, currentTab, setCurrentTab, mainSub }) {
+function Container({ menuArr, setMenuArr, currentTab, setCurrentTab }) {
 
     console.log(menuArr)
     const selectMenuHandler = (index) => {
@@ -22,9 +22,9 @@ function Container({ menuArr, subMenuArr, setMenuArr, currentTab, setCurrentTab,
 
     return (
         <>
-            <div className={`${mainSub}-container`}>
+            <div className={`main-container`}>
                 <ul className="tabs">
-                    {(mainSub === 'main' ? menuArr : subMenuArr).map((ele, index) => {
+                    {menuArr.map((ele, index) => {
                         return (
                             <li
                                 key={index}
@@ -33,7 +33,7 @@ function Container({ menuArr, subMenuArr, setMenuArr, currentTab, setCurrentTab,
                             >
                                 {ele.name}
                                 {
-                                    (ele.name !== '메인' && mainSub === 'main')
+                                    (ele.name !== '메인')
                                         ? <div className="close"
                                             onClick={(event) => {
                                                 event.stopPropagation();
@@ -47,7 +47,7 @@ function Container({ menuArr, subMenuArr, setMenuArr, currentTab, setCurrentTab,
                     })}
                 </ul>
                 <div className="tab-content current">
-                    {(mainSub === 'main' ? menuArr : subMenuArr)[currentTab].content}
+                    {menuArr[currentTab].content}
                 </div>
             </div>
         </>

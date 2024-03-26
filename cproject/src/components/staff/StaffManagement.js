@@ -1,7 +1,7 @@
 import SearchBox from '../../hooks/searchbox/SearchBox';
 import { stf_mng } from '../../hooks/searchbox/searchData'
 import ListComponent from '../../hooks/ListComponent';
-import Container2 from '../container/Container'
+import ContainerSub from '../container/ContainerSub'
 import './staffManagement.css'
 import { useState } from 'react';
 import StaffDetails from './StaffDetails';
@@ -16,7 +16,7 @@ const staffList = {
 
 
 function StaffManagement() {
-     
+
     const [stfDataOne, setStfDataOne] = useState({}); //직원 테이블 전체중에 리스트에서 선택한 행 보관
     // const [stfDetail, setStfDetail] = useState([]); //직원 테이블 전체중에 트리에서 선택한 행의 직원 ID의 세부테이블 정보 보관
     const [listUpdate, setListUpdate] = useState(true); // 리스트 업데이트 용
@@ -51,7 +51,7 @@ function StaffManagement() {
                     width: '60%',
                     height: '100%'
                 }}>
-                    <Container2 subMenuArr={subMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={'sub'} ></Container2>
+                    <ContainerSub menuArr={subMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} ></ContainerSub>
                 </div>
             </div>
         </div>

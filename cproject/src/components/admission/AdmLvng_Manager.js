@@ -3,7 +3,7 @@ import MemberList from "../memberdetail/MemberList";
 import MemberAssortment from "./Member_assortment";
 import MemberLeaving from "./Member_Leaving";
 import SearchBox from "../../hooks/searchbox/SearchBox";
-import Container from "../container/Container";
+import ContainerSub from "../container/ContainerSub";
 import './AdmLvng_Manager.css';
 
 import { admLvng_mng } from "../../hooks/searchbox/searchData";
@@ -226,8 +226,8 @@ function AdmLvng_Manager() {
                     height: '100%'
                 }}>
                     <MemberAssortment memDataOne={memDataOne} />
-                    <Container menuArr={subMenuArr} currentTab={subCurrentTab}
-                        setCurrentTab={setSubCurrentTab} mainSub={'sub'}></Container>
+                    <ContainerSub menuArr={subMenuArr} currentTab={subCurrentTab}
+                        setCurrentTab={setSubCurrentTab} ></ContainerSub>
                 </div>
             </div>
         </div>
