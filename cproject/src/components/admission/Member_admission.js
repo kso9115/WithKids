@@ -61,7 +61,7 @@ function Member_admission({admMemOne , dataDML } ){
     //         }else alert(" 신규 데이터 저장을 취소하셨습니다.");
     //     }  else alert(" admMemOneD에 memSerial 없다? ");
     // }
-    // console.log(admMemOneD);
+    console.log(admMemOneD);
     
     
     // // 7. update을 작성 
@@ -126,11 +126,11 @@ function Member_admission({admMemOne , dataDML } ){
                 <div><span style={{color:"red"}}>*</span>입소/이용유형</div>
                 <div><select name="admissionType" value={admMemOneD.admissionType || ''} onChange={admdChange}>
                         <option value="none" >--선택해 주세요--</option>
-                        <option value="차상위 계층">차상위 계층</option>
+                        <option value="차상위 계층 등">차상위 계층</option>
                         <option value='국민기초생활보장수급자'>국민기초생활보장수급자</option>
                         <option value='돌봄특례 아동'>돌봄특례 아동</option>
                         <option value='초중고 교육비지원대상자'>초중고 교육비지원대상자</option>
-                        <option value='일반아동,다자녀 가족'>일반아동,다자녀 가족</option>
+                        <option value='일반아동.다자녀 가족'>일반아동,다자녀 가족</option>
                         <option value='교육급여대상가정 아동'>교육급여대상가정 아동</option>
                         <option value='한부모 가족 아동'>한부모 가족 아동</option>
                     </select>
@@ -165,10 +165,10 @@ function Member_admission({admMemOne , dataDML } ){
                 <div><span style={{color:"red"}}>*</span>입소/이용사유</div>
                 <div><select name="admissionRs" value={admMemOneD.admissionRs || ''} onChange={admdChange}>
                         <option value="none" >--선택해 주세요--</option>
-                        <option value="맞벌이 부모">맞벌이 부모</option>
-                        <option value='다문화가정'>다문화가정</option>
-                        <option value='형제,자매가 재원중'>형제,자매가 재원중</option>
-                        <option value='자녀가 3명이상'>자녀가 3명이상</option>
+                        <option value="맞벌이 부부">맞벌이 부모</option>
+                        <option value='다문화 가정'>다문화가정</option>
+                        <option value='형재·자매가 재원중'>형제,자매가 재원중</option>
+                        <option value='자녀가 3명 이상'>자녀가 3명이상</option>
                         <option value='무연고자'>무연고자</option>
                         <option value='조부모 돌봄'>조부모 돌봄</option>
                         <option value='한부모 가족 아동'>한부모 가족 아동</option>

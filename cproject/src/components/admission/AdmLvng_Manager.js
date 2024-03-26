@@ -82,11 +82,11 @@ function AdmLvng_Manager() {
     // 공통된 로직을 함수로 분리
     const axiF = (url, params, setData) => {
         axios
-            .get(url, { params })
+            .post(url, null, { params })
             .then((res) => {
                 console.log(res.data);
-                if (!res.data) setData({ memSerial: memDataOne.memSerial });
-                else setData(res.data);
+                 if (!res.data) setData({ memSerial: memDataOne.memSerial });
+                 else setData(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -101,7 +101,7 @@ function AdmLvng_Manager() {
             axiF("/api/adm/admMemOne", { memSerial: memDataOne.memSerial }, setAdmMemOne);
 
             // 퇴소 데이터 요청
-            axiF("/api/lvng/lvngMemOne", { memSerial: memDataOne.memSerial }, setLvngMem);
+            axiF("/api/lvn/lvngMemOne", { memSerial: memDataOne.memSerial }, setLvngMem);
         }
     }, [memDataOne]);
 
@@ -181,18 +181,21 @@ function AdmLvng_Manager() {
     // 코드 중복 정리 함수 작성. 
     function dataDML(type, dml, data) {
         if (admMemOne.memSerial) {
+            console.log({data});
             if (window.confirm(" 데이터 신규 등록 및 수정 하시겠습니까?")) {
                 axios
-                    .post(`/api/${type == "1" ? "adm" : "lvn"}/${dml}`, { data }, {
+                    .post(`/api/${type == "1" ? "adm" : "lvn"}/${dml}`,  data , {
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     })
                     .then((res) => {
                         { type == "1" ? setAdmMemOne(res.data) : setLvngMem(res.data) };
+                        
                     })
                     .catch((err) => {
                         console.log(err);
+                        
                     })
             } else alert(" 취소하셨습니다.");
         } else alert(" admMemOne에 memSerial 없다? ");
