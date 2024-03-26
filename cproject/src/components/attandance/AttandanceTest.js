@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import './attandanceTest.css'
 import { Icon } from '@iconify/react'
-import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays } from 'date-fns';
+import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays, addMonths } from 'date-fns';
 
 // function ChildComponent() {
 //     const list = useRef();
@@ -12,8 +12,6 @@ import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, ad
 // }
 
 function AttandanceMangement() {
-
-    const [currentYear, setCurrentYear] = useState(new Date());
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -27,6 +25,13 @@ function AttandanceMangement() {
         === format(selectedDate, 'yyyy') + format(selectedDate, 'M') ? "block" : "none";
     let size = format(monthEnd, 'd');
     let rows = 70 / size + "%";
+
+    const prevMonth = () => {
+        setCurrentMonth(subMonths(currentMonth, 1));
+    };
+    const nextMonth = () => {
+        setCurrentMonth(addMonths(currentMonth, 1));
+    };
 
     for (let i = 1; i < size; i++) {
         rows += " " + 70 / size + "%";
@@ -43,10 +48,10 @@ function AttandanceMangement() {
     return (
         <div className="att_mng">
             <div>
-                <Icon icon="bi:arrow-left-circle-fill" ></Icon>
+                <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth}></Icon>
                 {format(currentMonth, 'yyyy')}년
                 {format(currentMonth, 'M')}월
-                <Icon icon="bi:arrow-right-circle-fill" ></Icon>
+                <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
                 <div style={{ display: thisMonth }}>이번달</div>
             </div>
             <div></div>
