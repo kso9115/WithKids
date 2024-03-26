@@ -54,8 +54,8 @@ public class AdmissionController {
     }
     
 
-    @PostMapping("/admInsert")
-    public String admInsert(@RequestBody MemAdmission entity) {
+    @PostMapping("/insert")
+    public String insert(@RequestBody MemAdmission entity) {
         String message="";
         log.info("컴포넌트는 들어오냐? " + entity);
 
@@ -74,6 +74,48 @@ public class AdmissionController {
         return message;
     }
     
+    @PostMapping("/update")
+    public String update(@RequestBody MemAdmission entity) {
+        String message="";
+        log.info("Update Controller까지는 옴?");
 
+
+        if(admService.save(entity) != null){
+            try{
+                message =" MemAdmission 수정 되었습니다.";
+                log.info(" MemAdmission Update 성공 => " + admService.save(entity) );
+            } catch (Exception e){
+                message ="MemAdmission 수정되지 않았습니다. 관리자에게 문의해야 합니다.";
+                log.info(" MemAdmission Update 실패(에러남) => " + e.toString() );
+            }
+        } else {
+            message ="MemAdmission 수정되지 않았습니다. 입력하신 정보를 확인해주세요";
+        }
+        
+        return message;
+    }
+    
+    @PostMapping("/delete")
+    public String delete(@RequestBody MemAdmission entity) {
+        String message="";
+
+        log.info("Delete Controller까지는 옴?");
+
+        if(admService.delete(entity)!=null){
+            try {
+                message =" MemAdmission 삭제 완료 !";
+                log.info(" MemAdmission Update 성공 => " + entity.getMemSerial() );
+                
+            } catch (Exception e) {
+                message ="MemAdmission 삭제 불가능. 관리자에게 문의해야 합니다.";
+                log.info(" MemAdmission delete 실패(에러남) => " + e.toString() );
+            }
+        } else {
+            message ="MemAdmission 삭제 불가능. 다시 한번 확인 부탁드립니다, ";
+        }
+        
+        return message;
+    }
+    
 
 }

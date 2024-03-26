@@ -21,8 +21,8 @@ import lombok.ToString;
 public class MemLeaving {
 
     @Id
-    @Column(name="memSerial")
-    private String mem_serial;
+    @Column(name="mem_serial")
+    private String memSerial;
     
     @Column(name="leaving_date")
     private String leavingDate;

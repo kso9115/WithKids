@@ -2,7 +2,7 @@ import axios from 'axios';
 import './Member_admission.css';
 import { useState, useEffect, useCallback } from 'react';
 
-function Member_addission({admMemOne , setAdmMemOne } ){
+function Member_admission({admMemOne , dataDML } ){
     // 발자취 남기기 => 생각을 잘 못함 
     // const[admMem,SetAdmMem]=useState([]);
     // useEffect(()=>{
@@ -23,7 +23,7 @@ function Member_addission({admMemOne , setAdmMemOne } ){
     useEffect(()=>{
         if(admMemOne.constructor === Object 
             && Object.keys(admMemOne).length !==0 ){
-                console.log("안오냐");
+                // console.log("안오냐");
                 setAdmMemOneD({
                     ...admMemOne,
                 })
@@ -39,33 +39,81 @@ function Member_addission({admMemOne , setAdmMemOne } ){
 
 
 
-    // 6. 신규 버튼 클릭 onClick={()=> saveInsert("admInsert") 했을 때, 실행하여 요청
-    // axios 를 요청 할 때 필요한 인자 => url  , params , setData
-    function saveInsert() {
-        if(admMemOneD.memSerial){
-            if(window.confirm("입소 데이터를 저장하시겠습니까?")){
+    // // 6. 신규 버튼 클릭 onClick={()=> saveInsert("admInsert") 했을 때, 실행하여 요청
+    // // axios 를 요청 할 때 필요한 인자 => url , admMemOneD, setData => post 요청은 body에 전달함. 2번째 인자를 사용
+    // function saveInsert() {
+    //     if(admMemOneD.memSerial){
+    //         if(window.confirm("입소 데이터를 저장하시겠습니까?")){
 
-                axios
-                .post("/api/adm/admInsert", admMemOneD, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then((res)=>{
-                        console.log(res.data);
-                        setAdmMemOneD(res.data);
-                })
-                .catch((err) => {
-                        console.log(err);
-                })
-            }else alert(" 신규 데이터 저장을 취소하셨습니다.");
-        }  else alert(" admMemOneD에 memSerial 없다? ");
+    //             axios
+    //             .post("/api/adm/admInsert", admMemOneD, {
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             })
+    //             .then((res)=>{
+    //                     console.log(res.data);
+    //                     setAdmMemOneD(res.data);
+    //             })
+    //             .catch((err) => {
+    //                     console.log(err);
+    //             })
+    //         }else alert(" 신규 데이터 저장을 취소하셨습니다.");
+    //     }  else alert(" admMemOneD에 memSerial 없다? ");
+    // }
+    // console.log(admMemOneD);
+    
+    
+    // // 7. update을 작성 
+    // function saveUpdate() {
+    //     if(admMemOneD.memSerial){
+    //         if(window.confirm("입소 데이터를 수정하시겠습니까?")){
+
+    //             axios
+    //             .post("/api/adm/admUpdate", admMemOneD, {
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             })
+    //             .then((res)=>{
+    //                     console.log(res.data);
+    //                     setAdmMemOneD(res.data);
+    //             })
+    //             .catch((err) => {
+    //                     console.log(err);
+    //             })
+    //         }else alert(" 데이터 수정을 취소하셨습니다.");
+    //     }  else alert(" admMemOneD에 memSerial 없다? ");
+    // }
+
+    // // 8. delete 작성
+
+    // function deleteData() {
+    //     if(admMemOneD.memSerial){
+    //         if(window.confirm("입소 데이터를 수정하시겠습니까?")){
+    //             axios
+    //             .post("/api/adm/delete", admMemOneD, {
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             })
+    //             .then((res)=>{
+    //                 console.log(res.data);
+    //                 setAdmMemOneD(res.data);
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err);
+    //             })
+    //         } else alert(" 데이터 삭제 취소 ");
+    //     } else alert(" admMemOneD에 memSerial 없다? ");
+    // }
+
+    // 함수 받아오기 
+    const setDataDML = (type,dml, data)=>{
+        dataDML(type,dml, data);
     }
-    console.log(admMemOneD);
-    //
-    
 
-    
+
 
 
     return (
@@ -73,10 +121,10 @@ function Member_addission({admMemOne , setAdmMemOne } ){
             <div style={{color:'black',fontWeight:'bold'}}>입소/이용 정보</div>
             <div className="adgridBox admissionBox">
                 <div><span style={{color:"red"}}>*</span>입소/이용일자</div>
-                <div><input type="date" name="admissionDate" value={admMemOneD.admissionDate} onChange={admdChange}/></div>
+                <div><input type="date" name="admissionDate" value={admMemOneD.admissionDate || '' } onChange={admdChange}/></div>
                 
                 <div><span style={{color:"red"}}>*</span>입소/이용유형</div>
-                <div><select name="admissionType" value={admMemOneD.admissionType} onChange={admdChange}>
+                <div><select name="admissionType" value={admMemOneD.admissionType || ''} onChange={admdChange}>
                         <option value="none" >--선택해 주세요--</option>
                         <option value="차상위 계층">차상위 계층</option>
                         <option value='국민기초생활보장수급자'>국민기초생활보장수급자</option>
@@ -91,13 +139,16 @@ function Member_addission({admMemOne , setAdmMemOne } ){
                 <div><span style={{color:"red"}}>*</span>입소/이용자격</div>
                 <div>
                     <select name="admissionQualification" value={admMemOneD.admissionQualification || ''} onChange={admdChange}>
+                        <option value="none" >----</option>
                         <option value="무료">무료</option>
                         <option value='유료'>유료</option>
                     </select>    
                 </div>
                  
                 <div><span></span>전입여부</div>
-                <div><input type="checkbox" name="transfer" value={admMemOneD.transfer || ''} /></div>
+                <div><input type="radio" id="transfer" name="transfer" value={1} checked={admMemOneD.transfer == 1} onChange={admdChange}/><label htmlFor='transfer'>Y</label>  &nbsp;
+                    <input type="radio" id="transfer" name="transfer" value={0} checked={admMemOneD.transfer == 0} onChange={admdChange}/> <label htmlFor='transfer'>N</label>
+                </div>
 
                 <div></div><div></div>
                 <div></div><div></div>
@@ -134,6 +185,7 @@ function Member_addission({admMemOne , setAdmMemOne } ){
                 
                 <div><span style={{color:"red"}}>*</span>프로그램</div>
                 <div><select name="program"  onChange={admdChange}>
+                    <option value="none" >--선택해 주세요--</option>
                         <option value="내부 프로그램">내부 프로그램</option>
                         <option value='신청형 프로그램'>신청형 프로그램</option>
                     </select>
@@ -162,13 +214,13 @@ function Member_addission({admMemOne , setAdmMemOne } ){
                 </div> */}
                 <div>
                     <button type="reset" onClick={()=> setAdmMemOneD({}) }>입력취소</button>
-                    <button type="submit" value='삭제' >삭제</button>
-                    <button type="submit" value='신규' onClick={()=> saveInsert() }>신규</button>
-                    <button type="submit" value='저장' >저장</button>
+                    <button type="submit" value='삭제' onClick={()=>setDataDML("1","delete",admMemOneD)}>삭제</button>
+                    <button type="submit" value='신규' onClick={()=>setDataDML("1","insert",admMemOneD)}>신규</button>
+                    <button type="submit" value='저장' onClick={()=>setDataDML("1","update",admMemOneD)}>저장</button> 
                 </div>
             </div>
         </div>
           
     );
 }
-export default Member_addission;
+export default Member_admission;

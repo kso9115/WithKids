@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './Member_Leaving.css';
 import axios from 'axios';
 
-function Member_Leaving({memDataOne , lvngMem}){
+function Member_Leaving({ memDataOne , lvngMem , dataDML}){
     // 가져온 DATA 를 Mem의 정보를 가져옴 -> 변할 때마다 leaving이 serial전달
     const[lvngMemD,setLvngMemD]=useState({});
     console.log({memDataOne});
@@ -12,11 +12,15 @@ function Member_Leaving({memDataOne , lvngMem}){
             setLvngMemD({...lvngMem }) ; 
         
     },[memDataOne]);
-    
     console.log({lvngMemD});
 
+    // 함수 받아오기 
+    const setDataDML = (type,dml, data)=>{
+        dataDML(type,dml, data);
+    }
+
     return (
-        <form action="" method="get">
+        <div>
             <div className="lvnggridBox">
                 <div>퇴소/종결 일자</div>
                 <div><input type="date" value={lvngMemD.leavingDate || ''}/></div>
@@ -41,13 +45,13 @@ function Member_Leaving({memDataOne , lvngMem}){
 
             <div className='buttonBox'>
                 <div>
-                    <button type="reset">입력취소</button>
-                    <button type="submit" value='삭제' formaction="/leaving/delete">삭제</button>
-                    <button type="submit" value='신규' formaction="/leaving/insert">신규</button>
-                    <button type="submit" value='저장' formaction="/leaving/update">저장</button>
+                    <button type="reset" onClick={()=> setLvngMemD({}) }>입력취소</button>
+                    <button type="submit" value='삭제'  onClick={()=>setDataDML("2","delete",lvngMemD)}>삭제</button>
+                    <button type="submit" value='신규' onClick={()=>setDataDML("2","insert",lvngMemD)}>신규</button>
+                    <button type="submit" value='저장' onClick={()=>setDataDML("2","update",lvngMemD)}>저장</button>
                 </div>
             </div>
-        </form>
+        </div>
     );
 }
 export default Member_Leaving;

@@ -32,8 +32,10 @@ function AdmLvng_Manager() {
         { name: '입소/이용', content: '' },
         { name: '퇴소/종결', content: '' },
     ];
-    subMenuArr[0].content = <MemberAdmission admMemOne={admMemOne} setAdmMemOne={setAdmMemOne}></MemberAdmission>
-    subMenuArr[1].content = <MemberLeaving memDataOne={memDataOne} lvngMem={lvngMem}></MemberLeaving>
+    subMenuArr[0].content = <MemberAdmission admMemOne={admMemOne} setAdmMemOne={setAdmMemOne} 
+                                dataDML={dataDML}></MemberAdmission>
+    subMenuArr[1].content = <MemberLeaving memDataOne={memDataOne} lvngMem={lvngMem}
+                                dataDML={dataDML}></MemberLeaving>
 
     const [subCurrentTab, setSubCurrentTab] = useState(0);
 
@@ -102,6 +104,99 @@ function AdmLvng_Manager() {
             axiF("/api/lvng/lvngMemOne", { memSerial: memDataOne.memSerial }, setLvngMem);
         }
     }, [memDataOne]); 
+
+
+
+    //  props로 함수 전달 
+
+    // 6. 신규 버튼 클릭 onClick={()=> saveInsert("admInsert") 했을 때, 실행하여 요청
+    // axios 를 요청 할 때 필요한 인자 => url , admMemOne, setData => post 요청은 body에 전달함. 2번째 인자를 사용
+    // function saveInsert() {
+    //     if(admMemOne.memSerial){
+    //         if(window.confirm("입소 데이터를 저장하시겠습니까?")){
+
+    //             axios
+    //             .post("/api/adm/admInsert", admMemOne, {
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             })
+    //             .then((res)=>{
+    //                     console.log(res.data);
+    //                     setAdmMemOne(res.data);
+    //             })
+    //             .catch((err) => {
+    //                     console.log(err);
+    //             })
+    //         }else alert(" 신규 데이터 저장을 취소하셨습니다.");
+    //     }  else alert(" admMemOne에 memSerial 없다? ");
+    // }
+    // console.log(admMemOne.memSerial);
+    
+    
+    // // 7. update을 작성 
+    // function saveUpdate() {
+    //     if(admMemOne.memSerial){
+    //         if(window.confirm("입소 데이터를 수정하시겠습니까?")){
+
+    //             axios
+    //             .post("/api/adm/admUpdate", admMemOne, {
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             })
+    //             .then((res)=>{
+    //                     console.log(res.data);
+    //                     setAdmMemOne(res.data);
+    //             })
+    //             .catch((err) => {
+    //                     console.log(err);
+    //             })
+    //         }else alert(" 데이터 수정을 취소하셨습니다.");
+    //     }  else alert(" admMemOne에 memSerial 없다? ");
+    // }
+
+    // // 8. delete 작성
+
+    // function deleteData() {
+    //     if(admMemOne.memSerial){
+    //         if(window.confirm("입소 데이터를 수정하시겠습니까?")){
+    //             axios
+    //             .post("/api/adm/delete", admMemOne, {
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             })
+    //             .then((res)=>{
+    //                 console.log(res.data);
+    //                 setAdmMemOne(res.data);
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err);
+    //             })
+    //         } else alert(" 데이터 삭제 취소 ");
+    //     } else alert(" admMemOne에 memSerial 없다? ");
+    // }
+
+    // 코드 중복 정리 함수 작성. 
+    function dataDML(type,dml, data){
+        if(admMemOne.memSerial){
+            if(window.confirm(" 데이터 신규 등록 및 수정 하시겠습니까?")){
+            axios
+                .post(`/api/${type=="1" ? "adm":"lvn"}/${dml}`, {data} ,{
+                    headers: {
+                         'Content-Type': 'application/json'
+                    }
+                })
+                .then((res)=>{
+                    {type=="1" ? setAdmMemOne(res.data) : setLvngMem(res.data) };
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            }  else alert(" 취소하셨습니다.");
+        } else alert(" admMemOne에 memSerial 없다? ");
+    }
 
 
     return (
