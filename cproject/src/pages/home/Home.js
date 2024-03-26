@@ -1,6 +1,6 @@
 import './home.css';
 import Menu from '../../components/menu/Menu'
-import Container from '../../components/container/Container'
+import Container2 from '../../components/container/Container2'
 import Main from '../../components/main/Main'
 // import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -51,7 +51,7 @@ function Home() {
             <div>
                 <div id='homeContainerMain'>
                     <Navbar />
-                    <Container menuArr={menuArr} setMenuArr={setMenuArr} currentTab={currentTab} setCurrentTab={setCurrentTab}></Container>
+                    <Container2 menuArr={menuArr} setMenuArr={setMenuArr} currentTab={currentTab} setCurrentTab={setCurrentTab} mainSub={"main"}></Container2>
                 </div>
             </div>
         </div>

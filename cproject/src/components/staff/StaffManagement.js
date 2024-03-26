@@ -1,7 +1,7 @@
 import SearchBox from '../../hooks/searchbox/SearchBox';
 import { stf_mng } from '../../hooks/searchbox/searchData'
 import ListComponent from '../../hooks/ListComponent';
-import ContainerSub from '../container/ContainerSub'
+import Container2 from '../container/Container2'
 import './staffManagement.css'
 import { useState } from 'react';
 import StaffDetails from './StaffDetails';
@@ -51,7 +51,7 @@ function StaffManagement() {
                     width: '60%',
                     height: '100%'
                 }}>
-                    <ContainerSub menuArr={subMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} ></ContainerSub>
+                    <Container2 menuArr={subMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={"sub"}></Container2>
                 </div>
             </div>
         </div>
