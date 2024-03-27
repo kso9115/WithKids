@@ -72,14 +72,8 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         return [year, month, day].join(delimiter);
     }
 
-
     function deleteData() {
         if (prgDetailData.prgId && window.confirm("프로젝트를 삭제하시겠습니까?")) {
-            // console.log({
-            //     prgId: prgDetailData.prgId,
-            //     prgDate: prgDetailData.prgDate,
-            //     rec: prgDetailData.rec
-            // });
             axios.post('/api/prg/prgDtdelete', {
                 prgId: prgDetailData.prgId,
                 prgDnm: prgDetailData.prgDnm,
@@ -104,39 +98,45 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         } else alert("선택된 프로그램이 없습니다.");
     }
 
+    function saveFile() {
+        if (prgDetailData.prgFilef) {
+
+            let formData = new FormData();
+            for (let i = 0; i < prgDetailData.prgFilef.length; i++) {
+                formData.append("prgFilef", prgDetailData.prgFilef[i]);
+            }
+            formData.append("prgId", prgDetailData.prgId);
+            formData.append("prgDnm", prgDetailData.prgDnm);
+            // console.log(data);
+            axios.post(`/api/prg/fileUpload`, formData, {
+                paramsSerializer: (params) => {
+                    return qs.stringify(params, { arrayFormat: "repeat" });
+                }
+            })
+                .then((response) => {
+                    console.log(response.data);
+                }).catch((error) => {
+                    console.log(error);
+                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                }).then(() => {
+                    // 항상 실행
+                });
+        }
+    }
+
     function saveData(type) {
         //유효성검사
         if (prg_dtls_prg_inp_ck(prgDetailData, type)) {
+            
             let prgFilef = "";
-            if (prgDetailData.prgFilef) {
-                Array.from({ length: prgDetailData.prgFilef.length }, (_, i) => {
-                    return prgFilef += prgDetailData.prgFilef[i].name + " ";
-                });
-                let formData = new FormData();
-                for (let i = 0; i < prgDetailData.prgFilef.length; i++) {
-                    formData.append("prgFilef", prgDetailData.prgFilef[i]);
-                }
-                formData.append("prgId", prgDetailData.prgId);
-                formData.append("prgDnm", prgDetailData.prgDnm);
-                // console.log(data);
-                axios.post(`/api/prg/FileUpload`, formData, {
-                    paramsSerializer: (params) => {
-                        return qs.stringify(params, { arrayFormat: "repeat" });
-                    }
-                })
-                    .then((response) => {
-                        console.log(response.data);
-                    }).catch((error) => {
-                        console.log(error);
-                        alert("서버 통신 에러로 요청에 실패했습니다.");
-                    }).then(() => {
-                        // 항상 실행
-                    });
-            }
 
+            Array.from({ length: prgDetailData.prgFilef.length }, (_, i) => {
+                return prgFilef += prgDetailData.prgFilef[i].name + " ";
+            });
             let params = {
                 ...prgDetailData,
                 prgFile: prgFilef + prgDetailData.prgFile.join(' '),
+                prgFilef:null
             };
 
             if (type === 'prgDtInsert') {
@@ -154,18 +154,10 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     type: 'prgDtUpdate'
                 }
             } else return alert("잘못된 요청입니다.");
-
-            
-
-
+            console.log(params.prgFile);
             axios.post(`/api/prg/prgDtSave`, params)
-                // axios.post(`/api/prg/prgDtSave`, prgDetailData.prgFilef ? formData : null, {
-                //     params,
-                //     paramsSerializer: (params) => {
-                //         return qs.stringify(params, { arrayFormat: "repeat" });
-                //     }
-                // })
                 .then((response) => {
+                    saveFile();
                     console.log(response.data);
                     setData(prgDataOneD);
                     setTreeUpdate(!treeUpdate);
