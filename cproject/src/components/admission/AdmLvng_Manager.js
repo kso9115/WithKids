@@ -203,18 +203,18 @@ function AdmLvng_Manager() {
     }
 
     // searchBox 요청
-    function searchBoxClick(){
-        axios
-        .get("/api/adm/searchBox/",{
-            params : listUpdate
-        })
-        .then((res)=>{
-            console.log(res.data);
-        })
-        .catch((err)=>{
-            console.log("에러남 -"+err);
-        })
-    }
+    // function searchBoxClick(){
+    //     axios
+    //     .get("/api/adm/searchBox/",{
+    //         params : listUpdate
+    //     })
+    //     .then((res)=>{
+    //         console.log(res.data);
+    //     })
+    //     .catch((err)=>{
+    //         console.log("에러남 -"+err);
+    //     })
+    // }
 
     return (
         <div className="admLvngBox">
