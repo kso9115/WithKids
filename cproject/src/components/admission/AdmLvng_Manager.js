@@ -26,6 +26,8 @@ function AdmLvng_Manager() {
     // 4. 퇴소 데이터 가져오기 
     const [lvngMem, setLvngMem] = useState({});
 
+    // 9. search Box 요청
+    const[listUpdate,setListUpdate] = useState(true); 
 
     // 1. 컨테이너에 정보 전달 
     const subMenuArr = [
@@ -202,23 +204,14 @@ function AdmLvng_Manager() {
         } else alert(" admMemOne에 memSerial 없다? ");
     }
 
-    // searchBox 요청
-    // function searchBoxClick(){
-    //     axios
-    //     .get("/api/adm/searchBox/",{
-    //         params : listUpdate
-    //     })
-    //     .then((res)=>{
-    //         console.log(res.data);
-    //     })
-    //     .catch((err)=>{
-    //         console.log("에러남 -"+err);
-    //     })
-    // }
+    // 9. searchBox 요청
+    function searchBoxClick(sbVal){
+        setListUpdate(sbVal);
+    }
 
     return (
         <div className="admLvngBox">
-            <SearchBox data={admLvng_mng} />
+            <SearchBox data={admLvng_mng} searchBoxClick={searchBoxClick} />
             <div className="adMainBox">
                 <div style={{
                     width: '30%',
@@ -228,7 +221,7 @@ function AdmLvng_Manager() {
                         marginBottom: '5px'}}>
                         
                     </div> */}
-                    <MemberList setData={setMemDataOne} />
+                    <MemberList setData={setMemDataOne} listUpdate={listUpdate} />
                 </div>
                 <div style={{
                     borderWidth: 1,

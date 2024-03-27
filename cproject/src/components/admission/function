@@ -1,0 +1,30 @@
+// const memSearch = () =>
+//             axios
+//                 .get("/api/mem/memSearch", { params: memListUpdate }, { search: mem })
+//                 .then((res) => {
+//                     setMemData(res.data);
+//                 }).catch((err) => {
+//                     console.log(err);
+//                 })
+
+
+//         const admSearch = () => axios
+//             .get("/api/adm/searchBox", { params: memListUpdate }, { search: adm })
+//             .then((res) => {
+//                 setMemData(res.data);
+//                 console.log(res.data);
+//             })
+//             .catch((err) => {
+//                 console.log("에러남 -" + err);
+//             })
+
+function memSearch(src) {
+    axios
+    .get(`/api/${src==1 ? mem: adm}/memSearch`),{ params: memListUpdate }
+    .then((res) => {
+        setMemData(res.data);
+    }).catch((err) => {
+        console.log(err);
+    })
+}
+        
