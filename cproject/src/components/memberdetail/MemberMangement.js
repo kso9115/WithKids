@@ -18,7 +18,7 @@ function MemberMangement() {
     const [eduDataOne, setEduDataOne] = useState();
 
     // memberList 업데이트 변화 감지를 위한 상태값 : 자식으로 전달
-    const [memListUpdate, serMemListUpdate] = useState(true);
+    const [memListUpdate, setMemListUpdate] = useState(true);
 
     // main, sub 탭
     const [subCurrentTab, setSubCurrentTab] = useState(0);
@@ -29,10 +29,8 @@ function MemberMangement() {
     ]
     subMenuArr[0].content = <MemberDetail
         data={memDataOne} eduData={eduDataOne}
-        setData={setMemDataOne} setEduDataOne={setEduDataOne}
-        memListUpdate={memListUpdate} serMemListUpdate={serMemListUpdate} />;
-    subMenuArr[1].content = <MemberDetailNote
-        memListUpdate={memListUpdate} serMemListUpdate={serMemListUpdate} />;
+        setData={setMemDataOne} setEduDataOne={setEduDataOne} />;
+    subMenuArr[1].content = <MemberDetailNote />;
 
     // Post 요청을 보낼 시 : 학력 데이터 요청전달 후 출력
     useEffect(() => {
@@ -56,10 +54,14 @@ function MemberMangement() {
     // 테이블이 두개니까 하나의 테이블에 memSerial이 들어가면 다른 테이블에 강제적으로 넣어주기
     // if (!response.data) setMemDataOne({ memSerial: memDataOne.memSerial });
 
+    // searchBox에 전달할 setState함수
+    function searchBoxClick(sbVal) {
+        setMemListUpdate(sbVal);
+    }
 
     return (
         <div className='mem_mng'>
-            <SearchBox data={mem_mng} />
+            <SearchBox data={mem_mng} searchBoxClick={searchBoxClick}/>
 
             <div className='memberMainBox'>
                 <div style={{
@@ -74,6 +76,8 @@ function MemberMangement() {
                         // memDataOne={memDataOne}
                         setEduDataOne={setEduDataOne}
 
+                        // 멤버리스트를 업데이트
+                        memListUpdate={memListUpdate} setMemListUpdate={setMemListUpdate}
                     />
                 </div>
 

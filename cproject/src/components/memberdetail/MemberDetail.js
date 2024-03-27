@@ -79,8 +79,8 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
         setEduMemOneD({
             ...eduData
             // 기본적으로 memSerial이랑 memName을 가지게 해주면댄다...!! 아래에서 함수 내 인자로 전달할 필요가 없음
-            ,memSerial:data.memSerial
-            ,memName:data.memName
+            , memSerial: data.memSerial
+            , memName: data.memName
         })
     }, [eduData])
     // console.log(eduDataOneD);
@@ -99,33 +99,35 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
             console.error('데이터가 유효하지 않습니다.');
             return;
         }
-    
+
         axios.post(endpoint, data)
             .then((response) => {
                 console.log("넘어오는 데이터 확인");
                 console.log(response.data);
-    
+
+                // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
                 alert("데이터 추가 성공");  // 요청을 두번 보내버려서 alert창이 두번뜨고있음
+                // setMemListUpdate(!memListUpdate);
             })
             .catch((err) => {
                 alert("요청 실패");
                 console.error(err);
             });
     }
-    
+
     function saveMemData() {
         saveData(memDataOneD, '/api/mem/memInesert');
     }
-    
+
     function saveEduData() {
-        if(memDataOneD.memSerial){
+        if (memDataOneD.memSerial) {
             saveData(eduDataOneD, '/api/mem/memEduInesert');
         }
     }
 
     // 입력 데이터 수정 콘솔 확인용
     // console.log(memDataOneD);
-    console.log(eduDataOneD);   
+    console.log(eduDataOneD);
 
 
     // 2. DELETE 기능 요청 : 선택한 DB 삭제
@@ -133,10 +135,16 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
         if (memDataOneD.memSerial && window.confirm("해당 아동을 삭제하시겠습니까?")) {
             axios
                 .post('/api/mem/memDelete', null, { params: { memSerial: memDataOneD.memSerial } })
+                // .post('/api/mem/memDelete', { memSerial: memDataOneD.memSerial })
                 // .then((response) => {    // 자꾸 홈으로 다시 가서 일단 수정
                 .then(function (response) {
                     setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
+
                     alert(response.data);
+
+                    // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
+                    // setMemListUpdate(!memListUpdate);
+
                     console.log(response.data);
                     // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
                 }).catch(function (err) {
@@ -146,7 +154,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
             alert("아동 삭제 취소")
         }
     }
-    
+
     function deleteEduByMemserial() {
         if (eduDataOneD.memSerial) {
             axios
@@ -154,7 +162,11 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 // .then((response) => {    // 자꾸 홈으로 다시 가서 일단 수정
                 .then(function (response) {
                     setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
+
                     alert(response.data);
+
+                    // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
+                    // setMemListUpdate(!memListUpdate);
                     console.log(response.data);
                     // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
                 }).catch(function (err) {
@@ -165,7 +177,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
         }
     }
 
-    // 3. 입력 데이터 전체 리셋
+    // 3. 입력 데이터 전체 리셋 : 대신에 data값을 setData({}) 빈객체로 넣어준다.
     function resutData() {
         setMemDataOneD({})
         setEduDataOne({})
@@ -183,15 +195,16 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div><span>*</span>대상자번호</div>
                 <div className='mem_serial'>
                     <input type='text' name='memSerial'
-                        value={memDataOneD.memSerial}
-                        onChange={memDataChange} disabled={memDataOneD.memSerial || ""}>
+                        value={memDataOneD.memSerial || ""}
+                        onChange={memDataChange} disabled={data.memSerial}>
                     </input>
                 </div>
 
                 <div><span>*</span>대상자명</div>
                 <div className='mem_name'>
                     <input type='text' name='memName'
-                        onChange={memDataChange} value={memDataOneD.memName || ""} >
+                        value={memDataOneD.memName || ""}
+                        onChange={memDataChange} disabled={data.memSerial} >
                     </input>
                 </div>
 
@@ -207,7 +220,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                     </div>
                     <div>
                         <input type='radio' name='memAgreeP' value='N'
-                            checked={memDataOneD.memAgreeP === 'Y'}
+                            checked={memDataOneD.memAgreeP === 'N'}
                             onChange={memDataChange}>
                         </input>
                         <label htmlFor='agreeP'>&nbsp;N</label>
@@ -218,11 +231,11 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div className='mem_responsible_person'>
                     <input type='text' name='memRegNum'
                         value={memDataOneD.memRegNum || ""}
-                        onChange={memDataChange} >
+                        onChange={memDataChange} disabled={data.memSerial}>
                     </input>
-                    &nbsp;
+                    {/* &nbsp;
                     <label htmlFor='memRegNum'></label>
-                    <input type='button' value='중복확인'></input>
+                    <input type='button' value='중복확인'></input> */}
                 </div>
 
                 <div>실명확인여부</div>
@@ -234,7 +247,8 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                     </div>
                     <div>
                         <input type='radio' name='memAgreeN' value='N'
-                            checked={memDataOneD.memAgreeN === 'N'} onChange={memDataChange} ></input>
+                            checked={memDataOneD.memAgreeN === 'N'}
+                            onChange={memDataChange} ></input>
                         <label htmlFor='agreeN'>&nbsp;N</label>
                     </div>
                 </div>
@@ -268,7 +282,9 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
                 <div>담당자</div>
                 <div className='mem_responsible_person'>
                     <input type='text' name='memResPerson'
-                        onChange={memDataChange} value={memDataOneD.memResPerson || ""}>
+                        value={memDataOneD.memResPerson || ""}
+                        onChange={memDataChange}
+                        disabled>
                     </input>
                 </div>
 
@@ -414,9 +430,10 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
 
             <div className='buttonBox'>
                 <div>
+                    <button type="reset" onClick={() => setData({})}>입력취소11</button>
                     <button type="reset" onClick={resutData}>입력취소</button>
-                    <button type="submit" value='삭제' onClick={() => {deleteMemByMemserial(); deleteEduByMemserial();}}>삭제</button>
-                    <button type="submit" value='신규등록' onClick={() => {saveMemData(); saveEduData();}}>등록 및 수정</button>
+                    <button type="submit" value='삭제' onClick={() => { deleteMemByMemserial(); deleteEduByMemserial(); }}>삭제</button>
+                    <button type="submit" value='신규등록' onClick={() => { saveMemData(); saveEduData(); }}>등록 및 수정</button>
                     {/* <button type="submit" value='업데이트' >업데이트</button> */}
                     <button type="submit" value='pw초기화' >PW초기화</button>
                 </div>
