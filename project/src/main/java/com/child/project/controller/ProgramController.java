@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.util.FileCopyUtils;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -103,24 +104,50 @@ public class ProgramController {
 	// @PostMapping("/prgDtInsert")
 	@PostMapping("/prgDtSave")
 	public String prgDtSave(
-			@RequestBody ProgramDetails entity
-			// @RequestParam("entity") ProgramDetails entity, @RequestParam("prgFilef")
-			// List<MultipartFile> prgFilef
-			// @RequestPart(value = "entity") ProgramDetails entity
-			, HttpServletRequest request)
+			@RequestBody ProgramDetails entity, HttpServletRequest request)
 			throws IOException {
 		String message = "";
 
-		log.info(" entity => " + entity);
-		log.info(" type => " + entity.getType());
-		log.info("prgDtUpdate".equals(entity.getType()));
+		// // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
+		String realPath = request.getRealPath("/");
+		log.info("** realPath => " + realPath);
+
+		// // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
+		if (!realPath.contains("apache-tomcat"))
+			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\uploadFile\\"
+					+ entity.getPrgId() + entity.getPrgDnm() + "\\"; // 개발중.
+		else
+			realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\uploadFile\\"
+					+ entity.getPrgId() + entity.getPrgDnm() + "\\";
+
+		// // 1.3 폴더 만들기 (없을수도 있음을 가정, File 클래스)
+		File file = new File(realPath);
+		if (!file.exists()) {
+			// 저장 폴더가 존재하지 않는경우 만들어줌
+			file.mkdir();
+		}
+		// log.info(" entity => " + entity);
+		// log.info(" type => " + entity.getType());
+		// log.info("prgDtUpdate".equals(entity.getType()));
 
 		if (entity.getPrgId() != null && entity.getPrgDnm() != null && "prgDtInsert".equals(entity.getType())
 				&& prgService.detailsCnt(entity.getPrgId(), entity.getPrgDnm()) == 0) {
 			try {
+				if (entity.getPrgFile() == "") {
+					entity.setPrgFile("programDefault.png");
+				}
+				entity.getPrgFile();
 				log.info(" program insert 성공 => " + prgService.dtSave(entity));
 				message = "신규생성에 성공 했습니다.";
 			} catch (Exception e) {
+				File delFile = new File(realPath);
+				if (delFile.exists()) {
+					FileUtils.cleanDirectory(delFile);// 하위 폴더와 파일 모두 삭제
+					if (delFile.isDirectory()) {
+						delFile.delete(); // 대상폴더 삭제
+					}
+				}
+
 				log.info(" program insert Exception => " + e.toString());
 				return "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
 			}
@@ -130,28 +157,20 @@ public class ProgramController {
 				log.info(" program Update 성공 => " + prgService.dtSave(entity));
 				message = "저장에 성공 했습니다.";
 			} catch (Exception e) {
+				// 1.4) 저장경로 완성
+				if (entity.getPrgFile() == "") {
+					String[] uploadfilef = entity.getPrgFile().split(" ");
+					for (String f : uploadfilef) {
+						File delFile = new File(realPath + f);
+						if (delFile.isFile())
+							delFile.delete(); // file 존재시 삭제
+					}
+				}
 				log.info(" program Update Exception => " + e.toString());
 				return "저장에 실패 했습니다. 관리자에게 문의하세요.";
 			}
 		} else {
 			return "신규생성에 실패 했습니다.\n같은 세부프로그램명이 존재합니다.";
-		}
-
-		// // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
-		String realPath = request.getRealPath("/");
-		log.info("** realPath => " + realPath);
-		// // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-		if (!realPath.contains("apache-tomcat"))
-			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\uploadFile\\"
-					+ entity.getPrgId() + entity.getPrgDnm() + "\\"; // 개발중.
-		else
-			realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\uploadFile\\"
-					+ entity.getPrgId() + entity.getPrgDnm() + "\\";
-		// // 1.3 폴더 만들기 (없을수도 있음을 가정, File 클래스)
-		File file = new File(realPath);
-		if (!file.exists()) {
-			// 저장 폴더가 존재하지 않는경우 만들어줌
-			file.mkdir();
 		}
 
 		// // ** File Copy 하기 (IO Stream)
@@ -174,20 +193,6 @@ public class ProgramController {
 			FileCopyUtils.copy(fi, fo);
 		}
 
-		// // 1.4) 저장경로 완성
-		String file1 = "";
-		List<MultipartFile> uploadfilef = entity.getPrgFilef();
-		if (uploadfilef != null && !uploadfilef.isEmpty()) {
-			for (MultipartFile f : uploadfilef) {
-				File delFile = new File(realPath + f);
-				if (delFile.isFile())
-					delFile.delete(); // file 존재시 삭제
-
-				file1 = realPath + f.getOriginalFilename(); // 저장경로 완성
-				f.transferTo(new File(file1));
-			}
-		}
-
 		return message;
 	}
 
@@ -195,7 +200,6 @@ public class ProgramController {
 	public String prgDtUpdate(@RequestParam("prgFilef") List<MultipartFile> prgFilef,
 			@RequestParam("prgId") String prgId, @RequestParam("prgDnm") String prgDnm, HttpServletRequest request)
 			throws IOException {
-		String message = "";
 
 		// // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
 		String realPath = request.getRealPath("/");
@@ -227,7 +231,7 @@ public class ProgramController {
 			}
 		}
 
-		return message;
+		return "파일 저장 완료";
 	}
 
 	@PostMapping("/prgdelete")

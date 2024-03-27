@@ -58,30 +58,6 @@ function AttachedFile({ data, setData, name, files }) {
         selectFile.current.files = dataTransfer.files;
         data[files] = selectFile.current.files;
 
-        // let formData = new FormData();
-        // if (data.prgFilef) {
-        //     for (let i = 0; i < data.prgFilef.length; i++) {
-        //         formData.append("prgFilef", data.prgFilef[i]);
-        //     }
-        //     formData.append("prgId", data.prgId);
-        //     formData.append("prgDnm", data.prgDnm);
-        //     // console.log(data);
-        //     axios.post(`/api/prg/FileUpload`, formData, {
-        //         paramsSerializer: (params) => {
-        //             return qs.stringify(params, { arrayFormat: "repeat" });
-        //         }
-        //     })
-        //         .then((response) => {
-        //             console.log(response.data);
-        //         }).catch((error) => {
-        //             console.log(error);
-        //             alert("서버 통신 에러로 요청에 실패했습니다.");
-        //         }).then(() => {
-        //             // 항상 실행
-        //         });
-        // }
-
-
         setData({ ...data });
     }
 

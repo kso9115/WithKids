@@ -12,13 +12,8 @@ function MakeDiv({ e, i, detailsChange }) {
 
 // 메인 컴포넌트
 function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }) {
-    // console.log("ProgramDetailsPrg");
     const [prgDataOneD, setPrgDataOneD] = useState({}); // data 대,중,소 분류 프로그램명
     const [prgDetailData, setPrgDetailData] = useState({}); // subData
-    // const formData = new FormData();
-    // const [files, setFiles] = useState([]);
-
-
 
     useEffect(() => {
         setPrgDataOneD({
@@ -30,17 +25,13 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
             title: data.prgSubCls + " 세부",
             prgNm: data.prgNm,
             prgId: data.prgId,
+            // prgFile: data.prgFile ? data.prgFile.split(' ') : [],
             prgFile: [],
             prgFilef: null
-            // prgFile: data.prgFile ? data.prgFile.split(' ') : [],
             // prgFilef: data.prgFilef
         })
     }, [data])
-    // useEffect(() => {
-    //     setFiles([])
-    // }, [prgDetailData])
-    // console.log(prgDetailData);
-    // console.log(data);
+
     // data를 바탕으로 div 생성
     function makeDiv() {
         if (Array.isArray(subData) && subData.length > 0) {
@@ -56,7 +47,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         // console.log(data[i]);
         setPrgDetailData({
             ...subData[i],
-            prgFile: []
+            prgFile: subData[i].prgFile ? subData[i].prgFile.split(' ') : [],
         })
     }
 
@@ -116,49 +107,58 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
     function saveData(type) {
         //유효성검사
         if (prg_dtls_prg_inp_ck(prgDetailData, type)) {
-            let params;
+            let prgFilef = "";
+            if (prgDetailData.prgFilef) {
+                Array.from({ length: prgDetailData.prgFilef.length }, (_, i) => {
+                    return prgFilef += prgDetailData.prgFilef[i].name + " ";
+                });
+                let formData = new FormData();
+                for (let i = 0; i < prgDetailData.prgFilef.length; i++) {
+                    formData.append("prgFilef", prgDetailData.prgFilef[i]);
+                }
+                formData.append("prgId", prgDetailData.prgId);
+                formData.append("prgDnm", prgDetailData.prgDnm);
+                // console.log(data);
+                axios.post(`/api/prg/FileUpload`, formData, {
+                    paramsSerializer: (params) => {
+                        return qs.stringify(params, { arrayFormat: "repeat" });
+                    }
+                })
+                    .then((response) => {
+                        console.log(response.data);
+                    }).catch((error) => {
+                        console.log(error);
+                        alert("서버 통신 에러로 요청에 실패했습니다.");
+                    }).then(() => {
+                        // 항상 실행
+                    });
+            }
+
+            let params = {
+                ...prgDetailData,
+                prgFile: prgFilef + prgDetailData.prgFile.join(' '),
+            };
+
             if (type === 'prgDtInsert') {
                 // 원하는 형식으로 날짜를 설정합니다.
                 const formattedDate = toStringByFormatting(new Date());
 
                 params = {
-                    ...prgDetailData,
-                    prgFile: prgDetailData.prgFile.join(' '),
+                    ...params,
                     prgDate: formattedDate,
-                    // prgFilef: prgDetailData.prgFilef || [],
                     type: 'prgDtInsert'
                 };
             } else if (type === 'prgDtUpdate') {
                 params = {
-                    ...prgDetailData,
-                    prgFile: prgDetailData.prgFile.join(' '),
-                    // prgFilef: prgDetailData.prgFilef || [],
+                    ...params,
                     type: 'prgDtUpdate'
                 }
             } else return alert("잘못된 요청입니다.");
-            console.log(params);
 
-            let formData = new FormData();
-            if (prgDetailData.prgFilef) {
-                for (let i = 0; i < prgDetailData.prgFilef.length; i++) {
-                    formData.append("prgFilef", prgDetailData.prgFilef[i]);
-                }
-                formData.append("entity", new Blob([JSON.stringify(params)], { type: "application/json" }));
-            } else {
-                // alert("여기?");
-                formData.append("entity", params);
-            }
+            
 
-            axios.post(`/api/prg/prgDtSave`, prgDetailData.prgFilef ? formData : params
-                , {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                    // paramsSerializer: (formData) => {
-                    //     return qs.stringify(formData, { arrayFormat: "repeat" });
-                    // }
-                }
-            )
+
+            axios.post(`/api/prg/prgDtSave`, params)
                 // axios.post(`/api/prg/prgDtSave`, prgDetailData.prgFilef ? formData : null, {
                 //     params,
                 //     paramsSerializer: (params) => {
@@ -169,7 +169,6 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     console.log(response.data);
                     setData(prgDataOneD);
                     setTreeUpdate(!treeUpdate);
-                    // fileTransmit(files);
                     alert(response.data);
                 }).catch((error) => {
                     console.log(error);
