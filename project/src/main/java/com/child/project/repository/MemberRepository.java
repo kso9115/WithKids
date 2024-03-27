@@ -30,9 +30,9 @@ public interface MemberRepository extends JpaRepository<Member, String> {
         // Admission Search
         @Query(value = "select * from member where STR_TO_DATE(mem_str,'%Y-%m-%d') between STR_TO_DATE(:mem_str,'%Y-%m-%d') and STR_TO_DATE(:memEndF, '%Y-%m-%d')"
                         + "and mem_name like CONCAT('%',:mem_name,'%') and mem_responsible_person like CONCAT('%',:mem_responsible_person,'%')"
-                        + " and admission_status like CONCAT('%',:admission_status,'%') ", nativeQuery = true)
+                        + " and mem_status like CONCAT('%',:mem_status,'%') ", nativeQuery = true)
         List<Member> findSearch(@Param("mem_str") String memStr, @Param("memEndF") String memEndF,
                         @Param("mem_name") String memName, @Param("mem_responsible_person") String memResPerson,
-                        @Param("admission_status") String admissionStatus);
+                        @Param("mem_status") String memStatus);
 
 }

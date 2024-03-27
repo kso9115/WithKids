@@ -27,7 +27,7 @@ function AdmLvng_Manager() {
     const [lvngMem, setLvngMem] = useState({});
 
     // 9. search Box 요청
-    const[listUpdate,setListUpdate] = useState(true); 
+    const[memListUpdate,setMemListUpdate] = useState(true); 
 
     // 1. 컨테이너에 정보 전달 
     const subMenuArr = [
@@ -206,7 +206,7 @@ function AdmLvng_Manager() {
 
     // 9. searchBox 요청
     function searchBoxClick(sbVal){
-        setListUpdate(sbVal);
+        setMemListUpdate(sbVal);
     }
 
     return (
@@ -221,7 +221,7 @@ function AdmLvng_Manager() {
                         marginBottom: '5px'}}>
                         
                     </div> */}
-                    <MemberList setData={setMemDataOne} listUpdate={listUpdate} />
+                    <MemberList setData={setMemDataOne} memListUpdate={memListUpdate} />
                 </div>
                 <div style={{
                     borderWidth: 1,
