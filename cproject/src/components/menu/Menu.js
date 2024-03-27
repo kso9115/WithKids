@@ -10,6 +10,7 @@ import MealManagement from '../mealManagement/MealManagement'
 import PagesCollapse from './PagesCollapse'
 import Charts from './Charts'
 import React from 'react'
+import ProgramPlan from '../program/ProgramPlan'
 
 function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     const map = new Map();
@@ -21,6 +22,7 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     map.set('StaffManagement', { name: '직원관리', content: <StaffManagement/> });
     map.set('Calender', { name: '캘린더', content: <Calender></Calender> });
     map.set('ProgramManagement', { name: '프로그램정보관리', content: <ProgramManagement /> });
+    map.set('ProgramPlan', { name: '프로그램계획서 작성', content: <ProgramPlan /> });
     function getTransTitle(menuName) {
         
         // menuArr.filter((it)=>it.isDone)
@@ -68,7 +70,7 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
                     conName={['캘린더', '캘린더', '캘린더']} img='img/관리.png'/>
                 <PagesCollapse getTransTitle={getTransTitle} name='프로그램 관리'
                     menu={['프로그램정보관리', '프로그램계획서작성', '프로그램일지 작성']}
-                    conName={['ProgramManagement', '캘린더', '캘린더']} img='img/프로그램.png' />
+                    conName={['ProgramManagement', 'ProgramPlan', '캘린더']} img='img/프로그램.png' />
                 <Charts getTransTitle={getTransTitle} name='직원 관리'
                     conName={'StaffManagement'} img='img/직원.png' />
             </ul>

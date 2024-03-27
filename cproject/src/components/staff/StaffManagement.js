@@ -8,20 +8,15 @@ import StaffDetails from './StaffDetails';
 import StaffAttendance from './StaffAttendance';
 import axios from 'axios';
 
-// const staffList = {
-//     name: 'staff',
-//     list: '직원 목록',
-//     title: ['직위', '이름', '아이디', '휴대전화', '아동관리', '소통관리', '센터관리'],
-//     menu: ['staffPst', 'staffNm', 'staffId', 'staffPhnn', 'staffChlCr', 'staffCmnMng', 'staffCntMng']
-// }
+const staffList = {
+    name: 'staff',
+    list: '직원 목록',
+    title: ['직위', '이름', '아이디', '휴대전화', '아동관리', '소통관리', '센터관리'],
+    menu: ['staffPst', 'staffNm', 'staffId', 'staffPhnn', 'staffChlCr', 'staffCmnMng', 'staffCntMng']
+}
 
 function StaffManagement() {
-    const staffList = {
-        name: 'staff',
-        list: '직원 목록',
-        title: ['직위', '이름', '아이디', '휴대전화', '아동관리', '소통관리', '센터관리'],
-        menu: ['staffPst', 'staffNm', 'staffId', 'staffPhnn', 'staffChlCr', 'staffCmnMng', 'staffCntMng']
-    }
+    
     const [stfDataOne, setStfDataOne] = useState({}); //직원 테이블 전체중에 리스트에서 선택한 행 보관
     const [listUpdate, setListUpdate] = useState(true); // 리스트 업데이트 용
     const staffPst = stf_mng.staffPstList; // 직위 정보를 호출
