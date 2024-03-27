@@ -149,6 +149,7 @@ public class MemberController {
     @GetMapping("/memSearch")
     public List<Member> memSearch(Member entity) {
         List<Member> list= memService.searchList(entity);
+        log.info("오냐?");
         return list;
     }
     
