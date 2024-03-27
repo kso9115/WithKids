@@ -29,28 +29,37 @@ function MemberMangement() {
     ]
     subMenuArr[0].content = <MemberDetail
         data={memDataOne} eduData={eduDataOne}
-        setData={setMemDataOne} setEduDataOne={setEduDataOne} />;
+        setData={setMemDataOne} setEduDataOne={setEduDataOne}
+
+        // 멤버리스트를 업데이트 : 검색 or crud 진행 시 리스트 리렌더링 되도록
+        memListUpdate={memListUpdate} setMemListUpdate={setMemListUpdate}
+        />;
     subMenuArr[1].content = <MemberDetailNote />;
 
     // Post 요청을 보낼 시 : 학력 데이터 요청전달 후 출력
     useEffect(() => {
         // 왜오류나는지..?모르것다
         // if (memDataOne.constructor === Object && Object.keys(memDataOne).length !== 0) {
-        if (memDataOne.memSerial) {
+            if (memDataOne.memSerial) {
+            // console.log("111들오나?"); // ㅇㅇ
             console.log(memDataOne.memSerial); // 클릭시 들어옴
             // const memSerial = memDataOne.memSerial;
 
             axios
-                .post('/api/mem/memSelectOneEdu', { memSerial: memDataOne.memSerial })
-                .then(response => {
-                    console.log(response.data); // 데이터 전달 확인용
+                .post('/api/mem/memSelectOneEdu',{ memSerial: memDataOne.memSerial })
+                .then(res => {
+                    // if (!res.data) setEduDataOne({ memSerial: memDataOne.memSerial });
+                    // else 
 
-                    setEduDataOne(response.data);
+                    // console.log(response.data); // 데이터 전달 확인용
+                    setEduDataOne(res.data);
                 }).catch(function (err) {
                     console.log("error => ", err);
                 })
         }
     }, [memDataOne.memSerial]);
+    console.log(eduDataOne);
+    
     // 테이블이 두개니까 하나의 테이블에 memSerial이 들어가면 다른 테이블에 강제적으로 넣어주기
     // if (!response.data) setMemDataOne({ memSerial: memDataOne.memSerial });
 
@@ -76,7 +85,7 @@ function MemberMangement() {
                         // memDataOne={memDataOne}
                         setEduDataOne={setEduDataOne}
 
-                        // 멤버리스트를 업데이트
+                        // 멤버리스트를 업데이트 : 검색 or crud 진행 시 리스트 리렌더링 되도록
                         memListUpdate={memListUpdate} setMemListUpdate={setMemListUpdate}
                     />
                 </div>

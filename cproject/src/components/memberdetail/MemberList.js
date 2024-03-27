@@ -14,8 +14,9 @@ function MemberList({ setData, memListUpdate, setMemListUpdate }) {
             .then((res) => {
                 // console.log(res.data); // 데이터 전달 확인용
                 setMemData(res.data);
+                // setMemListUpdate(!memListUpdate);  // 렌더링이 두번 일어나도 어쩔수없지..리스트 바뀌는거 감지하면 바로 리스트 업데이트 진행해주는거
             })
-    }, [memListUpdate]);
+    }, []);
 
     // setData, setEduDataOne 둘다 실행하기 위한 함수 추가
     // const handleRowClick = (memData) => {

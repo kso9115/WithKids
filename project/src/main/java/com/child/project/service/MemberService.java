@@ -23,6 +23,10 @@ public interface MemberService {
     // Insert & Update
     Member save(Member memEntity);
 
+    // SearchBox 검색용 : member타입의 list 리턴
+    List<Member> searchList(Member entity);
+    
+
     // ===================================================
     
     // Edu Entity 접근 : 전체 리스트를 가져갈게아니라 하나의 파라미터만 전달해서 받기
@@ -37,6 +41,7 @@ public interface MemberService {
     // Delete : 별도로 리턴할게 없으므로 void
     void deleteEduByMemserial(String memSerail);
 
+    
 
 
 }

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import lombok.extern.log4j.Log4j2;
+
+
 import org.springframework.stereotype.Service;
 
 import com.child.project.entity.Education;
@@ -53,12 +55,26 @@ public class MemberServiceImpl implements MemberService {
         return result;
     }
 
+    // SearchBox
+    @Override
+    public List<Member> searchList(Member entity) {
+        return repository.searchList(entity.getMemStr(), entity.getMemEnd(),
+                entity.getMemName(), entity.getMemSex(), entity.getMemResPerson(),
+                entity.getMemStatus());
+    }
+
+    // @Override
+    // public List<Member> searchList(String memStr, String memEnd, String memName,
+    //         String memSex, String memResPerson, String memStatus) {
+    //     return repository.searchList(memStr, memEnd, memName, memSex, memResPerson, memStatus);
+    // }
+
     // ============================
     // Education 엔티티 접근
     @Override
     public Education selectEduData(String memSerial) {
-        Optional <Education> result = eduRepository.findById(memSerial);
-        log.info("&&&&&&&&&&&&&&"+result);
+        Optional<Education> result = eduRepository.findById(memSerial);
+        log.info("&&&&&&&&&&&&&&" + result);
         return result.get();
     }
 
@@ -72,7 +88,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Education save(Education eduEntity) {
         Education result = eduRepository.save(eduEntity);
-        return result;   
+        return result;
     }
 
     // Delete

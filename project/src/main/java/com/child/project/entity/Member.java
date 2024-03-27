@@ -2,10 +2,9 @@ package com.child.project.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -77,6 +76,10 @@ public class Member {
     private String memEnd;
     @Column(name="mem_status")
     private String memStatus;
+
+    // SQL 구문 처리 시 제외
+    @Transient
+    private String memEndF;
 
 
 }

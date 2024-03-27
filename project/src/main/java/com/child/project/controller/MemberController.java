@@ -57,9 +57,10 @@ public class MemberController {
     // Post방식 하나의 Edu 데이터 전달 : Education타입의 바디에 담아서 전달
     @PostMapping("/memSelectOneEdu")
     public Education selectEduData(@RequestBody Education entity) {
+        log.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&오냐?");
 
-        String memSerial = entity.getMemSerial(); // memSerial 파라미터 값 저장
-        Education selectOneEdu = memService.selectEduData(memSerial);
+        // String memSerial = entity.getMemSerial(); // memSerial 파라미터 값 저장
+        Education selectOneEdu = memService.selectEduData(entity.getMemSerial());
         return selectOneEdu;
     }
 
@@ -123,7 +124,7 @@ public class MemberController {
     @PostMapping("/memEduInesert")
     public String memEduInsert(@RequestBody Education entity) {
         String message = "";
-        // log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%데이터 전달되는 부분 확인");
+        log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%데이터 전달되는 부분 확인");
         // log.info("entity 값을 확인해보자" + entity);
         // log.info("넘어오나?" + entity.getMemSerial());
         log.info(entity);
@@ -144,6 +145,13 @@ public class MemberController {
       
         return message;
     }
+
+    @GetMapping("/memSearch")
+    public List<Member> memSearch(Member entity) {
+        List<Member> list= memService.searchList(entity);
+        return list;
+    }
+    
 
     @PostMapping("/eduDelete")
     public String deleteEduByMemserial(@RequestParam("memSerial") String memSerial) {

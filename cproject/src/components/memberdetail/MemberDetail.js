@@ -6,8 +6,11 @@ import axios from 'axios';
 // import Postcode from './Postcode';
 // import DaumPost from './DaumPost';
 
-// data={memDataOne} eduData={eduDataOne} setData={setMemDataOne} setEduDataOne={setEduDataOne}
-function MemberDetail({ data, eduData, setData, setEduDataOne }) {
+// data={memDataOne} eduData={eduDataOne}
+//  setData={setMemDataOne} setEduDataOne={setEduDataOne}
+// memListUpdate={memListUpdate} setMemListUpdate={setMemListUpdate}
+function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, setMemListUpdate }) {
+    
 
     // 우편번호
     // <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -78,12 +81,14 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
     useEffect(() => {
         setEduMemOneD({
             ...eduData
-            // 기본적으로 memSerial이랑 memName을 가지게 해주면댄다...!! 아래에서 함수 내 인자로 전달할 필요가 없음
+            // 기본적으로 memSerial이랑 memName을 가지게 해주면댄다...!! 
+            // 아래에서 함수 내 인자로 전달할 필요가 없음
             , memSerial: data.memSerial
             , memName: data.memName
         })
     }, [eduData])
-    // console.log(eduDataOneD);
+    console.log("데이터가안들어온다고왜냐고");
+    console.log(eduData);
 
     // text,radio 타입 input 태그 ,select 태그 value 값 제어
     const eduDataChange = useCallback((event) => {
@@ -107,6 +112,8 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
 
                 // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
                 alert("데이터 추가 성공");  // 요청을 두번 보내버려서 alert창이 두번뜨고있음
+                
+                // 변화 감지 후 리스트 리렌더링
                 // setMemListUpdate(!memListUpdate);
             })
             .catch((err) => {
@@ -121,13 +128,14 @@ function MemberDetail({ data, eduData, setData, setEduDataOne }) {
 
     function saveEduData() {
         if (memDataOneD.memSerial) {
+            console.log("11들어오나?");
             saveData(eduDataOneD, '/api/mem/memEduInesert');
         }
     }
 
     // 입력 데이터 수정 콘솔 확인용
     // console.log(memDataOneD);
-    console.log(eduDataOneD);
+    // console.log(eduDataOneD);
 
 
     // 2. DELETE 기능 요청 : 선택한 DB 삭제
