@@ -118,7 +118,7 @@ export const mem_mng = {
             state: 'mem_status',
             type: 'select',
             esntl: false,
-            default: [{ name: '전체', value: '전체' }, { name: '이용', value: '이용' }]
+            default: [{ name: '이용', value: '이용' }, { name: '종결', value: '종결' }]
         }
     ]
 }

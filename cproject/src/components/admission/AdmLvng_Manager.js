@@ -80,6 +80,7 @@ function AdmLvng_Manager() {
     // 5. 3번과 4번의 중복을 제거함. 
 
     // 공통된 로직을 함수로 분리
+    // 
     const axiF = (url, params, setData) => {
         axios
             .post(url, null, { params })
