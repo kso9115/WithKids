@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.child.project.entity.MemAdmission;
+import com.child.project.entity.Member;
 import com.child.project.repository.MemAdmissionRepository;
+import com.child.project.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,6 +20,8 @@ public class MemAdmissionServiceImpl implements MemAdmissionService  {
     
     
     private final MemAdmissionRepository admRepository;
+    private final MemberRepository memRepository;
+
     
     @Override
     public List<MemAdmission> selectList() {
@@ -51,6 +55,15 @@ public class MemAdmissionServiceImpl implements MemAdmissionService  {
         admRepository.delete(entity);
 
         return entity;
+    }
+
+
+    //searchBox -> memberList를 불러오는 것.
+    @Override
+    public List<Member> findSearch(Member entity) {
+        
+        // return memRepository.findSearch(entity.getMemStr(), entity.getMemStr(), entity.getMemName() , entity.getMemResPerson() , entity.getMemStatus());
+        return memRepository.findSearch(entity.getMemStr(), entity.getMemEndF(), entity.getMemName() , entity.getMemResPerson() , entity.getMemStatus());
     }
 
 

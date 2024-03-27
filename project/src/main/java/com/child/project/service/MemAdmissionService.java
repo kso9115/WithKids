@@ -3,6 +3,7 @@ package com.child.project.service;
 import java.util.List;
 
 import com.child.project.entity.MemAdmission;
+import com.child.project.entity.Member;
 
 public interface MemAdmissionService {
 
@@ -18,4 +19,8 @@ public interface MemAdmissionService {
 
     //delete
     MemAdmission delete(MemAdmission entity);
+    
+    //searchBox -> memberList를 불러오는 것.
+    List<Member>  findSearch(Member entity);
+    
 }
