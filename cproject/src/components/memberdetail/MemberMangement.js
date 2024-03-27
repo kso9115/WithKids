@@ -57,13 +57,11 @@ function MemberMangement() {
                     console.log("error => ", err);
                 })
         }
-    }, [memDataOne.memSerial]);
-    console.log(eduDataOne);
-    
+    }, [memDataOne.memSerial]);    
     // 테이블이 두개니까 하나의 테이블에 memSerial이 들어가면 다른 테이블에 강제적으로 넣어주기
     // if (!response.data) setMemDataOne({ memSerial: memDataOne.memSerial });
 
-    // searchBox에 전달할 setState함수
+    // searchBox에 전달할 setState함수 : 멤버 리스트를 업데이트
     function searchBoxClick(sbVal) {
         setMemListUpdate(sbVal);
     }

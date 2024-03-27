@@ -87,8 +87,8 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             , memName: data.memName
         })
     }, [eduData])
-    console.log("데이터가안들어온다고왜냐고");
-    console.log(eduData);
+    // console.log("데이터가안들어온다고왜냐고");
+    // console.log(eduData);
 
     // text,radio 타입 input 태그 ,select 태그 value 값 제어
     const eduDataChange = useCallback((event) => {
