@@ -35,6 +35,11 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public StaffDTO findJoinOne(String staffId) {
+        return repository.findJoinOne(staffId);
+    }
+
+    @Override
     public List<StaffDTO> findJoinAll() {
         return repository.findJoinAll();
     }

@@ -39,6 +39,7 @@ public class ProgramController {
 
 	@GetMapping("/prgList")
 	public List<Program> prgList() {
+
 		List<Program> list = prgService.selectList();
 
 		return list;
@@ -46,6 +47,7 @@ public class ProgramController {
 
 	@GetMapping("/prgSearch")
 	public List<Program> prgSearch(Program entity) {
+		log.info(" prgList 도착 ");
 		List<Program> list = prgService.findSearch(entity);
 
 		return list;
@@ -87,9 +89,9 @@ public class ProgramController {
 				log.info(" program Update Exception => " + e.toString());
 				message = "저장에 실패 했습니다. 관리자에게 문의하세요.";
 			}
-		} else if("prgInsert".equals(entity.getType())){
+		} else if ("prgInsert".equals(entity.getType())) {
 			message = "신규생성에 실패 했습니다. 같은 프로그램이 있는지 확인하세요.";
-		} else if("prgUpdate".equals(entity.getType())){
+		} else if ("prgUpdate".equals(entity.getType())) {
 			message = "저장에 실패 했습니다. 관리자에게 문의하세요.";
 		} else {
 			message = "요청에 실패했습니다. 관리자에게 문의하세요.";
@@ -102,9 +104,10 @@ public class ProgramController {
 	@PostMapping("/prgDtSave")
 	public String prgDtSave(
 			@RequestBody ProgramDetails entity
-			//@RequestParam("entity") ProgramDetails entity, @RequestParam("prgFilef") List<MultipartFile> prgFilef
+			// @RequestParam("entity") ProgramDetails entity, @RequestParam("prgFilef")
+			// List<MultipartFile> prgFilef
 			// @RequestPart(value = "entity") ProgramDetails entity
-		, HttpServletRequest request)
+			, HttpServletRequest request)
 			throws IOException {
 		String message = "";
 
@@ -188,22 +191,44 @@ public class ProgramController {
 		return message;
 	}
 
-	// @PostMapping("/prgDtUpdate")
-	// public String prgDtUpdate(ProgramDetails entity) {
-	// String message = "";
-	// if (entity.getPrgId() != null && entity.getPrgDnm() != null
-	// && prgService.detailsCnt(entity.getPrgId(), entity.getPrgDnm()) > 0) {
-	// try {
-	// log.info(" program Update 성공 => " + prgService.dtSave(entity));
-	// message = "저장에 성공 했습니다.";
-	// } catch (Exception e) {
-	// log.info(" program Update Exception => " + e.toString());
-	// message = "저장에 실패 했습니다. 관리자에게 문의하세요.";
-	// }
-	// }
+	@PostMapping("/FileUpload")
+	public String prgDtUpdate(@RequestParam("prgFilef") List<MultipartFile> prgFilef,
+			@RequestParam("prgId") String prgId, @RequestParam("prgDnm") String prgDnm, HttpServletRequest request)
+			throws IOException {
+		String message = "";
 
-	// return message;
-	// }
+		// // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
+		String realPath = request.getRealPath("/");
+		log.info("** realPath => " + realPath);
+		// // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
+		if (!realPath.contains("apache-tomcat"))
+			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\uploadFile\\"
+					+ prgId + prgDnm + "\\"; // 개발중.
+		else
+			realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\uploadFile\\"
+					+ prgId + prgDnm + "\\";
+		// // 1.3 폴더 만들기 (없을수도 있음을 가정, File 클래스)
+		File file = new File(realPath);
+		if (!file.exists()) {
+			// 저장 폴더가 존재하지 않는경우 만들어줌
+			file.mkdir();
+		}
+
+		// // 1.4) 저장경로 완성
+		String file1 = "";
+		// List<MultipartFile> uploadfilef = entity.getPrgFilef();
+		if (prgFilef != null && !prgFilef.isEmpty()) {
+			for (MultipartFile f : prgFilef) {
+				File delFile = new File(realPath + f);
+				if (delFile.isFile())
+					delFile.delete(); // file 존재시 삭제
+				file1 = realPath + f.getOriginalFilename(); // 저장경로 완성
+				f.transferTo(new File(file1));
+			}
+		}
+
+		return message;
+	}
 
 	@PostMapping("/prgdelete")
 	public String prgdelete(@RequestBody ProgramId entityId) {

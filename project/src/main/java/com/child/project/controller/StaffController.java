@@ -47,10 +47,10 @@ public class StaffController {
     @GetMapping("/staffSearch")
     public List<StaffDTO> staffSearch(Staff entity) {
         log.info(" entity " + entity);
-		List<StaffDTO> list = service.findSearch(entity);
+        List<StaffDTO> list = service.findSearch(entity);
         log.info(" list " + list);
-		return list;
-	} // prgList
+        return list;
+    } // prgList
 
     @GetMapping("/staffPstList")
     public List<StaffPrv> staffPst() {
@@ -74,28 +74,32 @@ public class StaffController {
         return list;
     } // staffAtnId
 
-    // @PostMapping("/staffLogin")
-    // public UserDTO staffLogin(Staff entity) {
+    @PostMapping("/staffLogin")
+    public ResponseEntity<?> staffLogin(@RequestBody Staff entity) {
+        log.info(" entityn = " + entity);
+        String password = entity.getStaffPsw();
 
-    //     String password = entity.getStaffPsw();
+        StaffDTO dto = service.findJoinOne(entity.getStaffId());
 
-    //     entity = service.findOne(entity.getStaffId());
+        if (dto != null && passwordEncoder.matches(password, dto.getStaffPsw())) {
+            final String token = tokenProvider.create(dto);
 
-    //     if( entity != null && passwordEncoder.matches(password, entity.getStaffPsw())) {
-    //         final String token = tokenProvider.create(entity);
-    //         final UserDTO userDTO = UserDTO.builder()
-    //                 .token(token)
-    //                 .id(entity.getStaffId())
-    //                 .username(entity.getStaffNm())
-    //                 .build();
-    //         log.info("login 성공 token = " + token);
-    //         return ResponseEntity.ok().body(UserDTO);
-    //     } else {
-    //         return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
-    //                 .body("Login failed");
-    //     }
-    //     // return entity;
-    // } // staffLogin
+            final UserDTO userDTO = UserDTO.builder()
+                    .token(token)
+                    .id(dto.getStaffId())
+                    .username(dto.getStaffNm())
+                    .staffChlCr(dto.getStaffChlCr())
+                    .staffCmnMng(dto.getStaffCmnMng())
+                    .staffCntMng(dto.getStaffCntMng())
+                    .build();
+            log.info("login 성공 token = " + token);
+            return ResponseEntity.ok().body(userDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                    .body("Login failed");
+        }
+        // return entity;
+    } // staffLogin
 
     @GetMapping("/resetPswrd")
     public String resetPswrd(Staff entity) {
@@ -155,7 +159,8 @@ public class StaffController {
         String message = "";
         log.info(" staffAtn => " + entity);
         log.info(" type => " + entity.getType());
-        if (service.countAtn(entity.getStaffId(), entity.getStaffDate()) == 0 && "stfSpcnInsert".equals(entity.getType())) {
+        if (service.countAtn(entity.getStaffId(), entity.getStaffDate()) == 0
+                && "stfSpcnInsert".equals(entity.getType())) {
             try {
                 log.info(" staffAtn insert 성공 => " + service.save(entity));
                 message = "신규생성에 성공 했습니다.";
@@ -163,7 +168,8 @@ public class StaffController {
                 log.info(" staffAtn insert Exception => " + e.toString());
                 message = "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
             }
-        } else if (service.countAtn(entity.getStaffId(), entity.getStaffDate()) == 1 && "stfSpcnUpdate".equals(entity.getType())) {
+        } else if (service.countAtn(entity.getStaffId(), entity.getStaffDate()) == 1
+                && "stfSpcnUpdate".equals(entity.getType())) {
             try {
                 log.info(" staffAtn Update 성공 => " + service.save(entity));
                 message = "저장에 성공 했습니다.";

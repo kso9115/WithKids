@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
+import com.child.project.domain.StaffDTO;
 import com.child.project.entity.Member;
 import com.child.project.entity.Staff;
 
@@ -91,7 +92,7 @@ public class TokenProvider {
 	private static final String SECRET_KEY = "NMA8JPctFuna59f5";
 
 	// 1. JWT Token 생성
-	public String create(Staff entity) {
+	public String create(StaffDTO dto) {
 		// 1.1) 유효기한 설정
 		// - 현재시간 으로부터 1일로 설정
 		// ( 현재시간 으로부터 차이가 +1일 되는 날 설정 )
@@ -103,13 +104,12 @@ public class TokenProvider {
 		// 1.2) Jwts(JWT 관리 API) 클래스로 토큰 생성 보관
 		// => JSON 생성, 서명, 인코딩, 디코딩, 파싱 등 토큰관리 기능 제공.
 		return Jwts.builder()
-
 				// => header에 들어갈 내용 및 서명을 하기 위한 SECRET_KEY
 				.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
 
 				// => payload에 들어갈 내용
-				.setSubject(entity.getStaffId()) // sub: subject(유일해야함->userID 보관)
-				.setIssuer("demo app") // iss: Issuer, 발급 주체
+				.setSubject(dto.getStaffId()) // sub: subject(유일해야함->userID 보관)
+				.setIssuer("project app") // iss: Issuer, 발급 주체
 				.setIssuedAt(new Date()) // iat: Issued At, 토큰 발급시간
 				.setExpiration(expiryDate) // exp: Expiration, 토큰 만료시간
 				.compact();

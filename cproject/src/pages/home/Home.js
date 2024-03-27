@@ -6,22 +6,41 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from '../../components/menu/Navbar';
 import axios from 'axios';
+import { apiCall } from "../../server/apiService"
 
 function Home() {
     const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);  // 로그인 상태 저장 변수
+    const [loginInfo, setLoginInfo] = useState(""); // 회원 로그인 정보
 
-    // useEffect(() => {
-    //     const param = {
-    //         staffId: "master",
-    //         staffPsw: "mysql"
+    // if (!isLoggedIn) {
+    //     const loginCheck = JSON.parse(sessionStorage.getItem("loginInfo"));
+    //     //if (loginCheck.token !== null) {  -> token 적용이후 확인
+    //     if (loginCheck !== null) {  // token 적용이전 확인
+    //         alert(`** sessionStorage 로그인 확인 username=${loginCheck.username}`);
+    //         setIsLoggedIn(true);
+    //         setLoginInfo(loginCheck);
     //     }
-    //     axios.post(`/api/staff/staffLogin`, param)
-    //         .then((response) => {
-    //             console.log(response.data)
-    //         }).catch((error) => {
-    //             console.log(error);
-    //         })
-    // },[])
+    // }
+    useEffect(() => {
+        const param = {
+            staffId: "master",
+            staffPsw: "mysql"
+        }
+        apiCall(`/staff/staffLogin`, 'POST', param, null)
+            .then((response) => {
+                sessionStorage.setItem("loginInfo", JSON.stringify(response));
+                setIsLoggedIn(true);
+                setLoginInfo(response);
+                console.log(response.data);
+            }).catch((error) => {
+                setLoginInfo('');
+                if (error === 502) {
+                    alert("id 또는 password 가 다릅니다, 다시하세요 ~~");
+                } else { alert(`** onLoginSubmit 시스템 오류, err=${error}`); }
+                console.log(error);
+            })
+    }, [])
     useEffect(() => {
 
         let loginId = "admin";

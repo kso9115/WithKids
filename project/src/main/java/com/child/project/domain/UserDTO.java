@@ -31,6 +31,9 @@ public class UserDTO {
 	private String token;
 	private String id;
 	private String username;
+	private Integer staffChlCr;
+	private Integer staffCmnMng;
+	private Integer staffCntMng;
 	// private String email;
 	// private String password; // 필요시 test용, password는 보관하지않는것이 원칙임 
 	

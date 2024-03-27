@@ -58,7 +58,7 @@ function ProgramManagement() {
             // })
         }
     }, [prgDataOne]);
-    console.log(prgDetail);
+
     function searchBoxClick(sbVal) {
         setTreeUpdate(sbVal);
     }

@@ -1,5 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './AttachedFile.css'
+import axios from 'axios';
+import { qs } from 'qs';
+
+function FileMake(params) {
+
+}
 
 function AttachedFile({ data, setData, name, files }) {
     const selectFile = useRef();
@@ -10,13 +16,13 @@ function AttachedFile({ data, setData, name, files }) {
     const handleDragStart = () => setActive(true);
     const handleDragEnd = () => setActive(false);
     const dataTransfer = new DataTransfer();
-    console.log(data);
+
     // if (Array.isArray(data[name]) && data[name].length > 0) {
     //     for (var i = 0; i < data[name].length; i++) {
     //         dataTransfer.items.add(data[files][i])
     //     }
     // }
-    
+
     function handleDragOver(event) {
         event.preventDefault();  // 필수 1
     };
@@ -52,53 +58,106 @@ function AttachedFile({ data, setData, name, files }) {
         selectFile.current.files = dataTransfer.files;
         data[files] = selectFile.current.files;
 
-        // let dataName = []
-        for (let i = 0; i < selectFile.current.files.length; i++) {
-            data[name].push(selectFile.current.files[i].name)
-        }
-        // data[name] = dataName
+        // let formData = new FormData();
+        // if (data.prgFilef) {
+        //     for (let i = 0; i < data.prgFilef.length; i++) {
+        //         formData.append("prgFilef", data.prgFilef[i]);
+        //     }
+        //     formData.append("prgId", data.prgId);
+        //     formData.append("prgDnm", data.prgDnm);
+        //     // console.log(data);
+        //     axios.post(`/api/prg/FileUpload`, formData, {
+        //         paramsSerializer: (params) => {
+        //             return qs.stringify(params, { arrayFormat: "repeat" });
+        //         }
+        //     })
+        //         .then((response) => {
+        //             console.log(response.data);
+        //         }).catch((error) => {
+        //             console.log(error);
+        //             alert("서버 통신 에러로 요청에 실패했습니다.");
+        //         }).then(() => {
+        //             // 항상 실행
+        //         });
+        // }
 
-        setData({...data});
+
+        setData({ ...data });
     }
 
     //
-    function deleteFile(event) {
+    function deleteFile() {
         const deleteCheck = document.querySelectorAll('.deleteCheck');
-        console.log(deleteCheck);
-        const liveTransfer = new DataTransfer();
         const liveName = [];
         deleteCheck.forEach((e, i) => {
             if (!e.checked) {
-                liveTransfer.items.add(data[files][i])
                 liveName.push(data[name][i])
+            } else e.checked = false;
+        })
+        data[name] = liveName;
+        setData({ ...data });
+    }
+    function deleteFile2(event) {
+        const deleteCheck = document.querySelectorAll('.deleteCheck2');
+        const liveTransfer = new DataTransfer();
+        deleteCheck.forEach((e, i) => {
+            if (!e.checked) {
+                liveTransfer.items.add(data[files][i])
             } else e.checked = false;
         })
         selectFile.current.files = liveTransfer.files;
         data[files] = selectFile.current.files;
-        data[name] = liveName;
         setData({ ...data });
     }
-
-    // 파일 추가시 생성
+    // 기존파일 생성
     function fileMake() {
         if (Array.isArray(data[name]) && data[name].length > 0) {
             // setData(data);
             return (data[name].map((o, i) => {
                 return (
-                    <>
-                        <div key={data[name][i]}>
-                            <input type="checkbox" id={data[name][i]} 
-                                className='deleteCheck' onChange={oneCheck} value={i}/>
+                    <div key={data[name][i]}>
+                        <div>
+                            <input type="checkbox" id={data[name][i]}
+                                className='deleteCheck' onChange={oneCheck} />
                         </div>
-                        <div><label for={data[name][i]} >{data[name][i]}</label></div>
-                        <div>기존</div>
-                    </>
+                        <div><label htmlFor={data[name][i]} >{data[name][i]}</label></div>
+                        <div><button type='button'>다운로드</button></div>
+                    </div>
                 );
             }))
-        } else {
-            return <p>드래그로 파일을 업로드 가능합니다.</p>;
-        }
+        } else return null;
     }
+    
+    // 파일 추가시 생성
+    function fileMake2() {
+        if (!!data[files] && data[files].length) {
+            return (Array.from({ length: data[files].length }, (_, i) => {
+                return (
+                    <div key={data[files][i].name}>
+                        <div>
+                            <input type="checkbox" id={data[files][i].name}
+                                className='deleteCheck2' onChange={oneCheck} value={i} />
+                        </div>
+                        <div><label htmlFor={data[files][i].name} >{data[files][i].name}</label></div>
+                        <div><button type='button'>다운로드</button></div>
+                    </div>
+                );
+            }))
+        } else return null;
+    }
+
+    // 아무것도 없을때 생성
+    function fileMake3() {
+        if ((Array.isArray(data[name]) && data[name].length === 0) && (!data[files] || data[files] == null)) {
+            return (
+                <>
+                    {/* <p>프로그램을 선택해 세부프로그램명을 입력해야 업로드 가능합니다.<br />드래그로 파일을 업로드 가능합니다.</p> */}
+                    <p>드래그로 파일을 업로드 가능합니다.</p>
+                </>
+            );
+        } else return null;
+    }
+
 
     function fullCheck(event) {
         const deleteCheck = document.querySelectorAll('.deleteCheck');
@@ -130,10 +189,11 @@ function AttachedFile({ data, setData, name, files }) {
         // setFiles(file);
     }
 
+    console.log(data);
     return (
         <div className={`attachedFile preview${isActive ? ' active' : ''}`}>
             <div>
-                <div><input type="checkbox" id='fullCheck' onChange={(event) => fullCheck(event)}/></div>
+                <div><input type="checkbox" id='fullCheck' onChange={(event) => fullCheck(event)} /></div>
                 <div>파일</div>
                 <div>기존/신규</div>
             </div>
@@ -144,9 +204,9 @@ function AttachedFile({ data, setData, name, files }) {
                 onDragLeave={handleDragEnd}
                 onDrop={handleDrop}
             >
-                <div>
-                    {fileMake()}
-                </div>
+                {fileMake()}
+                {fileMake2()}
+                {fileMake3()}
                 <input
                     type="file"
                     multiple
@@ -160,7 +220,8 @@ function AttachedFile({ data, setData, name, files }) {
             <div>
                 <div></div>
                 <div>
-                    <button type='button' onClick={() => selectFile.current.click()}>추가</button>
+                    <button type='button' onClick={() => data && data.prgId && data.prgDnm ?
+                        selectFile.current.click() : alert("프로그램을 선택해 세부프로그램명을 입력해야 업로드 가능합니다.")}>추가</button>
                     <button type='button' onClick={deleteFile}>삭제</button>
                     <button type='button' onClick={downloadFile}>다운로드</button>
                 </div>

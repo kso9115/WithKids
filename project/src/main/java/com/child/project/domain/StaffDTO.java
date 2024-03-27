@@ -47,5 +47,22 @@ public class StaffDTO extends StaffPrvDTO {
         super.staffChlCr = staffChlCr;
         super.staffCmnMng = staffCmnMng;
         super.staffCntMng = staffCntMng;
+    };
+
+    public StaffDTO(String staffPst, String staffNm, String staffId,
+            String staffPsw,
+            String staffPhnn, Integer staffLeave, String staffLvdy, String rmr,
+            Integer staffChlCr, Integer staffCmnMng, Integer staffCntMng) {
+        this.staffPst = staffPst;
+        this.staffNm = staffNm;
+        this.staffId = staffId;
+        this.staffPsw = staffPsw;
+        this.staffPhnn = staffPhnn;
+        this.staffLeave = staffLeave;
+        this.staffLvdy = staffLvdy;
+        this.rmr = rmr;
+        super.staffChlCr = staffChlCr;
+        super.staffCmnMng = staffCmnMng;
+        super.staffCntMng = staffCntMng;
     }
 }

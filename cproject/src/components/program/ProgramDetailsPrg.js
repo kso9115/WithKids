@@ -4,7 +4,6 @@ import AttachedFile from '../../hooks/func/AttachedFile';
 import { prg_dtls_prg_inp_ck } from '../../hooks/inputCheck/programInputCheck'
 import axios from 'axios';
 import qs from "qs";
-import ExistingFile from '../../hooks/func/ExistingFile';
 
 // 서브 컴포넌트
 function MakeDiv({ e, i, detailsChange }) {
@@ -14,15 +13,12 @@ function MakeDiv({ e, i, detailsChange }) {
 // 메인 컴포넌트
 function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }) {
     // console.log("ProgramDetailsPrg");
-    console.log(data);
-    console.log(subData);
     const [prgDataOneD, setPrgDataOneD] = useState({}); // data 대,중,소 분류 프로그램명
     const [prgDetailData, setPrgDetailData] = useState({}); // subData
-    const [fileToggle, setFileToggle] = useState(true); // 첨부파일 기존파일 전환용
     // const formData = new FormData();
     // const [files, setFiles] = useState([]);
 
-    console.log(fileToggle);
+
 
     useEffect(() => {
         setPrgDataOneD({
@@ -222,12 +218,8 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                 <div><span>*</span>세부프로그램 내용</div>
                 <div><textarea name='content' cols="140" rows="6" value={prgDetailData.content || ""} onChange={prgdChange}></textarea></div>
 
-                <div onClick={() => setFileToggle(!fileToggle)}>첨부파일</div>
-                <div>{
-                    fileToggle ?
-                        <ExistingFile></ExistingFile>
-                        : <AttachedFile data={prgDetailData} setData={setPrgDetailData} name={'prgFile'} files={'prgFilef'}></AttachedFile>
-                }</div>
+                <div>첨부파일</div>
+                <div><AttachedFile data={prgDetailData} setData={setPrgDetailData} name={'prgFile'} files={'prgFilef'}></AttachedFile></div>
             </div>
             <div className='buttonBox'>
                 <div>
