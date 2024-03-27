@@ -26,7 +26,7 @@ public class AdmissionController {
 
     MemAdmissionService admService;
 
-    @GetMapping("/admMem")
+    @PostMapping("/admMem")
     public List<MemAdmission> admMem(){
         List<MemAdmission> list = admService.selectList();
 
@@ -36,7 +36,7 @@ public class AdmissionController {
     }
 
 
-    @GetMapping("/admMemOne")
+    @PostMapping("/admMemOne")
     public MemAdmission admMemOne(@RequestParam("memSerial") String memSerial) {
         log.info("memSerial" + memSerial);
         MemAdmission admOne;
@@ -78,7 +78,7 @@ public class AdmissionController {
     public String update(@RequestBody MemAdmission entity) {
         String message="";
         log.info("Update Controller까지는 옴?");
-
+        log.info("이것은 확인용임 =>" + entity.getMemSerial());
 
         if(admService.save(entity) != null){
             try{
@@ -92,6 +92,7 @@ public class AdmissionController {
             message ="MemAdmission 수정되지 않았습니다. 입력하신 정보를 확인해주세요";
         }
         
+
         return message;
     }
     
@@ -104,7 +105,7 @@ public class AdmissionController {
         if(admService.delete(entity)!=null){
             try {
                 message =" MemAdmission 삭제 완료 !";
-                log.info(" MemAdmission Update 성공 => " + entity.getMemSerial() );
+                log.info(" MemAdmission delete 성공 => " + entity.getMemSerial() );
                 
             } catch (Exception e) {
                 message ="MemAdmission 삭제 불가능. 관리자에게 문의해야 합니다.";

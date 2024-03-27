@@ -21,7 +21,7 @@ public class LeavingController {
 
     MemLeavingService lvngService;
 
-    @GetMapping("/lvngMemOne")
+    @PostMapping("/lvngMemOne")
     public MemLeaving admMemOne(@RequestParam("memSerial") String memSerial) {
         MemLeaving lvngOne = lvngService.selectOne(memSerial);
         

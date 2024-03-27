@@ -15,22 +15,22 @@ function Member_assortment({memDataOne}){
     return (
         <div className='asgridBox'>
             <div>대상자성명</div> 
-            <div><input type='text' readOnly value={memDataOneD.memName}/></div>    
+            <div><input type='text' value={memDataOneD.memName} disabled/></div>    
             
             <div>대상자번호</div>  
-            <div><input type='text' readOnly value={memDataOneD.memSerial}/></div> 
+            <div><input type='text' value={memDataOneD.memSerial} disabled/></div> 
 
             <div>생년월일</div>  
-            <div><input type='text' readOnly value={memDataOneD.memBirth}/></div> 
+            <div><input type='text' value={memDataOneD.memBirth} disabled/></div> 
 
             <div>주민등록번호</div>
-            <div><input type='text' readOnly value={memDataOneD.memRegNum}/></div> 
+            <div><input type='text' value={memDataOneD.memRegNum} disabled/></div> 
 
             <div>성별구분</div>
-            <div><input type='text' readOnly value={memDataOneD.memSex}/></div> 
+            <div><input type='text' value={memDataOneD.memSex} disabled/></div> 
 
             <div>입소/이용상태</div>
-            <div><input type='text' readOnly value={memDataOneD.memStatus}/></div>
+            <div><input type='text' value={memDataOneD.memStatus} disabled/></div>
         </div>
     );
 }
