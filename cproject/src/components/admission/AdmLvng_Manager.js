@@ -202,6 +202,19 @@ function AdmLvng_Manager() {
         } else alert(" admMemOne에 memSerial 없다? ");
     }
 
+    // searchBox 요청
+    function searchBoxClick(){
+        axios
+        .get("/api/adm/searchBox/",{
+            params : listUpdate
+        })
+        .then((res)=>{
+            console.log(res.data);
+        })
+        .catch((err)=>{
+            console.log("에러남 -"+err);
+        })
+    }
 
     return (
         <div className="admLvngBox">

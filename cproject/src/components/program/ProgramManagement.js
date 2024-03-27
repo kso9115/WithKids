@@ -58,7 +58,6 @@ function ProgramManagement() {
             // })
         }
     }, [prgDataOne]);
-
     function searchBoxClick(sbVal) {
         setTreeUpdate(sbVal);
     }

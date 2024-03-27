@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.child.project.entity.MemAdmission;
+import com.child.project.entity.Member;
 import com.child.project.service.MemAdmissionService;
+import com.child.project.service.MemberService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,6 +27,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class AdmissionController {
 
     MemAdmissionService admService;
+    // searchBox 에서의 반환 값은 member임 
+    // MemberService memService; 하여 호출 하여야 하지만, 
+    // 페이지 제작상 불편하니, admService 에서 만들어 작성함. 
+    
 
     @PostMapping("/admMem")
     public List<MemAdmission> admMem(){
@@ -119,4 +125,23 @@ public class AdmissionController {
     }
     
 
+
+    //searchBoX mapping
+    @GetMapping("/searchBox")
+    public List<Member> searchBox(Member entity){
+        log.info("searchBox Controller 맵핑됨");
+        List<Member> list = admService.findSearch(entity);
+
+        if(list!=null){
+            try {
+                log.info("searchBox => null아님" + admService.findSearch(entity) );
+                
+            } catch (Exception e) {
+                log.info(" searchBox 에러남 => " + e.toString() );
+            }
+
+        } else log.info(" searchBox null이다 => " + admService.findSearch(entity));
+
+        return list;
+    }
 }
