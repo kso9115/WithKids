@@ -67,6 +67,7 @@ function MemberList({ setData, memListUpdate, setMemListUpdate }) {
         //     })
 
         function SearchBox(src) {
+            console.log(memListUpdate);
             axios
                 .get(`/api/${src == "1" ? "mem/memSearch" : "adm/searchBox"}`, { params: memListUpdate })
                 .then((res) => {
