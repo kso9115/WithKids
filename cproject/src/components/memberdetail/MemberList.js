@@ -79,7 +79,7 @@ function MemberList({ setData, memListUpdate, setMemListUpdate }) {
 
         // 위의 요청을 처리해주기 위함
         if (memListUpdate !== true && memListUpdate !== false) {
-            SearchBox(2);
+            SearchBox(1);
             }
         else memList();
     }, [memListUpdate]);
