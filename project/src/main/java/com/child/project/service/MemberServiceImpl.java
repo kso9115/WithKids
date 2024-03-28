@@ -58,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
     // SearchBox
     @Override
     public List<Member> searchList(Member entity) {
-        return repository.searchList(entity.getMemStr(), entity.getMemEnd(),
+        return repository.searchList(entity.getMemStr(), entity.getMemEndF(),
                 entity.getMemName(), entity.getMemSex(), entity.getMemResPerson(),
                 entity.getMemStatus());
     }
