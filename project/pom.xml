@@ -19,10 +19,12 @@
 		<!-- <java.version>17</java.version> -->
 	</properties>
 	<dependencies>
+		<!-- Spring Boot Data JPA  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		<!-- Spring Boot Web  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -147,6 +149,32 @@
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.7.0</version>
 		</dependency>
+
+
+		<!-- Spring Boot Thymeleaf 왜하는거지 찾아봐야댐 -->
+    	<dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-thymeleaf</artifactId>
+    	</dependency>
+
+		<!-- Spring Boot WebSocket -->
+	    <dependency>
+    	    <groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-websocket</artifactId>
+    	</dependency>
+
+	 	<!-- Thymeleaf Extras Spring Security5 -->
+    	<dependency>
+	        <groupId>org.thymeleaf.extras</groupId>
+    	    <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+    	</dependency>
+
+    	<!-- Spring Boot DevTools -->
+    	<dependency>
+	        <groupId>org.springframework.boot</groupId>
+    	    <artifactId>spring-boot-devtools</artifactId>
+        	<scope>developmentOnly</scope>
+    	</dependency>
 
 
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> 

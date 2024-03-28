@@ -57,7 +57,7 @@ public class MemberController {
     // Post방식 하나의 Edu 데이터 전달 : Education타입의 바디에 담아서 전달
     @PostMapping("/memSelectOneEdu")
     public Education selectEduData(@RequestBody Education entity) {
-        log.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&오냐?");
+        // log.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&오냐?");
 
         // String memSerial = entity.getMemSerial(); // memSerial 파라미터 값 저장
         Education selectOneEdu = memService.selectEduData(entity.getMemSerial());
@@ -91,8 +91,8 @@ public class MemberController {
     @PostMapping("/memInesert")
     public String memInsert(@RequestBody Member entity) {
         String message = "";
-        // log.info("데이터 전달되는 부분 확인");
-        // log.info("entity 값을 확인해보자" + entity);
+        log.info("memInesert !!! 데이터 전달되는 부분 확인");
+        log.info("entity 값을 확인해보자" + entity);
         // log.info("넘어오나?" + entity.getMemSerial());
         
         

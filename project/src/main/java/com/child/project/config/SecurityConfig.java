@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.filter.CorsFilter;
@@ -21,6 +22,7 @@ import com.child.project.jwtToken.JwtAuthenticationFilter;
 //=> SpringBoot가 자동으로 설정해줌을 의미하며 이를 지원해주는 다양한 @ 들이 있음.
 
 @EnableWebSecurity
+// public class SecurityConfig extends WebSecurityConfigurerAdapter {
 public class SecurityConfig {
 	
 	@Autowired
@@ -80,5 +82,14 @@ public class SecurityConfig {
 				// => 위 이외의 모든 경로는 인증해야됨.
                 .build();
     } //filterChain
+
+	// application.properties에서도 변경가능
+	// X-Frame-Options
+	// https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/X-Frame-Options#apache_%EC%84%A4%EC%A0%95
+	// @Override
+	// protected void configure(HttpSecurity http) throws Exception {
+	// 	http.headers().frameOptions().sameOrigin();
+
+	// }
 
 } //class
