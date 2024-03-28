@@ -73,10 +73,10 @@ function AttachedFile({ data, setData, name, files }) {
         data[name] = liveName;
         setData({ ...data });
     }
-    function deleteFile2(event) {
-        const deleteCheck = document.querySelectorAll('.deleteCheck2');
+    function deleteFilef() {
+        const deleteCheckf = document.querySelectorAll('.deleteCheckf');
         const liveTransfer = new DataTransfer();
-        deleteCheck.forEach((e, i) => {
+        deleteCheckf.forEach((e, i) => {
             if (!e.checked) {
                 liveTransfer.items.add(data[files][i])
             } else e.checked = false;
@@ -94,16 +94,16 @@ function AttachedFile({ data, setData, name, files }) {
                     <div key={data[name][i]}>
                         <div>
                             <input type="checkbox" id={data[name][i]}
-                                className='deleteCheck' onChange={oneCheck} />
+                                className='deleteCheck allCheck' onChange={oneCheck} />
                         </div>
                         <div><label htmlFor={data[name][i]} >{data[name][i]}</label></div>
-                        <div><button type='button'>다운로드</button></div>
+                        <div><button type='button' name={data[name][i]} onClick={downloadFile}>다운로드</button></div>
                     </div>
                 );
             }))
         } else return null;
     }
-    
+
     // 파일 추가시 생성
     function fileMake2() {
         if (!!data[files] && data[files].length) {
@@ -112,10 +112,10 @@ function AttachedFile({ data, setData, name, files }) {
                     <div key={data[files][i].name}>
                         <div>
                             <input type="checkbox" id={data[files][i].name}
-                                className='deleteCheck2' onChange={oneCheck} value={i} />
+                                className='deleteCheckf allCheck' onChange={oneCheck} value={i} />
                         </div>
                         <div><label htmlFor={data[files][i].name} >{data[files][i].name}</label></div>
-                        <div><button type='button'>다운로드</button></div>
+                        <div><button type='button' name={data[files][i].name} onClick={downloadFile}>다운로드</button></div>
                     </div>
                 );
             }))
@@ -136,14 +136,14 @@ function AttachedFile({ data, setData, name, files }) {
 
 
     function fullCheck(event) {
-        const deleteCheck = document.querySelectorAll('.deleteCheck');
+        const deleteCheck = document.querySelectorAll('.allCheck');
         deleteCheck.forEach((e, i) => {
             e.checked = event.target.checked
         })
     }
 
     function oneCheck() {
-        const deleteCheck = document.querySelectorAll('.deleteCheck');
+        const deleteCheck = document.querySelectorAll('.allCheck');
         let count = 0;
         deleteCheck.forEach(e => {
             if (e.checked === false) return document.getElementById('fullCheck').checked = false;
@@ -153,16 +153,32 @@ function AttachedFile({ data, setData, name, files }) {
     }
 
     function downloadFile(event) {
-        alert("다운로드 가능한 파일이 없습니다.")
-        // const deleteCheck = document.querySelectorAll('.deleteCheck');
-        // console.log(deleteCheck);
-        // const file = [];
-        // deleteCheck.forEach((e, i) => {
-        //     console.log(e.checked + " " + i);
-        //     if (!e.checked) file.push(files[i])
-        //     else deleteCheck[i].checked = false;
-        // })
-        // setFiles(file);
+        if (window.confirm(`${event.target.name} 파일을 다운로드 하시겠습니까?`))
+        axios({
+            url: '/api/prg/filedownload', // 스프링 서버의 파일 다운로드 엔드포인트
+            method: 'GET',
+            responseType: 'blob', // 파일 다운로드를 위해 responseType을 'blob'으로 설정
+            params: {
+                prgId: data.prgId,
+                prgDnm: data.prgDnm,
+                fileName: event.target.name
+            }
+        })
+            .then(response => {
+                // 파일 다운로드를 위해 blob 데이터를 URL로 변환
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                // a 태그를 생성하고 다운로드 링크를 설정하여 다운로드를 유도
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', event.target.name); // 다운로드할 파일명을 설정
+                document.body.appendChild(link);
+                link.click();
+                // URL 객체의 사용이 끝나면 해제하여 메모리 누수를 방지
+                URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                console.error('파일 다운로드 실패:', error);
+            });
     }
 
     console.log(data);
@@ -199,7 +215,6 @@ function AttachedFile({ data, setData, name, files }) {
                     <button type='button' onClick={() => data && data.prgId && data.prgDnm ?
                         selectFile.current.click() : alert("프로그램을 선택해 세부프로그램명을 입력해야 업로드 가능합니다.")}>추가</button>
                     <button type='button' onClick={deleteFile}>삭제</button>
-                    <button type='button' onClick={downloadFile}>다운로드</button>
                 </div>
             </div>
         </div>

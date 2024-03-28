@@ -44,21 +44,21 @@ export const admLvng_mng = {
     content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
         {
             name: '조회 기간', // input/select 앞에 표현될 내용
-            state: ['mem_str', 'memEndF'], // 테이블과 연결될 컬럼명
+            state: ['memStr', 'memEndF'], // 테이블과 연결될 컬럼명
             type: 'date', //input 타입이나 select
             esntl: true, // 필수 요소 표현 유무
             default: ['2023-01-01', '2023-12-31'] // 표현될 default 값
         },
         {
             name: '대상자 성명',
-            state: 'mem_name',
+            state: 'memName',
             type: 'text',
             esntl: false,
             default: ''
         },
         {
             name: '담당자 성명',
-            state: 'mem_responsible_person',
+            state: 'memResPerson',
             type: 'text',
             esntl: false,
             default: ''
@@ -66,7 +66,7 @@ export const admLvng_mng = {
         ,
         {
             name: '입소/이용퇴소 상태',
-            state: 'mem_satus',
+            state: 'memStatus',
             type: 'select',
             esntl: false,
             default: [{ name: '이용', value: '이용' }, { name: '종결', value: '종결' }]
@@ -165,7 +165,7 @@ export const stf_mng = {
             default: ''
         }
     ],
-    staffPstList:{}
+    staffPstList: {}
 }
 
 axios.get(`/api/staff/staffPstList`)
@@ -211,5 +211,41 @@ export const att_mng = {
             esntl: false,
             default: ''
         },
+    ]
+}
+
+export const prg_pln = {
+    name: '프로그램계획서 작성', // 서치 박스 위에 표시될 이름
+    action: 'prgpln', // form 태그로 전달할 요청명
+    method: 'get', // form 태그로 전달할 요청 방식
+    content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
+        {
+            name: '프로그램 기간', // input/select 앞에 표현될 내용
+            state: ['plnPrd', 'plnPrd2'], // 테이블과 연결될 컬럼명
+            type: 'date', //input 타입이나 select
+            esntl: true, // 필수 요소 표현 유무
+            default: ["", ""] // 표현될 default 값
+        },
+        {
+            name: '담당자',
+            state: 'mngr',
+            type: 'text',
+            esntl: false,
+            default: ''
+        },
+        {
+            name: '제목',
+            state: 'title',
+            type: 'text',
+            esntl: false,
+            default: ''
+        },
+        {
+            name: '프로그램',
+            state: 'prgNm',
+            type: 'text',
+            esntl: false,
+            default: ''
+        }
     ]
 }
