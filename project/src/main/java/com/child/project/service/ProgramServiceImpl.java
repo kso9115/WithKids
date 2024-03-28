@@ -40,7 +40,9 @@ public class ProgramServiceImpl implements ProgramService {
 
 	@Override
 	public List<ProgramDetails> findPlnSearch(ProgramDetails entity) {
-		return prgdrepository.findSearch(entity.getPrgDate(), entity.getPrgDate2(),
+		log.info(entity.getPrgDate().split("~")[0]);
+		log.info(entity.getPrgDate().split("~")[1]);
+		return prgdrepository.findSearch(entity.getPrgDate().split("~")[0], entity.getPrgDate().split("~")[1],
 				entity.getPrgNm(), entity.getTitle(), entity.getPrgMngr());
 	}
 
@@ -97,7 +99,7 @@ public class ProgramServiceImpl implements ProgramService {
 
 	@Override
 	public List<ProgramDetails> selectAllPlan() {
-		
+
 		return prgdrepository.selectAllPlan();
 	}
 

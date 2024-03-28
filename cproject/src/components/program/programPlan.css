@@ -9,20 +9,24 @@
     grid-template-columns: 20% 35% 30% 15%;
 }
 
-.prgPlnList_row>div:nth-child(1)>div {
+.prgPlnList_row>div:nth-child(1)>div,
+.planModal>div:nth-child(1)>div {
     border-top: 2px solid var(--lgray);
 }
 
-.prgPlnList_row>div:nth-child(n+1):hover {
+.prgPlnList_row>div:nth-child(n+1):hover,
+.planModal>div:nth-child(n+1):hover {
     background-color: var(--mgray);
     cursor: pointer;
 }
 
-.prgPlnList_row>div>div {
+.prgPlnList_row>div>div,
+.planModal>div>div {
     border-bottom: 1px solid var(--lgray);
 }
 
-.prgPlnList_row>div>div:nth-child(n+2) {
+.prgPlnList_row>div>div:nth-child(n+2),
+.planModal>div>div:nth-child(n+2) {
     border-left: 1px solid var(--lgray);
 }
 
@@ -34,7 +38,9 @@
 }
 
 .prgPlnList_row>div:nth-child(n+2)>div:nth-child(2),
-.prgPlnList_row>div:nth-child(n+2)>div:nth-child(3) {
+.prgPlnList_row>div:nth-child(n+2)>div:nth-child(3),
+.planModal>div:nth-child(n+2)>div:nth-child(3),
+.planModal>div:nth-child(n+2)>div:nth-child(4) {
     display: block;
     padding-left: 5px;
     line-height: 35px;
@@ -42,4 +48,28 @@
     white-space: pre;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.planModal{
+    margin-top: 5px;
+}
+.planModal>div {
+    font-size: 14px;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 40%;
+}
+
+.planModal>div>div {
+    display: flex;
+    justify-content: center;
+    height: 35px;
+    align-items: center;
+}
+
+.planModalClose{
+    float: right;
+    margin-top: 20px;
+}
+
+.ck.ck-dropdown .ck-dropdown__arrow {
+    z-index: 0 !important;
 }

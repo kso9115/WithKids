@@ -5,9 +5,37 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import Modal from "react-modal"
 import axios from "axios";
 
+function MakeModal({ modal, setData, closeModal }) {
+    const [program, setProgram] = useState([]);
+
+    useEffect(() => {
+        const prgList = async () => {
+            try {
+                const response = await axios.get('/api/prg/prgList');
+                setProgram(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        if (modal) {
+            prgList();
+        }
+    }, [modal])
+    return (program.map((e) => {
+        return (
+            <div key={e.prgNm} onClick={() => { setData(e.prgId, e.prgNm); closeModal() }}>
+                <div>{e.prgBigCls}</div>
+                <div>{e.prgMidCls}</div>
+                <div>{e.prgSubCls}</div>
+                <div>{e.prgNm}</div>
+            </div>
+        )
+    }))
+}
+
 function ProgramPlanDetails({ data, setData }) {
+    Modal.setAppElement('#root') //App.js
     let text = "";
-    let program = [];
 
     const [modal, setModal] = useState(false);
     const prgpChange = useCallback((event) => {
@@ -19,44 +47,18 @@ function ProgramPlanDetails({ data, setData }) {
 
     const closeModal = () => setModal(false);
 
+    const programSelet = (id, name) => setData({ ...data, prgNm: name, prgId: id });
+
     const modalStyle = {
         overlay: {
-            backgroundColor:"rgba(0,0,0,0.5)",
+            backgroundColor: "rgba(0,0,0,0.5)",
         },
         content: {
-            width: "300px",
-            height: "500px",
+            width: "600px",
+            height: "400px",
             margin: "auto",
             padding: "20px",
-            zIndex: "10000"
-        }
-    }
-
-    const prgList = async () => {
-        try {
-            const response = await axios.get('/api/prg/prgList');
-            program = response.data;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    if (modal) {
-        prgList();
-    }
-
-    const makeModal = () => {
-        if (modal) {
-            return program.map((e) => {
-                return (
-                    <div>
-                        <div>{e.prgBigCls}</div>
-                        <div>{e.prgMidCls}</div>
-                        <div>{e.prgSubCls}</div>
-                        <div>{e.prgNm}</div>
-                    </div>
-                )
-            })
+            zIndex: "999999",
         }
     }
 
@@ -64,6 +66,19 @@ function ProgramPlanDetails({ data, setData }) {
         <div style={{
             height: '100%'
         }}>
+            <Modal isOpen={modal} onRequestClose={closeModal} style={modalStyle}>
+                <b>프로그램 선택</b>
+                <div className="planModal">
+                    <div style={{ backgroundColor: 'var(--admin)' }}>
+                        <div>사업 대분류</div>
+                        <div>사업 중분류</div>
+                        <div>사업 소분류</div>
+                        <div>프로그램명</div>
+                    </div>
+                    <MakeModal modal={modal} setData={programSelet} closeModal={closeModal} />
+                </div>
+                <button className="planModalClose" onClick={closeModal}>닫기</button>
+            </Modal>
             <div className='prg_pln_dtl_header'>
                 <b>프로그램계획 정보</b>
                 <div>
@@ -94,18 +109,6 @@ function ProgramPlanDetails({ data, setData }) {
 
                 <div><span>*</span>프로그램</div>
                 <div>
-                    <Modal isOpen={modal} onRequestClose={closeModal} style={modalStyle}>
-                        <div>
-                            <div>
-                                <div>사업 대분류</div>
-                                <div>사업 중분류</div>
-                                <div>사업 소분류</div>
-                                <div>프로그램명</div>
-                            </div>
-                            {makeModal}
-                        </div>
-                        <button onClick={closeModal}>닫기</button>
-                    </Modal>
                     <button type="button" onClick={openModal}>+</button>
                     <input type="text" id='prgNm' name='prgNm' value={data.prgNm || ""} onChange={prgpChange} disabled />
                 </div>
@@ -139,10 +142,10 @@ function ProgramPlanDetails({ data, setData }) {
                         text = editor.getData();
                     }}
                     onBlur={(event, editor) => {
-                        console.log('Blur.', editor);
+                        // console.log('Blur.', editor);
                     }}
                     onFocus={(event, editor) => {
-                        console.log('Focus.', editor);
+                        // console.log('Focus.', editor);
                     }}
                 >
                 </CKEditor>

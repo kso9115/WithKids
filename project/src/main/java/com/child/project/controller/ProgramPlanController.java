@@ -30,7 +30,7 @@ public class ProgramPlanController {
 
 	@GetMapping("/prgPlnSearch")
 	public List<ProgramDetails> prgSearch(ProgramDetails entity) {
-
+		log.info(entity);
 		List<ProgramDetails> list = prgService.findPlnSearch(entity);
 
 		return list;

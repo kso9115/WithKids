@@ -84,7 +84,7 @@ function SearchBox({ data, searchBoxClick }) {
                     }
                     <div>
                         <button type="button" onClick={() => { searchBoxClick(true); initialization(); }}>리셋</button>&nbsp;
-                        <button type="button" onClick={() => searchBoxClick(sbVal)}>조회</button>
+                        <button type="button" onClick={() => searchBoxClick({ ...sbVal })}>조회</button>
                     </div>
                 </div>
             </form>

@@ -36,7 +36,7 @@ public class ProgramDetails implements Serializable {
 	@Column(name = "prg_date")
 	private String prgDate;
 
-	@Column(name = "mngr")
+	@Column(name = "prg_mngr")
 	private String prgMngr;
 
 	private String title;

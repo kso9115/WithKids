@@ -19,7 +19,10 @@ function ProgramPlan() {
 
 
     function searchBoxClick(sbVal) {
-        setListUpdate(sbVal);
+        const param = { ...sbVal, prgDate: sbVal.prgDate + "~" + sbVal.prgDate2 };
+        delete param.prgDate2;
+        console.log(param)
+        setListUpdate(param);
     }
 
     return (

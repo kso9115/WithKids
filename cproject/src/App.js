@@ -12,8 +12,7 @@ import Survety from './pages/survery/Survery.js'
 import Userprogram from './pages/userprogram/Userprogram.js';
 import NoneLogin from './pages/err/errNoneLogin.js';
 
-function App() {
-
+function App() {  
     return (
         <>
             <BrowserRouter>
