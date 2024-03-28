@@ -17,5 +17,14 @@ public interface ProgramDetailsRepository extends JpaRepository<ProgramDetails, 
 
 	@Query(value = "select count(*) from program_details where prg_id=:prg_id and prg_dnm=:prg_dnm and rec='프로그램세부'", nativeQuery = true)
 	Integer detailsCnt(@Param("prg_id") String prgId, @Param("prg_dnm") String prgDnm);
-	
+
+	@Query(value = "select * from program_details where rec='프로그램계획'", nativeQuery = true)
+	List<ProgramDetails> selectAllPlan();
+
+	@Query(value = "select * from program_details where rec='프로그램계획' "
+			+ "and STR_TO_DATE(prg_str, '%Y-%m-%d') between STR_TO_DATE(:prg_date, '%Y-%m-%d') and STR_TO_DATE(:prg_date2, '%Y-%m-%d') "
+			+" and prg_nm=:prg_nm and title=:title and prg_mngr=:prg_mngr", nativeQuery = true)
+	List<ProgramDetails> findSearch(@Param("prg_date") String prgDate,
+			@Param("prg_date2")String prgDate2, @Param("prg_nm") String prgNm,
+            @Param("title") String title, @Param("prg_mngr") String prgMngr);
 }

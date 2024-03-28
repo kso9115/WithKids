@@ -24,7 +24,7 @@ import lombok.ToString;
 @Table(name = "program")
 @IdClass(ProgramId.class)
 public class Program implements Serializable {
-
+	
 	@Id
 	@Column(name = "prg_id")
 	private String prgId;

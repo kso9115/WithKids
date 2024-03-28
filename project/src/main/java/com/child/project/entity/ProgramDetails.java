@@ -115,4 +115,7 @@ public class ProgramDetails implements Serializable {
 
 	@Transient
 	private String type;
+
+	@Transient
+	private String prgDate2;
 }

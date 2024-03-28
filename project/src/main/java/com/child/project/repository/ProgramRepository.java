@@ -14,8 +14,7 @@ public interface ProgramRepository extends JpaRepository<Program, ProgramId> {
     @Query(value = "select * from program order by prg_big_cls,prg_mid_cls,prg_sub_cls", nativeQuery = true)
     List<Program> findAll();
 
-    @Query(value = "select * from program where STR_TO_DATE(prg_str, '%Y-%m-%d') >= STR_TO_DATE(:prg_str, '%Y-%m-%d') "
-            + "and STR_TO_DATE(prg_end, '%Y-%m-%d') <= STR_TO_DATE(:prg_end, '%Y-%m-%d') "
+    @Query(value = "select * from program where STR_TO_DATE(prg_str, '%Y-%m-%d') between STR_TO_DATE(:prg_str, '%Y-%m-%d') and STR_TO_DATE(:prg_end, '%Y-%m-%d') "
             + "and prg_nm like CONCAT('%',:prg_nm,'%') and prg_mngr like CONCAT('%',:prg_mngr,'%') and prg_cls like CONCAT('%',:prg_cls,'%') "
             + "order by prg_big_cls,prg_mid_cls,prg_sub_cls", nativeQuery = true)
     List<Program> findSearch(@Param("prg_str") String prgStr, @Param("prg_end") String prgEnd,

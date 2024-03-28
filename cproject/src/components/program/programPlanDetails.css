@@ -1,0 +1,76 @@
+.prg_pln_dtl_header {
+    display: flex;
+    justify-content: space-between;
+}
+.prg_pln_dtl_header>div {
+    display: flex;
+    gap: 5px;
+}
+.prg_pln_dtl_gridBox {
+    font-size: 14px;
+    display: grid;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    border-top: 2px solid var(--lgray);
+    border-bottom: 2px solid var(--lgray);
+}
+
+.prg_pln_dtl_gridBox {
+    grid-template-columns: 7% 13% 7% 13% 7% 23% 7% 23%;
+}
+
+.prg_pln_dtl_gridBox>div {
+    padding: 5px;
+    border-bottom: 1px solid var(--lgray);
+}
+
+.prg_pln_dtl_gridBox>div,
+.prg_pln_dtl_gridBox>div>div {
+    display: flex;
+    align-items: center;
+}
+.prg_pln_dtl_gridBox>div:nth-child(2) {
+    grid-column: span 3;
+}
+/* .prg_pln_dtl_gridBox>div:nth-child(12) {
+    grid-column: span 3;
+} */
+.prg_pln_dtl_gridBox>div:nth-child(8){
+    grid-column: span 5;
+}
+
+.prg_pln_dtl_gridBox>div>input {
+    width: 100%;
+}
+
+.prg_pln_dtl_gridBox>div:nth-child(2n+1) {
+    justify-content: end;
+    background-color: var(--admin);
+    font-weight: bold;
+}
+
+.prg_pln_dtl_gridBox>div:nth-child(2n+1)>span {
+    color: red;
+}
+#prgNm{
+    margin-left: 10px;
+}
+.prg_pln_dtl_textBox {
+    height: calc(100% - 145.33px);
+}
+
+.prg_pln_dtl_textBox .ck-toolbar.ck-toolbar_grouping {
+    background-color: var(--mgray);
+}
+
+.prg_pln_dtl_textBox .ck-reset.ck-editor.ck-rounded-corners {
+    height: 100%;
+}
+
+.prg_pln_dtl_textBox .ck-editor__main{
+    height: calc(100% - 39.42px) ;
+}
+
+.prg_pln_dtl_textBox .ck-editor__editable {
+    height: 100%;
+}

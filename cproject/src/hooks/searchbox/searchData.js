@@ -10,7 +10,7 @@ export const prg_mng = {
             state: ['prgStr', 'prgEnd'], // 테이블과 연결될 컬럼명
             type: 'date', //input 타입이나 select
             esntl: true, // 필수 요소 표현 유무
-            default: ["", ""] // 표현될 default 값
+            default: ["", ""] // 표현될 default 값 
         },
         {
             name: '프로그램명',

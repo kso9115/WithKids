@@ -17,12 +17,6 @@ function AttachedFile({ data, setData, name, files }) {
     const handleDragEnd = () => setActive(false);
     const dataTransfer = new DataTransfer();
 
-    // if (Array.isArray(data[name]) && data[name].length > 0) {
-    //     for (var i = 0; i < data[name].length; i++) {
-    //         dataTransfer.items.add(data[files][i])
-    //     }
-    // }
-
     function handleDragOver(event) {
         event.preventDefault();  // 필수 1
     };

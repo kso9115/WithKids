@@ -42,7 +42,7 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     }, [prgDataOneD]);
 
     function deleteData() {
-        if (prgDataOneD.prgId ) {
+        if (prgDataOneD.prgId) {
             if (window.confirm("프로젝트를 삭제하시겠습니까?")) {
                 axios.post('/api/prg/prgdelete', {
                     prgId: prgDataOneD.prgId,
@@ -115,9 +115,6 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
         <div style={{
             height: '100%'
         }}>
-            {/* <form style={{
-                height: '100%'
-            }} method='get'> */}
             <b>프로그램 기본정보</b>
             <div className='prg_dtl_gridBox'>
                 <div><span>*</span>사업 대분류</div>
@@ -331,16 +328,8 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                     <button type="button" value='삭제' onClick={deleteData}>삭제</button>
                     <button type="button" value='신규' onClick={() => saveData("prgInsert")}>신규</button>
                     <button type="button" value='저장' onClick={() => saveData("prgUpdate")}>저장</button>
-                    {/* <button type="button" value='테스트' onClick={() => prg_dtls_inp_ck(prgDataOneD)}>테스트</button> */}
-
-                    {/* <button type="submit" value='삭제' formAction="/api/prg/delete" onClick={(event) => deleteData(event)}>삭제</button>
-                        <button type="submit" value='신규' formAction="/api/prg/insert" onClick={(event) => insertData(event)}>신규</button>
-                        <button type="submit" value='저장' formAction="/api/prg/update" onClick={(event) => updateData(event)}>저장</button>
-                        <button type="button" value='테스트' onClick={prg_essential}>테스트</button> */}
                 </div>
             </div>
-            {/* </form> */}
-
         </div>
     )
 }

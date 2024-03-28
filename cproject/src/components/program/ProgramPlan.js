@@ -3,12 +3,13 @@ import { useState } from 'react';
 import ListComponent from '../../hooks/ListComponent';
 import SearchBox from '../../hooks/searchbox/SearchBox';
 import { prg_pln } from '../../hooks/searchbox/searchData';
+import ProgramPlanDetails from './ProgramPlanDetails';
 
 const prgPlnList = {
     name: 'prgPln',
     list: '프로그램계획 목록',
-    title: ['일자', '프로그램', '제목', '담당자', '계획시작일', '계획종료일'],
-    menu: ['prgDate', 'prgNm', 'title', 'mngr', 'plnPrg', 'plnPrg2']
+    title: ['일자', '프로그램', '제목', '담당자'],
+    menu: ['prgDate', 'prgNm', 'title', 'prgMngr']
 }
 
 function ProgramPlan() {
@@ -27,7 +28,7 @@ function ProgramPlan() {
                 data={prg_pln}
                 searchBoxClick={searchBoxClick}
             />
-            <div className='pgr_mng_mainBox'>
+            <div className='pgr_pln_mainBox'>
                 <div style={{
                     width: '30%',
                     height: '100%',
@@ -45,7 +46,7 @@ function ProgramPlan() {
                     width: '70%',
                     height: '100%'
                 }}>
-
+                    <ProgramPlanDetails data={prgDataOne} setData={setPrgDataOne} />
                 </div>
             </div>
         </div>

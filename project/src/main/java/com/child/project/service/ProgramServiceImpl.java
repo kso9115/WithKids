@@ -3,6 +3,7 @@ package com.child.project.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.repository.query.Param;
 // import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,12 @@ public class ProgramServiceImpl implements ProgramService {
 	public List<Program> findSearch(Program entity) {
 		return repository.findSearch(entity.getPrgStr(), entity.getPrgEnd(),
 				entity.getPrgNm(), entity.getPrgMngr(), entity.getPrgCls());
+	}
+
+	@Override
+	public List<ProgramDetails> findPlnSearch(ProgramDetails entity) {
+		return prgdrepository.findSearch(entity.getPrgDate(), entity.getPrgDate2(),
+				entity.getPrgNm(), entity.getTitle(), entity.getPrgMngr());
 	}
 
 	@Override
@@ -86,6 +93,12 @@ public class ProgramServiceImpl implements ProgramService {
 	@Override
 	public List<ProgramDetails> selectDetails(String prgId, String rec) {
 		return prgdrepository.selectDetails(prgId, rec);
+	}
+
+	@Override
+	public List<ProgramDetails> selectAllPlan() {
+		
+		return prgdrepository.selectAllPlan();
 	}
 
 	// @Override

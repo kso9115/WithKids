@@ -13,10 +13,14 @@ public interface ProgramService {
 
 	List<Program> findSearch(Program entity);
 
+	List<ProgramDetails> findPlnSearch(ProgramDetails entity);
+	
 	Integer detailsCnt(String prgId, String prgDnm);
 
 	// List<ProgramDetails> selectDetails();
 	List<ProgramDetails> selectDetails(String prgId, String rec);
+
+	List<ProgramDetails> selectAllPlan();
 
 	Program selectOne(ProgramId programId);
 
