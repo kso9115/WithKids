@@ -129,18 +129,9 @@ public class AdmissionController {
     //searchBoX mapping
     @GetMapping("/searchBox")
     public List<Member> searchBox(Member entity){
-        log.info("searchBox Controller 맵핑됨");
+        log.info("searchBox Controller 맵핑됨 => "+ entity);
+
         List<Member> list = admService.findSearch(entity);
-
-        if(list!=null){
-            try {
-                log.info("searchBox => null아님" + admService.findSearch(entity) );
-                
-            } catch (Exception e) {
-                log.info(" searchBox 에러남 => " + e.toString() );
-            }
-
-        } else log.info(" searchBox null이다 => " + admService.findSearch(entity));
 
         return list;
     }
