@@ -12,12 +12,14 @@ import padLock from '../../assets/images/free-icon-padlock-2575570.png';
 
 function Login({ setSessionName }) {
     const navigate = useNavigate();
+    const [StaffLoginInfo,setStaffLoginInfo] = useState("");
+
     useEffect(() => {
 
-        let loginId = "admin";
-        loginId = "";
+        let staffId = "admin";
+        staffId = "";
 
-        if (loginId !== null && loginId.trim().length !== 0 && loginId !== undefined) {
+        if (staffId !== null && staffId.trim().length !== 0 && staffId !== undefined) {
             console.log("aa");
             navigate("/home");
         }
@@ -25,39 +27,36 @@ function Login({ setSessionName }) {
 
 
     // serial 과 password useState
-    const [serial, setSerial] = useState("");
+    const [staffId, setStaffId] = useState("");
     const [password, setPassword] = useState("");
     // const [disabled, setDisabled] = useState(false);
 
     // value가 바뀌도록 함 
-    const handleSerialChange = (event) => setSerial(event.target.value);
+    const handleSerialChange = (event) => setStaffId(event.target.value);
     const handlePwChange = (event) => setPassword(event.target.value);
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();
         console.log("자 ~ 실행은 됐다~");
 
-        axios.post("api/mem/login", {
-                memSerial: serial,
-                memLoginPW : password
+        axios.post("api/staff/staffLogin", {
+            staffId: staffId,
+            staffPsw : password
             })
             .then(result => {
-                let idPwCk = false;
-                result.data.forEach(element => {
-                    if ((element.serial === serial) && (element.password === password)) {
-                        idPwCk = true;
-                        console.log(element.serial + " : " + element.password);
-                    }
-                });
-                if (idPwCk) {
-                    setSessionName(serial);
-                    sessionStorage.setItem("sname", serial);
-                    window.location.reload();
-                } else {
-                    alert("일치하는 계정이 없습니다.\n다시입력하세요")
-                }
+                console.log(result.data);
+                sessionStorage.setItem("staffname", JSON.stringify(result));
+                setSessionName(staffId);
+
+                alert("로그인 성공");
+                navigate('/home');
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setStaffLoginInfo('');
+                if (err === 502) {
+                    alert("id 또는 password 가 다릅니다, 다시하세요 ~~");
+                } else { alert(`** onLoginSubmit 시스템 오류, err=${err}`); }
+            });
     };
 
     // onsubmit 핸들러 : submit 했을 때, 요청
@@ -87,8 +86,8 @@ function Login({ setSessionName }) {
                 <div>
                     <div className='loginTable'>
                         <div className='idpwbox'>
-                            <div><img className="serial" src={faceId} alt="serial" />
-                                <input type="text" id="serial" name="serial" value={serial} onChange={handleSerialChange} />
+                            <div><img className="staffId" src={faceId} alt="staffId" />
+                                <input type="text" id="staffId" name="staffId" value={staffId} onChange={handleSerialChange} />
                             </div>
 
                             <div><img className="padLock" src={padLock} alt="password"></img>
