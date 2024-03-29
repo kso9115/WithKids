@@ -1,5 +1,6 @@
 import './navbar.css'
 import React from 'react'
+import ChatManagement from '../chatMember/ChatManagement'
 
 const data = {
     name: '임명건',
@@ -50,6 +51,11 @@ function Navbar() {
                             {/* <li>Logout</li> */}
                         </ul>
                         <div><p>Logout</p></div>
+                    </div>
+                    <div>
+                        <ul>
+                            {/* <li><ChatManagement/></li> */}
+                        </ul>
                     </div>
                 </li>
             </ul>

@@ -1,82 +1,45 @@
 import './MemberDetail.css'
 import { useCallback, useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-// import DaumPostcode from 'react-daum-postcode';
 
-// import Postcode from './Postcode';
-// import DaumPost from './DaumPost';
+import PostCode from './Postcode';
 
 // data={memDataOne} eduData={eduDataOne}
 //  setData={setMemDataOne} setEduDataOne={setEduDataOne}
 // memListUpdate={memListUpdate} setMemListUpdate={setMemListUpdate}
 function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, setMemListUpdate }) {
-    
 
-    // 우편번호
-    // <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-    // 우편번호 팝업창 input 일단 꺼놓음
-    const [enroll_company, setEnroll_company] = useState({
-        address: '',
-    });
-    const [popup, setPopup] = useState(false);
-    const handleInput = (e) => {
-        setEnroll_company({
-            ...enroll_company,
-            [e.target.name]: e.target.value,
-        })
-    }
-    const handleComplete = (data) => {
-        setPopup(!popup);
-    }
+    // 우편번호 상태값 변화를 받아줄 ustState
+    // const [address, setAddress] = useState('');
+    // const [zipcode, setZipcode] = useState('');
 
-    //=================================================
-
-    // input 태그 입력 시 데이터
-    // const formData = useRef({
-    //     memSerial: 'formData.memSerial',
-    // })
-
-    // 입력된 값을 상태에 업데이트하는 함수를 정의
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target.value;
-    //     // useRef로 생성한 객체의 current 프로퍼티를 통해 직접 접근하여 값을 업데이트
-    //     formData.current[name] = value;
+    // const handleAddressChange = (newAddress) => {
+    //     setAddress(newAddress);
     // };
 
-    // 입력된 값들을 저장하는 함수를 정의
-    // const handleSubmit = (e) => {
-    //     e.preventDefault(); // 폼 기본 동작 방지
-    //     console.log(formData.current); // 입력된 데이터들을 출력 : 가긴함..
-    //     // 이후 이 값을 서버로 전송하거나 다른 처리
+    // const handleZipcodeChange = (newZipcode) => {
+    //     setZipcode(newZipcode);
     // };
 
     //=================================================
 
-    // Member Entity DB : 가져온 멤버 한명의 멤버 데이터를 사용하기 위해 useState에 저장
+    // 1. Member Entity DB : 가져온 멤버 한명의 멤버 데이터를 사용하기 위해 useState에 저장
     const [memDataOneD, setMemDataOneD] = useState({});
     useEffect(() => {
-        setMemDataOneD({
-            ...data,
-        })
+        setMemDataOneD(data)
     }, [data])
-    // console.log(memDataOneD.memSerial);   // 입력해도 업데이트가 안된다....ㅠㅠ그럼 따로 저장을?
+    // console.log(memDataOneD);
+    // console.log(zipcode);
+    // console.log(address);
 
-    // text,radio 타입 input 태그 ,select 태그 value 값 제어
+    // Member => text,radio 타입 input 태그 ,select 태그 value 값 제어
     const memDataChange = useCallback((event) => {
         memDataOneD[event.target.name] = event.target.value;
         setMemDataOneD({ ...memDataOneD });
     }, [memDataOneD]);
 
-    // 동일한 함수 테스트
-    // const memDataChange = useCallback((event) => {
-    //     setMemDataOneD(data => ({
-    //         ...data,
-    //         [event.target.name]: event.target.value
-    //     }));
-    // }, []);
-
-    // Edu Entity DB :  가져온 멤버 한명의 학력 데이터를 사용하기 위해 useState에 저장
+    // 2. Edu Entity DB :  가져온 멤버 한명의 학력 데이터를 사용하기 위해 useState에 저장
     const [eduDataOneD, setEduMemOneD] = useState({});
     useEffect(() => {
         setEduMemOneD({
@@ -87,16 +50,14 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             , memName: data.memName
         })
     }, [eduData])
-    // console.log("데이터가안들어온다고왜냐고");
-    // console.log(eduData);
 
-    // text,radio 타입 input 태그 ,select 태그 value 값 제어
+    // Edu => text,radio 타입 input 태그 ,select 태그 value 값 제어
     const eduDataChange = useCallback((event) => {
         eduDataOneD[event.target.name] = event.target.value;
         setEduMemOneD({ ...eduDataOneD });
     }, [eduDataOneD]);
 
-    //=================================================
+    //== CRUD ===============================================
 
     // INSERT UPDATE 기능 요청 : 선택한 DB 추가,업데이트
     function saveData(data, endpoint) {
@@ -112,7 +73,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
 
                 // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
                 alert("데이터 추가 성공");  // 요청을 두번 보내버려서 alert창이 두번뜨고있음
-                
+
                 // 변화 감지 후 리스트 리렌더링
                 // setMemListUpdate(!memListUpdate);
             })
@@ -190,8 +151,6 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
         setMemDataOneD({})
         setEduDataOne({})
     }
-
-
 
 
     return (
@@ -325,20 +284,19 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
 
                 <div>우편번호</div>
                 <div className='mem_zipcode'>
-                    {/* <input type='text' name='memZipCode' value={memDataOneD.memZipCode} onChange={memDataChange}>
-                        </input>&nbsp;
-                        <input type='button' value='주소검색' onClick={<Postcode />}></input> */}
-                    {/* <input className="user_enroll_text" placeholder="주소" type="text" required={true} name="address" onChange={handleInput} value={enroll_company.address} /> */}
-                    {/* <button onClick={handleComplete}>우편번호 찾기</button> */}
-                    {/* {popup && <Postcode company={enroll_company} setcompany={setEnroll_company}></Postcode>} */}
-
-                    {/* 안됨 */}
-                    {/* <DaumPost setAddressObj={setAddressObj} setLocationObj={setLocationObj} /> */}
+                    <PostCode 
+                    // onAddressChange={handleAddressChange} onZipcodeChange={handleZipcodeChange} 
+                    setMemDataOneD={setMemDataOneD} memDataOneD={memDataOneD}/>
+                    {/* 우편번호 zipcode 값 변화 시 입력 */}
+                    <input type="text"
+                        value={memDataOneD.memZipCode || ""} 
+                        onChange={memDataChange} readOnly /> 
                 </div>
 
 
                 <div>주소</div>
                 <div className='mem_address1'>
+                    {/* 도로명주소 address 값 변화 시 입력 */}
                     <input type='text' name='memAddress1' placeholder='도로명 주소'
                         value={memDataOneD.memAddress1 || ""}
                         onChange={memDataChange} readOnly>
