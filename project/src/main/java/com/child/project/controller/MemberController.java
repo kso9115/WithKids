@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+// import com.child.project.domain.MemberDTO;
 import com.child.project.entity.Education;
 import com.child.project.entity.Member;
 import com.child.project.service.MemberService;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class MemberController {
 
     MemberService memService;
+    // MemberDTO memberdto;
 
     // 파라미터로 데이터를 전달하는게 아니니까 get매핑 사용해도 무방
     @GetMapping("/memList")
@@ -170,4 +172,23 @@ public class MemberController {
 
         return message;
     }
+
+    // 로그인 요청 ======================================
+    @PostMapping("/login")
+    public void login(@RequestBody Member entity){
+        log.info("여기까지 요청 왔다.");
+        
+
+        Member userMember=memService.selectOne(entity.getMemSerial());
+        log.info(userMember);
+
+        if(userMember!=null && userMember.getMemLoginPW().equals(entity.getMemLoginPW())){
+            log.info("로그인 요청 들어옴 => " + entity.getMemSerial()+ " : " +entity.getMemLoginPW());
+        } else {
+            
+        }
+        
+        
+    }
+
 }
