@@ -3,6 +3,7 @@ import logo from '../../assets/images/Community Child Center.png'
 import iconChat from '../../assets/images/iconChat.png'
 // import Chatbot from './chatbot/Chatbot';
 import { useRef , useState } from 'react';
+import {Link} from 'reacr-router-dom';
 
 function UserHeader() {
     
@@ -22,6 +23,9 @@ function UserHeader() {
         }
         
         
+    }
+    function UserLogin(){
+
     }
     // if (icon.current.className === 'iconClick') {
         
@@ -51,7 +55,7 @@ function UserHeader() {
             <div id="login_group">
                 <ul>
                     <li><a href="/">선택창(Test)</a></li>
-                    <li><a href="#">로그인</a></li>
+                    <li><Link to="/userLogin">로그인</Link></li>
                 </ul>
             </div>
 

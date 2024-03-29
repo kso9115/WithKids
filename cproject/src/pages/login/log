@@ -24,45 +24,35 @@ function Login({ setSessionName }) {
     }, [navigate])
 
 
-    // serial 과 password useState
-    const [serial, setSerial] = useState("");
+
+    const [id, setId] = useState("");
     const [password, setPassword] = useState("");
     // const [disabled, setDisabled] = useState(false);
 
-    // value가 바뀌도록 함 
-    const handleSerialChange = (event) => setSerial(event.target.value);
+    const handleIdChange = (event) => setId(event.target.value);
     const handlePwChange = (event) => setPassword(event.target.value);
 
-    // const onSubmitHandler = async (event) => {
-    //     event.preventDefault();
-    //     console.log("자 ~ 실행은 됐다~");
-
-    //     axios.post("api/mem/login", {
-    //             serial : serial.serial,
-    //             password : password.password
-    //         })
-    //         .then(result => {
-    //             let idPwCk = false;
-    //             result.data.forEach(element => {
-    //                 if ((element.serial === serial) && (element.password === password)) {
-    //                     idPwCk = true;
-    //                     console.log(element.serial + " : " + element.password);
-    //                 }
-    //             });
-    //             if (idPwCk) {
-    //                 setSessionName(serial);
-    //                 sessionStorage.setItem("sname", serial);
-    //                 window.location.reload();
-    //             } else {
-    //                 alert("일치하는 계정이 없습니다.\n다시입력하세요")
-    //             }
-    //         })
-    //         .catch(err => console.log(err))
-    // };
-
-    // onsubmit 핸들러 : submit 했을 때, 요청
-    
-    
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        axios.get("http://localhost:4000/api/member")
+            .then(result => {
+                let idPwCk = false;
+                result.data.forEach(element => {
+                    if ((element.id === id) && (element.password === password)) {
+                        idPwCk = true;
+                        console.log(element.id + " : " + element.password);
+                    }
+                });
+                if (idPwCk) {
+                    setSessionName(id);
+                    sessionStorage.setItem("sname", id);
+                    window.location.reload();
+                } else {
+                    alert("일치하는 계정이 없습니다.\n다시입력하세요")
+                }
+            })
+            .catch(err => console.log(err))
+    };
 
     return (
         <div className="loginBox">
@@ -84,24 +74,24 @@ function Login({ setSessionName }) {
                         fontSize: 60, fontWeight: 'bold', color: 'var(--admin)'
                     }}>L O G I N</h2>
                 </div>
-                <div>
+                <form onSubmit={handleSubmit}>
                     <div className='loginTable'>
                         <div className='idpwbox'>
-                            <div><img className="serial" src={faceId} alt="serial" />
-                                <input type="text" id="serial" name="serial" value={serial} onChange={handleSerialChange} />
+                            <div><img className="faceId" src={faceId} alt="ID" />
+                                <input type="text" id="id" name="id" value={id} onChange={handleIdChange} />
                             </div>
 
                             <div><img className="padLock" src={padLock} alt="password"></img>
-                                <input type="password" id="password" name="password" value={password} onChange={handlePwChange}/>
+                                <input type="password" id="password" name="password" value={password} onChange={handlePwChange} />
                             </div>
                         </div>
 
                         <div className='loginBtn'>
-                            <input className='custom-btn' type="submit" value="로그인" onClick={onSubmitHandler}/>&nbsp;&nbsp;&nbsp;
+                            <input className='custom-btn' type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
                             <input className='custom-btn' type="reset" value="취소" />
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     );

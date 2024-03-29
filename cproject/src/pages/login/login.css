@@ -29,7 +29,7 @@
 }
 
 .logLogo,
-.logRightBox>form {
+.logRightBox>div {
     text-align: center;
 }
 /* id, pw 크기 조정 */
