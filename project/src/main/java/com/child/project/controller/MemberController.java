@@ -4,16 +4,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.child.project.domain.UserDTO;
 // import com.child.project.domain.MemberDTO;
 import com.child.project.entity.Education;
 import com.child.project.entity.Member;
+import com.child.project.jwtToken.TokenProvider;
 import com.child.project.service.MemberService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +33,8 @@ public class MemberController {
 
     MemberService memService;
     // MemberDTO memberdto;
+    PasswordEncoder passwordEncoder;
+    TokenProvider tokenProvider;
 
     // 파라미터로 데이터를 전달하는게 아니니까 get매핑 사용해도 무방
     @GetMapping("/memList")
@@ -172,20 +181,43 @@ public class MemberController {
 
         return message;
     }
-
+    
     // 로그인 요청 ======================================
     @PostMapping("/login")
-    public void login(@RequestBody Member entity){
-        log.info("여기까지 요청 왔다.");
+    public ResponseEntity<?> login(@RequestBody Member entity){
+        // log.info("여기까지 요청 왔다.");
         
-
         Member userMember=memService.selectOne(entity.getMemSerial());
-        log.info(userMember);
+        // log.info(userMember);
+        
+        // String password = entity.getMemLoginPW();
+        // log.info("userMember의 pw => " +userMember.getMemLoginPW());
+        // log.info("받아온 값 pw => " +entity.getMemLoginPW());
 
-        if(userMember!=null && userMember.getMemLoginPW().equals(entity.getMemLoginPW())){
-            log.info("로그인 요청 들어옴 => " + entity.getMemSerial()+ " : " +entity.getMemLoginPW());
-        } else {
+        if(userMember!=null && passwordEncoder.matches(entity.getMemLoginPW(), userMember.getMemLoginPW())){
+            // log.info("로그인 요청 들어옴 => " + entity.getMemSerial()+ " : " +entity.getMemLoginPW());
             
+            // token
+            final String token = tokenProvider.create(userMember);
+            
+            // 세션에 저장(이름이랑, id 정도를 저장)
+            // return ResponseEntity.status(HttpStatus.OK).body(userMember.getMemName());
+            // Map<String, String> responseData = new HashMap<>();
+            // responseData.put("memName", userMember.getMemName());
+            // responseData.put("memSerial", userMember.getMemSerial());
+
+            final UserDTO userDTO = UserDTO.builder()
+                                    .token(token)
+                                    .id(entity.getMemSerial())
+                                    .username(entity.getMemName())
+                                    .staffChlCr(0)
+                                    .staffCmnMng(0)
+                                    .staffCntMng(0)
+                                    .build();
+            
+            return ResponseEntity.status(HttpStatus.OK).body(userDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("user Login faild");
         }
         
         

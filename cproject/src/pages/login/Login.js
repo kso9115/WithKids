@@ -33,32 +33,32 @@ function Login({ setSessionName }) {
     const handleSerialChange = (event) => setSerial(event.target.value);
     const handlePwChange = (event) => setPassword(event.target.value);
 
-    // const onSubmitHandler = async (event) => {
-    //     event.preventDefault();
-    //     console.log("자 ~ 실행은 됐다~");
+    const onSubmitHandler2 = async (event) => {
+        event.preventDefault();
+        console.log("자 ~ 실행은 됐다~");
 
-    //     axios.post("api/mem/login", {
-    //             serial : serial.serial,
-    //             password : password.password
-    //         })
-    //         .then(result => {
-    //             let idPwCk = false;
-    //             result.data.forEach(element => {
-    //                 if ((element.serial === serial) && (element.password === password)) {
-    //                     idPwCk = true;
-    //                     console.log(element.serial + " : " + element.password);
-    //                 }
-    //             });
-    //             if (idPwCk) {
-    //                 setSessionName(serial);
-    //                 sessionStorage.setItem("sname", serial);
-    //                 window.location.reload();
-    //             } else {
-    //                 alert("일치하는 계정이 없습니다.\n다시입력하세요")
-    //             }
-    //         })
-    //         .catch(err => console.log(err))
-    // };
+        axios.post("api/mem/login", {
+                memSerial: serial,
+                memLoginPW : password
+            })
+            .then(result => {
+                let idPwCk = false;
+                result.data.forEach(element => {
+                    if ((element.serial === serial) && (element.password === password)) {
+                        idPwCk = true;
+                        console.log(element.serial + " : " + element.password);
+                    }
+                });
+                if (idPwCk) {
+                    setSessionName(serial);
+                    sessionStorage.setItem("sname", serial);
+                    window.location.reload();
+                } else {
+                    alert("일치하는 계정이 없습니다.\n다시입력하세요")
+                }
+            })
+            .catch(err => console.log(err))
+    };
 
     // onsubmit 핸들러 : submit 했을 때, 요청
     
@@ -97,7 +97,7 @@ function Login({ setSessionName }) {
                         </div>
 
                         <div className='loginBtn'>
-                            <input className='custom-btn' type="submit" value="로그인" onClick={onSubmitHandler}/>&nbsp;&nbsp;&nbsp;
+                            <input className='custom-btn' type="submit" value="로그인" onClick={onSubmitHandler2}/>&nbsp;&nbsp;&nbsp;
                             <input className='custom-btn' type="reset" value="취소" />
                         </div>
                     </div>

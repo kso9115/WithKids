@@ -34,7 +34,6 @@ function UserHeader() {
     // }
 
     return (
-    <BrowserRouter>
         <header class="dongle-regular">
             <a id="logo" href="/user">
                 <img src={logo} alt=""></img>
@@ -56,7 +55,7 @@ function UserHeader() {
             <div id="login_group">
                 <ul>
                     <li><a href="/">선택창(Test)</a></li>
-                    <li><Link to="/userLogin">로그인</Link></li>
+                    <li><Link to="/user/UserLogin">로그인</Link></li>
                 </ul>
             </div>
 
@@ -67,7 +66,7 @@ function UserHeader() {
             
             {/* <Chatbot isModal={modal} setModal={setModal}></Chatbot> */}
         </header>
-    </BrowserRouter>
+    
     );
 }
 export default UserHeader;
