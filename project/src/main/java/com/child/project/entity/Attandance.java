@@ -1,5 +1,7 @@
 package com.child.project.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,7 +22,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @IdClass(AttandanceId.class)
-public class Attandance {
+public class Attandance implements Serializable{
 
     @Id
     @Column(name="mem_serial")
