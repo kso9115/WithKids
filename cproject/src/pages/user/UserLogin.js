@@ -9,8 +9,6 @@ import facePW from "../../assets/images/free-icon-padlock-2575570.png";
 
 function UserLogin( ){
     const navigate = useNavigate();
-
-
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);  // 로그인 상태 저장 변수
     const [userLoginInfo, setUserLoginInfo] = useState(""); // 회원 로그인 정보
     // serial 과 password useState
@@ -46,6 +44,7 @@ function UserLogin( ){
                 // sessionStorage.setItem("userSerial",JSON.stringify(res.serial));
                 alert("로그인 성공");
                 navigate("/user");
+                window.location.reload();
             })
             .catch((err) => {
                 setUserLoginInfo('');

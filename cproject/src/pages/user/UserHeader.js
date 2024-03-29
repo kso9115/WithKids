@@ -5,13 +5,13 @@ import iconChat from '../../assets/images/iconChat.png'
 import { useRef, useState } from 'react';
 import { BrowserRouter, Link } from 'react-router-dom';
 
-function UserHeader() {
-
+function UserHeader({ login, setLogin }) {
+    
     const [modal, setModal] = useState(false);
     const icon = useRef();
+    
 
     function iconClick() {
-
         if (document.getElementById("iconChat").classList == 'iconClick') {
             setModal(false)
             document.getElementById("iconChat").classList = '';
@@ -21,20 +21,21 @@ function UserHeader() {
             document.getElementById("iconChat").classList = 'iconClick';
             document.getElementById("iconChat").innerHTML = '<span>닫기</span>'
         }
-
-
     }
-    function UserLogin() {
-
+    function userLogout() {
+        if (window.confirm("정말로 로그아웃 하시겠습니까?")) {
+            sessionStorage.removeItem('userLogin');
+            setLogin(false);
+        }
     }
     // if (icon.current.className === 'iconClick') {
 
     // } else {
 
     // }
-
+    console.log(login);
     return (
-        <header class="dongle-regular">
+        <header className="dongle-regular">
             <a id="logo" href="/user">
                 <img src={logo} alt=""></img>
 
@@ -55,7 +56,9 @@ function UserHeader() {
             <div id="login_group">
                 <ul>
                     <li><a href="/">선택창(Test)</a></li>
-                    <li><Link to="/user/UserLogin">로그인</Link></li>
+                    <li>{login ? <div className='userLogout' onClick={userLogout}>로그아웃</div> :
+                        <Link to="/user/UserLogin">로그인</Link>
+                    }</li>
                 </ul>
             </div>
 
