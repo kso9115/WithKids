@@ -148,19 +148,19 @@ public class ProgramController {
 					entity.setPrgFile("programDefault.png");
 				}
 				entity.getPrgFile();
-				log.info(" program insert 성공 => " + prgService.dtSave(entity));
+				log.info(" ProgramDetails insert 성공 => " + prgService.dtSave(entity));
 				message = "신규생성에 성공 했습니다.";
 			} catch (Exception e) {
-				log.info(" program insert Exception => " + e.toString());
+				log.info(" ProgramDetails insert Exception => " + e.toString());
 				return "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
 			}
 		} else if (entity.getPrgId() != null && entity.getPrgDnm() != null && "prgDtUpdate".equals(entity.getType())
 				&& prgService.detailsCnt(entity.getPrgId(), entity.getPrgDnm()) > 0) {
 			try {
-				log.info(" program Update 성공 => " + prgService.dtSave(entity));
+				log.info(" ProgramDetails Update 성공 => " + prgService.dtSave(entity));
 				message = "저장에 성공 했습니다.";
 			} catch (Exception e) {
-				log.info(" program Update Exception => " + e.toString());
+				log.info(" ProgramDetails Update Exception => " + e.toString());
 				return "저장에 실패 했습니다. 관리자에게 문의하세요.";
 			}
 		} else {
@@ -295,10 +295,10 @@ public class ProgramController {
 
 		try {
 			prgService.deleteById(entityId);
-			log.info(" member delete 성공 ");
+			log.info(" Program delete 성공 ");
 			message = "삭제에 성공 했습니다.";
 		} catch (Exception e) {
-			log.info(" member delete Exception => " + e.toString());
+			log.info(" Program delete Exception => " + e.toString());
 			message = "삭제에 실패 했습니다. 관리자에게 문의하세요.";
 		}
 
@@ -311,10 +311,10 @@ public class ProgramController {
 
 		try {
 			prgService.deleteDtById(entityId);
-			log.info(" member delete 성공 ");
+			log.info(" ProgramDetails delete 성공 ");
 			message = "삭제에 성공 했습니다.";
 		} catch (Exception e) {
-			log.info(" member delete Exception => " + e.toString());
+			log.info(" ProgramDetails delete Exception => " + e.toString());
 			message = "삭제에 실패 했습니다. 관리자에게 문의하세요.";
 		}
 

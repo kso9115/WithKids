@@ -49,7 +49,7 @@ function ProgramPlan() {
                     width: '70%',
                     height: '100%'
                 }}>
-                    <ProgramPlanDetails data={prgDataOne} setData={setPrgDataOne} />
+                    <ProgramPlanDetails data={prgDataOne} setData={setPrgDataOne} listUpdate={listUpdate} setListUpdate={setListUpdate} />
                 </div>
             </div>
         </div>

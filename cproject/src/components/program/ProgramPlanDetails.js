@@ -33,7 +33,7 @@ function MakeModal({ modal, setData, closeModal }) {
     }))
 }
 
-function ProgramPlanDetails({ data, setData }) {
+function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
     Modal.setAppElement('#root') //App.js
     let text = "";
 
@@ -62,6 +62,33 @@ function ProgramPlanDetails({ data, setData }) {
         }
     }
 
+    const deleteData = () => {
+        console.log(data);
+        if (data.rec) {
+            if (window.confirm("프로젝트를 삭제하시겠습니까?")) {
+                axios.post('/api/prgPln/prgPlnDelete', {
+                    prgId: data.prgId,
+                    prgDnm: data.prgDnm,
+                    rec: data.rec
+                })
+                    .then((response) => {
+                        // handle success
+                        setData({});
+                        setListUpdate(!listUpdate);
+                        alert(response.data);
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(() => {
+                        // always executed
+                    });
+            } else alert("취소되었습니다.");
+        } else alert("선택된 프로그램계획이 없습니다.");
+    }
+
     return (
         <div style={{
             height: '100%'
@@ -82,12 +109,8 @@ function ProgramPlanDetails({ data, setData }) {
             <div className='prg_pln_dtl_header'>
                 <b>프로그램계획 정보</b>
                 <div>
-                    <button type="button"
-                        onClick={() => setData({})}
-                    >입력취소</button>
-                    <button type="button" value='삭제'
-                    // onClick={deleteData}
-                    >삭제</button>
+                    <button type="button" onClick={() => setData({})}>입력취소</button>
+                    <button type="button" value='삭제' onClick={deleteData}>삭제</button>
                     <button type="button" value='신규'
                     // onClick={() => saveData("prgInsert")}
                     >신규</button>
