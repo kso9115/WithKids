@@ -1,11 +1,13 @@
 import Slide from '../../components/slide/Slide'
 import './userMain.css'
 
-function UserMain() {
 
+function UserMain() {
+    
     return (
         <div id="viewport" style={{
             maxWidth: '100%',
+            maxHeight: '80%',
             background: 'url(img/visual_slider_bg05.jpg)'
         }}>
             <img id="viewport_img" src="img/pool.png" style={{

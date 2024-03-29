@@ -77,3 +77,6 @@ header {
     line-height: 50px;
 }
 
+.userLogout {
+    cursor: pointer;
+}
