@@ -84,7 +84,8 @@ function MemberMangement() {
                         setEduDataOne={setEduDataOne}
 
                         // 멤버리스트를 업데이트 : 검색 or crud 진행 시 리스트 리렌더링 되도록
-                        memListUpdate={memListUpdate} setMemListUpdate={setMemListUpdate}
+                        memListUpdate={memListUpdate}
+                        // setMemListUpdate={setMemListUpdate}
                     />
                 </div>
 

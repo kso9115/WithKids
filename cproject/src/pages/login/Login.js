@@ -38,8 +38,8 @@ function Login({ setSessionName }) {
         console.log("자 ~ 실행은 됐다~");
 
         axios.post("api/mem/login", {
-                serial : serial.serial,
-                password : password.password
+                memSerial: serial,
+                memLoginPW : password
             })
             .then(result => {
                 let idPwCk = false;

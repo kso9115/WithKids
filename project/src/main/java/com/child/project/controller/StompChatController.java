@@ -9,6 +9,7 @@ import com.child.project.domain.ChatMessageDTO;
 import lombok.RequiredArgsConstructor;
 
 // 기존의 핸들러 ChatHandler의 역할을 대신 해주므로 핸들러는 없어도 됨
+//  pub/sub(발행/구독)을 기반으로 @MessageMapping 을 통해, 메세지를 더 효율적으로 처리
 
 @Controller
 @RequiredArgsConstructor
@@ -31,5 +32,4 @@ public class StompChatController {
     public void message(ChatMessageDTO message){
         template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
-    
 }
