@@ -1,0 +1,14 @@
+.useLoginBox {
+    background-color: violet;
+}
+.useLoginBox>div:first-child {
+    display: flex;
+   
+}
+.useLoginBox>div:nth-child(2) {
+    margin-top: 10px;
+}
+.user_Serial , .user_Password {
+    width: 20px;
+    height: 20px;
+}

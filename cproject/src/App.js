@@ -11,6 +11,7 @@ import Schedule from './pages/schedule/Schedule.js'
 import Survety from './pages/survery/Survery.js'
 import Userprogram from './pages/userprogram/Userprogram.js';
 import NoneLogin from './pages/err/errNoneLogin.js';
+import UserLogin from './pages/user/UserLogin.js';
 
 function App() {  
     return (
@@ -27,6 +28,7 @@ function App() {
                         <Route path="schedule" element={<Schedule />}></Route>
                         <Route path="survety" element={<Survety />}></Route>
                         <Route path="userprogram" element={<Userprogram />}></Route>
+                        <Route path="userlogin" element={<UserLogin />}></Route>
                     </Route>
 
                     <Route path="/errNoneLogin" element={<NoneLogin />}></Route>
