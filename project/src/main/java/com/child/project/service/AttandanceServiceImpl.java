@@ -15,11 +15,18 @@ import lombok.extern.log4j.Log4j2;
 @Service
 public class AttandanceServiceImpl implements AttandanceService {
     
-    AttandanceRepository repository;
+    private final AttandanceRepository repository;
     
     @Override
     public List<Attandance> selectList() {
         return repository.findAttList();
     }
+
+
+    // 월별 db
+    // @Override
+    // public List<Attandance> selectList(String month) {
+    //     return repository.findAttList(month);
+    // }
     
 }
