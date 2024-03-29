@@ -73,12 +73,16 @@ public class StaffController {
 
     @PostMapping("/staffLogin")
     public ResponseEntity<?> staffLogin(@RequestBody Staff entity) {
-        log.info(" entityn = " + entity);
+        // log.info(" entityn = " + entity);
         String password = entity.getStaffPsw();
 
         StaffDTO dto = service.findJoinOne(entity.getStaffId());
+        log.info(dto);
+        log.info("dto의 password => " + dto.getStaffPsw());
+        log.info("entity password => " + entity.getStaffPsw());
 
         if (dto != null && passwordEncoder.matches(password, dto.getStaffPsw())) {
+            log.info("일단 dto는 null이 아니고 pass워드도 맞음");
             final String token = tokenProvider.create(dto);
 
             final UserDTO userDTO = UserDTO.builder()
