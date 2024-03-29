@@ -1,9 +1,9 @@
 import './userHeader.css'
 import logo from '../../assets/images/Community Child Center.png'
 import iconChat from '../../assets/images/iconChat.png'
-import Chatbot from '../../components/chatbot/Chatbot';
+// import Chatbot from '../../components/chatbot/Chatbot';
 import { useRef , useState } from 'react';
-import {Link} from 'reacr-router-dom';
+import { BrowserRouter , Link } from 'react-router-dom';
 
 function UserHeader() {
     
@@ -34,6 +34,7 @@ function UserHeader() {
     // }
 
     return (
+    <BrowserRouter>
         <header class="dongle-regular">
             <a id="logo" href="/user">
                 <img src={logo} alt=""></img>
@@ -64,9 +65,9 @@ function UserHeader() {
             </div>
 
             
-            <Chatbot isModal={modal} setModal={setModal}></Chatbot>
+            {/* <Chatbot isModal={modal} setModal={setModal}></Chatbot> */}
         </header>
-        
+    </BrowserRouter>
     );
 }
 export default UserHeader;
