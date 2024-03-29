@@ -8,9 +8,10 @@ function UserMain() {
         <div id="viewport" style={{
             maxWidth: '100%',
             maxHeight: '80%',
-            background: 'url(img/visual_slider_bg05.jpg)'
+            // background: 'url(img/visual_slider_bg05.jpg)'
+            background: 'url(img/mainBack2.png)'
         }}>
-            <img id="viewport_img" src="img/pool.png" style={{
+            <img id="viewport_img" src="img/pool3.png" style={{
                 width: "600px"
             }} alt=""></img>
             <div id='viewport_box'>
