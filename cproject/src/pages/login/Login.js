@@ -38,30 +38,30 @@ function Login({ setSessionName }) {
     const onSubmitHandler = async (event) => {
         event.preventDefault();
         console.log("자 ~ 실행은 됐다~");
+        if(staffId.trim().length>0 && password.trim().length>0){
 
-        axios.post("api/staff/staffLogin", {
-            staffId: staffId,
-            staffPsw : password
-            })
-            .then(result => {
-                console.log(result.data);
-                sessionStorage.setItem("staffname", JSON.stringify(result));
-                setSessionName(staffId);
-
-                alert("로그인 성공");
-                navigate('/home');
-            })
-            .catch(err => {
-                setStaffLoginInfo('');
-                if (err === 502) {
-                    alert("id 또는 password 가 다릅니다, 다시하세요 ~~");
-                } else { alert(`** onLoginSubmit 시스템 오류, err=${err}`); }
-            });
+            axios.post("api/staff/staffLogin", {
+                staffId: staffId,
+                staffPsw : password
+                })
+                .then(result => {
+                    console.log(result.data);
+                    sessionStorage.setItem("staffname", JSON.stringify(result));
+                    // setSessionName(staffId);
+    
+                    alert("로그인 성공");
+                    navigate('/home');
+                })
+                .catch(err => {
+                    setStaffLoginInfo('');
+                    if (err === 502) {
+                        alert("id 또는 password 가 다릅니다, 다시하세요 ~~");
+                    } else { alert(`** onLoginSubmit 시스템 오류, err=${err}`); }
+                });
+        } else {
+            alert("id와 password는 모두 입력해 주셔야합니다.");
+        }
     };
-
-    // onsubmit 핸들러 : submit 했을 때, 요청
-    
-    
 
     return (
         <div className="loginBox">
