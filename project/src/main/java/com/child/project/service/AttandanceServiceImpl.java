@@ -19,7 +19,7 @@ public class AttandanceServiceImpl implements AttandanceService {
     
     @Override
     public List<Attandance> selectList() {
-        return repository.findAll();
+        return repository.findAttList();
     }
     
 }
