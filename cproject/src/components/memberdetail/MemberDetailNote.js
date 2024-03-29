@@ -6,6 +6,7 @@ function MemberDetailNote() {
     // 매칭은 memSerial로 하면서 바로 띄워줄 수 있게끔
     // const []= useState();
 
+    // 수정을 일도 안했다
     return (
         <div>
             <b>비고</b>

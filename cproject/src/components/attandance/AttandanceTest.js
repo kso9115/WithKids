@@ -2,20 +2,25 @@ import { useRef, useState } from 'react';
 import './attandanceTest.css'
 import { Icon } from '@iconify/react'
 import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays, addMonths } from 'date-fns';
+import ChildAttandanceList from './ChildAttandanceList';
 
-function ChildComponent({ rows }) {
+// function ChildComponent({ rows }) {
     
-    return (
-        <div className='att_mng_list' style={{
-            display: 'grid',
-            gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows
-        }}>
+//     return (
+//         <div className='att_mng_list' style={{
+//             display: 'grid',
+//             gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows
+//         }}>
             
-        </div>
-    );
-}
+//         </div>
+//     );
+// }
 
 function AttandanceMangement() {
+
+    // Attandance테이블 list useState
+    const [memAttDataOne, setMemAttDataOne] = useState({});
+
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -82,7 +87,7 @@ function AttandanceMangement() {
                         );
                     })}
                 </div>
-                <ChildComponent rows={rows} />
+                <ChildAttandanceList rows={rows} memAttDataOne={memAttDataOne} setMemAttDataOne={setMemAttDataOne} />
             </div>
         </div>
     );

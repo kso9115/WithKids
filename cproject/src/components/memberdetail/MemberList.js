@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // setData={setMemDataOne}  serEduData={setEduMemOne}
-function MemberList({ setData, memListUpdate, setMemListUpdate }) {
+// function MemberList({ setData, memListUpdate, setMemListUpdate }) {
+function MemberList({ setData, memListUpdate }) {
     const [memData, setMemData] = useState([]); // memData : DB 멤버 전체 테이블 저장
 
     // 기존 리스트만 출력하는 코드 : 멤버 테이블 전체 데이터에 접근

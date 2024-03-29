@@ -27,7 +27,10 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
     // 1. Member Entity DB : 가져온 멤버 한명의 멤버 데이터를 사용하기 위해 useState에 저장
     const [memDataOneD, setMemDataOneD] = useState({});
     useEffect(() => {
-        setMemDataOneD(data)
+        // setMemDataOneD(data)     // data를 넣었을 때 어떤 값이 들어오든 바로 set진행?
+        setMemDataOneD({
+            ...data
+        })
     }, [data])
     // console.log(memDataOneD);
     // console.log(zipcode);
@@ -50,6 +53,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             , memName: data.memName
         })
     }, [eduData])
+    // console.log(data);
 
     // Edu => text,radio 타입 input 태그 ,select 태그 value 값 제어
     const eduDataChange = useCallback((event) => {
@@ -70,12 +74,13 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             .then((response) => {
                 console.log("넘어오는 데이터 확인");
                 console.log(response.data);
+                
 
+                // alert("데이터 추가 성공");  // 요청을 두번 보내버려서 alert창이 두번뜨고있음
+                
                 // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
-                alert("데이터 추가 성공");  // 요청을 두번 보내버려서 alert창이 두번뜨고있음
-
                 // 변화 감지 후 리스트 리렌더링
-                // setMemListUpdate(!memListUpdate);
+                setMemListUpdate(!memListUpdate);
             })
             .catch((err) => {
                 alert("요청 실패");
@@ -86,11 +91,11 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
     function saveMemData() {
         saveData(memDataOneD, '/api/mem/memInesert');
     }
-
+    
     function saveEduData() {
         if (memDataOneD.memSerial) {
-            console.log("11들어오나?");
             saveData(eduDataOneD, '/api/mem/memEduInesert');
+            alert("아동 기본정보 및 학력 데이터 추가 성공")
         }
     }
 
@@ -99,52 +104,78 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
     // console.log(eduDataOneD);
 
 
-    // 2. DELETE 기능 요청 : 선택한 DB 삭제
-    function deleteMemByMemserial() {
+    // 2. DELETE 기능 요청 : 선택한 DB 삭제 => 공토 부분이니까 그냥 합치기
+    // function deleteMemByMemserial() {
+    //     if (memDataOneD.memSerial && window.confirm("해당 아동을 삭제하시겠습니까?")) {
+    //         axios
+    //             .post('/api/mem/memDelete', null, { params: { memSerial: memDataOneD.memSerial } })
+    //             // .post('/api/mem/memDelete', { memSerial: memDataOneD.memSerial })
+    //             // .then((response) => {    // 자꾸 홈으로 다시 가서 일단 수정
+    //             .then(function (response) {
+    //                 setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
+
+    //                 alert(response.data);
+
+    //                 // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
+    //                 setMemListUpdate(!memListUpdate);
+
+    //                 console.log(response.data);
+    //                 // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
+    //             }).catch(function (err) {
+    //                 console.log(err);
+    //             });
+    //     } 
+    //     // else {
+    //     //     alert("아동 삭제 취소")
+    //     // }
+    // }
+
+    // function deleteEduByMemserial() {
+    //     if (eduDataOneD.memSerial) {
+    //         axios
+    //             .post('/api/mem/eduDelete', null, { params: { memSerial: eduDataOneD.memSerial } })
+    //             // .then((response) => {    // 자꾸 홈으로 다시 가서 일단 수정
+    //             .then(function (response) {
+    //                 setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
+
+    //                 alert(response.data);
+
+    //                 // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
+    //                 setMemListUpdate(!memListUpdate);
+    //                 console.log(response.data);
+    //                 // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
+    //             }).catch(function (err) {
+    //                 console.log(err);
+    //             });
+    //     } 
+    //     // else {
+    //     //     alert("아동 학력 삭제 취소")
+    //     // }
+    // }
+
+    function deleteDataByMemserial() {
         if (memDataOneD.memSerial && window.confirm("해당 아동을 삭제하시겠습니까?")) {
-            axios
-                .post('/api/mem/memDelete', null, { params: { memSerial: memDataOneD.memSerial } })
-                // .post('/api/mem/memDelete', { memSerial: memDataOneD.memSerial })
-                // .then((response) => {    // 자꾸 홈으로 다시 가서 일단 수정
-                .then(function (response) {
-                    setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
+            axios.all([
+                axios.post('/api/mem/memDelete', null, { params: { memSerial: memDataOneD.memSerial } }),
+                axios.post('/api/mem/eduDelete', null, { params: { memSerial: eduDataOneD.memSerial } })
+            ])
+            .then(axios.spread((memResponse, eduResponse) => {
+                
+                setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
+                alert(memResponse.data + '\n' + eduResponse.data);
 
-                    alert(response.data);
-
-                    // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
-                    // setMemListUpdate(!memListUpdate);
-
-                    console.log(response.data);
-                    // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
-                }).catch(function (err) {
-                    console.log(err);
-                });
-        } else {
-            alert("아동 삭제 취소")
-        }
+                // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
+                setMemListUpdate(!memListUpdate);
+                console.log(memResponse.data);
+                console.log(eduResponse.data);
+            }))
+            .catch(function (err) {
+                console.log(err);
+            });
+        } 
     }
+    
 
-    function deleteEduByMemserial() {
-        if (eduDataOneD.memSerial) {
-            axios
-                .post('/api/mem/eduDelete', null, { params: { memSerial: eduDataOneD.memSerial } })
-                // .then((response) => {    // 자꾸 홈으로 다시 가서 일단 수정
-                .then(function (response) {
-                    setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
-
-                    alert(response.data);
-
-                    // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
-                    // setMemListUpdate(!memListUpdate);
-                    console.log(response.data);
-                    // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
-                }).catch(function (err) {
-                    console.log(err);
-                });
-        } else {
-            alert("아동 학력 삭제 취소")
-        }
-    }
 
     // 3. 입력 데이터 전체 리셋 : 대신에 data값을 setData({}) 빈객체로 넣어준다.
     function resutData() {
@@ -398,7 +429,8 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                 <div>
                     <button type="reset" onClick={() => setData({})}>입력취소11</button>
                     <button type="reset" onClick={resutData}>입력취소</button>
-                    <button type="submit" value='삭제' onClick={() => { deleteMemByMemserial(); deleteEduByMemserial(); }}>삭제</button>
+                    {/* <button type="submit" value='삭제' onClick={() => { deleteMemByMemserial(); deleteEduByMemserial(); }}>삭제</button> */}
+                    <button type="submit" value='삭제' onClick={() => { deleteDataByMemserial(); }}>삭제</button>
                     <button type="submit" value='신규등록' onClick={() => { saveMemData(); saveEduData(); }}>등록 및 수정</button>
                     {/* <button type="submit" value='업데이트' >업데이트</button> */}
                     <button type="submit" value='pw초기화' >PW초기화</button>

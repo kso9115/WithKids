@@ -34,7 +34,6 @@ function UserHeader() {
     // }
 
     return (
-    <BrowserRouter>
         <header class="dongle-regular">
             <a id="logo" href="/user">
                 <img src={logo} alt=""></img>
@@ -67,7 +66,7 @@ function UserHeader() {
             
             {/* <Chatbot isModal={modal} setModal={setModal}></Chatbot> */}
         </header>
-    </BrowserRouter>
+
     );
 }
 export default UserHeader;
