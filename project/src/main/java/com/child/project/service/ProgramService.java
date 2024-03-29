@@ -17,6 +17,8 @@ public interface ProgramService {
 	
 	Integer detailsCnt(String prgId, String prgDnm);
 
+	Integer plnCnt(String prgId, String title);
+
 	// List<ProgramDetails> selectDetails();
 	List<ProgramDetails> selectDetails(String prgId, String rec);
 

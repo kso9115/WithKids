@@ -1,5 +1,8 @@
 import axios from "axios";
 
+let date = new Date();
+let yyyy = date.getFullYear();
+
 export const prg_mng = {
     name: '프로그램 정보 관리', // 서치 박스 위에 표시될 이름
     action: 'prgmng', // form 태그로 전달할 요청명
@@ -10,7 +13,7 @@ export const prg_mng = {
             state: ['prgStr', 'prgEnd'], // 테이블과 연결될 컬럼명
             type: 'date', //input 타입이나 select
             esntl: true, // 필수 요소 표현 유무
-            default: ["", ""] // 표현될 default 값 
+            default: [`${yyyy}-01-01`, `${yyyy}-12-31`] // 표현될 default 값 
         },
         {
             name: '프로그램명',

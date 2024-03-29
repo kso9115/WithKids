@@ -44,6 +44,7 @@ function Home() {
     useEffect(() => {
 
         let loginId = "admin";
+        // let loginId = null;
 
         if (loginId === null || loginId.trim().length === 0 || loginId === undefined) {
             console.log("aa");

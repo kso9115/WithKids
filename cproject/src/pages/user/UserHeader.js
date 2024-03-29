@@ -2,16 +2,16 @@ import './userHeader.css'
 import logo from '../../assets/images/Community Child Center.png'
 import iconChat from '../../assets/images/iconChat.png'
 // import Chatbot from '../../components/chatbot/Chatbot';
-import { useRef , useState } from 'react';
-import { BrowserRouter , Link } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import { BrowserRouter, Link } from 'react-router-dom';
 
 function UserHeader() {
-    
+
     const [modal, setModal] = useState(false);
     const icon = useRef();
 
     function iconClick() {
-        
+
         if (document.getElementById("iconChat").classList == 'iconClick') {
             setModal(false)
             document.getElementById("iconChat").classList = '';
@@ -21,20 +21,19 @@ function UserHeader() {
             document.getElementById("iconChat").classList = 'iconClick';
             document.getElementById("iconChat").innerHTML = '<span>닫기</span>'
         }
-        
-        
+
+
     }
-    function UserLogin(){
+    function UserLogin() {
 
     }
     // if (icon.current.className === 'iconClick') {
-        
+
     // } else {
-  
+
     // }
 
     return (
-    <BrowserRouter>
         <header class="dongle-regular">
             <a id="logo" href="/user">
                 <img src={logo} alt=""></img>
@@ -64,10 +63,9 @@ function UserHeader() {
                 <img src={iconChat} alt="" />
             </div>
 
-            
+
             {/* <Chatbot isModal={modal} setModal={setModal}></Chatbot> */}
         </header>
-    </BrowserRouter>
     );
 }
 export default UserHeader;

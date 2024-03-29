@@ -150,7 +150,7 @@ export function prg_dtls_prg_inp_ck(prgDetailData, type) { // 필수입력확인
         //세부프로그램 내용 content
 
         //첨부파일 prgFile
-        
+
         console.log("일단왔다");
         // useConfirm("프로젝트를 신규 생성하시겠습니까?",true,false);
         if (type === "prgDtInsert") {
@@ -163,6 +163,89 @@ export function prg_dtls_prg_inp_ck(prgDetailData, type) { // 필수입력확인
         }
     } else {
         alert("세부프로그램명을 입력해주세요");
+        return false;
+    }
+}
+
+export function prg_pln_inp_ck(data, type) { // 필수입력확인
+    if (Object.keys(data).length > 0) {
+
+        //제목 title
+        if (!data.title) {
+            alert("제목을 입력해주세요.");
+            return false;
+        }
+
+        //일자 prgDate
+        if (!data.prgDate) {
+            alert("일자을 입력해주세요.");
+            return false;
+        }
+
+        //담당자 prgMngr
+        if (!data.prgMngr) {
+            alert("담당자을 입력해주세요.");
+            return false;
+        }
+
+        //프로그램 prgNm
+        if (!data.prgNm) {
+            alert("프로그램을 선택해주세요.");
+            return false;
+        }
+
+        //진행자 prgHst
+        if (!data.prgHst) {
+            alert("진행자를 입력해주세요.");
+            return false;
+        }
+
+        //계획횟수 plnCnt
+        if (!data.plnCnt) {
+            alert("계획횟수를 입력해주세요.");
+            return false;
+        }
+
+        //계획인원 plnNmbPpl
+        if (!data.plnNmbPpl) {
+            alert("계획인원을 입력해주세요.");
+            return false;
+        }
+
+        //계획기간 plnPrd
+        if (!data.plnPrd) {
+            alert("계획기간을 입력해주세요.");
+            return false;
+        }
+
+        //계획기간2 plnPrd2
+        if (!data.plnPrd2) {
+            alert("계획기간을 입력해주세요.");
+            return false;
+        }
+
+        // //계획시간 plnTm
+        // if (!data.plnTm) {
+        //     alert("계획시간을 입력해주세요.");
+        //     return false;
+        // }
+
+        //계획시간 plnTm
+        if (data.plnTm && !data.plnTm2) {
+            alert("계획시간을 비우거나 완벽히 입력해주세요.");
+            return false;
+        }
+
+        if (type === "prgPlnInsert") {
+            return window.confirm("신규 프로그램계획을 생성하시겠습니까?");
+        } else if (type === "prgPlnUpdate") {
+            return window.confirm("입력하신 정보를 저장하시겠습니까?");
+        } else {
+            alert("잘못된 요청입니다.");
+            return false;
+        }
+    } else {
+        alert("제목을 입력해주세요");
         return false;
     }
 }

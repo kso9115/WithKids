@@ -8,9 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.child.project.jwtToken.TokenProvider;
 import com.child.project.domain.StaffDTO;
 import com.child.project.domain.UserDTO;
-import com.child.project.entity.Program;
-import com.child.project.entity.ProgramId;
-// import com.child.project.domain.StaffDTO;
 import com.child.project.entity.Staff;
 import com.child.project.entity.StaffAtn;
 import com.child.project.entity.StaffPrv;
@@ -116,6 +113,23 @@ public class StaffController {
             message = "초기화에 실패했습니다. 관리자에게 문의하세요";
         }
 
+        return message;
+    } // resetPswrd
+
+    @GetMapping("/changePswrd")
+    public String changePswrd(Staff entity) {
+        String message = "";
+
+        entity.setStaffPsw(passwordEncoder.encode(entity.getStaffPsw()));
+        log.info(entity.getStaffPsw());
+        try {
+            service.updataPassword(entity.getStaffId(), entity.getStaffPsw());
+            log.info(" member updataPassword 성공 ");
+            message = "초기화에 성공했습니다.";
+        } catch (Exception e) {
+            log.info(" member updataPassword Exception => " + e.toString());
+            message = "초기화에 실패했습니다. 관리자에게 문의하세요";
+        }
         return message;
     } // resetPswrd
 

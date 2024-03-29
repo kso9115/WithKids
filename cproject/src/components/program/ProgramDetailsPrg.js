@@ -25,10 +25,8 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
             title: data.prgSubCls + " 세부",
             prgNm: data.prgNm,
             prgId: data.prgId,
-            // prgFile: data.prgFile ? data.prgFile.split(' ') : [],
             prgFile: [],
             prgFilef: null
-            // prgFilef: data.prgFilef
         })
     }, [data])
 

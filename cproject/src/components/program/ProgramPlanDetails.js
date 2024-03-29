@@ -4,6 +4,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Modal from "react-modal"
 import axios from "axios";
+import { prg_pln_inp_ck } from "../../hooks/inputCheck/programInputCheck";
 
 function MakeModal({ modal, setData, closeModal }) {
     const [program, setProgram] = useState([]);
@@ -35,19 +36,29 @@ function MakeModal({ modal, setData, closeModal }) {
 
 function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
     Modal.setAppElement('#root') //App.js
-    let text = "";
-
+    let text = data.content;
+    const [plnData, setPlnData] = useState({});
+    useEffect(() => {
+        setPlnData({
+            ...data,
+            plnPrd: data.plnPrd ? data.plnPrd.split("~")[0] : "",
+            plnPrd2: data.plnPrd ? data.plnPrd.split("~")[1] : "",
+            plnTm: data.plnTm ? data.plnTm.split("~")[0] : "",
+            plnTm2: data.plnTm ? data.plnTm.split("~")[1] : "",
+            rec: "프로그램계획"
+        })
+    }, [data])
     const [modal, setModal] = useState(false);
     const prgpChange = useCallback((event) => {
-        data[event.target.name] = event.target.value;
-        setData({ ...data });
-    }, [data]);
+        plnData[event.target.name] = event.target.value;
+        setPlnData({ ...plnData });
+    }, [plnData]);
 
     const openModal = () => setModal(true);
 
     const closeModal = () => setModal(false);
 
-    const programSelet = (id, name) => setData({ ...data, prgNm: name, prgId: id });
+    const programSelect = (id, name) => setPlnData({ ...plnData, prgNm: name, prgId: id });
 
     const modalStyle = {
         overlay: {
@@ -89,6 +100,35 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
         } else alert("선택된 프로그램계획이 없습니다.");
     }
 
+    function saveData(type, text) {
+
+        if (prg_pln_inp_ck(plnData, type)) {
+            let params = {
+                ...plnData,
+                plnPrd: plnData.plnPrd + "~" + plnData.plnPrd2,
+                plnTm: !!plnData.plnTm ? plnData.plnTm + "~" + plnData.plnTm2 : null,
+                type,
+                content: text
+            };
+            delete params.plnPrd2;
+            delete params.plnTm2;
+            console.log(params);
+            axios.post(`/api/prgPln/prgPlnSave`, params)
+                .then((response) => {
+                    console.log(response.data);
+                    // setData(params);
+                    setListUpdate(!listUpdate);
+                    alert(response.data);
+                }).catch((error) => {
+                    console.log(error);
+                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                }).then(() => {
+                    // 항상 실행
+                });
+        }
+    }
+
+
     return (
         <div style={{
             height: '100%'
@@ -102,7 +142,7 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                         <div>사업 소분류</div>
                         <div>프로그램명</div>
                     </div>
-                    <MakeModal modal={modal} setData={programSelet} closeModal={closeModal} />
+                    <MakeModal modal={modal} setData={programSelect} closeModal={closeModal} />
                 </div>
                 <button className="planModalClose" onClick={closeModal}>닫기</button>
             </Modal>
@@ -112,51 +152,51 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                     <button type="button" onClick={() => setData({})}>입력취소</button>
                     <button type="button" value='삭제' onClick={deleteData}>삭제</button>
                     <button type="button" value='신규'
-                    // onClick={() => saveData("prgInsert")}
+                        onClick={() => saveData("prgPlnInsert", text)}
                     >신규</button>
                     <button type="button" value='저장'
-                    // onClick={() => saveData("prgUpdate")}
+                        onClick={() => saveData("prgPlnUpdate", text)}
                     >저장</button>
                 </div>
             </div>
             <div className='prg_pln_dtl_gridBox'>
 
                 <div><span>*</span>제목</div>
-                <div><input type="text" id='title' name='title' value={data.title || ""} onChange={prgpChange} /></div>
+                <div><input type="text" id='title' name='title' value={plnData.title || ""} onChange={prgpChange} /></div>
 
                 <div><span>*</span>일자</div>
-                <div><input type="date" id='prgDate' name='prgDate' value={data.prgDate || ""} onChange={prgpChange} /></div>
+                <div><input type="date" id='prgDate' name='prgDate' value={plnData.prgDate || ""} onChange={prgpChange} /></div>
 
                 <div><span>*</span>담당자</div>
-                <div><input type="text" id='prgMngr' name='prgMngr' value={data.prgMngr || ""} onChange={prgpChange} /></div>
+                <div><input type="text" id='prgMngr' name='prgMngr' value={plnData.prgMngr || ""} onChange={prgpChange} /></div>
 
                 <div><span>*</span>프로그램</div>
                 <div>
                     <button type="button" onClick={openModal}>+</button>
-                    <input type="text" id='prgNm' name='prgNm' value={data.prgNm || ""} onChange={prgpChange} disabled />
+                    <input type="text" id='prgNm' name='prgNm' value={plnData.prgNm || ""} onChange={prgpChange} disabled />
                 </div>
 
                 <div><span>*</span>진행자</div>
-                <div><input type="text" id='prgHst' name='prgHst' value={data.prgHst || ""} onChange={prgpChange} /></div>
+                <div><input type="text" id='prgHst' name='prgHst' value={plnData.prgHst || ""} onChange={prgpChange} /></div>
 
                 <div><span>*</span>계획횟수</div>
-                <div><input type="number" id='plnCnt' name='plnCnt' value={data.plnCnt || ""} onChange={prgpChange} /></div>
+                <div><input type="number" id='plnCnt' name='plnCnt' value={plnData.plnCnt || ""} onChange={prgpChange} /></div>
 
                 <div><span>*</span>계획인원</div>
-                <div><input type="number" id='plnNmbPpl' name='plnNmbPpl' value={data.plnNmbPpl || ""} onChange={prgpChange} /></div>
+                <div><input type="number" id='plnNmbPpl' name='plnNmbPpl' value={plnData.plnNmbPpl || ""} onChange={prgpChange} /></div>
 
                 <div><span>*</span>계획기간</div>
-                <div><input type="date" id='plnPrd' name='plnPrd' value={data.plnPrd ? data.plnPrd.split("~")[0] : ""} onChange={prgpChange} />&nbsp;~&nbsp;
-                    <input type="date" id='plnPrd2' name='plnPrd2' value={data.plnPrd ? data.plnPrd.split("~")[1] : ""} onChange={prgpChange} /></div>
+                <div><input type="date" id='plnPrd' name='plnPrd' value={plnData.plnPrd || ""} onChange={prgpChange} />&nbsp;~&nbsp;
+                    <input type="date" id='plnPrd2' name='plnPrd2' value={plnData.plnPrd2 || ""} onChange={prgpChange} /></div>
 
                 <div>계획시간</div>
-                <div><input type="time" id='plnTm' name='plnTm' value={data.plnTm ? data.plnTm.split("~")[0] : ""} onChange={prgpChange} />&nbsp;~&nbsp;
-                    <input type="time" id='plnTm2' name='plnTm2' value={data.plnTm ? data.plnTm.split("~")[1] : ""} onChange={prgpChange} /></div>
+                <div><input type="time" id='plnTm' name='plnTm' value={plnData.plnTm || ""} onChange={prgpChange} />&nbsp;~&nbsp;
+                    <input type="time" id='plnTm2' name='plnTm2' value={plnData.plnTm2 || ""} onChange={prgpChange} /></div>
             </div>
             <div className="prg_pln_dtl_textBox">
                 <CKEditor
                     editor={ClassicEditor}
-                    data={data.content || ""}
+                    data={plnData.content || ""}
                     onReady={editor => {
                         // You can store the "editor" and use when it is needed.
                         console.log('Editor is ready to use!', editor);

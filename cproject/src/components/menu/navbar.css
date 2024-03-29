@@ -90,3 +90,61 @@
 .dropdown_menu li:hover, .dropdown_menu p:hover {
     background-color: var(--mgray);
 }
+
+.navbarModalHeader{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    background-color: var(--blue);
+    height: 40px;
+    line-height: 40px;
+}
+
+.navbarModalHeader>svg{
+    position: absolute;
+    /* top: 3px; */
+    right: 0px;
+}
+
+.navbarModalMain {
+    padding: 50px;
+}
+
+.navbarModalMain>div{
+    height: 50px;
+    text-align: center;
+}
+
+.navbarModalMain label{
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.navbarModalMain input {
+    width: 200px;
+}
+
+.navbarModalMain p {
+    /* font-weight: bold; */
+    color: red;
+}
+
+.navbarModalButton{
+    font-weight: bold;
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    margin: auto;
+
+    background-color: var(--blue);
+    color: white;
+    border: 1px solid white;
+}
+
+.navbarModalButton:hover {
+    background-color: white;
+    color: var(--blue);
+    border: 1px solid var(--blue);
+}

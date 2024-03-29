@@ -52,6 +52,11 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 
 	@Override
+	public Integer plnCnt(String prgId, String title) {
+		return prgdrepository.plnCnt(prgId, title);
+	}
+
+	@Override
 	public Program selectOne(ProgramId programId) {
 		Optional<Program> result = repository.findById(programId);
 

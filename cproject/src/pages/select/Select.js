@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom';
 
 function Select() {
     // const con = {
@@ -27,8 +28,8 @@ function Select() {
                 gap: '50px',
                 justifyContent: 'center'
             }}>
-                <a href="/user">사용자 홈페이지로</a>
-                <a href="/login">관리페이지로</a>
+                <Link to="/user">사용자 홈페이지로</Link>
+                <Link to="/login">관리페이지로</Link>
             </div>
 
         </div>

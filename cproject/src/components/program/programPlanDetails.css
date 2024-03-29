@@ -52,7 +52,7 @@
 .prg_pln_dtl_gridBox>div:nth-child(2n+1)>span {
     color: red;
 }
-#prgNm{
+.prg_pln_dtl_gridBox #prgNm{
     margin-left: 10px;
 }
 .prg_pln_dtl_textBox {
