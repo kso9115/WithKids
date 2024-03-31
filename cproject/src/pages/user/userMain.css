@@ -31,7 +31,13 @@
     color: var(--spring);
     margin-bottom: 30px;
 }
-
+#viewport_box p {
+    position: relative;
+}
+#viewport_box img {
+    position: relative;
+    bottom: -5px;
+}
 #viewport_box span {
     color: white;
     padding-left: 20px;

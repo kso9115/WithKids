@@ -173,7 +173,7 @@ export const stf_mng = {
 
 axios.get(`/api/staff/staffPstList`)
     .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         if (Array.isArray(response.data)) {
             for (let i = 0; i < response.data.length; i++) {
                 stf_mng.content[0].default.push({

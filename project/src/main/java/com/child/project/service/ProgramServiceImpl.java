@@ -1,5 +1,7 @@
 package com.child.project.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +32,15 @@ public class ProgramServiceImpl implements ProgramService {
 	@Override
 	public List<Program> selectList() {
 		return repository.findAll();
+	}
+
+	@Override
+	public List<Program> selectSlide() {
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formatedNow = now.format(formatter);
+
+		return repository.selectSlide(formatedNow);
 	}
 
 	@Override

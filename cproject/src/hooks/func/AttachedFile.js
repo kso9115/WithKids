@@ -175,7 +175,6 @@ function AttachedFile({ data, setData, name, files }) {
             });
     }
 
-    console.log(data);
     return (
         <div className={`attachedFile preview${isActive ? ' active' : ''}`}>
             <div>

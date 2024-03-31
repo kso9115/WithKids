@@ -11,10 +11,12 @@ public interface ProgramService {
 
 	List<Program> selectList();
 
+	List<Program> selectSlide();
+
 	List<Program> findSearch(Program entity);
 
 	List<ProgramDetails> findPlnSearch(ProgramDetails entity);
-	
+
 	Integer detailsCnt(String prgId, String prgDnm);
 
 	Integer plnCnt(String prgId, String title);

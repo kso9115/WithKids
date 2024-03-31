@@ -32,7 +32,7 @@ function Home() {
                 sessionStorage.setItem("loginInfo", JSON.stringify(response));
                 setIsLoggedIn(true);
                 setLoginInfo(response);
-                console.log(response.data);
+                // console.log(response.data);
             }).catch((error) => {
                 setLoginInfo('');
                 if (error === 502) {

@@ -5,7 +5,7 @@ function UserFooter() {
 
     return (
         <footer id="footer">
-            <div class="footer_inner">
+            <div className="footer_inner">
                 {/* <div class="footer_left">
                         <ul class="footer_menu">
                             <li class="pinclr"><a href="/home/indvdlinfo/indvdlinfo_2.jsp">개인정보처리방침</a></li>
@@ -25,7 +25,7 @@ function UserFooter() {
                 <div style={{
                     height: '150px'
                 }}></div>
-                <p class="footer_logo">
+                <p className="footer_logo">
                     <img src={logo} alt=""></img>
                     <cite>COPYRIGHT(C) YONGIN CITY. ALL RIGHTS RESERVED.</cite>
                 </p>

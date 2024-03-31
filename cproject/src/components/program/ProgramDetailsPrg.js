@@ -1,5 +1,5 @@
 import './programDetailsPrg.css'
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import AttachedFile from '../../hooks/func/AttachedFile';
 import { prg_dtls_prg_inp_ck } from '../../hooks/inputCheck/programInputCheck'
 import axios from 'axios';
@@ -14,7 +14,6 @@ function MakeDiv({ e, i, detailsChange }) {
 function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }) {
     const [prgDataOneD, setPrgDataOneD] = useState({}); // data 대,중,소 분류 프로그램명
     const [prgDetailData, setPrgDetailData] = useState({}); // subData
-
     useEffect(() => {
         setPrgDataOneD({
             ...data
@@ -122,15 +121,18 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         }
     }
 
+    
+
     function saveData(type) {
         //유효성검사
         if (prg_dtls_prg_inp_ck(prgDetailData, type)) {
             
             let prgFilef = "";
-
-            Array.from({ length: prgDetailData.prgFilef.length }, (_, i) => {
-                return prgFilef += prgDetailData.prgFilef[i].name + " ";
-            });
+            if (prgDetailData.prgFilef) {
+                Array.from({ length: prgDetailData.prgFilef.length }, (_, i) => {
+                    return prgFilef += prgDetailData.prgFilef[i].name + " ";
+                });
+            }
             let params = {
                 ...prgDetailData,
                 prgFile: prgFilef + prgDetailData.prgFile.join(' '),
@@ -152,7 +154,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     type: 'prgDtUpdate'
                 }
             } else return alert("잘못된 요청입니다.");
-            console.log(params.prgFile);
+            
             axios.post(`/api/prg/prgDtSave`, params)
                 .then((response) => {
                     saveFile();
@@ -216,7 +218,6 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     <button type="button" value='삭제' onClick={deleteData}>삭제</button>
                     <button type="button" value='신규' onClick={() => saveData("prgDtInsert")}>신규</button>
                     <button type="button" value='저장' onClick={() => saveData("prgDtUpdate")}>저장</button>
-                    {/* <button type="button" value='삭제' onClick={() => fileTransmit(files)}>테스트</button> */}
                 </div>
             </div>
         </div>

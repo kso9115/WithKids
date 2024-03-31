@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './programDetails.css'
 import { prg_dtls_inp_ck } from '../../hooks/inputCheck/programInputCheck'
 import axios from "axios";
+import qs from "qs";
 
 function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     // console.log("ProgramDetails");
     // 프로그램 정보를 저장하고 제어하기 위해
     const [prgDataOneD, setPrgDataOneD] = useState({});
+    const prgImage = useRef();
 
     // 가져온 프로그램 정보를 useState에 넣는과정()
     useEffect(() => {
@@ -67,6 +69,28 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
         } else alert("선택된 프로그램이 없습니다.");
     }
 
+    function saveImg() {
+        console.log(prgImage.current.files[0]);
+        if (prgImage.current.files[0]) {
+            let formData = new FormData();
+            formData.append("prgImg", prgImage.current.files[0]);
+            formData.append("prgId", prgDataOneD.prgId);
+            axios.post(`/api/prg/imgUpload`, formData, {
+                paramsSerializer: (params) => {
+                    return qs.stringify(params, { arrayFormat: "repeat" });
+                }
+            })
+                .then((response) => {
+                    console.log(response.data);
+                }).catch((error) => {
+                    console.log(error);
+                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                }).then(() => {
+                    // 항상 실행
+                });
+        }
+    }
+
     //insert/update 요청
     function saveData(type) {
         //유효성검사
@@ -86,6 +110,7 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
             axios.post(`/api/prg/prgSave`, params)
                 .then((response) => {
                     console.log(response.data);
+                    saveImg();
                     setData({
                         ...params,
                         prgId: type === "prgUpdate" ? prgDataOneD.prgId : prgDataOneD.prgBigCls + prgDataOneD.prgMidCls + prgDataOneD.prgSubCls,
@@ -97,8 +122,8 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                             new Set() : Array.isArray(params.clsInc) ?
                                 params.cls_inc : params.clsInc.indexOf(' ') > 0 ?
                                     new Set(params.clsInc.split(' ')) : new Set([params.clsInc]),
-                        prgNmbApiSub: params.prgNmbApi ? params.prgNmbApi.substr(0, 1) : null,
-                        prgNmbApi: params.prgNmbApi ? params.prgNmbApi.substr(1) : null,
+                        // prgNmbApiSub: params.prgNmbApi ? params.prgNmbApi.substr(0, 1) : null,
+                        // prgNmbApi: params.prgNmbApi ? params.prgNmbApi.substr(1) : null,
                     });
                     setTreeUpdate(!treeUpdate);
                     alert(response.data);
@@ -185,7 +210,8 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                         <label htmlFor='prgUse2'>N</label>
                     </div>
                 </div>
-
+                <div>이미지</div>
+                <div><input ref={prgImage} type="file" /></div>
             </div>
 
             <b>예산, 비용, 인원 정보 </b>

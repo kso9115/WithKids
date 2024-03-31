@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./slide.css"
+import axios from "axios";
 
 const imageArr = [
     { img: "img/kid1.jpg", key: 1, name: '청년 마인드 톡톡', date: "2024-03-08 ~ 2024-03-10" },
@@ -15,8 +16,8 @@ const imageArr = [
     { img: "img/kid7.jpg", key: 7, name: '청년 마인드 톡톡', date: "2024-03-08 ~ 2024-03-10"  },
 ];
 
-function Slide({ width, height }) {
-
+function Slide({ data}) {
+    
     const settings = {
         slide: 'div',
         dots: true,
@@ -34,18 +35,20 @@ function Slide({ width, height }) {
         draggable: true,
     };
 
-
-
     return (
         <div>
             <Slider {...settings}>
-                {imageArr.map((ele, index) => {
+                {data.map((ele, index) => {
+                    // console.log(`/project/src/main/webapp/resources/programImg/${ele.prgId}/programImg.png`);
+                    // console.log(`${process.env.PUBLIC_URL}/project/src/main/webapp/resources/programImg/교육특기적성독서활동/programImg.png`);
                     return (
-                        <div >
+                        <div key={ele.prgId}>
                             <div className="imgBox_Slider">
-                                <img style={{ width: "300px", height: "300px", marginBottom: "10px" }} src={`${ele.img}`} alt="" />
-                                <a href="#" className="imgName">{ele.name}</a>
-                                <p style={{fontSize: "14px"}}>{ ele.date}</p>
+                                <img style={{ width: "300px", height: "300px", marginBottom: "10px" }}
+                                    src={"api/prg/prgSlideImg?prgId=" + ele.prgId} alt=""
+                                />
+                                <a href="#" className="imgName">{ele.prgSubCls}</a>
+                                <p style={{ fontSize: "14px" }}>{`${ele.prgStr} ~ ${ele.prgEnd}`}</p>
                             </div>
                         </div>
                     );

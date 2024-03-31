@@ -1,6 +1,7 @@
 package com.child.project.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -99,4 +100,5 @@ public class Program implements Serializable {
 
 	@Transient
 	private String type;
+
 }
