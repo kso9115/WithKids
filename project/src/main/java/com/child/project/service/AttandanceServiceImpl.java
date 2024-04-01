@@ -22,6 +22,13 @@ public class AttandanceServiceImpl implements AttandanceService {
         return repository.findAttList();
     }
 
+    // select * from attandance where attandance_date = SUBSTRING(DATE(NOW()), 1, 10)
+    // 쿼리문 테스트
+    @Override
+    public List<Attandance> selectList3() {
+        return repository.findAttList3();
+    }
+
 
     // 월별 db
     // @Override
