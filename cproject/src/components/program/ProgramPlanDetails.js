@@ -5,6 +5,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import Modal from "react-modal"
 import axios from "axios";
 import { prg_pln_inp_ck } from "../../hooks/inputCheck/programInputCheck";
+import AttachedFile from "../../hooks/func/AttachedFile";
+import { qs } from 'qs';
 
 function MakeModal({ modal, setData, closeModal }) {
     const [program, setProgram] = useState([]);
@@ -45,7 +47,10 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
             plnPrd2: data.plnPrd ? data.plnPrd.split("~")[1] : "",
             plnTm: data.plnTm ? data.plnTm.split("~")[0] : "",
             plnTm2: data.plnTm ? data.plnTm.split("~")[1] : "",
-            rec: "프로그램계획"
+            rec: "프로그램계획",
+            prgDnm: data.title || "",
+            prgFile: data.prgFile ? data.prgFile.split(' ') : [],
+            prgFilef: null
         })
     }, [data])
     const [modal, setModal] = useState(false);
@@ -103,12 +108,20 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
     function saveData(type, text) {
 
         if (prg_pln_inp_ck(plnData, type)) {
+            let prgFilef = "";
+            if (plnData.prgFilef) {
+                Array.from({ length: plnData.prgFilef.length }, (_, i) => {
+                    return prgFilef += plnData.prgFilef[i].name + " ";
+                });
+            }
             let params = {
                 ...plnData,
                 plnPrd: plnData.plnPrd + "~" + plnData.plnPrd2,
                 plnTm: !!plnData.plnTm ? plnData.plnTm + "~" + plnData.plnTm2 : null,
                 type,
-                content: text
+                content: text,
+                prgFile: (prgFilef + plnData.prgFile.join(' ')).trim(),
+                prgFilef: null
             };
             delete params.plnPrd2;
             delete params.plnTm2;
@@ -116,6 +129,7 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
             axios.post(`/api/prgPln/prgPlnSave`, params)
                 .then((response) => {
                     console.log(response.data);
+                    saveFile();
                     // setData(params);
                     setListUpdate(!listUpdate);
                     alert(response.data);
@@ -128,7 +142,31 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
         }
     }
 
+    function saveFile() {
+        if (plnData.prgFilef) {
 
+            let formData = new FormData();
+            for (let i = 0; i < plnData.prgFilef.length; i++) {
+                formData.append("prgFilef", plnData.prgFilef[i]);
+            }
+            formData.append("prgId", plnData.prgId);
+            formData.append("prgDnm", plnData.prgDnm);
+            // console.log(data);
+            axios.post(`/api/prg/fileUpload`, formData, {
+                paramsSerializer: (params) => {
+                    return qs.stringify(params, { arrayFormat: "repeat" });
+                }
+            })
+                .then((response) => {
+                    console.log(response.data);
+                }).catch((error) => {
+                    console.log(error);
+                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                }).then(() => {
+                    // 항상 실행
+                });
+        }
+    }
     return (
         <div style={{
             height: '100%'
@@ -192,7 +230,14 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                 <div>계획시간</div>
                 <div><input type="time" id='plnTm' name='plnTm' value={plnData.plnTm || ""} onChange={prgpChange} />&nbsp;~&nbsp;
                     <input type="time" id='plnTm2' name='plnTm2' value={plnData.plnTm2 || ""} onChange={prgpChange} /></div>
+
             </div>
+
+            <div className='prg_pln_dtl_fileBox'>
+                <div>첨부파일</div>
+                <div><AttachedFile data={plnData} setData={setPlnData} name={'prgFile'} files={'prgFilef'}></AttachedFile></div>
+            </div>
+
             <div className="prg_pln_dtl_textBox">
                 <CKEditor
                     editor={ClassicEditor}

@@ -6,10 +6,10 @@ import { useRef, useState } from 'react';
 import { BrowserRouter, Link } from 'react-router-dom';
 
 function UserHeader({ login, setLogin }) {
-    
+
     const [modal, setModal] = useState(false);
     const icon = useRef();
-    
+
 
     function iconClick() {
         if (document.getElementById("iconChat").classList == 'iconClick') {
@@ -44,11 +44,11 @@ function UserHeader({ login, setLogin }) {
             <nav>
                 <div id="userMenu">
                     <ul>
-                        <li><a href="#">센터 소개</a></li>
-                        <li><a href="/user/notice">공지사항</a></li>
-                        <li><a href="#">프로그램</a></li>
-                        <li><a href="#">프로그램 후기</a></li>
-                        <li><a href="#">찾아오시는길</a></li>
+                        <li><Link to="#">센터 소개</Link></li>
+                        <li><Link to="/user/notice">공지사항</Link></li>
+                        <li><Link to="/user/program">프로그램</Link></li>
+                        <li><Link to="#">프로그램 후기</Link></li>
+                        <li><Link to="#">찾아오시는길</Link></li>
                     </ul>
                 </div>
             </nav>

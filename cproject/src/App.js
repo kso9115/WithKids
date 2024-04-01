@@ -6,14 +6,16 @@ import UserHome from './pages/user/UserHome'
 import UserMain from './pages/user/UserMain'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Notice from './pages/notice/Notice.js'
-import Project from './pages/project/Project.js'
 import Schedule from './pages/schedule/Schedule.js'
 import Survety from './pages/survery/Survery.js'
 import Userprogram from './pages/userprogram/Userprogram.js';
 import NoneLogin from './pages/err/errNoneLogin.js';
 import UserLogin from './pages/user/UserLogin.js';
+import UserprogramDetails from './pages/userprogram/UserprogramDetails';
+import UserprogramMain from './pages/userprogram/UserprogramMain.js';
 
-function App() {  
+function App() {
+
     return (
         <>
             <BrowserRouter>
@@ -24,10 +26,13 @@ function App() {
                     <Route path="/user" element={<UserHome />}>
                         <Route path="" element={<UserMain />}></Route>
                         <Route path="notice" element={<Notice />}></Route>
-                        <Route path="project" element={<Project />}></Route>
+                        {/* <Route path="programDtail" element={<UserprogramDetails />}></Route> */}
                         <Route path="schedule" element={<Schedule />}></Route>
                         <Route path="survety" element={<Survety />}></Route>
-                        <Route path="userprogram" element={<Userprogram />}></Route>
+                        <Route path="program" element={<Userprogram />}>
+                            <Route path="" element={<UserprogramMain />}></Route>
+                            <Route path="dtails" element={<UserprogramDetails />}></Route>
+                        </Route>
                         <Route path="userlogin" element={<UserLogin />}></Route>
                     </Route>
 

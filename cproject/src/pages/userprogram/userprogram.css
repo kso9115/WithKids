@@ -1,188 +1,166 @@
-.con_inner {
-    position: relative;
+.userPrgHead,
+.userPrgSearch>div {
+    font-family: 'home';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userPrgHead {
+    width: 100%;
+    height: 222px;
+    background-image: url('../../assets/images/userhead.png');
+    background-size: cover;
+}
+
+.userPrgHead p {
+    font-size: 90px;
+}
+
+.userPrgContent {
     width: 1200px;
+    /* position: relative; */
     margin: 0 auto;
     overflow: hidden;
 }
-html, body, div, span, iframe, p, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, textarea, button, select, table, th, td, article, aside, section, figure, figcaption, img {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-사용자 에이전트 스타일시트
-div {
-    display: block;
-}
-body {
-    font-size: 16px;
-    line-height: 1.6;
-    font-family: 'NanumSquareRound', sans-serif;
-    color: #666;
-    background-color: #fff;
+
+.userPrgSearch>div {
+    height: 150px;
+    gap: 20px;
 }
 
-
-
-
-.program_list ul li a {
-    display: block;
-}
-a {
-    text-decoration: none;
-    color: inherit;
-}
-사용자 에이전트 스타일시트
-a:-webkit-any-link {
-    color: -webkit-link;
-    cursor: pointer;
-    text-decoration: underline;
-}
-ul, ol, li, dl {
-    list-style: none;
+.userPrgSearch>div>div {
+    font-size: 25px;
 }
 
-사용자 에이전트 스타일시트
-li {
-    text-align: -webkit-match-parent;
-}
-사용자 에이전트 스타일시트
-ul {
-    list-style-type: disc;
-}
-body {
-    font-size: 16px;
-    line-height: 1.6;
-    font-family: 'NanumSquareRound', sans-serif;
-    color: #666;
-    background-color: #fff;
+.userPrgSearch>div>input {
+    font-size: 20px;
+    width: 70%;
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 5px 15px;
 }
 
-/* 디테일 */
-
-.program_list ul {
-    overflow: hidden;
-    border-bottom: 1px solid #d7dade;
-}
-ul, ol, li, dl {
-    list-style: none;
-}
-html, body, div, span, iframe, p, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, textarea, button, select, table, th, td, article, aside, section, figure, figcaption, img {
-    margin: 0;
-    padding: 0;
-    border: 0;
+.userPrgSearch>div>button {
+    color: white;
+    background-color: #494e66;
+    font-size: 20px;
+    /* width: 70%; */
+    border: 1px solid #494e66;
+    border-radius: 20px;
+    padding: 5px 15px;
 }
 
-ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
-}
-body {
-    font-size: 16px;
-    line-height: 1.6;
-    font-family: 'NanumSquareRound', sans-serif;
-    color: #666;
-    background-color: #fff;
+.userPrgImg>div {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
 }
 
-/* 글씨크기 */
-.program_tit {
-    margin-bottom: 5px;
-    font-size: 26px;
-    color: #222;
-    font-weight: 600;
+.userPrgImgBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.userPrgImgBox>p {
+    width: 90%;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 
-
-.label03 {
-    max-width: 50px;
-    border: 1px solid #ff8a65;
-    color: #ff8a65;
+.userPrgDetails {
+    padding: 60px 0 80px;
 }
 
-.label04 {
-    border: 1px solid #2196f3e6;
-    color: #2196f3e6;
+.userPrgDetails>div:nth-child(1) {
+    display: flex;
+    gap: 40px;
 }
 
-.label {
-    display: block;
-    max-width: 60px;
-    padding: 0 10px;
-    margin-bottom: 7px;
-    color: #0b0b0b;
+.userPrgDetails>div>img {
+    width: 460px;
+    height: 460px;
+}
+
+.userPrgDetails>div:nth-child(1)>div {
+    width: calc(100% - 500px);
+    /* height: 460px; */
+}
+
+.userPrgDetails>div:nth-child(1)>div>div:nth-child(1) {
     text-align: center;
-    font-size: 16px;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 20px 0;
+    border-top: 2px solid black;
+    border-bottom: 1px solid var(--lgray);
+}
+
+.userPrgDetails>div:nth-child(1)>div>div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 15% 35% 15% 35%;
+}
+
+.userPrgDetails>div:nth-child(1)>div>div:nth-child(2)>div {
+    padding: 20px;
+    border-bottom: 1px solid var(--lgray);
+}
+.userPrgDetails>div:nth-child(1)>div>div:nth-child(2)>div:nth-child(2n) {
+    padding-left: 0;
+}
+.userPrgDetails>div:nth-child(1)>div>div:nth-child(2)>div:nth-child(2n)::before {
+    content: "";
+    font-size: 11px;
+    margin-right: 20px;
+    border: 1px solid var(--lgray);
+}
+
+.userPrgDetails>div:nth-child(1)>div>div:nth-child(3) {
+    padding: 100px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.userPrgDetails>div:nth-child(1)>div>div:nth-child(3)>button {
+    padding: 20px 70px;
+    font-size: 20px;
     font-weight: 600;
-    border-radius: 15px;
-    box-sizing: border-box;
+    color: white;
+    border: 0px;
+    border-radius: 40px;
+    background-color: var(--blue);
 }
 
-.fl {
-    float: left !important;
-}
-html, body, div, span, iframe, p, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, textarea, button, select, table, th, td, article, aside, section, figure, figcaption, img {
-    margin: 0;
-    padding: 0;
-    border: 0;
+.userPrgDetails>div:nth-child(2) {
+    margin-top: 20px;
+    border-top: 1px solid var(--lgray);
+    padding: 40px 0;
 }
 
-
-p {
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-}
-a {
-    text-decoration: none;
-    color: inherit;
+.userPrgDetails>div:nth-child(3) {
+    display: flex;
+    border-top: 1px solid var(--lgray);
+    border-bottom: 1px solid var(--lgray);
+    padding: 20px;
+    background-color: var(--mgray);
 }
 
-
-a:-webkit-any-link {
-    color: -webkit-link;
-    cursor: pointer;
-}
-ul, ol, li, dl {
-    list-style: none;
+.userPrgDetails>div:nth-child(3)>div:nth-child(2){
+    margin-left: 30px;
 }
 
-li {
-    text-align: -webkit-match-parent;
-}
-사용자 에이전트 스타일시트
-ul {
-    list-style-type: disc;
-}
-body {
-    font-size: 16px;
-    line-height: 1.6;
-    font-family: 'NanumSquareRound', sans-serif;
-    color: #666;
-    background-color: #fff;
+.prgDetailsFile>div{
+    height: 30px;
+    display: flex;
+    gap: 10px;
 }
 
-
-
-
-사용자 에이전트 스타일시트
-form {
-    display: block;
-    margin-top: 0em;
-}
-body {
-    font-size: 16px;
-    line-height: 1.6;
-    font-family: 'NanumSquareRound', sans-serif;
-    color: #666;
-    background-color: #fff;
+.prgDetailsFile>div>button {
+    font-size: 12px;
+    height: 22px;
 }

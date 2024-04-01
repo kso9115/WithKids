@@ -70,8 +70,10 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     }
 
     function saveImg() {
-        console.log(prgImage.current.files[0]);
+        
         if (prgImage.current.files[0]) {
+            console.log(prgImage.current.files[0]);
+            // prgImage.current.files[0].name = "programImg.png"
             let formData = new FormData();
             formData.append("prgImg", prgImage.current.files[0]);
             formData.append("prgId", prgDataOneD.prgId);
@@ -91,10 +93,12 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
         }
     }
 
+
     //insert/update 요청
     function saveData(type) {
         //유효성검사
         if (prg_dtls_inp_ck(prgDataOneD, type)) {
+            
             const clsInc = [...prgDataOneD.clsInc].join(' '); // 소득구분
             const ffTyp = [...prgDataOneD.ffTyp].join(' '); //가구유형
             const prgNmbApi = prgDataOneD.prgNmbApiSub + prgDataOneD.prgNmbApi;

@@ -63,7 +63,7 @@
     border-left: 1px solid var(--lgray);
 }
 
-.prg_dtl_gridBox>div:nth-child(n+19),
+.prg_dtl_gridBox>div:nth-child(n+25),
 .prg_dtl_gridBox2>div:nth-child(n+13),
 .prg_dtl_gridBox3>div:nth-child(n+7) {
     border-bottom: 0px;

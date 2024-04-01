@@ -16,7 +16,7 @@ const imageArr = [
     { img: "img/kid7.jpg", key: 7, name: '청년 마인드 톡톡', date: "2024-03-08 ~ 2024-03-10"  },
 ];
 
-function Slide({ data}) {
+function Slide({data}) {
     
     const settings = {
         slide: 'div',

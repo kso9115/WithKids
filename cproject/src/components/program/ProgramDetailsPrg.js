@@ -121,12 +121,12 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         }
     }
 
-    
+
 
     function saveData(type) {
         //유효성검사
         if (prg_dtls_prg_inp_ck(prgDetailData, type)) {
-            
+
             let prgFilef = "";
             if (prgDetailData.prgFilef) {
                 Array.from({ length: prgDetailData.prgFilef.length }, (_, i) => {
@@ -135,8 +135,8 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
             }
             let params = {
                 ...prgDetailData,
-                prgFile: prgFilef + prgDetailData.prgFile.join(' '),
-                prgFilef:null
+                prgFile: (prgFilef + prgDetailData.prgFile.join(' ')).trim(),
+                prgFilef: null
             };
 
             if (type === 'prgDtInsert') {
@@ -154,7 +154,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     type: 'prgDtUpdate'
                 }
             } else return alert("잘못된 요청입니다.");
-            
+
             axios.post(`/api/prg/prgDtSave`, params)
                 .then((response) => {
                     saveFile();

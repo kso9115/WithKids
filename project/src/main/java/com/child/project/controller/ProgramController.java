@@ -73,7 +73,6 @@ public class ProgramController {
 
 	@GetMapping("/prgSlideImg")
 	public ResponseEntity<?> prgSlideImg(@RequestParam String prgId, HttpServletRequest request) throws Exception {
-
 		String realPath = request.getRealPath("/");
 
 		if (!realPath.contains("apache-tomcat")) {
@@ -287,7 +286,8 @@ public class ProgramController {
 			File delFile = new File(realPath + prgImg);
 			if (delFile.isFile())
 				delFile.delete(); // file 존재시 삭제
-			file1 = realPath + prgImg.getOriginalFilename(); // 저장경로 완성
+			file1 = realPath + "programImg.png"; // 저장경로 완성
+			// file1 = realPath + prgImg.getOriginalFilename(); // 저장경로 완성
 			prgImg.transferTo(new File(file1));
 		}
 
