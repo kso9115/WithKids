@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 
 import org.springframework.stereotype.Service;
 
+import com.child.project.entity.Attandance;
 import com.child.project.entity.Education;
 import com.child.project.entity.Member;
 import com.child.project.repository.MemberEduRepository;
@@ -95,6 +96,12 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void deleteEduByMemserial(String memSerial) {
         eduRepository.deleteById(memSerial);
+    }
+
+    // selectAdmissionList : 학생 시리얼 번호만 가져오기
+    @Override
+    public List<Member> selectAdmissionList() {
+        return repository.findAdmissionList();
     }
 
 }

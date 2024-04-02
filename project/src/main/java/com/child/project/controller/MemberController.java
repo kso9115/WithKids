@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.child.project.domain.UserDTO;
+import com.child.project.entity.Attandance;
 // import com.child.project.domain.MemberDTO;
 import com.child.project.entity.Education;
 import com.child.project.entity.Member;
@@ -182,6 +183,15 @@ public class MemberController {
         return message;
     }
     
+    // findSerialList
+    @GetMapping("/admissionList")
+    public List<Member> selectAdmissionList(){
+        log.info("센터 이용중인 리스트 출력하는 레포지토리 소환");
+        List<Member> list = memService.selectAdmissionList();
+        log.info(list);
+        return list;
+    }
+
     // 로그인 요청 ======================================
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Member entity){
