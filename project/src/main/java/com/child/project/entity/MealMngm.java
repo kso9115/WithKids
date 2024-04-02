@@ -14,7 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Table
+@Table(name = "mealmngm")
 @Entity
 @Getter
 @Builder
@@ -30,6 +30,8 @@ public class MealMngm implements Serializable {
     @Id
     @Column(name="meal_date")
     private String mealDate;
+    @Column(name = "mem_name")
+    private String memName;
     
     @Column(name="staff_id")
     private String staffId;
