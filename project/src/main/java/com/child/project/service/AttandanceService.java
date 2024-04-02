@@ -12,4 +12,6 @@ public interface AttandanceService {
     // 출석관리 : 월별 selectList
     // List<Attandance> selectList(String month);
     
+
+    List<Attandance> selectList3();
 }
