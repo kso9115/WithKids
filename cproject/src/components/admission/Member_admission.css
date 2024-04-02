@@ -38,3 +38,11 @@
 .adgridBox>div:not(:nth-child(6n)) {
     border-right: 1px solid var(--lgray);
 }
+
+/* SIcon */
+.sIcon{
+    border: 1.5px solid var(--lgray);
+    padding: 2px;
+    width: 20px;
+    height: 20px; 
+}

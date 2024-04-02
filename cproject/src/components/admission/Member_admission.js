@@ -1,6 +1,9 @@
 import axios from 'axios';
 import './Member_admission.css';
 import { useState, useEffect, useCallback } from 'react';
+import searchIcon from '../../assets/images/free-icon-search-149852.png';
+//모달창 지원
+import Modal from "react-modal";
 
 function Member_admission({admMemOne , dataDML } ){
     // 발자취 남기기 => 생각을 잘 못함 
@@ -113,11 +116,38 @@ function Member_admission({admMemOne , dataDML } ){
         dataDML(type,dml, data);
     }
 
+    // modal 만들기 
+    let [modal, setModal] = useState(false);
 
+    // click 했을 때, staff 에서 값을 받아와야함.
+    const onSearchClick = (e) => {
+        console.log("자 ~ 클릭은 인식한다");
 
+    }
+    const modalStyle = {
+        overlay: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+        },
+        content: {
+            width: "400px",
+            height: "300px",
+            margin: "auto",
+            padding: "20px",
+            zIndex: "999999",
+        }
+    }
 
     return (
         <div>
+            <Modal style={modalStyle}>
+                <h4>임직원 조회하기</h4>
+                <select name='' value={''} onChange={admdChange}>
+                    <option value="none" >--선택--</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </Modal>
             <div style={{color:'black',fontWeight:'bold'}}>입소/이용 정보</div>
             <div className="adgridBox admissionBox">
                 <div><span style={{color:"red"}}>*</span>입소/이용일자</div>
@@ -192,7 +222,7 @@ function Member_admission({admMemOne , dataDML } ){
                 </div>
 
                 <div><span></span>담당자 성명</div>
-                <div><input type="text" name='name' onChange={admdChange} value={ admMemOneD.name || '' }/></div>
+                <div><input type="text" name='name' onChange={admdChange} value={ admMemOneD.name || '' }/> <img className="sIcon" src={searchIcon} alt="search" onClick={onSearchClick}/> </div>
                 
             </div>
             <br></br>
