@@ -30,6 +30,7 @@ public class AttandanceServiceImpl implements AttandanceService {
     }
 
     // selectAdmissionList : 학생 시리얼 번호만 가져오기
+    // member테이블에서 받아오므로 쓸일이 없어졌다..
     @Override
     public List<Attandance> selectAdmissionList() {
         return repository.findAdmissionList();

@@ -49,10 +49,11 @@ public class AttandanceController {
     // return list;
     // }
 
+    // list가져오기
     @GetMapping("/attList")
-    public List<Attandance> attList() {
+    public List<Attandance> attList(@RequestParam("yearMonth") String yearMonth) {
         // log.info("멤버리스트 출력하는 레포지토리 쿼리 소환");
-        List<Attandance> list = attService.selectList3();
+        List<Attandance> list = attService.selectList3(yearMonth);
         log.info(list);
         return list;
     }

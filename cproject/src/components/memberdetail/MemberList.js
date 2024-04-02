@@ -91,6 +91,10 @@ function MemberList({ setData, memListUpdate }) {
     //     setData(memData);
     //     setEduDataOne(memData);
     //   }
+    
+    
+    
+
 
     return (
         <>
@@ -99,7 +103,7 @@ function MemberList({ setData, memListUpdate }) {
             <div className="memberList">
                 <div className="memberList_container">
                     <div className="memberList_row header">
-                        <div className="memberList_cell">번호</div>
+                        {/* <div className="memberList_cell">번호</div> */}
                         <div className="memberList_cell">대상자번호</div>
                         <div className="memberList_cell">대상자명</div>
                         <div className="memberList_cell">성별</div>
@@ -109,8 +113,12 @@ function MemberList({ setData, memListUpdate }) {
                     {memData && memData.map((o, i) => (
                         // key값에 인덱스보다는 식별번호 넣어주기 -> 인덱스는 최후의 수단?으로 입력
                         <div className="memberList_row" key={o.memSerial} onClick={() => setData(o)}>
-                            <div className="memberList_cell">★</div>
-                            <div className="memberList_cell">{o.memSerial}</div>
+                            {/* <div className="memberList_cell">★</div> */}
+                            <div className="memberList_cell"
+                                style={{
+                                    fontSize:12
+                                }}
+                            >{o.memSerial}</div>
                             <div className="memberList_cell">{o.memName}</div>
                             <div className="memberList_cell">{o.memSex}</div>
                             <div className="memberList_cell">{o.memBirth}</div>

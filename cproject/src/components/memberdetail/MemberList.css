@@ -42,7 +42,7 @@
     padding: 7px;
 }
 
-.memberList_row:hover{
+.memberList_row:hover:not(:first-child){
     cursor: pointer;
     background-color: var(--mgray);
 }

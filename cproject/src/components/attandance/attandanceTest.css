@@ -6,6 +6,9 @@
 .att_mng_list>div {
     text-align: center;
     font-weight: bold;
+    border: 1px solid var(--admin);
+    font-size: 13px;
+    padding: 5px;
 }
 
 .att_mng_list .colorRed {
@@ -15,3 +18,4 @@
 .att_mng_list .colorBlue {
     color: blue;
 }
+

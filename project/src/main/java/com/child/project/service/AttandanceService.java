@@ -13,7 +13,7 @@ public interface AttandanceService {
     // List<Attandance> selectList(String month);
     
     // 월별 selectList : 레포지토리에 쿼리 작성
-    List<Attandance> selectList3();
+    List<Attandance> selectList3(String attandance_date);
 
     // 출석관리 : 이용중인 컬럼 리스트만 가져오기
     List<Attandance> selectAdmissionList();
