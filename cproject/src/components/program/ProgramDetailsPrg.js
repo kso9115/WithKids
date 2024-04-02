@@ -4,6 +4,7 @@ import AttachedFile from '../../hooks/func/AttachedFile';
 import { prg_dtls_prg_inp_ck } from '../../hooks/inputCheck/programInputCheck'
 import axios from 'axios';
 import qs from "qs";
+import { apiCall } from "../../server/apiService"
 
 // 서브 컴포넌트
 function MakeDiv({ e, i, detailsChange }) {
@@ -70,14 +71,13 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
     }
 
     function deleteData() {
-        if (prgDetailData.prgId && window.confirm("프로젝트를 삭제하시겠습니까?")) {
-            axios.post('/api/prg/prgDtdelete', {
+        if (prgDetailData.prgId && window.confirm("세부 프로그램을 삭제하시겠습니까?")) {
+            apiCall('/prg/prgDtdelete', 'POST', {
                 prgId: prgDetailData.prgId,
                 prgDnm: prgDetailData.prgDnm,
                 rec: prgDetailData.rec
-            })
+            }, null)
                 .then((response) => {
-                    // handle success
                     setPrgDetailData({});
                     setData(prgDataOneD);
                     setTreeUpdate(!treeUpdate);
@@ -85,14 +85,10 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     console.log(response.data);
                 })
                 .catch((error) => {
-                    // handle error
                     console.log(error);
+                    alert("선택된 세부 프로그램 삭제에 실패했습니다.");
                 })
-                .then(() => {
-                    // always executed
-                });
-
-        } else alert("선택된 프로그램이 없습니다.");
+        } else alert("선택된 세부 프로그램이 없습니다.");
     }
 
     function saveFile() {
@@ -105,23 +101,16 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
             formData.append("prgId", prgDetailData.prgId);
             formData.append("prgDnm", prgDetailData.prgDnm);
             // console.log(data);
-            axios.post(`/api/prg/fileUpload`, formData, {
-                paramsSerializer: (params) => {
-                    return qs.stringify(params, { arrayFormat: "repeat" });
-                }
-            })
+            apiCall('/prg/fileUpload', 'POST', formData)
                 .then((response) => {
                     console.log(response.data);
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.log(error);
-                    alert("서버 통신 에러로 요청에 실패했습니다.");
-                }).then(() => {
-                    // 항상 실행
-                });
+                    alert("서버 통신 에러로 파일 업로드에 실패했습니다.");
+                })
         }
     }
-
-
 
     function saveData(type) {
         //유효성검사
@@ -154,20 +143,18 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     type: 'prgDtUpdate'
                 }
             } else return alert("잘못된 요청입니다.");
-
-            axios.post(`/api/prg/prgDtSave`, params)
+            apiCall('/prg/prgDtSave', 'POST', params)
                 .then((response) => {
                     saveFile();
                     console.log(response.data);
                     setData(prgDataOneD);
                     setTreeUpdate(!treeUpdate);
                     alert(response.data);
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
-                }).then(() => {
-                    // 항상 실행
-                });
+                })
         }
     }
 

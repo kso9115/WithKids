@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './programDetails.css'
 import { prg_dtls_inp_ck } from '../../hooks/inputCheck/programInputCheck'
-import axios from "axios";
-import qs from "qs";
+import { apiCall } from "../../server/apiService"
+
 
 function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     // console.log("ProgramDetails");
@@ -46,50 +46,39 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     function deleteData() {
         if (prgDataOneD.prgId) {
             if (window.confirm("프로젝트를 삭제하시겠습니까?")) {
-                axios.post('/api/prg/prgdelete', {
+                apiCall('/prg/prgdelete', 'POST', {
                     prgId: prgDataOneD.prgId,
                     prgBigCls: prgDataOneD.prgBigCls,
                     prgMidCls: prgDataOneD.prgMidCls
-                })
+                }, null)
                     .then((response) => {
-                        // handle success
                         setData({});
                         setTreeUpdate(!treeUpdate);
-                        alert(response.data);
-                        console.log(response.data);
-                    })
-                    .catch((error) => {
-                        // handle error
+                        alert(response);
+                        console.log(response);
+                    }).catch((error) => {
                         console.log(error);
                     })
-                    .then(() => {
-                        // always executed
-                    });
             } else alert("취소되었습니다.");
         } else alert("선택된 프로그램이 없습니다.");
     }
 
     function saveImg() {
-        
         if (prgImage.current.files[0]) {
             console.log(prgImage.current.files[0]);
             // prgImage.current.files[0].name = "programImg.png"
             let formData = new FormData();
             formData.append("prgImg", prgImage.current.files[0]);
             formData.append("prgId", prgDataOneD.prgId);
-            axios.post(`/api/prg/imgUpload`, formData, {
-                paramsSerializer: (params) => {
-                    return qs.stringify(params, { arrayFormat: "repeat" });
-                }
-            })
+
+            apiCall('/prg/imgUpload', 'POST', formData, null)
                 .then((response) => {
                     console.log(response.data);
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
-                }).then(() => {
-                    // 항상 실행
-                });
+                })
         }
     }
 
@@ -98,7 +87,7 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     function saveData(type) {
         //유효성검사
         if (prg_dtls_inp_ck(prgDataOneD, type)) {
-            
+
             const clsInc = [...prgDataOneD.clsInc].join(' '); // 소득구분
             const ffTyp = [...prgDataOneD.ffTyp].join(' '); //가구유형
             const prgNmbApi = prgDataOneD.prgNmbApiSub + prgDataOneD.prgNmbApi;
@@ -110,8 +99,7 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                 prgNmbApi,
                 type
             };
-
-            axios.post(`/api/prg/prgSave`, params)
+            apiCall(`/prg/prgSave`, 'POST', params, null)
                 .then((response) => {
                     console.log(response.data);
                     saveImg();
@@ -126,17 +114,14 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                             new Set() : Array.isArray(params.clsInc) ?
                                 params.cls_inc : params.clsInc.indexOf(' ') > 0 ?
                                     new Set(params.clsInc.split(' ')) : new Set([params.clsInc]),
-                        // prgNmbApiSub: params.prgNmbApi ? params.prgNmbApi.substr(0, 1) : null,
-                        // prgNmbApi: params.prgNmbApi ? params.prgNmbApi.substr(1) : null,
                     });
                     setTreeUpdate(!treeUpdate);
                     alert(response.data);
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
-                }).then(() => {
-                    // 항상 실행
-                });
+                })
         }
     }
 
@@ -358,6 +343,7 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                     <button type="button" value='삭제' onClick={deleteData}>삭제</button>
                     <button type="button" value='신규' onClick={() => saveData("prgInsert")}>신규</button>
                     <button type="button" value='저장' onClick={() => saveData("prgUpdate")}>저장</button>
+                    <button type="button" value='test' onClick={saveImg}>test</button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 // => 필요시 사용 
 import axios from "axios";
+import qs from 'qs';
 
 // 1. axios 요청 함수 
 // => 요청시 필요한 정보를 매개변수로 전달받음
@@ -13,7 +14,7 @@ export async function apiCall(url, method, requestData, token) {
   //  - 존재하면 찾는문자열이 첫번째 나타나는 위치(index) 를 return,
   //    없으면 -1 dmf return
   let headers = ''; 
-  if (url.indexOf('join') >= 0  && token == null) {
+    if (url.indexOf('Upload') >= 0  && token == null) {
       headers = { 'Content-Type': 'multipart/form-data' };  
   }else if (token !== null) {
       headers = { 'Content-Type': 'application/json',
@@ -32,7 +33,8 @@ export async function apiCall(url, method, requestData, token) {
   
   // 1.3) 전송 Data(requestData) 있는 경우 data 속성 추가
   if (requestData) {
-    options.data = requestData;
+    if (method === "POST") options.data = requestData;
+    else options.params = requestData;
   }
 
 //   console.log(`** apiCall options.method=${options.method}`);
@@ -44,7 +46,7 @@ export async function apiCall(url, method, requestData, token) {
   // 2. Axios 요청
   return axios(options)
           .then(response => { 
-              return response.data;
+              return response;
           }).catch(err => {
               console.error(`** apiCall Error status=${err.response.status}, message=${err.message}`); 
 

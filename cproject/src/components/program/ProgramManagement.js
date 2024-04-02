@@ -6,7 +6,7 @@ import Container from '../container/Container'
 import { useState, useEffect } from 'react'
 import SearchBox from '../../hooks/searchbox/SearchBox';
 import { prg_mng } from '../../hooks/searchbox/searchData'
-import axios from "axios";
+import { apiCall } from "../../server/apiService"
 
 function ProgramManagement() {
     // console.log("ProgramManagement");
@@ -34,28 +34,15 @@ function ProgramManagement() {
     useEffect(() => {
         if (prgDataOne.constructor === Object
             && Object.keys(prgDataOne).length !== 0) {
-            const prgDetails = async () => {
-                try {
-                    const response = await axios.get('/api/prg/prgDetails', {
-                        params: {
-                            prgId: prgDataOne.prgId,
-                            rec: '프로그램세부'
-                        }
-                    });
-                    setPrgDetail(response.data);
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-            prgDetails();
-            // axios.get('/api/prg/prgDetails', {
-            //     params: {
-            //         prgId: prgDataOne.prgId,
-            //         rec: '프로그램세부'
-            //     }
-            // }).then((res) => {
-            //     setPrgDetail(res.data);
-            // })
+
+            apiCall('/prg/prgDetails', 'GET', {
+                prgId: prgDataOne.prgId,
+                rec: '프로그램세부'
+            }, null).then((response) => {
+                setPrgDetail(response.data);
+            }).catch((error) => {
+                console.log(error);
+            })
         }
     }, [prgDataOne]);
     function searchBoxClick(sbVal) {

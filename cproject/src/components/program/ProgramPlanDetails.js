@@ -7,6 +7,7 @@ import axios from "axios";
 import { prg_pln_inp_ck } from "../../hooks/inputCheck/programInputCheck";
 import AttachedFile from "../../hooks/func/AttachedFile";
 import { qs } from 'qs';
+import { apiCall } from "../../server/apiService";
 
 function MakeModal({ modal, setData, closeModal }) {
     const [program, setProgram] = useState([]);
@@ -82,25 +83,39 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
         console.log(data);
         if (data.rec) {
             if (window.confirm("프로젝트를 삭제하시겠습니까?")) {
-                axios.post('/api/prgPln/prgPlnDelete', {
+                apiCall('/prgPln/prgPlnDelete', 'POST', {
                     prgId: data.prgId,
                     prgDnm: data.prgDnm,
                     rec: data.rec
                 })
                     .then((response) => {
-                        // handle success
                         setData({});
                         setListUpdate(!listUpdate);
                         alert(response.data);
                         console.log(response.data);
                     })
                     .catch((error) => {
-                        // handle error
                         console.log(error);
                     })
-                    .then(() => {
-                        // always executed
-                    });
+                // axios.post('/api/prgPln/prgPlnDelete', {
+                //     prgId: data.prgId,
+                //     prgDnm: data.prgDnm,
+                //     rec: data.rec
+                // })
+                //     .then((response) => {
+                //         // handle success
+                //         setData({});
+                //         setListUpdate(!listUpdate);
+                //         alert(response.data);
+                //         console.log(response.data);
+                //     })
+                //     .catch((error) => {
+                //         // handle error
+                //         console.log(error);
+                //     })
+                //     .then(() => {
+                //         // always executed
+                //     });
             } else alert("취소되었습니다.");
         } else alert("선택된 프로그램계획이 없습니다.");
     }
@@ -111,7 +126,7 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
             let prgFilef = "";
             if (plnData.prgFilef) {
                 Array.from({ length: plnData.prgFilef.length }, (_, i) => {
-                    return prgFilef += plnData.prgFilef[i].name + " ";
+                    return prgFilef += plnData.prgFilef[i].name + "?";
                 });
             }
             let params = {
@@ -120,26 +135,37 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                 plnTm: !!plnData.plnTm ? plnData.plnTm + "~" + plnData.plnTm2 : null,
                 type,
                 content: text,
-                prgFile: (prgFilef + plnData.prgFile.join(' ')).trim(),
+                prgFile: (prgFilef + plnData.prgFile.join('?')).replace(/\?\s*$/, ''),
                 prgFilef: null,
                 prgDnm: plnData.title
             };
             delete params.plnPrd2;
             delete params.plnTm2;
             console.log(params);
-            axios.post(`/api/prgPln/prgPlnSave`, params)
+            apiCall('/prgPln/prgPlnSave', 'POST', params)
                 .then((response) => {
                     console.log(response.data);
                     saveFile();
-                    // setData(params);
                     setListUpdate(!listUpdate);
                     alert(response.data);
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
-                }).then(() => {
-                    // 항상 실행
-                });
+                })
+            // axios.post(`/api/prgPln/prgPlnSave`, params)
+            //     .then((response) => {
+            //         console.log(response.data);
+            //         saveFile();
+            //         // setData(params);
+            //         setListUpdate(!listUpdate);
+            //         alert(response.data);
+            //     }).catch((error) => {
+            //         console.log(error);
+            //         alert("서버 통신 에러로 요청에 실패했습니다.");
+            //     }).then(() => {
+            //         // 항상 실행
+            //     });
         }
     }
 
@@ -152,20 +178,27 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
             }
             formData.append("prgId", plnData.prgId);
             formData.append("prgDnm", plnData.prgDnm);
-            // console.log(data);
-            axios.post(`/api/prg/fileUpload`, formData, {
-                paramsSerializer: (params) => {
-                    return qs.stringify(params, { arrayFormat: "repeat" });
-                }
-            })
+            apiCall('/prg/fileUpload', 'POST', formData)
                 .then((response) => {
                     console.log(response.data);
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
-                }).then(() => {
-                    // 항상 실행
-                });
+                })
+            // axios.post(`/api/prg/fileUpload`, formData, {
+            //     paramsSerializer: (params) => {
+            //         return qs.stringify(params, { arrayFormat: "repeat" });
+            //     }
+            // })
+            //     .then((response) => {
+            //         console.log(response.data);
+            //     }).catch((error) => {
+            //         console.log(error);
+            //         alert("서버 통신 에러로 요청에 실패했습니다.");
+            //     }).then(() => {
+            //         // 항상 실행
+            //     });
         }
     }
     return (
