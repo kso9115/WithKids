@@ -332,40 +332,6 @@ public class ProgramController {
 		}
 	}
 
-	// @GetMapping("/filedownload")
-	// public ResponseEntity<Object> download(@RequestParam("prgId") String prgId,
-	// @RequestParam("prgDnm") String prgDnm,
-	// @RequestParam("fileName") String fileName,HttpServletRequest request) {
-	// // // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
-	// String realPath = request.getRealPath("/");
-	// log.info("** realPath => " + realPath);
-	// // // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-	// if (!realPath.contains("apache-tomcat"))
-	// realPath =
-	// "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\uploadFile\\"
-	// + prgId + prgDnm + "\\"; // 개발중.
-	// else
-	// realPath =
-	// "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\uploadFile\\"
-	// + prgId + prgDnm + "\\";
-
-	// try {
-	// Path filePath = Paths.get(realPath);
-	// Resource resource = new InputStreamResource(Files.newInputStream(filePath));
-	// // 파일 resource 얻기
-
-	// File file = new File(realPath);
-
-	// HttpHeaders headers = new HttpHeaders();
-	// headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());
-	// // 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
-
-	// return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
-	// } catch(Exception e) {
-	// return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
-	// }
-	// }
-
 	@PostMapping("/prgdelete")
 	public String prgdelete(@RequestBody ProgramId entityId) {
 		String message = "";
@@ -398,9 +364,11 @@ public class ProgramController {
 		return message;
 	}
 
-	@GetMapping("/hi")
-	public String hi() {
+	@PostMapping("/prgOne")
+	public Program prgOne(@RequestBody Program entity) {
 
-		return "hi";
+		entity = prgService.selectOne(entity.getPrgId());
+
+		return entity;
 	} // prgList
 }

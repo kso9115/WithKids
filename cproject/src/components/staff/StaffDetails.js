@@ -3,10 +3,11 @@ import StaffSpecialNote from './StaffSpecialNote'
 import './staffDetails.css'
 import axios from 'axios';
 import { stf_dtls_inp_ck } from '../../hooks/inputCheck/staffInputCheck';
+import { apiCall } from '../../server/apiService';
 
 function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
     const [staffDataOneD, setStaffDataOneD] = useState({}); // 클릭한 직원정보 저장
-    
+
     useEffect(() => {
         if (data.constructor === Object
             && Object.keys(data).length > 0) {
@@ -17,23 +18,20 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
     console.log(staffDataOneD);
 
     function resetPswrd() {
-        if(window.confirm("정말로 초기화 하시겠습니까?(되돌릴 수 없습니다.)"))
-            axios.get(`/api/staff/resetPswrd`, {
-                params: { staffId:staffDataOneD.staffId }
-            })
-            .then((response) => {
-                console.log(response.data)
-            }).catch((error) => {
-                // handle error
-                console.log(error);
-            })
+        if (window.confirm("정말로 초기화 하시겠습니까?(되돌릴 수 없습니다.)"))
+            apiCall('/staff/resetPswrd', 'GET', { staffId: staffDataOneD.staffId })
+                .then((response) => {
+                    console.log(response.data)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
     }
 
     function saveData(type) {
         //유효성검사
         if (stf_dtls_inp_ck(staffDataOneD, type)) {
-            axios.post(`/api/staff/staffSave`, { ...staffDataOneD,type })
-
+            apiCall('/staff/staffSave', 'POST', { ...staffDataOneD, type })
                 .then((response) => {
                     console.log(response.data);
                     setData({
@@ -41,33 +39,27 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
                     });
                     setListUpdate(!listUpdate);
                     alert(response.data);
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
-                }).then(() => {
-                    // 항상 실행
-                });
+                })
         }
     }
 
     function deleteData() {
         if (staffDataOneD.staffId) {
             if (window.confirm("직원정보를 삭제하시겠습니까?")) {
-                axios.post('/api/staff/staffdelete', staffDataOneD)
+                apiCall('/staff/staffdelete', 'POST', staffDataOneD)
                     .then((response) => {
-                        // handle success
                         setData({});
                         setListUpdate(!listUpdate);
                         alert(response.data);
                         console.log(response.data);
                     })
                     .catch((error) => {
-                        // handle error
                         console.log(error);
                     })
-                    .then(() => {
-                        // always executed
-                    });
             } else alert("취소되었습니다.");
         } else alert("선택된 직원정보가 없습니다.");
     }
@@ -94,15 +86,15 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
                         })}
                     </select>
                 </div>
-                
+
                 <div><span>*</span>이름</div>
                 <div><input type="text" id='staffNm' name='staffNm' value={staffDataOneD.staffNm || ""} onChange={StaffDetailsChange}
                     disabled={false} /></div>
-                
+
                 <div><span>*</span>휴대번호</div>
                 <div><input type="tel" id='staffPhnn' name='staffPhnn' value={staffDataOneD.staffPhnn || ""} onChange={StaffDetailsChange}
                     disabled={false} /></div>
-                
+
                 <div><span>*</span>아이디</div>
                 <div><input type="text" id='staffId' name='staffId' value={staffDataOneD.staffId || ""} onChange={StaffDetailsChange}
                     disabled={false} /></div>
@@ -120,7 +112,7 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
                         <label htmlFor='staffLeave2'>휴직</label>
                     </div>
                 </div>
-                
+
                 <div>휴직일</div>
                 <div><input type="date" id='staffLvdy' name='staffLvdy' value={staffDataOneD.staffLvdy || ""} onChange={StaffDetailsChange}
                     disabled={false} /></div>
@@ -129,7 +121,7 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
                 <div>
                     <textarea cols="120" rows="5" id='rmr' name='rmr' value={staffDataOneD.rmr || ""} onChange={StaffDetailsChange}></textarea>
                 </div>
-                
+
                 {/* <div><span>*</span>비밀번호</div>
                 <div><input type="password" id='staffPsw' name='staffPsw' value={""} onChange={StaffDetailsChange}
                     disabled={false} /></div> */}

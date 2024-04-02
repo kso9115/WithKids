@@ -2,8 +2,6 @@ import './programDetailsPrg.css'
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import AttachedFile from '../../hooks/func/AttachedFile';
 import { prg_dtls_prg_inp_ck } from '../../hooks/inputCheck/programInputCheck'
-import axios from 'axios';
-import qs from "qs";
 import { apiCall } from "../../server/apiService"
 
 // 서브 컴포넌트
@@ -45,7 +43,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         // console.log(data[i]);
         setPrgDetailData({
             ...subData[i],
-            prgFile: subData[i].prgFile ? subData[i].prgFile.split(' ') : [],
+            prgFile: subData[i].prgFile ? subData[i].prgFile.split('?') : [],
         })
     }
 
@@ -119,12 +117,12 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
             let prgFilef = "";
             if (prgDetailData.prgFilef) {
                 Array.from({ length: prgDetailData.prgFilef.length }, (_, i) => {
-                    return prgFilef += prgDetailData.prgFilef[i].name + " ";
+                    return prgFilef += prgDetailData.prgFilef[i].name + "?";
                 });
             }
             let params = {
                 ...prgDetailData,
-                prgFile: (prgFilef + prgDetailData.prgFile.join(' ')).trim(),
+                prgFile: (prgFilef + prgDetailData.prgFile.join('?')).replace(/\?\s*$/, ''),
                 prgFilef: null
             };
 

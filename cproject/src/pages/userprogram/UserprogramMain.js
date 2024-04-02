@@ -2,22 +2,20 @@ import React, { useEffect, useState } from 'react';
 import './userprogram.css';
 import { Link, Outlet } from 'react-router-dom';
 import axios from 'axios';
+import { apiCall } from '../../server/apiService';
 
 
 function UserprogramMain() {
     const [listData, setListData] = useState([]);
 
     useEffect(() => {
-        const listCall = async () => {
-            try {
-                const response = await axios.get(`/api/prgPln/prgPlnList`);
-                // console.log(response.data);
+        apiCall('/prgPln/prgPlnList', 'GET')
+            .then((response) => {
                 setListData(response.data);
-            } catch (error) {
+            })
+            .catch((error) => {
                 console.log(error);
-            }
-        };
-        listCall();
+            })
     }, [])
     console.log(listData);
     return (

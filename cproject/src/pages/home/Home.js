@@ -5,7 +5,6 @@ import Main from '../../components/main/Main'
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from '../../components/menu/Navbar';
-import axios from 'axios';
 import { apiCall } from "../../server/apiService"
 
 function Home() {

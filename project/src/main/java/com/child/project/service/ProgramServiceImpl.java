@@ -35,6 +35,21 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 
 	@Override
+	public Program selectOne(String prgId) {
+		return repository.selectOne(prgId);
+	}
+
+	@Override
+	public Program selectOne(ProgramId programId) {
+		Optional<Program> result = repository.findById(programId);
+
+		if (result.isPresent())
+			return result.get(); // ver01
+		else
+			return null;
+	}
+
+	@Override
 	public List<ProgramDetails> selectSlide() {
 		LocalDate now = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -65,16 +80,6 @@ public class ProgramServiceImpl implements ProgramService {
 	@Override
 	public Integer plnCnt(String prgId, String title) {
 		return prgdrepository.plnCnt(prgId, title);
-	}
-
-	@Override
-	public Program selectOne(ProgramId programId) {
-		Optional<Program> result = repository.findById(programId);
-
-		if (result.isPresent())
-			return result.get(); // ver01
-		else
-			return null;
 	}
 
 	@Override

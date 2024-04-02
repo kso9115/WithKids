@@ -5,6 +5,7 @@ import Modal from "react-modal"
 import axios from "axios";
 import { useState } from 'react';
 import { BiX } from "react-icons/bi";
+import { apiCall } from '../../server/apiService';
 
 const data = {
     name: '임명건',
@@ -51,13 +52,11 @@ function Navbar() {
         if (password[1] !== "" && !reg.test(password[1])) alert("숫자,영문,특수기호 포함 8글자로 입력해주세요.")
         else if (password[2] !== "" && password[1] !== password[2]) alert("변경 비밀번호와 비밀번호 확인이 서로 일치하지않습니다.")
         else {
-            axios.get(`/api/staff/changePswrd`, {
-                params: { staffId: "", staffPsw: password[2] }
-            })
+            apiCall('/staff/changePswrd', 'GET', { staffId: "", staffPsw: password[2] })
                 .then((response) => {
                     console.log(response.data)
-                }).catch((error) => {
-                    // handle error
+                })
+                .catch((error) => {
                     console.log(error);
                 })
         }

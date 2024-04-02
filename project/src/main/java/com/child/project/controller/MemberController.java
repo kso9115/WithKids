@@ -106,32 +106,30 @@ public class MemberController {
         log.info("memInesert !!! 데이터 전달되는 부분 확인");
         log.info("entity 값을 확인해보자" + entity);
         // log.info("넘어오나?" + entity.getMemSerial());
-        
-        
-        
+
         // save하려는 값이 없으면 실행x
-            try {
-                // if (memService.save(entity) != null) {
+        try {
+            // if (memService.save(entity) != null) {
 
-                // }
+            // }
 
-                // 초기 기본 비밀번호 설정을 위한 값 부여
-                entity.setMemLoginPW("12345!");
-                entity.setMemRegisterDate("2023-03-26");
-                memService.save(entity);
-                
-                 // 파라미터 값 저장
-                // log.info("member insert 성공 => " + memService.save(memEntity)); // 넘어오는거 확인완
-                
-                message = "아동 추가 입력 성공";
-            } catch (Exception e) {
-                log.info("member insert 실패 => " + e.toString());
-                message = "아동 추가 입력 실패";
-            }
-      
+            // 초기 기본 비밀번호 설정을 위한 값 부여
+            entity.setMemLoginPW("12345!");
+            entity.setMemRegisterDate("2023-03-26");
+            memService.save(entity);
+
+            // 파라미터 값 저장
+            // log.info("member insert 성공 => " + memService.save(memEntity)); // 넘어오는거 확인완
+
+            message = "아동 추가 입력 성공";
+        } catch (Exception e) {
+            log.info("member insert 실패 => " + e.toString());
+            message = "아동 추가 입력 실패";
+        }
+
         return message;
     }
-    
+
     // Education 엔티티에 접근
     @PostMapping("/memEduInesert")
     public String memEduInsert(@RequestBody Education entity) {
@@ -140,32 +138,31 @@ public class MemberController {
         // log.info("entity 값을 확인해보자" + entity);
         // log.info("넘어오나?" + entity.getMemSerial());
         log.info(entity);
-            try {
-                
-                memService.save(entity);
-                // entity.setMemRegisterDate("2023-03-26");
-                // memService.save(entity);
-                
-                 // 파라미터 값 저장
-                // log.info("member insert 성공 => " + memService.save(memEntity)); // 넘어오는거 확인완
-                
-                message = "아동 추가 입력 성공";
-            } catch (Exception e) {
-                log.info("member insert 실패 => " + e.toString());
-                message = "아동 추가 입력 실패";
-            }
-      
+        try {
+
+            memService.save(entity);
+            // entity.setMemRegisterDate("2023-03-26");
+            // memService.save(entity);
+
+            // 파라미터 값 저장
+            // log.info("member insert 성공 => " + memService.save(memEntity)); // 넘어오는거 확인완
+
+            message = "아동 추가 입력 성공";
+        } catch (Exception e) {
+            log.info("member insert 실패 => " + e.toString());
+            message = "아동 추가 입력 실패";
+        }
+
         return message;
     }
 
     @GetMapping("/memSearch")
     public List<Member> memSearch(Member entity) {
-        log.info("entity=>"+ entity);
-        List<Member> list= memService.searchList(entity);
+        log.info("entity=>" + entity);
+        List<Member> list = memService.searchList(entity);
         log.info("오냐?");
         return list;
     }
-    
 
     @PostMapping("/eduDelete")
     public String deleteEduByMemserial(@RequestParam("memSerial") String memSerial) {
@@ -182,10 +179,10 @@ public class MemberController {
 
         return message;
     }
-    
+
     // findSerialList
     @GetMapping("/admissionList")
-    public List<Member> selectAdmissionList(){
+    public List<Member> selectAdmissionList() {
         log.info("센터 이용중인 리스트 출력하는 레포지토리 소환");
         List<Member> list = memService.selectAdmissionList();
         log.info(list);
@@ -194,22 +191,23 @@ public class MemberController {
 
     // 로그인 요청 ======================================
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Member entity){
+    public ResponseEntity<?> login(@RequestBody Member entity) {
         // log.info("여기까지 요청 왔다.");
-        
-        Member userMember=memService.selectOne(entity.getMemSerial());
+
+        Member userMember = memService.selectOne(entity.getMemSerial());
         // log.info(userMember);
-        
+
         // String password = entity.getMemLoginPW();
         // log.info("userMember의 pw => " +userMember.getMemLoginPW());
         // log.info("받아온 값 pw => " +entity.getMemLoginPW());
 
-        if(userMember!=null && passwordEncoder.matches(entity.getMemLoginPW(), userMember.getMemLoginPW())){
-            // log.info("로그인 요청 들어옴 => " + entity.getMemSerial()+ " : " +entity.getMemLoginPW());
-            
+        if (userMember != null && passwordEncoder.matches(entity.getMemLoginPW(), userMember.getMemLoginPW())) {
+            // log.info("로그인 요청 들어옴 => " + entity.getMemSerial()+ " : "
+            // +entity.getMemLoginPW());
+
             // token
             final String token = tokenProvider.create(userMember);
-            
+
             // 세션에 저장(이름이랑, id 정도를 저장)
             // return ResponseEntity.status(HttpStatus.OK).body(userMember.getMemName());
             // Map<String, String> responseData = new HashMap<>();
@@ -217,20 +215,19 @@ public class MemberController {
             // responseData.put("memSerial", userMember.getMemSerial());
 
             final UserDTO userDTO = UserDTO.builder()
-                                    .token(token)
-                                    .id(entity.getMemSerial())
-                                    .username(entity.getMemName())
-                                    .staffChlCr(0)
-                                    .staffCmnMng(0)
-                                    .staffCntMng(0)
-                                    .build();
-            
+                    .token(token)
+                    .id(userMember.getMemSerial())
+                    .username(userMember.getMemName())
+                    .staffChlCr(0)
+                    .staffCmnMng(0)
+                    .staffCntMng(0)
+                    .build();
+
             return ResponseEntity.status(HttpStatus.OK).body(userDTO);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("user Login faild");
         }
-        
-        
+
     }
 
 }

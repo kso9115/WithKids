@@ -13,29 +13,33 @@ export async function apiCall(url, method, requestData, token) {
   //  - JavasScript 의 문자열 확인함수
   //  - 존재하면 찾는문자열이 첫번째 나타나는 위치(index) 를 return,
   //    없으면 -1 dmf return
-  let headers = ''; 
+    let headers = ''; 
     if (url.indexOf('Upload') >= 0  && token == null) {
-      headers = { 'Content-Type': 'multipart/form-data' };  
-  }else if (token !== null) {
-      headers = { 'Content-Type': 'application/json',
+        headers = { 'Content-Type': 'multipart/form-data' };  
+    } else if (token !== null) {
+        headers = { 'Content-Type': 'application/json',
                   'Authorization': 'Bearer '+token  };  
-  }else {
-      headers = { 'Content-Type': 'application/json' };  
-  }
+    } else {
+        headers = { 'Content-Type': 'application/json' };  
+    }
  
   // 1.2) axios 전송 options
-  let options = {
+    let options = {
         url: "/api" + url,
         method: method, 
         headers: headers,
-  };
+    };
   // => 전송할 Data 가 있으면 추가할수 있도록 "," 추가함    
   
   // 1.3) 전송 Data(requestData) 있는 경우 data 속성 추가
   if (requestData) {
     if (method === "POST") options.data = requestData;
     else options.params = requestData;
-  }
+    }
+    
+    if (url.indexOf('download') >= 0) {
+        options.responseType = 'blob'
+    }
 
 //   console.log(`** apiCall options.method=${options.method}`);
 //   console.log(`** apiCall options.url=${options.url}`);

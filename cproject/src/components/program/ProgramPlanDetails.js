@@ -50,7 +50,7 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
             plnTm2: data.plnTm ? data.plnTm.split("~")[1] : "",
             rec: "프로그램계획",
             prgDnm: data.title || "",
-            prgFile: data.prgFile ? data.prgFile.split(' ') : [],
+            prgFile: data.prgFile ? data.prgFile.split('?') : [],
             prgFilef: null
         })
     }, [data])
@@ -97,25 +97,6 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                     .catch((error) => {
                         console.log(error);
                     })
-                // axios.post('/api/prgPln/prgPlnDelete', {
-                //     prgId: data.prgId,
-                //     prgDnm: data.prgDnm,
-                //     rec: data.rec
-                // })
-                //     .then((response) => {
-                //         // handle success
-                //         setData({});
-                //         setListUpdate(!listUpdate);
-                //         alert(response.data);
-                //         console.log(response.data);
-                //     })
-                //     .catch((error) => {
-                //         // handle error
-                //         console.log(error);
-                //     })
-                //     .then(() => {
-                //         // always executed
-                //     });
             } else alert("취소되었습니다.");
         } else alert("선택된 프로그램계획이 없습니다.");
     }
@@ -153,19 +134,6 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
                 })
-            // axios.post(`/api/prgPln/prgPlnSave`, params)
-            //     .then((response) => {
-            //         console.log(response.data);
-            //         saveFile();
-            //         // setData(params);
-            //         setListUpdate(!listUpdate);
-            //         alert(response.data);
-            //     }).catch((error) => {
-            //         console.log(error);
-            //         alert("서버 통신 에러로 요청에 실패했습니다.");
-            //     }).then(() => {
-            //         // 항상 실행
-            //     });
         }
     }
 
@@ -186,19 +154,6 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
                 })
-            // axios.post(`/api/prg/fileUpload`, formData, {
-            //     paramsSerializer: (params) => {
-            //         return qs.stringify(params, { arrayFormat: "repeat" });
-            //     }
-            // })
-            //     .then((response) => {
-            //         console.log(response.data);
-            //     }).catch((error) => {
-            //         console.log(error);
-            //         alert("서버 통신 에러로 요청에 실패했습니다.");
-            //     }).then(() => {
-            //         // 항상 실행
-            //     });
         }
     }
     return (

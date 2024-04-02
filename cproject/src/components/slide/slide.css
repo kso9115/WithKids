@@ -18,6 +18,7 @@
 .slick-slide img {
     border-radius: 15px 15px 0 0;
 }
+
 .slick-track {
     width: 1300px;
 }
@@ -27,6 +28,11 @@
     font-family: 'NanumBarunGothic', 'serif';
     color: black;
     font-size: 25px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 5px;
 }
 
 .imgBox_Slider {
@@ -36,4 +42,3 @@
     /* color: var(--admin); */
     margin: auto;
 }
-

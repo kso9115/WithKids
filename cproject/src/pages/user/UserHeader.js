@@ -26,6 +26,7 @@ function UserHeader({ login, setLogin }) {
         if (window.confirm("정말로 로그아웃 하시겠습니까?")) {
             sessionStorage.removeItem('userLogin');
             setLogin(false);
+            window.location.reload();
         }
     }
     // if (icon.current.className === 'iconClick') {

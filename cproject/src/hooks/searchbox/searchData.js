@@ -1,4 +1,5 @@
 import axios from "axios";
+import { apiCall } from "../../server/apiService";
 
 let date = new Date();
 let yyyy = date.getFullYear();
@@ -170,10 +171,8 @@ export const stf_mng = {
     ],
     staffPstList: {}
 }
-
-axios.get(`/api/staff/staffPstList`)
+apiCall('/staff/staffPstList', 'GET')
     .then((response) => {
-        // console.log(response.data)
         if (Array.isArray(response.data)) {
             for (let i = 0; i < response.data.length; i++) {
                 stf_mng.content[0].default.push({
@@ -183,8 +182,8 @@ axios.get(`/api/staff/staffPstList`)
             }
         }
         stf_mng.staffPstList = response.data
-    }).catch((error) => {
-        // handle error
+    })
+    .catch((error) => {
         console.log(error);
     })
 

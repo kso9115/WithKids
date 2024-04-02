@@ -1,67 +1,31 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { apiCall } from "../server/apiService";
 
 function ListComponent({ name, setData, listUpdate }) {
     const [listData, setListData] = useState([]);
     //프로그램 테이블 전체 보관
     useEffect(() => {
         if (listUpdate !== true && listUpdate !== false) {
-
-            const searchCall = async () => {
-                try {
-                    const response = await axios.get(`/api/${name.name}/${name.name}Search`, {
-                        params: listUpdate
-                    });
-                    // console.log(response.data);
+            apiCall(`/${name.name}/${name.name}Search`, 'GET', listUpdate)
+                .then((response) => {
                     setListData(response.data);
                     setData([])
-                } catch (error) {
+                })
+                .catch((error) => {
                     console.log(error);
-                }
-
-            };
-            searchCall();
-            // axios.get(`/api/${name.name}/${name.name}Search`, {
-            //     params: listUpdate
-            // })
-            //     .then((response) => {
-            //         console.log(response.data);
-            //         setListData(response.data);
-            //         setData([])
-            //     }).catch((error) => {
-            //         // handle error
-            //         console.log(error);
-            //     })
+                })
         } else {
-            const listCall = async () => {
-                try {
-                    const response = await axios.get(`/api/${name.name}/${name.name}List`);
-                    // console.log(response.data);
+            apiCall(`/${name.name}/${name.name}List`, 'GET')
+                .then((response) => {
                     setListData(response.data);
-                } catch (error) {
+                })
+                .catch((error) => {
                     console.log(error);
-                }
-            };
-            listCall();
-            // axios.get(`/api/${name.name}/${name.name}List`)
-            //     .then((response) => {
-            //         console.log(response.data)
-            //         setListData(response.data);
-            //     }).catch((error) => {
-            //         // handle error
-            //         console.log(error);
-            //     })
-            // axios.get(`/api/${name.name}/${name.name}List`)
-            //     .then((response) => {
-            //         console.log(response.data)
-            //         setListData(response.data);
-            //     }).catch((error) => {
-            //         // handle error
-            //         console.log(error);
-            //     })
+                })
         }
     }, [listUpdate]);
-    // console.log(listData);
+
     return (
         <>
             <b>{name.list}</b>

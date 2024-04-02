@@ -1,11 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import './AttachedFile.css'
 import axios from 'axios';
-import { qs } from 'qs';
+import { apiCall } from '../../server/apiService';
 
-function FileMake(params) {
-
-}
 
 function AttachedFile({ data, setData, name, files }) {
     const selectFile = useRef();
@@ -147,32 +144,27 @@ function AttachedFile({ data, setData, name, files }) {
     }
 
     function downloadFile(event) {
-        if (window.confirm(`${event.target.name} 파일을 다운로드 하시겠습니까?`))
-        axios({
-            url: '/api/prg/filedownload', // 스프링 서버의 파일 다운로드 엔드포인트
-            method: 'GET',
-            responseType: 'blob', // 파일 다운로드를 위해 responseType을 'blob'으로 설정
-            params: {
+        if (window.confirm(`${event.target.name} 파일을 다운로드 하시겠습니까?`)) {
+            apiCall('/prg/filedownload', 'GET', {
                 prgId: data.prgId,
                 prgDnm: data.prgDnm,
                 fileName: event.target.name
-            }
-        })
-            .then(response => {
-                // 파일 다운로드를 위해 blob 데이터를 URL로 변환
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                // a 태그를 생성하고 다운로드 링크를 설정하여 다운로드를 유도
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', event.target.name); // 다운로드할 파일명을 설정
-                document.body.appendChild(link);
-                link.click();
-                // URL 객체의 사용이 끝나면 해제하여 메모리 누수를 방지
-                URL.revokeObjectURL(url);
             })
-            .catch(error => {
-                console.error('파일 다운로드 실패:', error);
-            });
+                .then((response) => {
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    // a 태그를 생성하고 다운로드 링크를 설정하여 다운로드를 유도
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', event.target.name); // 다운로드할 파일명을 설정
+                    document.body.appendChild(link);
+                    link.click();
+                    // URL 객체의 사용이 끝나면 해제하여 메모리 누수를 방지
+                    URL.revokeObjectURL(url);
+                })
+                .catch((error) => {
+                    console.error('파일 다운로드 실패:', error);
+                })
+        }
     }
 
     return (

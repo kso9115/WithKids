@@ -2,22 +2,19 @@ import { useEffect, useState } from 'react';
 import Slide from '../../components/slide/Slide'
 import './userMain.css'
 import axios from 'axios';
+import { apiCall } from '../../server/apiService';
 
 
 function UserMain() {
     const [prgData, setPrgData] = useState([]); //프로그램 테이블 전체 보관
     useEffect(() => {
-        const prgList = async () => {
-            try {
-                const response = await axios.get('/api/prg/prgSlide');
-                // let data = JSON.stringify(response);
-                // console.log(response);
+        apiCall('/prg/prgSlide', 'GET')
+            .then((response) => {
                 setPrgData(response.data);
-            } catch (error) {
+            })
+            .catch((error) => {
                 console.log(error);
-            }
-        }
-        prgList();
+            })
     }, [])
     console.log(prgData);
     return (

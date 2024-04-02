@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { stf_spcn_inp_ck } from "../../hooks/inputCheck/staffInputCheck";
+import { apiCall } from "../../server/apiService";
 
 // 메인 컴포넌트
 function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
@@ -12,11 +13,12 @@ function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
             const param = {
                 staffId: staffDataOneD.staffId
             }
-            axios.post(`/api/staff/staffAtnId`, param)
+            apiCall('/staff/staffAtnId', 'POST', param)
                 .then((response) => {
                     console.log(response.data)
                     setStaffAtnId(response.data);
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.log(error);
                 })
         }
@@ -37,20 +39,18 @@ function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
         if (staffDataOneD.staffLeave == 1) {
             alert("휴직중인 직원입니다.");
         } else if (stf_spcn_inp_ck(staffAtnOne, type)) {
-            axios.post(`/api/staff/staffAtnSave`, { ...staffAtnOne, type })
-
+            apiCall('/staff/staffAtnSave', 'POST', { ...staffAtnOne, type })
                 .then((response) => {
                     console.log(response.data);
                     setStaffAtnId([]);
                     setStaffDataOneD({});
                     // setListUpdate(!listUpdate);
                     alert(response.data);
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
-                }).then(() => {
-                    // 항상 실행
-                });
+                })
         }
     }
 
@@ -59,21 +59,16 @@ function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
             alert("휴직중인 직원입니다.");
         } else if (staffAtnOne.staffId) {
             if (window.confirm("직원 휴가/결근/특이사항을 삭제하시겠습니까?")) {
-                axios.post('/api/staff/staffAtnDelete', staffAtnOne)
+                apiCall('/staff/staffAtnDelete', 'POST', staffAtnOne)
                     .then((response) => {
-                        // handle success
-                        // setData({});
-                        // setListUpdate(!listUpdate);
                         alert(response.data);
                         console.log(response.data);
+                        // setListUpdate(!listUpdate);
+                        // setData({});
                     })
                     .catch((error) => {
-                        // handle error
                         console.log(error);
                     })
-                    .then(() => {
-                        // always executed
-                    });
             } else alert("취소되었습니다.");
         } else alert("선택된 직원 휴가/결근/특이사항이 없습니다.");
     }

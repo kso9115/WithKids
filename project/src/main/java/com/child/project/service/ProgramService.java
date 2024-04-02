@@ -11,6 +11,10 @@ public interface ProgramService {
 
 	List<Program> selectList();
 
+	Program selectOne(String prgId);
+
+	Program selectOne(ProgramId programId);
+
 	List<ProgramDetails> selectSlide();
 
 	List<Program> findSearch(Program entity);
@@ -25,8 +29,6 @@ public interface ProgramService {
 	List<ProgramDetails> selectDetails(String prgId, String rec);
 
 	List<ProgramDetails> selectAllPlan();
-
-	Program selectOne(ProgramId programId);
 
 	Program save(Program entity);
 
