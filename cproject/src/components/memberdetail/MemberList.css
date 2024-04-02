@@ -41,3 +41,8 @@
     border-bottom: 1px solid var(--lgray);
     padding: 7px;
 }
+
+.memberList_row:hover{
+    cursor: pointer;
+    background-color: var(--mgray);
+}
