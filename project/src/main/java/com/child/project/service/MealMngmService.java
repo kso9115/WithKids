@@ -10,6 +10,7 @@ import com.child.project.entity.MealMngmId;
 public interface MealMngmService {
     List<MealMngm> selectList();
 
+    List<MealMngm> selectListYM(String yearMonth);
     // MealMngm selectOne(MealMngmId mealMngmId);
     
 }
