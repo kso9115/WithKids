@@ -1,4 +1,6 @@
 // => 필요시 사용 
+import { API_BASE_URL } from "./app-config";
+
 import axios from "axios";
 import qs from 'qs';
 
@@ -25,7 +27,7 @@ export async function apiCall(url, method, requestData, token) {
  
   // 1.2) axios 전송 options
     let options = {
-        url: "/api" + url,
+        url: API_BASE_URL + "/api" + url,
         method: method, 
         headers: headers,
     };
