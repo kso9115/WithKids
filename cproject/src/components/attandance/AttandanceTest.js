@@ -1,32 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './attandanceTest.css'
 import { Icon } from '@iconify/react'
 import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays, addMonths } from 'date-fns';
 // import ChildAttandanceList from './ChildAttandanceList';
 import axios from 'axios';
 
-// function ChildComponent({ rows }) {
-
-//     return (
-//         <div className='att_mng_list' style={{
-//             display: 'grid',
-//             gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows
-//         }}>
-
-//         </div>
-//     );
-// }
-
 function AttandanceMangement() {
 
     // Attandance DB 전체 list
     const [attData, setAttData] = useState();
 
-    // Attandance테이블 list useState
+    // Attandance 한명 useState
     const [memAttDataOne, setMemAttDataOne] = useState({});
 
-    // Attandance 테이블 memSerial list useState
-    const [serialData, setSerialData] = useState({})
+    // Attandance 중복없는 memSerial list useState
+    const [admissionData, setAdmissionData] = useState([]);
 
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -107,40 +95,39 @@ function AttandanceMangement() {
 
     // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
     useEffect(() => {
-        console.log("왜안들어와..?");
         const attList = () =>
             axios
                 .get("/api/att/attList", {
                     month: month
                 })
                 .then((response) => {
-                    console.log("attList 요청들어오냐?");    // 들어옴
+                    // console.log("attList 요청들어오냐?");    // 들어옴
                     // console.log(response.data);
                     setAttData(response.data);
                 }).catch((err) => {
                     console.log(err);
                 })
-        attList();  // attList매핑을 위해..
-    }, [memAttDataOne, currentMonth]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
 
-    // 멤버 리스트 중복없이 가져오기
-    useEffect(() => {
-        console.log("멤버의 아이디만 받아오기 위함");
-        const memSerialList = () =>
+        // 입소중인 멤버 리스트 요청
+        const memAdmissionList = () =>
             axios
-                .get("api/att/serialList")
+                .get("api/mem/admissionList")
                 .then((response) => {
-                    console.log("serialList 요청들어오냐?"); 
+                    console.log("admissionList 요청들어오냐?");
                     console.log(response.data);
+                    setAdmissionData(response.data);
                 }).catch((err) => {
                     console.log(err);
                 })
-        memSerialList();
-    },[])
-    // console.log(attData);
-    // console.log(memAttDataOne);
-    console.log("오늘" + format(currentMonth, 'M'));
+
+        attList();  // attList매핑을 위해..
+        memAdmissionList();
+    }, []); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
+
+
     console.log(attData);
+    console.log(admissionData);
+
 
 
     return (
@@ -200,8 +187,6 @@ function AttandanceMangement() {
                     display: 'grid',
                     gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows
                 }}>
-
-
                     {attData && attData.map((o, i) => (
                         <>
                             {/* 기존코드 */}
@@ -216,36 +201,6 @@ function AttandanceMangement() {
 
 
                             {Array.from({ length: size }, (_, index) => {
-
-                                // if ((index + 1) % 7 === (count - 1) % 7) {
-                                //     color = "colorBlue"
-                                // } else if ((index + 1) % 7 === (count) % 7) {
-                                //     color = "colorRed"
-                                // } else {
-                                //     color = ""
-                                // }
-
-                                // {Array.from({ length: o.attDate }, (_, index) => {
-
-                                //         const attendanceStatus = o.attStatus[index]; // 예시로, attData의 객체 안에 있는 attendanceStatus 배열로 가정합니다.
-                                //         let color = '';
-
-                                //         // 출결 상태에 따라 색상 지정
-                                //         if (attendanceStatus === '출석') {
-                                //             // 출석
-                                //         } else if (attendanceStatus === '결석') {
-                                //             // 결석
-                                //         } else {
-
-                                //         }
-
-                                //         return (
-                                //             <div>
-
-                                //             </div>
-                                //         )
-                                //     })
-                                // }
 
                                 return (
                                     <div

@@ -57,13 +57,6 @@ public class AttandanceController {
         return list;
     }
 
-    // findSerialList
-    @GetMapping("/serialList")
-    public List<Attandance> serialList(){
-        log.info("중복시리얼 제외한 리스트 출력하는 레포지토리 소환");
-        List<Attandance> list = attService.serialList();
-        log.info(list);
-        return list;
-    }
+    
 
 }

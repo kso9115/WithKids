@@ -29,12 +29,11 @@ public class AttandanceServiceImpl implements AttandanceService {
         return repository.findAttList3();
     }
 
-    // serialList : 학생 시리얼 번호만 가져오기
+    // selectAdmissionList : 학생 시리얼 번호만 가져오기
     @Override
-    public List<Attandance> serialList() {
-        return repository.findSerialList();
+    public List<Attandance> selectAdmissionList() {
+        return repository.findAdmissionList();
     }
-
 
     // 월별 db
     // @Override

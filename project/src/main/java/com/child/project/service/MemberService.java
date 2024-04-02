@@ -2,7 +2,7 @@ package com.child.project.service;
 
 import java.util.List;
 
-
+import com.child.project.entity.Attandance;
 import com.child.project.entity.Education;
 import com.child.project.entity.Member;
 
@@ -40,6 +40,11 @@ public interface MemberService {
 
     // Delete : 별도로 리턴할게 없으므로 void
     void deleteEduByMemserial(String memSerail);
+
+    // 중복 삭제한 serial 번호 출력
+    // 출석관리 : 이용 상태인 리스트만 가져오기
+    List<Member> selectAdmissionList();
+
 
     
 
