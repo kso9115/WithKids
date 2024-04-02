@@ -25,6 +25,9 @@ function AttandanceMangement() {
     // Attandance테이블 list useState
     const [memAttDataOne, setMemAttDataOne] = useState({});
 
+    // Attandance 테이블 memSerial list useState
+    const [serialData, setSerialData] = useState({})
+
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -59,7 +62,7 @@ function AttandanceMangement() {
     //   const CheckboxChange = (event) => {
     //     const { name, checked } = event.target;
     //     setCheckboxes(prevState => ({
-    //       ...prevState,
+    //       ...prevState,;
     //       [name]: checked
     //     }));
     //     if (!checked) {
@@ -102,7 +105,7 @@ function AttandanceMangement() {
         count = format(addDays(startDate, 7), 'd') * 1
     }
 
-    // 멤버 리스트 출력을 위해 DB로 요청보내기
+    // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
     useEffect(() => {
         console.log("왜안들어와..?");
         const attList = () =>
@@ -115,15 +118,30 @@ function AttandanceMangement() {
                     // console.log(response.data);
                     setAttData(response.data);
                 }).catch((err) => {
-                    console.log("들어오나?");
                     console.log(err);
                 })
         attList();  // attList매핑을 위해..
     }, [memAttDataOne, currentMonth]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
+
+    // 멤버 리스트 중복없이 가져오기
+    useEffect(() => {
+        console.log("멤버의 아이디만 받아오기 위함");
+        const memSerialList = () =>
+            axios
+                .get("api/att/serialList")
+                .then((response) => {
+                    console.log("serialList 요청들어오냐?"); 
+                    console.log(response.data);
+                }).catch((err) => {
+                    console.log(err);
+                })
+        memSerialList();
+    },[])
     // console.log(attData);
     // console.log(memAttDataOne);
     console.log("오늘" + format(currentMonth, 'M'));
     console.log(attData);
+
 
     return (
         <div className="att_mng">
@@ -182,7 +200,8 @@ function AttandanceMangement() {
                     display: 'grid',
                     gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows
                 }}>
-                    
+
+
                     {attData && attData.map((o, i) => (
                         <>
                             {/* 기존코드 */}
@@ -206,10 +225,6 @@ function AttandanceMangement() {
                                 //     color = ""
                                 // }
 
-                                for (let index = 0; index < o.attDate.length; index++) {
-
-
-                                }
                                 // {Array.from({ length: o.attDate }, (_, index) => {
 
                                 //         const attendanceStatus = o.attStatus[index]; // 예시로, attData의 객체 안에 있는 attendanceStatus 배열로 가정합니다.

@@ -31,6 +31,8 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
     // @Query(value = "select * from attandance where attandance_date = substring(DATE(NOW()), 1, 10)", nativeQuery = true)
     // @Query(value = "select * from attandance where attandance_date = DATE_FORMAT(NOW(), '%Y-%m-%d')", nativeQuery = true)
     List<Attandance> findAttList3();
-    
-    
+
+    // 리스트에서 중복된 시리얼 값을 제외하고 가져오기
+    @Query(value = "with unique_serials AS (select distinct mem_serial from attandance) select mem_serial from unique_serials ", nativeQuery = true)
+    List<Attandance> findSerialList();
 }

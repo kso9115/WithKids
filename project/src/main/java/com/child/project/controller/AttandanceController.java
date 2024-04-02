@@ -51,8 +51,17 @@ public class AttandanceController {
 
     @GetMapping("/attList")
     public List<Attandance> attList() {
-        log.info("새로운 레포지토리로 들어오나?");
+        // log.info("멤버리스트 출력하는 레포지토리 쿼리 소환");
         List<Attandance> list = attService.selectList3();
+        log.info(list);
+        return list;
+    }
+
+    // findSerialList
+    @GetMapping("/serialList")
+    public List<Attandance> serialList(){
+        log.info("중복시리얼 제외한 리스트 출력하는 레포지토리 소환");
+        List<Attandance> list = attService.serialList();
         log.info(list);
         return list;
     }

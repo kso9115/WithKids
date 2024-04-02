@@ -12,6 +12,9 @@ public interface AttandanceService {
     // 출석관리 : 월별 selectList
     // List<Attandance> selectList(String month);
     
-
+    // 월별 selectList : 레포지토리에 쿼리 작성
     List<Attandance> selectList3();
+
+    // 출석관리 : 학생의 memSerial 컬럼 리스트만 가져오기
+    List<Attandance> serialList();
 }

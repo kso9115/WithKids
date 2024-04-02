@@ -265,8 +265,8 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                         value={memDataOneD.memSex || ""}
                         onChange={memDataChange}>
                         <option value="none">전체</option>
-                        <option value='1'>여성</option>
-                        <option value='2'>남성</option>
+                        <option value='여'>여성</option>
+                        <option value='남'>남성</option>
                     </select>
                 </div>
 
