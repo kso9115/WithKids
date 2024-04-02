@@ -65,8 +65,8 @@ public class ProgramController {
 	} // prgList
 
 	@GetMapping("/prgSlide")
-	public List<Program> Slide(HttpServletRequest request) throws Exception {
-		List<Program> list = prgService.selectSlide();
+	public List<ProgramDetails> Slide(HttpServletRequest request) throws Exception {
+		List<ProgramDetails> list = prgService.selectSlide();
 
 		return list;
 	}

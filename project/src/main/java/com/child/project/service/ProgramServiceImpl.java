@@ -35,12 +35,12 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 
 	@Override
-	public List<Program> selectSlide() {
+	public List<ProgramDetails> selectSlide() {
 		LocalDate now = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String formatedNow = now.format(formatter);
 
-		return repository.selectSlide(formatedNow);
+		return prgdrepository.selectSlide(formatedNow);
 	}
 
 	@Override

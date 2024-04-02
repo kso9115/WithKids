@@ -11,7 +11,7 @@ public interface ProgramService {
 
 	List<Program> selectList();
 
-	List<Program> selectSlide();
+	List<ProgramDetails> selectSlide();
 
 	List<Program> findSearch(Program entity);
 

@@ -10,7 +10,7 @@ function UserMain() {
         const prgList = async () => {
             try {
                 const response = await axios.get('/api/prg/prgSlide');
-                let data = JSON.stringify(response);
+                // let data = JSON.stringify(response);
                 // console.log(response);
                 setPrgData(response.data);
             } catch (error) {

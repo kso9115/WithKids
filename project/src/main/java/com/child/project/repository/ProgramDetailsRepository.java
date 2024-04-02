@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.child.project.entity.Program;
 import com.child.project.entity.ProgramDetails;
 import com.child.project.entity.ProgramDetailsId;
 
@@ -14,6 +15,10 @@ public interface ProgramDetailsRepository extends JpaRepository<ProgramDetails, 
 
 	@Query(value = "select * from program_details where prg_id=:prg_id and rec=:rec", nativeQuery = true)
 	List<ProgramDetails> selectDetails(@Param("prg_id") String prgId, @Param("rec") String rec);
+
+	@Query(value = "select * from program_details where STR_TO_DATE(:formatedNow, '%Y-%m-%d') between STR_TO_DATE(SUBSTRING_INDEX(pln_prd, '~', 1), '%Y-%m-%d') and STR_TO_DATE(SUBSTRING_INDEX(pln_prd, '~', -1), '%Y-%m-%d') "
+			+ "order by pln_prd", nativeQuery = true)
+	List<ProgramDetails> selectSlide(@Param("formatedNow") String formatedNow);
 
 	@Query(value = "select count(*) from program_details where prg_id=:prg_id and prg_dnm=:prg_dnm and rec='프로그램세부'", nativeQuery = true)
 	Integer detailsCnt(@Param("prg_id") String prgId, @Param("prg_dnm") String prgDnm);

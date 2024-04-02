@@ -121,7 +121,8 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                 type,
                 content: text,
                 prgFile: (prgFilef + plnData.prgFile.join(' ')).trim(),
-                prgFilef: null
+                prgFilef: null,
+                prgDnm: plnData.title
             };
             delete params.plnPrd2;
             delete params.plnTm2;
