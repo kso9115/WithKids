@@ -1,3 +1,8 @@
+.mealBox div {
+    border-bottom : 1.5px solid var(--admin);
+    /* border-right : 0px solid var(--admin);  */
+    border-left : 1.5px solid var(--admin);
+}
 .meal_mng>div:nth-child(1){
     display: flex;
     gap: 10px;
