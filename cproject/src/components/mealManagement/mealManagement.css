@@ -1,4 +1,4 @@
-/* .meal_mng>div:nth-child(1){
+.meal_mng>div:nth-child(1){
     display: flex;
     gap: 10px;
 }
@@ -14,4 +14,4 @@
 
 .meal_mng_list .colorBlue {
     color: blue;
-} */
+}

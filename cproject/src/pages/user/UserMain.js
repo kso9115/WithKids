@@ -19,6 +19,7 @@ function UserMain() {
         }
         prgList();
     }, [])
+    console.log(prgData);
     return (
         <div id="viewport" style={{
             maxWidth: '100%',

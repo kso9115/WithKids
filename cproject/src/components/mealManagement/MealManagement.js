@@ -1,13 +1,14 @@
- import {useState, useEffect} from 'react';
- import { Icon } from '@iconify/react'
- import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays, addMonths } from 'date-fns';
- import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { Icon } from '@iconify/react'
+import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays, addMonths } from 'date-fns';
+import axios from 'axios';
+import './mealManagement.css'
 
 function MealManagement() {
 
     // mealMng DB 전체 list
-    const [mealData, setMealData] = useState();
-
+    const [mealData, setMealData] = useState([]);
+    const [memData, setMemData] = useState([]);
     // mealMng 테이블 list useState
     const [memMealDataOne, setMemMealDataOne] = useState({});
 
@@ -56,46 +57,59 @@ function MealManagement() {
                 }).catch((err) => {
                     console.log("에러요청?");
                     console.log(err);
+                });
+        const memList = () =>
+            axios
+                .get("/api/mem/memList")
+                .then((res) => {
+                    console.log(res.data); // 데이터 전달 확인용
+                    setMemData(res.data);
+                    // setMemListUpdate(!memListUpdate);  // 렌더링이 두번 일어나도 어쩔수없지..리스트 바뀌는거 감지하면 바로 리스트 업데이트 진행해주는거
+                }).catch((err) => {
+                    console.log(err);
                 })
+
+        memList()
         mealList();  // mealList매핑을 위해..
     }, [memMealDataOne]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
     console.log(mealData);
     console.log(memMealDataOne);
 
-    const starD=[];
+    const starD = [];
 
-        // for(let i = 1; i < untilrow ;i++){
-        //     const memS = `user2024950808f${i}`;
-        //     if(memS){
-                
-        //         for(let j = 1 ; j < 31; j++){
-        //             if(mealData.brfMeal===0) starD.push(<span>X</span>)
-        //             else if(mealData.brfMeal===1) starD.push(<span>O</span>)
-        //             if(mealData.lncMeal===0) starD.push(<span>X</span>)
-        //             else if(mealData.lncMeal===1) starD.push(<span>O</span>)
-        //             if(mealData.dnrMeal===0) starD.push(<span>X</span>)
-        //             else if(mealData.dnrMeal===1) starD.push(<span>O</span>)
-        //             if(mealData.snkMeal===0) starD.push(<span>X</span>)
-        //             else if(mealData.snkMeal===1) starD.push(<span>O</span>)
-        //         }
-        //     }
-        // }
-        
-        // mealData && mealData.map((meal) => {
-            
-        //     for (let j = 1; j <= 31; j++) {
-        //       if (meal.brfMeal === 0) starD.push(<span key={`brf-${j}`}>X</span>);
-        //       else if (meal.brfMeal === 1) starD.push(<span key={`brf-${j}`}>O</span>);
-        //       if (meal.lncMeal === 0) starD.push(<span key={`lnc-${j}`}>X</span>);
-        //       else if (meal.lncMeal === 1) starD.push(<span key={`lnc-${j}`}>O</span>);
-        //       if (meal.dnrMeal === 0) starD.push(<span key={`dnr-${j}`}>X</span>);
-        //       else if (meal.dnrMeal === 1) starD.push(<span key={`dnr-${j}`}>O</span>);
-        //       if (meal.snkMeal === 0) starD.push(<span key={`snk-${j}`}>X</span>);
-        //       else if (meal.snkMeal === 1) starD.push(<span key={`snk-${j}`}>O</span>);
-        //     }
-        //    starD.push(<br/>);
-        //   }); 
-        //   console.log({starD});
+    // for(let i = 1; i < untilrow ;i++){
+    //     const memS = `user2024950808f${i}`;
+    //     if(memS){
+
+    //         for(let j = 1 ; j < 31; j++){
+    //             if(mealData.brfMeal===0) starD.push(<span>X</span>)
+    //             else if(mealData.brfMeal===1) starD.push(<span>O</span>)
+    //             if(mealData.lncMeal===0) starD.push(<span>X</span>)
+    //             else if(mealData.lncMeal===1) starD.push(<span>O</span>)
+    //             if(mealData.dnrMeal===0) starD.push(<span>X</span>)
+    //             else if(mealData.dnrMeal===1) starD.push(<span>O</span>)
+    //             if(mealData.snkMeal===0) starD.push(<span>X</span>)
+    //             else if(mealData.snkMeal===1) starD.push(<span>O</span>)
+    //         }
+    //     }
+    // }
+
+    // mealData && mealData.map((meal) => {
+
+    //     for (let j = 1; j <= 31; j++) {
+    //       if (meal.brfMeal === 0) starD.push(<span key={`brf-${j}`}>X</span>);
+    //       else if (meal.brfMeal === 1) starD.push(<span key={`brf-${j}`}>O</span>);
+    //       if (meal.lncMeal === 0) starD.push(<span key={`lnc-${j}`}>X</span>);
+    //       else if (meal.lncMeal === 1) starD.push(<span key={`lnc-${j}`}>O</span>);
+    //       if (meal.dnrMeal === 0) starD.push(<span key={`dnr-${j}`}>X</span>);
+    //       else if (meal.dnrMeal === 1) starD.push(<span key={`dnr-${j}`}>O</span>);
+    //       if (meal.snkMeal === 0) starD.push(<span key={`snk-${j}`}>X</span>);
+    //       else if (meal.snkMeal === 1) starD.push(<span key={`snk-${j}`}>O</span>);
+    //     }
+    //    starD.push(<br/>);
+    //   }); 
+    //   console.log({starD});
+    let memSerial = "";
 
     return (
         <div className="">
@@ -115,10 +129,7 @@ function MealManagement() {
                     <div>전체그룹</div>
                     <div>이름</div>
                     <div>구분
-                        <div>조</div>
-                        <div>중</div>
-                        <div>석</div>
-                        <div>간</div>
+
                     </div>
 
                     {Array.from({ length: size }, (_, index) => {
@@ -137,43 +148,59 @@ function MealManagement() {
                     <div>합계</div>
                 </div>
 
-                <div className='meal_mng_list' style={{
-                    display: 'grid',
-                    gridTemplateColumns: "10% 5% 5% " + rows + "10%",
-                }}> 
-                    {mealData && mealData.map((o, i) => (
-                       
+                {memData.map((o, i) => {
+                    return (
+                        <div className='meal_mng_list' style={{
+                            display: 'grid',
+                            gridTemplateColumns: "10% 5% 5% " + rows + "10%",
+                        }}>
+                            <div>{o.memSerial}</div>
+                            <div>{o.memName}</div>
                             <div>
-                                <div>{o.memName}</div>
-                                <div>{o.memName}</div>
-                                <div>{o.memName}</div>
-                                <div>
-                                    <div>{o.brfMeal}</div>
+                                <div>조</div>
+                                <div>중</div>
+                                <div>석</div>
+                                <div>간</div>
+                                {/* <div>{o.brfMeal}</div>
                                     <div>{o.lncMeal}</div>
                                     <div>{o.dnrMeal}</div>
-                                    <div>{o.snkMeal}</div>
-                                </div>
-                                {Array.from({ length: size }, (_, index) => {
-                                    // if ((index + 1) % 7 === (count - 1) % 7) {
-                                        //     color = "colorBlue"
-                                        // } else if ((index + 1) % 7 === (count) % 7) {
-                                            //     color = "colorRed"
-                                            // } else {
-                                                //     color = ""
-                                                // }
-                                                return (
+                                    <div>{o.snkMeal}</div> */}
+                            </div>
+                            {Array.from({ length: size }, (_, index) => {
+                                let day;
+
+                                if (index.length == 1) {
+                                    day = "0" + index;
+                                } else {
+                                    day = "" + index;
+                                }
+                                let count = mealData.find((item) => (item.memSerial === o.memSerial) && (item.mealDate.split("-")[2] === day))
+                                if (count) {
+                                    return (
+                                        <div key={index + 1}>
+                                            <div>{count.brfMeal}</div>
+                                            <div>{count.lncMeal}</div>
+                                            <div>{count.dnrMeal}</div>
+                                            <div>{count.snkMeal}</div>
+                                        </div>
+                                    );
+                                } else {
+                                    return (
                                         <div
-                                        // className={color} 
-                                        key={index + 1}></div>
-                                        );
-                                })}
-                                <div>끝 </div>  
-                            </div> 
-                        
-                        ))}
-                
-                    
-                </div>
+                                            // className={color} 
+                                            key={index + 1}></div>
+                                    );
+                                }
+
+
+
+                            })}
+                            <div>끝 </div>
+                        </div>
+                    )
+
+
+                })}
             </div>
         </div>
     );
