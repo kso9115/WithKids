@@ -7,27 +7,32 @@ import './mealManagement.css'
 function MealManagement() {
 
     // mealMng DB 전체 list
-    const [mealData, setMealData] = useState([]);
-    const [memData, setMemData] = useState([]);
-    // mealMng 테이블 list useState
-    const [memMealDataOne, setMemMealDataOne] = useState({});
+    const [memData, setMemData] = useState([]); // 이름과 serial 번호 받기 
+    const [mealData, setMealData] = useState([]); // mealList 받아오기 
 
-    const [currentMonth, setCurrentMonth] = useState(new Date());
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    // mealMng 테이블 list useState
+    // const [memMealDataOne, setMemMealDataOne] = useState({});
+
+    const [currentMonth, setCurrentMonth] = useState(new Date()); // 내가 보려고 선택한 달
+    const [selectedDate, setSelectedDate] = useState(new Date()); // 현재 2024년의 몇월 달 (현재기준 4월)
 
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
-    let day = startDate;
+    
+    // let day = startDate;
     let count = 0;
     let color = "";
 
+    // 날짜 및 시간을 원하는 형태의 문자열로 변경 
     const thisMonth = format(currentMonth, 'yyyy') + format(currentMonth, 'M')
         === format(selectedDate, 'yyyy') + format(selectedDate, 'M') ? "block" : "none";
-    let size = format(monthEnd, 'd');
-    let rows = 70 / size + "%";
+    
+        let size = format(monthEnd, 'd');
+    let rows = 60 / size + "%";
 
+    //이전 월 혹은 다음 월 선택 했을 때, 이동
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
     };
@@ -36,7 +41,7 @@ function MealManagement() {
     };
 
     for (let i = 1; i < size; i++) {
-        rows += " " + 70 / size + "%";
+        rows += " " + 60 / size + "%";
     }
 
     if (format(monthStart, 'M') === format(startDate, 'M')) {
@@ -51,18 +56,16 @@ function MealManagement() {
             axios
                 .get("/api/meal/mealList")
                 .then((response) => {
-                    console.log("요청들어오냐?");
-                    // console.log(response.data);
+                    console.log("mealList에 대한 요청");
                     setMealData(response.data);
                 }).catch((err) => {
-                    console.log("에러요청?");
-                    console.log(err);
+                    console.log("mealList에 대한 요청 에러 => " + err);
                 });
         const memList = () =>
             axios
                 .get("/api/mem/memList")
                 .then((res) => {
-                    console.log(res.data); // 데이터 전달 확인용
+                    // console.log(res.data); // 데이터 전달 확인용
                     setMemData(res.data);
                     // setMemListUpdate(!memListUpdate);  // 렌더링이 두번 일어나도 어쩔수없지..리스트 바뀌는거 감지하면 바로 리스트 업데이트 진행해주는거
                 }).catch((err) => {
@@ -71,11 +74,9 @@ function MealManagement() {
 
         memList()
         mealList();  // mealList매핑을 위해..
-    }, [memMealDataOne]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
+    }, [mealData]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
     console.log(mealData);
-    console.log(memMealDataOne);
-
-    const starD = [];
+    // console.log(memMealDataOne);
 
     // for(let i = 1; i < untilrow ;i++){
     //     const memS = `user2024950808f${i}`;
@@ -109,10 +110,10 @@ function MealManagement() {
     //    starD.push(<br/>);
     //   }); 
     //   console.log({starD});
-    let memSerial = "";
+
 
     return (
-        <div className="">
+        <div className="mealBox">
             <div>
                 <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth}></Icon>
                 {format(currentMonth, 'yyyy')}년
@@ -124,9 +125,9 @@ function MealManagement() {
             <div>
                 <div className='meal_mng_list' style={{
                     display: 'grid',
-                    gridTemplateColumns: "10% 5% 5%" + rows + " 10% "
+                    gridTemplateColumns: "10% 5% 5%" + rows + " 20% "
                 }}>
-                    <div>전체그룹</div>
+                    <div>아동식별번호</div>
                     <div>이름</div>
                     <div>구분
 
@@ -174,7 +175,8 @@ function MealManagement() {
                                 } else {
                                     day = "" + index;
                                 }
-                                let count = mealData.find((item) => (item.memSerial === o.memSerial) && (item.mealDate.split("-")[2] === day))
+                                // let count = mealData.find((item) => (item.memSerial === o.memSerial) && (item.mealDate.split("-")[2] === day));
+                                let count = mealData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.mealDate.split("-")[2]) === parseInt(day)));
                                 if (count) {
                                     return (
                                         <div key={index + 1}>
@@ -191,11 +193,8 @@ function MealManagement() {
                                             key={index + 1}></div>
                                     );
                                 }
-
-
-
                             })}
-                            <div>끝 </div>
+                            <div></div>
                         </div>
                     )
 
