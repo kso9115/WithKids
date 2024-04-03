@@ -206,9 +206,7 @@ function MealManagement() {
                 }}>
                     <div>아동식별번호</div>
                     <div>이름</div>
-                    <div>구분
-
-                    </div>
+                    <div>구분</div>
 
                     {Array.from({ length: size }, (_, index) => {
                         if ((index + 1) % 7 === (count - 1) % 7) {
@@ -253,7 +251,7 @@ function MealManagement() {
                                     day = "" + index;
                                 }
                                 // let count = mealData.find((item) => (item.memSerial === o.memSerial) && (item.mealDate.split("-")[2] === day));
-                                let count = mealData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.mealDate.split("-")[2]) === parseInt(day)));
+                                let count = mealData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.mealDate.split("-")[2]) === parseInt(day)+1));
                                 if (count) {
                                     return (
                                         <div key={index + 1}>
@@ -272,7 +270,12 @@ function MealManagement() {
                                     );
                                 }
                             })}
-                            <div></div>
+                            <div> 
+                                <div>조식</div>
+                                <div>중식</div>
+                                <div>석식</div>
+                                <div>간식</div>
+                            </div>
                         </div>
                     )
 

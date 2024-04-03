@@ -19,7 +19,7 @@ function MemberList({ name, setData, memListUpdate }) {
                     console.log(err);
                 })
         } else {
-            apiCall(`/${name.name}/${name.name}List`, "GET")
+            apiCall(`/mem/memList`, "GET")
                 .then((response) => {
                     console.log(response.data); // 데이터 전달 확인용
                     setMemData(response.data);
@@ -90,19 +90,19 @@ function MemberList({ name, setData, memListUpdate }) {
         <>
             <b>{name.list}</b>
 
-            <div className={`${name.name}List`}>
-                <div className={`${name.name}List_container`}>
-                    <div className={`${name.name}List_row header`}>
+            <div className={`memList`} >
+                <div className={`memList_container`}>
+                    <div className={`memList_row header`}>
                         {/* <div className="memberList_cell">번호</div> */}
                         {name.title.map((o, i) => {
-                            return (<div className={`${name.name}List_cell`} key={`${name.name}head${i}`}>{o}</div>);
+                            return (<div className={`memList_cell`} key={`${name.name}head${i}`}>{o}</div>);
                         })}
                     </div>
 
                     {memData && memData.map((o, i) => {
                         return (
-                            <div className={`${name.name}List_row`}>
-                                <div className={`${name.name}List_cell`} key={o + i} onClick={() => setData({ ...o })}>
+                            <div className={`memList_row`}>
+                                <div className={`memList_cell`} key={o + i} onClick={() => setData({ ...o })}>
                                     {name.menu.map((o2, i2) => {
                                         return (<div key={o2 + i2}>{o[o2]}</div>)
                                     })}

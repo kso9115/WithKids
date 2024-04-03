@@ -22,8 +22,8 @@ public class LeavingController {
     MemLeavingService lvngService;
 
     @PostMapping("/lvngMemOne")
-    public MemLeaving admMemOne(@RequestParam("memSerial") String memSerial) {
-        MemLeaving lvngOne = lvngService.selectOne(memSerial);
+    public MemLeaving admMemOne(@RequestBody MemLeaving entity) {
+        MemLeaving lvngOne = lvngService.selectOne(entity.getMemSerial());
         
         log.info("Leaving List 입소 아동 detail 확인 => " + lvngOne);
 

@@ -11,6 +11,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiCall } from "../../server/apiService";
 
+const memberList = {
+    name: 'adm',
+    list: '아동 목록',
+    title: ['대상자 번호', '대상자명', '성별', '생년월일'],
+    menu: ['memSerial', 'memName', 'memSex', 'memBirth']
+}
 
 
 function AdmLvng_Manager() {
@@ -84,10 +90,14 @@ function AdmLvng_Manager() {
 
     // 공통된 로직을 함수로 분리
     // 
-    const axiF = (url, params, setData) => {
+    const axiF = (url, setData) => {
+        console.log({ memSerial: memDataOne.memSerial });
+        console.log(memDataOne.memSerial );
         // axios
         //     .post(url, null, { params })
-        apiCall('url','POST',{ params },null)
+        apiCall(url,'POST', { 
+            memSerial: memDataOne.memSerial 
+        } , null)
             .then((res) => {
                 console.log(res.data);
                  if (!res.data) setData({ memSerial: memDataOne.memSerial });
@@ -104,11 +114,11 @@ function AdmLvng_Manager() {
             // NemberAdmission 데이터 요청
 
             // axiF("/api/adm/admMemOne", { memSerial: memDataOne.memSerial }, setAdmMemOne);
-            axiF("/adm/admMemOne", { memSerial: memDataOne.memSerial }, setAdmMemOne);
+            axiF("/adm/admMemOne", setAdmMemOne);
 
             // 퇴소 데이터 요청
             // axiF("/api/lvn/lvngMemOne", { memSerial: memDataOne.memSerial }, setLvngMem);
-            axiF("/lvn/lvngMemOne", { memSerial: memDataOne.memSerial }, setLvngMem);
+            axiF("/lvn/lvngMemOne", setLvngMem);
         }
     }, [memDataOne]);
 
@@ -229,7 +239,7 @@ function AdmLvng_Manager() {
                         marginBottom: '5px'}}>
                         
                     </div> */}
-                    <MemberList setData={setMemDataOne} memListUpdate={memListUpdate} />
+                    <MemberList name={memberList} setData={setMemDataOne} memListUpdate={memListUpdate} />
                 </div>
                 <div style={{
                     borderWidth: 1,

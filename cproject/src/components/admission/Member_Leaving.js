@@ -11,7 +11,7 @@ function Member_Leaving({ memDataOne , lvngMem , dataDML}){
             console.log("Leaving");
             setLvngMemD({...lvngMem }) ; 
         
-    },[memDataOne]);
+    },[lvngMem]);
     console.log({lvngMemD});
 
     // 함수 받아오기 
