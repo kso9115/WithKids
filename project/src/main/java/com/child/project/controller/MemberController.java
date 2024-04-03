@@ -72,8 +72,13 @@ public class MemberController {
         // log.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&오냐?");
 
         // String memSerial = entity.getMemSerial(); // memSerial 파라미터 값 저장
-        Education selectOneEdu = memService.selectEduData(entity.getMemSerial());
-        return selectOneEdu;
+        try {
+            Education selectOneEdu = memService.selectEduData(entity.getMemSerial());
+            return selectOneEdu;
+        } catch (Exception e) {
+            log.info(e.toString());
+            return null;
+        }
     }
 
     // 안씀;

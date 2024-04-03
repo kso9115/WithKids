@@ -3,26 +3,12 @@ import { useCallback, useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 import PostCode from './Postcode';
+import { apiCall } from '../../server/apiService';
 
 // data={memDataOne} eduData={eduDataOne}
-//  setData={setMemDataOne} setEduDataOne={setEduDataOne}
+// setData={setMemDataOne} setEduDataOne={setEduDataOne}
 // memListUpdate={memListUpdate} setMemListUpdate={setMemListUpdate}
 function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, setMemListUpdate }) {
-
-
-    // 우편번호 상태값 변화를 받아줄 ustState
-    // const [address, setAddress] = useState('');
-    // const [zipcode, setZipcode] = useState('');
-
-    // const handleAddressChange = (newAddress) => {
-    //     setAddress(newAddress);
-    // };
-
-    // const handleZipcodeChange = (newZipcode) => {
-    //     setZipcode(newZipcode);
-    // };
-
-    //=================================================
 
     // 1. Member Entity DB : 가져온 멤버 한명의 멤버 데이터를 사용하기 위해 useState에 저장
     const [memDataOneD, setMemDataOneD] = useState({});
@@ -32,9 +18,6 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             ...data
         })
     }, [data])
-    // console.log(memDataOneD);
-    // console.log(zipcode);
-    // console.log(address);
 
     // Member => text,radio 타입 input 태그 ,select 태그 value 값 제어
     const memDataChange = useCallback((event) => {
@@ -49,8 +32,8 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             ...eduData
             // 기본적으로 memSerial이랑 memName을 가지게 해주면댄다...!! 
             // 아래에서 함수 내 인자로 전달할 필요가 없음
-            , memSerial: data.memSerial
-            , memName: data.memName
+            // , memSerial: data.memSerial
+            // , memName: data.memName
         })
     }, [eduData])
     // console.log(data);
@@ -58,7 +41,9 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
     // Edu => text,radio 타입 input 태그 ,select 태그 value 값 제어
     const eduDataChange = useCallback((event) => {
         eduDataOneD[event.target.name] = event.target.value;
-        setEduMemOneD({ ...eduDataOneD });
+        setEduMemOneD({
+            ...eduDataOneD
+        });
     }, [eduDataOneD]);
 
     //== CRUD ===============================================
@@ -70,32 +55,51 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             return;
         }
 
-        axios.post(endpoint, data)
+        console.log(memDataOneD);
+        console.log(eduDataOneD);   // memSerial , 이름 필요
+
+        apiCall(endpoint, 'POST', data)
             .then((response) => {
                 console.log("넘어오는 데이터 확인");
                 console.log(response.data);
-                
 
-                // alert("데이터 추가 성공");  // 요청을 두번 보내버려서 alert창이 두번뜨고있음
-                
                 // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
                 // 변화 감지 후 리스트 리렌더링
                 setMemListUpdate(!memListUpdate);
-            })
-            .catch((err) => {
-                alert("요청 실패");
+            }).catch((err) => {
+                // alert("요청 실패");
                 console.error(err);
             });
+
+        // axios.post(endpoint, data)
+        //     .then((response) => {
+        //         console.log("넘어오는 데이터 확인");
+        //         console.log(response.data);
+
+        //         // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
+        //         // 변화 감지 후 리스트 리렌더링
+        //         setMemListUpdate(!memListUpdate);
+        //     })
+        //     .catch((err) => {
+        //         alert("요청 실패");
+        //         console.error(err);
+        //     });
     }
 
-    function saveMemData() {
-        saveData(memDataOneD, '/api/mem/memInesert');
+    const saveMemData = () => {
+        saveData(memDataOneD, '/mem/memInesert');
     }
-    
-    function saveEduData() {
+
+    const saveEduData = () => {
         if (memDataOneD.memSerial) {
-            saveData(eduDataOneD, '/api/mem/memEduInesert');
-            alert("아동 기본정보 및 학력 데이터 추가 성공")
+            console.log("들어오낭" + memDataOneD.memSerial);
+            saveData({
+                ...eduDataOneD,
+                // 데이터를 선택해서 입력하는경우도 있지만, 인풋에 값을 넣는 경우도 있으니까
+                // 위의 data에서가 아닌 memDataOneD의 시리얼 값을 가져와줘야한다.
+                memSerial :memDataOneD.memSerial,
+                memName:memDataOneD.memName
+            }, '/mem/memEduInesert');
         }
     }
 
@@ -103,79 +107,50 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
     // console.log(memDataOneD);
     // console.log(eduDataOneD);
 
-
-    // 2. DELETE 기능 요청 : 선택한 DB 삭제 => 공토 부분이니까 그냥 합치기
-    // function deleteMemByMemserial() {
-    //     if (memDataOneD.memSerial && window.confirm("해당 아동을 삭제하시겠습니까?")) {
-    //         axios
-    //             .post('/api/mem/memDelete', null, { params: { memSerial: memDataOneD.memSerial } })
-    //             // .post('/api/mem/memDelete', { memSerial: memDataOneD.memSerial })
-    //             // .then((response) => {    // 자꾸 홈으로 다시 가서 일단 수정
-    //             .then(function (response) {
-    //                 setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
-
-    //                 alert(response.data);
-
-    //                 // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
-    //                 setMemListUpdate(!memListUpdate);
-
-    //                 console.log(response.data);
-    //                 // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
-    //             }).catch(function (err) {
-    //                 console.log(err);
-    //             });
-    //     } 
-    //     // else {
-    //     //     alert("아동 삭제 취소")
-    //     // }
-    // }
-
-    // function deleteEduByMemserial() {
-    //     if (eduDataOneD.memSerial) {
-    //         axios
-    //             .post('/api/mem/eduDelete', null, { params: { memSerial: eduDataOneD.memSerial } })
-    //             // .then((response) => {    // 자꾸 홈으로 다시 가서 일단 수정
-    //             .then(function (response) {
-    //                 setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
-
-    //                 alert(response.data);
-
-    //                 // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
-    //                 setMemListUpdate(!memListUpdate);
-    //                 console.log(response.data);
-    //                 // }).catch((err) => {  // 자꾸 홈으로 가서 일단 수정222
-    //             }).catch(function (err) {
-    //                 console.log(err);
-    //             });
-    //     } 
-    //     // else {
-    //     //     alert("아동 학력 삭제 취소")
-    //     // }
-    // }
-
     function deleteDataByMemserial() {
         if (memDataOneD.memSerial && window.confirm("해당 아동을 삭제하시겠습니까?")) {
-            axios.all([
-                axios.post('/api/mem/memDelete', null, { params: { memSerial: memDataOneD.memSerial } }),
-                axios.post('/api/mem/eduDelete', null, { params: { memSerial: eduDataOneD.memSerial } })
-            ])
-            .then(axios.spread((memResponse, eduResponse) => {
-                
-                setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
-                alert(memResponse.data + '\n' + eduResponse.data);
+            // apiCall('/member/memDelete', 'POST', { params: { memSerial: memDataOneD.memSerial } })
+            apiCall('/mem/memDelete', 'POST', { memSerial: memDataOneD.memSerial })
+                .then((memResponse) => {
+                    setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
+                    console.log(memResponse.data);
 
-                // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
-                setMemListUpdate(!memListUpdate);
-                console.log(memResponse.data);
-                console.log(eduResponse.data);
-            }))
-            .catch(function (err) {
-                console.log(err);
-            });
-        } 
+                    // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
+                    setMemListUpdate(!memListUpdate);
+                }).catch((err) => {
+                    console.log(err);
+                });
+
+            apiCall('/mem/eduDelete', 'POST', { memSerial: memDataOneD.memSerial })
+                .then((eduResponse) => {
+                    // setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
+                    console.log(eduResponse.data);
+
+                    // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
+                    setMemListUpdate(!memListUpdate);
+                }).catch((err) => {
+                    console.log(err);
+                });
+
+            // axios.all([
+            //     axios.post('/api/mem/memDelete', null, { params: { memSerial: memDataOneD.memSerial } }),
+            //     axios.post('/api/mem/eduDelete', null, { params: { memSerial: eduDataOneD.memSerial } })
+            // ])
+            //     .then(axios.spread((memResponse, eduResponse) => {
+
+            //         setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
+            //         alert(memResponse.data + '\n' + eduResponse.data);
+
+            //         // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
+            //         setMemListUpdate(!memListUpdate);
+            //         console.log(memResponse.data);
+            //         console.log(eduResponse.data);
+            //     }))
+            //     .catch(function (err) {
+            //         console.log(err);
+            //     });
+        }
     }
-    
-
 
     // 3. 입력 데이터 전체 리셋 : 대신에 data값을 setData({}) 빈객체로 넣어준다.
     function resutData() {
@@ -315,13 +290,13 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
 
                 <div>우편번호</div>
                 <div className='mem_zipcode'>
-                    <PostCode 
-                    // onAddressChange={handleAddressChange} onZipcodeChange={handleZipcodeChange} 
-                    setMemDataOneD={setMemDataOneD} memDataOneD={memDataOneD}/>
+                    <PostCode
+                        // onAddressChange={handleAddressChange} onZipcodeChange={handleZipcodeChange} 
+                        setMemDataOneD={setMemDataOneD} memDataOneD={memDataOneD} />
                     {/* 우편번호 zipcode 값 변화 시 입력 */}
                     <input type="text"
-                        value={memDataOneD.memZipCode || ""} 
-                        onChange={memDataChange} readOnly /> 
+                        value={memDataOneD.memZipCode || ""}
+                        onChange={memDataChange} readOnly />
                 </div>
 
 
@@ -427,7 +402,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
 
             <div className='buttonBox'>
                 <div>
-                    <button type="reset" onClick={() => setData({})}>입력취소11</button>
+                    <button type="reset" onClick={() => { setData({}); setEduDataOne({}) }}>입력취소11</button>
                     <button type="reset" onClick={resutData}>입력취소</button>
                     {/* <button type="submit" value='삭제' onClick={() => { deleteMemByMemserial(); deleteEduByMemserial(); }}>삭제</button> */}
                     <button type="submit" value='삭제' onClick={() => { deleteDataByMemserial(); }}>삭제</button>

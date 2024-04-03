@@ -1,4 +1,4 @@
-.memberList {
+.memList {
     font-size: 14px;
     height: 100%;
     height: calc(100% - 26px);
@@ -6,7 +6,7 @@
     margin-top: 5px;
 }
 
-.memberList_container {
+.memList_container {
     border: 1px solid var(--lgray);
 
     /* 전체 컨테이너에서 모든 추가 행을 세로로 나열 */
@@ -30,19 +30,22 @@
     top: 0.1px;
 }
 
-.memberList_row {
+.memList_row {
     /* 하나의 row에는 가로로 데이터 배치 */
     display: flex;
     flex-direction: row;
+    /* justify-content: space-between; */
 }
 
-.memberList_cell {
+.memList_cell {
+    display: flex;
     flex: 1;
+    justify-content: space-between;
     border-bottom: 1px solid var(--lgray);
     padding: 7px;
 }
 
-.memberList_row:hover:not(:first-child){
+.memList_row:hover:not(:first-child){
     cursor: pointer;
     background-color: var(--mgray);
 }

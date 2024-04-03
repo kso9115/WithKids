@@ -8,6 +8,14 @@ import MemberDetailNote from "./MemberDetailNote";
 import SearchBox from "../../hooks/searchbox/SearchBox";
 import { mem_mng } from "../../hooks/searchbox/searchData"
 import './MemberMangement.css'
+import { apiCall } from "../../server/apiService";
+
+const memberList = {
+    name: 'mem',
+    list: '아동 목록',
+    title: ['대상자 번호', '대상자명', '성별', '생년월일'],
+    menu: ['memSerial', 'memName', 'memSex', 'memBirth']
+}
 
 function MemberMangement() {
 
@@ -44,18 +52,13 @@ function MemberMangement() {
             // console.log("111들오나?"); // ㅇㅇ
             console.log(memDataOne.memSerial); // 클릭시 들어옴
             // const memSerial = memDataOne.memSerial;
-
-            axios
-                .post('/api/mem/memSelectOneEdu',{ memSerial: memDataOne.memSerial })
-                .then(res => {
-                    // if (!res.data) setEduDataOne({ memSerial: memDataOne.memSerial });
-                    // else 
-
-                    // console.log(response.data); // 데이터 전달 확인용
-                    setEduDataOne(res.data);
-                }).catch(function (err) {
-                    console.log("error => ", err);
-                })
+            
+            apiCall('/mem/memSelectOneEdu', 'POST', { memSerial: memDataOne.memSerial })
+            .then((response)=>{
+                setEduDataOne(response.data);
+            }).catch((err)=>{
+                console.log("error => ", err);
+            })
         }
     }, [memDataOne.memSerial]);    
     // 테이블이 두개니까 하나의 테이블에 memSerial이 들어가면 다른 테이블에 강제적으로 넣어주기
@@ -78,6 +81,9 @@ function MemberMangement() {
                     <MemberList
                         //리스트에도 memListUpdate얘를 전달해야하는거아닌가?
                         // memListUpdate={memListUpdate}
+
+                        //모듈화 진행을 위한
+                        name={memberList}
 
                         setData={setMemDataOne}
                         // memDataOne={memDataOne}
