@@ -7,14 +7,14 @@ import axios from 'axios';
 
 function AttandanceMangement() {
 
-    // Attandance DB 전체 list
-    const [attData, setAttData] = useState();
+    // Attandance : DB 전체 list
+    const [attData, setAttData] = useState([]);   // 출석 list
+    // Member : Attandance 중복없는 memSerial list useState
+    const [admissionData, setAdmissionData] = useState([]); // 이름 serial list
 
     // Attandance 한명 useState
     const [memAttDataOne, setMemAttDataOne] = useState({});
 
-    // Attandance 중복없는 memSerial list useState
-    const [admissionData, setAdmissionData] = useState([]);
 
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -22,8 +22,9 @@ function AttandanceMangement() {
     // 오늘 일자 확인
     const today = currentMonth.getDate();
     const month = currentMonth.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더합니다.
-    const year = selectedDate.getFullYear();
+    const year = currentMonth.getFullYear();
     console.log(today);  // 1일
+    console.log("currentMonth를 찍으면?"+currentMonth);
     console.log("지금 렌더링해야할 월은?" + month);  // 4월
     console.log(year);
     const date = year + "-" + month + "-" + today
@@ -93,13 +94,13 @@ function AttandanceMangement() {
         count = format(addDays(startDate, 7), 'd') * 1
     }
 
+    console.log("보낼날짜확인"+format(currentMonth, 'yyyy-MM'));
+
     // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
     useEffect(() => {
         const attList = () =>
             axios
-                .get("/api/att/attList", {
-                    month: month
-                })
+                .get("/api/att/attList", { yearMonth: format(currentMonth, 'yyyy-MM') }) //출석일 확인을 위한 파라미터값 전달
                 .then((response) => {
                     // console.log("attList 요청들어오냐?");    // 들어옴
                     // console.log(response.data);
@@ -137,7 +138,7 @@ function AttandanceMangement() {
                 {format(currentMonth, 'yyyy')}년
                 {format(currentMonth, 'M')}월
                 <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
-                <div style={{ display: thisMonth }}>!!이번달!!</div>
+                <div style={{ display: thisMonth, color:"red", fontWeight:'bold' }}>이번달</div>
                 <span>today : {format(today, 'd')}일</span>
 
             </div>
@@ -145,15 +146,17 @@ function AttandanceMangement() {
             <div>
                 <div className='att_mng_list' style={{
                     display: 'grid',
-                    gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows
+                    gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows,
+                    backgroundColor:"var(--admin)",
                 }}>
                     <div><input type="checkbox" /></div>
                     <div>
-                        <select>
+                        일련번호
+                        {/* <select>
                             <option type="checkbox" value="allattandance"
                             // checked={selectAllChecked}
                             // onChange={selectAllChange}
-                            >전체그룹</option>
+                            >시리얼번호(임시)</option>
                             <option type="checkbox" value="mojeon" id="mojeon" name="admissionAtt"
                             // checked={checkboxes.mojeon}
                             // onChange={CheckboxChange}
@@ -162,7 +165,7 @@ function AttandanceMangement() {
                             // checked={checkboxes.migeum}
                             // onChange={CheckboxChange}
                             >미금</option>
-                        </select>
+                        </select> */}
                     </div>
                     <div>이름</div>
                     <div>출석률</div>
@@ -183,40 +186,62 @@ function AttandanceMangement() {
                         );
                     })}
                 </div>
-                <div className='att_mng_list' style={{
-                    display: 'grid',
-                    gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows
-                }}>
-                    {attData && attData.map((o, i) => (
-                        <>
-                            {/* 기존코드 */}
-                            <div><input type="checkbox" /></div>
-                            <div>모전</div>
-                            <div>{o.memName}</div>
-                            <div style={{
-                                fontSize: 11
-                            }}>{o.attDate}</div>
-                            <div>{o.attStatus}</div>
-                            <div>결석</div>
 
 
-                            {Array.from({ length: size }, (_, index) => {
+                {admissionData && admissionData.map((o, i) => {
+                    return (
+                        <div className='att_mng_list' style={{
+                            display: 'grid',
+                            gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows,
+                        }}>
+                            <>
+                                {/* 우측에서는 체크박스, serial, 이름만 출력  */}
+                                <div><input type="checkbox" /></div>
+                                <div>{o.memSerial}</div>
+                                <div>{o.memName}</div>
+                                <div>출석률</div>
+                                <div>출석</div>
+                                <div>결석</div>
 
-                                return (
-                                    <div
-                                        // className={color} 
-                                        // 기본적으로 index가 0에서 시작하기때문에
-                                        key={index + 1}>
+                                {/* index : 날짜 count : 첫 번째 주 일요일*/}
+                                {Array.from({ length: size }, (_, index) => {
+                                    let day;
 
-                                    </div>
-                                );
-                            })}
+                                    // 날짜가 한자리 수 일 때 앞에 0을 붙여줘야된다
+                                    if(index.length == 1){
+                                        day = "0" + index;
+                                    } else{
+                                        day = "" + index;
+                                    }
+                                    // 시리얼 번호 비교 & 날짜 데이터 동일한지 비교하고 찾기
+                                    let count = attData.find((item)=>(item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
+                                    console.log(count);
+                                    if(count){
+                                        return (
+                                            <div
+                                                // className={color} 
+                                                // 기본적으로 index가 0에서 시작하기때문에
+                                                key={index + 1}>
+                                                <div>{count.attStatus}</div>
 
-                        </>
-                    ))}
+                                                
+                                            </div>
 
+                                        );
+                                    } else{
+                                        return(
+                                            <div key={index + 1}>
+                                                {/* 출석이 없으면 빈문자열 반환 */}
+                                            </div>
+                                        )
+                                    }
+                                })}
 
-                </div>
+                            </>
+                        </div>
+                    )
+                })}
+
             </div>
         </div>
     );
