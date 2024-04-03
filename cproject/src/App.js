@@ -13,6 +13,7 @@ import NoneLogin from './pages/err/errNoneLogin.js';
 import UserLogin from './pages/user/UserLogin.js';
 import UserprogramDetails from './pages/userprogram/UserprogramDetails';
 import UserprogramMain from './pages/userprogram/UserprogramMain.js';
+import NoticeMain from './pages/notice/NoticeMain.js';
 
 function App() {
 
@@ -25,7 +26,9 @@ function App() {
                     <Route path="/home" element={<Home />}></Route>
                     <Route path="/user" element={<UserHome />}>
                         <Route path="" element={<UserMain />}></Route>
-                        <Route path="notice" element={<Notice />}></Route>
+                        <Route path="notice" element={<Notice />}>
+                            <Route path="" element={<NoticeMain />}></Route>
+                        </Route>
                         {/* <Route path="programDtail" element={<UserprogramDetails />}></Route> */}
                         <Route path="schedule" element={<Schedule />}></Route>
                         <Route path="survety" element={<Survety />}></Route>

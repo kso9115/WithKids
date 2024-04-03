@@ -40,7 +40,7 @@ function UserLogin() {
                     // sessionStorage.setItem("userSerial",JSON.stringify(res.serial));
                     alert("로그인 성공");
                     navigate("/user");
-                    window.location.reload();
+                    // window.location.reload();
                 })
                 .catch((error) => {
                     setUserLoginInfo('');

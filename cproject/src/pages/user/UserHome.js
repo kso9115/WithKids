@@ -2,20 +2,16 @@ import './userHome.css'
 import UserHeader from './UserHeader'
 import UserFooter from './UserFooter'
 import { Outlet } from 'react-router-dom'
-import { useState } from 'react';
-
+// import { useLocation } from 'react-router-dom';
 
 function UserHome() {
-    const [login, setLogin] = useState(false);
+    // const location = useLocation();
+    // var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
 
-    var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
 
-    if (login === false && sessionData) {
-        setLogin(true);
-    }
     return (
         <>
-            <UserHeader login={login} setLogin={setLogin}></UserHeader>
+            <UserHeader></UserHeader>
             <main style={{ minHeight: `840px`}}>
                 <Outlet />
             </main>

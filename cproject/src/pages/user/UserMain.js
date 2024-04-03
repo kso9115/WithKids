@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Slide from '../../components/slide/Slide'
 import './userMain.css'
-import axios from 'axios';
 import { apiCall } from '../../server/apiService';
 
 

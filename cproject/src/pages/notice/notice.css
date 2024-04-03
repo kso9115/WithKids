@@ -1,0 +1,89 @@
+.userNotice {
+    /* margin-top: 20px; */
+}
+
+.userNotice>p {
+    padding: 10px 0;
+    font-size: 17px;
+    border-bottom: 1px solid var(--lgray);
+}
+
+.userNotice>div>div {
+
+    font-size: 20px;
+    display: grid;
+    grid-template-columns: 8% 70% 14% 8%;
+}
+
+.userNotice>div>div>div {
+    padding: 10px;
+    display: flex;
+    height: 80px;
+    align-items: center;
+    border-bottom: 1px solid var(--lgray);
+}
+
+.userNotice>div>div>div:not(:nth-child(2)) {
+    justify-content: center;
+}
+
+.userNoticePage {
+    margin-top: 50px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.userNoticePage>div:nth-child(1),
+.userNoticePage>div:nth-child(2)>div,
+.userNoticePage>div:nth-child(3) {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--lgray);
+    border-radius: 20px;
+}
+
+.userNoticePage>div:nth-child(1).hide,
+.userNoticePage>div:nth-child(3).hide {
+    border: 0px;
+}
+
+.userNoticePage>div:nth-child(1):hover:not(.hide),
+.userNoticePage>div:nth-child(3):hover:not(.hide) {
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.userNoticePage>div:nth-child(1):not(.hide) {
+    background: url('../../assets/images/blist_prev.png') no-repeat center center;
+    /* transform: rotate(180deg); */
+}
+
+.userNoticePage>div:nth-child(3):not(.hide) {
+    background: url('../../assets/images/blist_prev.png') no-repeat center center;
+    transform: rotate(180deg);
+}
+
+.userNoticePage>div:nth-child(2) {
+    display: flex;
+    gap: 5px;
+}
+
+.userNoticePage>div:nth-child(2)>div {
+    color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userNoticePage>div:nth-child(2)>.selectPage {
+    background-color: var(--spring);
+    border: 0px;
+    color: white;
+}
+
+.userNoticePage>div:nth-child(2)>div:not(.selectPage):hover {
+    border: 1px solid black;
+    color: black;
+    cursor: pointer;
+}
