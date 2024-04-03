@@ -114,37 +114,11 @@ function AttandanceMangement() {
             }).catch((err) => {
                 console.log(err);
             })
-
-        // const attList = () =>
-        //     axios
-        //         .get("/api/att/attList", { yearMonth: format(currentMonth, 'yyyy-MM') }) //출석일 확인을 위한 파라미터값 전달
-        //         .then((response) => {
-        //             // console.log("attList 요청들어오냐?");    // 들어옴
-        //             // console.log(response.data);
-        //             setAttData(response.data);
-        //         }).catch((err) => {
-        //             console.log(err);
-        //         })
+    }, [format(currentMonth, 'yyyy-MM')]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
 
 
-        // const memAdmissionList = () =>
-        //     axios
-        //         .get("api/mem/admissionList")
-        //         .then((response) => {
-        //             console.log("admissionList 요청들어오냐?");
-        //             console.log(response.data);
-        //             setAdmissionData(response.data);
-        //         }).catch((err) => {
-        //             console.log(err);
-        //         })
-
-        // attList();  // attList매핑을 위해..
-        // memAdmissionList();
-    }, []); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
-
-
-    console.log(attData);
-    console.log(admissionData);
+    // console.log(attData);
+    // console.log(admissionData);
 
 
 
@@ -155,8 +129,7 @@ function AttandanceMangement() {
                 {format(currentMonth, 'yyyy')}년
                 {format(currentMonth, 'M')}월
                 <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
-                <div style={{ display: thisMonth, color: "red", fontWeight: 'bold' }}>이번달</div>
-                <span>today : {format(today, 'd')}일</span>
+                <div style={{ display: thisMonth }}>오늘의 날짜는 : {format(currentMonth, 'dd')}일</div>
 
             </div>
             <div></div>
@@ -167,22 +140,7 @@ function AttandanceMangement() {
                     backgroundColor: "var(--admin)",
                 }}>
                     <div><input type="checkbox" /></div>
-                    <div>
-                        일련번호
-                        {/* <select>
-                            <option type="checkbox" value="allattandance"
-                            // checked={selectAllChecked}
-                            // onChange={selectAllChange}
-                            >시리얼번호(임시)</option>
-                            <option type="checkbox" value="mojeon" id="mojeon" name="admissionAtt"
-                            // checked={checkboxes.mojeon}
-                            // onChange={CheckboxChange}
-                            >모전</option>
-                            <option type="checkbox" value="migeum" id="migeum" name="admissionAtt"
-                            // checked={checkboxes.migeum}
-                            // onChange={CheckboxChange}
-                            >미금</option>
-                        </select> */}
+                    <div>일련번호
                     </div>
                     <div>이름</div>
                     <div>출석률</div>
@@ -199,7 +157,9 @@ function AttandanceMangement() {
                             color = ""
                         }
                         return (
-                            <div className={color} key={index + 1}>{index + 1}</div>
+                            <div className={color} key={index + 1}>{index + 1}
+                                
+                            </div>
                         );
                     })}
                 </div>
@@ -226,20 +186,21 @@ function AttandanceMangement() {
 
                                     // 날짜가 한자리 수 일 때 앞에 0을 붙여줘야된다
                                     if (index.length == 1) {
-                                        day = "0" + index;
+                                        day = "0" + (index+1);
                                     } else {
-                                        day = "" + index;
+                                        day = "" + (index+1);
                                     }
                                     // 시리얼 번호 비교 & 날짜 데이터 동일한지 비교하고 찾기
                                     let count = attData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
                                     console.log(count);
                                     if (count) {
                                         return (
+                                            
                                             <div
-                                                // className={color} 
+                                                className="attandance_data"
                                                 // 기본적으로 index가 0에서 시작하기때문에
-                                                key={index + 1}>
-                                                <div>{count.attStatus}</div>
+                                                key={index + 1} onClick={()=>setAttData()}>
+                                                {count.attStatus}
 
 
                                             </div>
