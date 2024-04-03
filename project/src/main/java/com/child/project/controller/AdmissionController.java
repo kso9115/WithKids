@@ -14,6 +14,7 @@ import com.child.project.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -43,11 +44,11 @@ public class AdmissionController {
 
 
     @PostMapping("/admMemOne")
-    public MemAdmission admMemOne(@RequestParam("memSerial") String memSerial) {
-        log.info("memSerial" + memSerial);
+    public MemAdmission admMemOne(@RequestBody MemAdmission entity) {
+        log.info("memSerial" + entity.getMemSerial());
         MemAdmission admOne;
         try {
-            admOne = admService.selectOne(memSerial);
+            admOne = admService.selectOne(entity.getMemSerial());
         } catch (Exception e) {
             admOne = null;
         }
@@ -127,8 +128,8 @@ public class AdmissionController {
 
 
     //searchBoX mapping
-    @GetMapping("/searchBox")
-    public List<Member> searchBox(Member entity){
+    @GetMapping("/admSearch")
+    public List<Member> admSearch(Member entity){
         log.info("searchBox Controller 맵핑됨 => "+ entity);
 
         List<Member> list = admService.findSearch(entity);
