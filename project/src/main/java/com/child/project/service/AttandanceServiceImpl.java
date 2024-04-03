@@ -37,6 +37,14 @@ public class AttandanceServiceImpl implements AttandanceService {
         return repository.findAdmissionList();
     }
 
+    // 출석 데이터 업데이트
+    @Override
+    public Attandance attSave(Attandance entity) {
+        repository.save(entity);
+
+        return entity;
+    }
+
     // 월별 db
     // @Override
     // public List<Attandance> selectList(String month) {

@@ -40,4 +40,11 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
     @Query(value = "select * from member where mem_status='이용' ", nativeQuery = true)
     List<Attandance> findAdmissionList();
 
+    // 출,결석 처리
+    @Query(value = "update attandace set attandance_status = (:attandance_status) "
+            + "where mem_serial = (:mem_serial) and attandance_date = (:attandance_date)", nativeQuery = true)
+    void save(@Param("attandance_status") String attandance_status,
+            @Param("mem_serial") String mem_serial,
+            @Param("attandance_date") String attandance_date);
+
 }

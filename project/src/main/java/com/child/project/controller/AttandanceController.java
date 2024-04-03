@@ -3,6 +3,8 @@ package com.child.project.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,6 +60,15 @@ public class AttandanceController {
         return list;
     }
 
-    
+    @PostMapping("/attChange")
+    public String attSave(@RequestBody Attandance entity) {
+        String message = "";
+
+        log.info("???오니????????????????????????????????????????????????");
+        log.info(entity);
+        attService.attSave(entity);
+
+        return message;
+    }
 
 }

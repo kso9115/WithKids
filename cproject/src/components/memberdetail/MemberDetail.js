@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import PostCode from './Postcode';
 import { apiCall } from '../../server/apiService';
+import { mem_dtls_inp_ck } from '../../hooks/inputCheck/memberInputCheck';
 
 // data={memDataOne} eduData={eduDataOne}
 // setData={setMemDataOne} setEduDataOne={setEduDataOne}
@@ -55,9 +56,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             return;
         }
 
-        console.log(memDataOneD);
-        console.log(eduDataOneD);   // memSerial , 이름 필요
-
+        // if (mem_dtls_inp_ck(memDataOneD)) {
         apiCall(endpoint, 'POST', data)
             .then((response) => {
                 console.log("넘어오는 데이터 확인");
@@ -70,24 +69,17 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                 // alert("요청 실패");
                 console.error(err);
             });
+        // }
 
-        // axios.post(endpoint, data)
-        //     .then((response) => {
-        //         console.log("넘어오는 데이터 확인");
-        //         console.log(response.data);
-
-        //         // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
-        //         // 변화 감지 후 리스트 리렌더링
-        //         setMemListUpdate(!memListUpdate);
-        //     })
-        //     .catch((err) => {
-        //         alert("요청 실패");
-        //         console.error(err);
-        //     });
+        console.log(memDataOneD);
+        console.log(eduDataOneD);   // memSerial , 이름 필요
     }
 
     const saveMemData = () => {
-        saveData(memDataOneD, '/mem/memInesert');
+        // 요청 두번가기때문에..필수입력사항 입력할 때인 memDataOneD에서 유효성 검사 진행
+        if (mem_dtls_inp_ck(memDataOneD)) {
+            saveData(memDataOneD, '/mem/memInesert');
+        }
     }
 
     const saveEduData = () => {
@@ -97,8 +89,8 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                 ...eduDataOneD,
                 // 데이터를 선택해서 입력하는경우도 있지만, 인풋에 값을 넣는 경우도 있으니까
                 // 위의 data에서가 아닌 memDataOneD의 시리얼 값을 가져와줘야한다.
-                memSerial :memDataOneD.memSerial,
-                memName:memDataOneD.memName
+                memSerial: memDataOneD.memSerial,
+                memName: memDataOneD.memName
             }, '/mem/memEduInesert');
         }
     }
