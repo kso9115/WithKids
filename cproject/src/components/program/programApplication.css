@@ -1,0 +1,40 @@
+.prg_apl_header {
+    height: 100%;
+}
+
+.prg_apl_header>div {
+    margin-top: 5px;
+    height: calc(100% - 26px);
+    border: 1px solid var(--mgray);
+}
+
+.prg_apl_header>div>div {
+    height: 100%;
+    overflow: auto;
+}
+
+.prg_apl_header>div>div>div {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 10% 20% 30% 10% 20% 10%;
+    border-bottom: 1px solid var(--mgray);
+}
+
+.prg_apl_header>div>div>div:nth-child(1) {
+    font-weight: bold;
+    background-color: var(--admin);
+    position: sticky;
+    top: 0;
+}
+
+.prg_apl_header>div>div>div>div {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.prg_apl_header>div>div>div>div:nth-child(n+2) {
+    border-left: 1px solid var(--mgray);
+}

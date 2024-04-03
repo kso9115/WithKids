@@ -4,6 +4,8 @@ import ListComponent from '../../hooks/ListComponent';
 import SearchBox from '../../hooks/searchbox/SearchBox';
 import { prg_pln } from '../../hooks/searchbox/searchData';
 import ProgramPlanDetails from './ProgramPlanDetails';
+import ProgramApplication from './ProgramApplication';
+import Container from '../container/Container';
 
 const prgPlnList = {
     name: 'prgPln',
@@ -17,6 +19,14 @@ function ProgramPlan() {
     const [prgDetail, setPrgDetail] = useState([]); //프로그램 테이블 전체중에 트리에서 선택한 행의 프로그램 ID의 세부테이블 정보 보관
     const [listUpdate, setListUpdate] = useState(true);//변화 감지
 
+    const [subCurrentTab, setSubCurrentTab] = useState(0);
+
+    const subMenuArr = [
+        { name: '프로그램계획 정보', content: '' },
+        { name: '프로그램신청 정보', content: '' }
+    ];
+    subMenuArr[0].content = <ProgramPlanDetails data={prgDataOne} setData={setPrgDataOne} listUpdate={listUpdate} setListUpdate={setListUpdate} />;
+    subMenuArr[1].content = <ProgramApplication data={prgDataOne} setData={setPrgDataOne} listUpdate={listUpdate} setListUpdate={setListUpdate} />;
 
     function searchBoxClick(sbVal) {
         const param = { ...sbVal, prgDate: sbVal.prgDate + "~" + sbVal.prgDate2 };
@@ -49,7 +59,7 @@ function ProgramPlan() {
                     width: '70%',
                     height: '100%'
                 }}>
-                    <ProgramPlanDetails data={prgDataOne} setData={setPrgDataOne} listUpdate={listUpdate} setListUpdate={setListUpdate} />
+                    <Container menuArr={subMenuArr} currentTab={subCurrentTab} setCurrentTab={setSubCurrentTab} mainSub={"sub"}></Container>
                 </div>
             </div>
         </div>

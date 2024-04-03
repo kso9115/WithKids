@@ -129,6 +129,11 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 
 	@Override
+	public List<ProgramApplication> selectAllApl(String prgId) {
+		return prgarepository.selectAllApl(prgId);
+	}
+
+	@Override
 	public ProgramApplication aplSave(ProgramApplication entity) {
 		return prgarepository.save(entity);
 	}

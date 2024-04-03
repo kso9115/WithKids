@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.child.project.entity.ProgramApplication;
 import com.child.project.entity.ProgramDetails;
 import com.child.project.entity.ProgramDetailsId;
 import com.child.project.service.ProgramService;
@@ -34,13 +35,21 @@ public class ProgramPlanController {
 		return list;
 	} // prgList
 
+	@PostMapping("/prgAplList")
+	public List<ProgramApplication> prgAplList(@RequestBody ProgramApplication entity) {
+
+		List<ProgramApplication> list = prgService.selectAllApl(entity.getPrgId());
+
+		return list;
+	} // prgList
+
 	@GetMapping("/prgPlnSearch")
 	public List<ProgramDetails> prgSearch(ProgramDetails entity) {
 		log.info(entity);
 		List<ProgramDetails> list = prgService.findPlnSearch(entity);
 
 		return list;
-	} // prgList
+	} // prgPlnSearch
 
 	@PostMapping("/prgPlnDtdelete")
 	public String prgdelete(@RequestBody ProgramDetailsId entityId) {

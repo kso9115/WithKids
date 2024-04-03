@@ -144,7 +144,7 @@ function UserprogramDetails() {
                         <div><p>{prgOne.prgNm}</p></div>
                         <div>
                             <div>모집일자</div><div>{prgOne.plnPrd}</div>
-                            <div>모집인원</div><div>{prgOne.plnNmbPpl}</div>
+                            <div>예상인원</div><div>{prgOne.plnNmbPpl} 명</div>
                             <div>진행일자</div><div>{prgOne.plnDate}</div>
                             <div>등록일</div><div>{prgOne.prgDate}</div>
                             <div>비용구분</div><div>{prgOne.costClsfc}</div>

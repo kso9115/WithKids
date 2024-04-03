@@ -31,6 +31,8 @@ public interface ProgramService {
 
 	List<ProgramDetails> selectAllPlan();
 
+	List<ProgramApplication> selectAllApl(String prgId);
+
 	Program save(Program entity);
 
 	ProgramDetails dtSave(ProgramDetails entity);
