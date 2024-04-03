@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react'
 import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays, addMonths } from 'date-fns';
 // import ChildAttandanceList from './ChildAttandanceList';
 import axios from 'axios';
+import { apiCall } from '../../server/apiService';
 
 function AttandanceMangement() {
 
@@ -24,7 +25,7 @@ function AttandanceMangement() {
     const month = currentMonth.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더합니다.
     const year = currentMonth.getFullYear();
     console.log(today);  // 1일
-    console.log("currentMonth를 찍으면?"+currentMonth);
+    console.log("currentMonth를 찍으면?" + currentMonth);
     console.log("지금 렌더링해야할 월은?" + month);  // 4월
     console.log(year);
     const date = year + "-" + month + "-" + today
@@ -94,35 +95,51 @@ function AttandanceMangement() {
         count = format(addDays(startDate, 7), 'd') * 1
     }
 
-    console.log("보낼날짜확인"+format(currentMonth, 'yyyy-MM'));
+    console.log("보낼날짜확인" + format(currentMonth, 'yyyy-MM'));
 
-    // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
     useEffect(() => {
-        const attList = () =>
-            axios
-                .get("/api/att/attList", { yearMonth: format(currentMonth, 'yyyy-MM') }) //출석일 확인을 위한 파라미터값 전달
-                .then((response) => {
-                    // console.log("attList 요청들어오냐?");    // 들어옴
-                    // console.log(response.data);
-                    setAttData(response.data);
-                }).catch((err) => {
-                    console.log(err);
-                })
+        // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
+        apiCall("/att/attList", "GET", { yearMonth: format(currentMonth, 'yyyy-MM') })
+            .then((response) => {
+                setAttData(response.data);
+            }).catch((err) => {
+                console.log(err);
+            })
 
         // 입소중인 멤버 리스트 요청
-        const memAdmissionList = () =>
-            axios
-                .get("api/mem/admissionList")
-                .then((response) => {
-                    console.log("admissionList 요청들어오냐?");
-                    console.log(response.data);
-                    setAdmissionData(response.data);
-                }).catch((err) => {
-                    console.log(err);
-                })
+        apiCall("/mem/admissionList", "GET")
+            .then((response) => {
+                console.log(response.data);
+                setAdmissionData(response.data);
+            }).catch((err) => {
+                console.log(err);
+            })
 
-        attList();  // attList매핑을 위해..
-        memAdmissionList();
+        // const attList = () =>
+        //     axios
+        //         .get("/api/att/attList", { yearMonth: format(currentMonth, 'yyyy-MM') }) //출석일 확인을 위한 파라미터값 전달
+        //         .then((response) => {
+        //             // console.log("attList 요청들어오냐?");    // 들어옴
+        //             // console.log(response.data);
+        //             setAttData(response.data);
+        //         }).catch((err) => {
+        //             console.log(err);
+        //         })
+
+
+        // const memAdmissionList = () =>
+        //     axios
+        //         .get("api/mem/admissionList")
+        //         .then((response) => {
+        //             console.log("admissionList 요청들어오냐?");
+        //             console.log(response.data);
+        //             setAdmissionData(response.data);
+        //         }).catch((err) => {
+        //             console.log(err);
+        //         })
+
+        // attList();  // attList매핑을 위해..
+        // memAdmissionList();
     }, []); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
 
 
@@ -138,7 +155,7 @@ function AttandanceMangement() {
                 {format(currentMonth, 'yyyy')}년
                 {format(currentMonth, 'M')}월
                 <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
-                <div style={{ display: thisMonth, color:"red", fontWeight:'bold' }}>이번달</div>
+                <div style={{ display: thisMonth, color: "red", fontWeight: 'bold' }}>이번달</div>
                 <span>today : {format(today, 'd')}일</span>
 
             </div>
@@ -147,7 +164,7 @@ function AttandanceMangement() {
                 <div className='att_mng_list' style={{
                     display: 'grid',
                     gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows,
-                    backgroundColor:"var(--admin)",
+                    backgroundColor: "var(--admin)",
                 }}>
                     <div><input type="checkbox" /></div>
                     <div>
@@ -208,15 +225,15 @@ function AttandanceMangement() {
                                     let day;
 
                                     // 날짜가 한자리 수 일 때 앞에 0을 붙여줘야된다
-                                    if(index.length == 1){
+                                    if (index.length == 1) {
                                         day = "0" + index;
-                                    } else{
+                                    } else {
                                         day = "" + index;
                                     }
                                     // 시리얼 번호 비교 & 날짜 데이터 동일한지 비교하고 찾기
-                                    let count = attData.find((item)=>(item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
+                                    let count = attData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
                                     console.log(count);
-                                    if(count){
+                                    if (count) {
                                         return (
                                             <div
                                                 // className={color} 
@@ -224,12 +241,12 @@ function AttandanceMangement() {
                                                 key={index + 1}>
                                                 <div>{count.attStatus}</div>
 
-                                                
+
                                             </div>
 
                                         );
-                                    } else{
-                                        return(
+                                    } else {
+                                        return (
                                             <div key={index + 1}>
                                                 {/* 출석이 없으면 빈문자열 반환 */}
                                             </div>
