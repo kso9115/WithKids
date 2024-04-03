@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.child.project.entity.MealMngm;
@@ -23,11 +23,20 @@ public class MealMngmController {
 
      MealMngmService mealService;
 
-    @GetMapping("/mealList")
-    public List<MealMngm> mealList() {
-        List<MealMngm> mealList = mealService.selectList();
+    // @GetMapping("/mealList")
+    // public List<MealMngm> mealList() {
+    //     List<MealMngm> mealList = mealService.selectList();
         
-        log.info("meal List 요청까지 옴");
+    //     log.info("meal List 요청까지 옴");
+
+    //     return mealList;
+    // }
+
+    @GetMapping("/mealListYM")
+    public List<MealMngm> mealListYM(@RequestParam("yearMonth") String yearMonth) {
+        List<MealMngm> mealList = mealService.selectListYM(yearMonth);
+        
+        log.info("meal List  요청까지 옴 => " + yearMonth);
 
         return mealList;
     }

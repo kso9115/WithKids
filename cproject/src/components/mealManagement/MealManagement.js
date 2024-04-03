@@ -16,6 +16,7 @@ function MealManagement() {
     const [currentMonth, setCurrentMonth] = useState(new Date()); // 내가 보려고 선택한 달
     const [selectedDate, setSelectedDate] = useState(new Date()); // 현재 2024년의 몇월 달 (현재기준 4월)
 
+    // currentMonth 
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
@@ -52,18 +53,32 @@ function MealManagement() {
 
     useEffect(() => {
         console.log("1111");
-        const mealList = () =>
-            axios
-                .get("/api/meal/mealList")
-                .then((response) => {
-                    console.log("mealList에 대한 요청");
-                    setMealData(response.data);
-                }).catch((err) => {
-                    console.log("mealList에 대한 요청 에러 => " + err);
-                });
+        const mealList = () => 
+        console.log(format(currentMonth,"yyyy-MM"));
+        axios.
+            get("/api/meal/mealListYM", {
+                params: {
+                    yearMonth : format(currentMonth,"yyyy-MM")
+                }
+            })
+            .then((response) => {
+            console.log("mealList에 대한 요청");
+            setMealData(response.data);
+            }).catch((err) => {
+            console.log("mealList에 대한 요청 에러 => " + err);
+            });
+            // 변경 전
+            // axios 
+            //     .get("/api/meal/mealList")
+            //     .then((response) => {
+            //         console.log("mealList에 대한 요청");
+            //         setMealData(response.data);
+            //     }).catch((err) => {
+            //         console.log("mealList에 대한 요청 에러 => " + err);
+            //     });
         const memList = () =>
             axios
-                .get("/api/mem/memList")
+                .get("/api/mem/admissionList")
                 .then((res) => {
                     // console.log(res.data); // 데이터 전달 확인용
                     setMemData(res.data);
@@ -74,7 +89,7 @@ function MealManagement() {
 
         memList()
         mealList();  // mealList매핑을 위해..
-    }, [mealData]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
+    }, [format(currentMonth,"yyyy-MM")]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
     console.log(mealData);
     // console.log(memMealDataOne);
 
@@ -117,7 +132,7 @@ function MealManagement() {
             <div>
                 <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth}></Icon>
                 {format(currentMonth, 'yyyy')}년
-                {format(currentMonth, 'M')}월
+                {format(currentMonth, 'MM')}월
                 <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
                 <div style={{ display: thisMonth }}>이번달</div>
             </div>
@@ -142,7 +157,7 @@ function MealManagement() {
                             color = ""
                         }
                         return (
-                            <div className={color} key={index + 1}>{index + 1}</div>
+                            <div className={color} key={index + 1}> {index + 1} </div>
                         );
                     })}
 
@@ -153,8 +168,8 @@ function MealManagement() {
                     return (
                         <div className='meal_mng_list' style={{
                             display: 'grid',
-                            gridTemplateColumns: "10% 5% 5% " + rows + "10%",
-                        }}>
+                            gridTemplateColumns: "10% 5% 5% " + rows + "10%" }}>
+
                             <div>{o.memSerial}</div>
                             <div>{o.memName}</div>
                             <div>
@@ -180,13 +195,14 @@ function MealManagement() {
                                 if (count) {
                                     return (
                                         <div key={index + 1}>
-                                            <div>{count.brfMeal}</div>
-                                            <div>{count.lncMeal}</div>
-                                            <div>{count.dnrMeal}</div>
-                                            <div>{count.snkMeal}</div>
+                                            <div>{count.brfMeal === 0 ? "X" : "O" }</div>
+                                            <div>{count.lncMeal === 0 ? "X" : "O" }</div>
+                                            <div>{count.dnrMeal === 0 ? "X" : "O" }</div>
+                                            <div>{count.snkMeal === 0 ? "X" : "O" }</div>
                                         </div>
                                     );
-                                } else {
+                                } 
+                                else {
                                     return (
                                         <div
                                             // className={color} 
