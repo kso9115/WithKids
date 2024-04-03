@@ -19,3 +19,7 @@
     color: blue;
 }
 
+.attandance_data:hover:not(:first-child){
+    cursor: pointer;
+    background-color: var(--mgray);
+}
