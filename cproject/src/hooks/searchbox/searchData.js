@@ -1,5 +1,6 @@
 import axios from "axios";
 import { apiCall } from "../../server/apiService";
+import { useEffect } from "react";
 
 let date = new Date();
 let yyyy = date.getFullYear();
@@ -171,21 +172,25 @@ export const stf_mng = {
     ],
     staffPstList: {}
 }
-apiCall('/staff/staffPstList', 'GET')
-    .then((response) => {
-        if (Array.isArray(response.data)) {
-            for (let i = 0; i < response.data.length; i++) {
-                stf_mng.content[0].default.push({
-                    name: response.data[i].staffPst,
-                    value: response.data[i].staffPst
-                })
+
+if (window.location.pathname === "/home") {
+    apiCall('/staff/staffPstList', 'GET')
+        .then((response) => {
+            if (Array.isArray(response.data)) {
+                for (let i = 0; i < response.data.length; i++) {
+                    stf_mng.content[0].default.push({
+                        name: response.data[i].staffPst,
+                        value: response.data[i].staffPst
+                    })
+                }
             }
-        }
-        stf_mng.staffPstList = response.data
-    })
-    .catch((error) => {
-        console.log(error);
-    })
+            stf_mng.staffPstList = response.data
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
 
 export const att_mng = {
     name: '출석관리',

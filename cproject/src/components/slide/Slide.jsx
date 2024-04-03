@@ -4,7 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./slide.css"
 import { Link } from "react-router-dom";
-
+import { API_BASE_URL } from "../../server/app-config";
+    
 function Slide({data}) {
     
     const settings = {
@@ -34,7 +35,7 @@ function Slide({data}) {
                         <Link to="/user/program/dtails" state={ele} key={ele.prgId}>
                             <div className="imgBox_Slider">
                                 <img style={{ width: "300px", height: "300px", marginBottom: "10px" }}
-                                    src={"api/prg/prgSlideImg?prgId=" + ele.prgId} alt=""
+                                    src={API_BASE_URL+"/api/prg/prgSlideImg?prgId=" + ele.prgId} alt=""
                                 />
                                 <div className="imgName">{ele.prgNm}</div>
                                 <p style={{ fontSize: "14px" }}>{ele.plnPrd}</p>

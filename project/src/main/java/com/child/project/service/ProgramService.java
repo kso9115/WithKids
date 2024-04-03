@@ -3,6 +3,7 @@ package com.child.project.service;
 import java.util.List;
 
 import com.child.project.entity.Program;
+import com.child.project.entity.ProgramApplication;
 import com.child.project.entity.ProgramDetails;
 import com.child.project.entity.ProgramDetailsId;
 import com.child.project.entity.ProgramId;
@@ -39,4 +40,6 @@ public interface ProgramService {
 	void deleteById(ProgramId entityId);
 
 	void deleteDtById(ProgramDetailsId entityId);
+
+	ProgramApplication aplSave(ProgramApplication entity);
 }

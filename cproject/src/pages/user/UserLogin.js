@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 //이미지
 import faceSereial from "../../assets/images/free-icon-face-id-2415069.png";
 import facePW from "../../assets/images/free-icon-padlock-2575570.png";
+import { apiCall } from '../../server/apiService';
 
-function UserLogin( ){
+function UserLogin() {
     const navigate = useNavigate();
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);  // 로그인 상태 저장 변수
     const [userLoginInfo, setUserLoginInfo] = useState(""); // 회원 로그인 정보
@@ -27,51 +28,46 @@ function UserLogin( ){
         console.log("password => " + password);
 
         if (serial.length > 0 && password.length > 0) {
-            axios
-            .post("/api/mem/login", {
+            apiCall('/mem/login', 'POST', {
                 memSerial: serial,
                 memLoginPW: password
-            }, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
             })
-            .then((res) => {
-                console.log(res.data);
-                sessionStorage.setItem("userLogin",JSON.stringify(res));
-                setIsUserLoggedIn(true);
-                setUserLoginInfo(res);
-                // sessionStorage.setItem("userSerial",JSON.stringify(res.serial));
-                alert("로그인 성공");
-                navigate("/user");
-                window.location.reload();
-            })
-            .catch((err) => {
-                setUserLoginInfo('');
-                if (err === 502) {
-                    alert("id 또는 password 가 다릅니다, 다시하세요 ~~");
-                } else { alert(`** onLoginSubmit 시스템 오류, err=${err}`); }
-            });
-        } else { 
+                .then((response) => {
+                    console.log(response.data);
+                    sessionStorage.setItem("userLogin", JSON.stringify(response));
+                    setIsUserLoggedIn(true);
+                    setUserLoginInfo(response);
+                    // sessionStorage.setItem("userSerial",JSON.stringify(res.serial));
+                    alert("로그인 성공");
+                    navigate("/user");
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    setUserLoginInfo('');
+                    if (error === 502) {
+                        alert("id 또는 password 가 다릅니다, 다시하세요 ~~");
+                    } else { alert(`** onLoginSubmit 시스템 오류, err=${error}`); }
+                })
+        } else {
             alert("serial 번호와 password를 확인해 주세요");
         }
     }
 
-    return(
-            <div className='useLoginBox'>
-                <div>
-                    <div><img className="user_Serial" src={faceSereial} alt="serial" />
-                        <input type="text" id="serial" name="serial" value={serial} onChange={handleSerialChange} />
-                    </div>
-                    <div><img className="user_Password" src={facePW} alt="password"></img>
-                        <input type="password" id="password" name="password" value={password} onChange={handlePwChange}/>
-                    </div>
+    return (
+        <div className='useLoginBox'>
+            <div>
+                <div><img className="user_Serial" src={faceSereial} alt="serial" />
+                    <input type="text" id="serial" name="serial" value={serial} onChange={handleSerialChange} />
                 </div>
-                <div>
-                    <input className='userLogin-btn' type="submit" value="로그인" onClick={onSubmitHandler}/>&nbsp;&nbsp;&nbsp;
-                    <input className='userLogin-btn' type="reset" value="취소" />
+                <div><img className="user_Password" src={facePW} alt="password"></img>
+                    <input type="password" id="password" name="password" value={password} onChange={handlePwChange} />
                 </div>
             </div>
+            <div>
+                <input className='userLogin-btn' type="submit" value="로그인" onClick={onSubmitHandler} />&nbsp;&nbsp;&nbsp;
+                <input className='userLogin-btn' type="reset" value="취소" />
+            </div>
+        </div>
     )
 }
 export default UserLogin;

@@ -24,34 +24,34 @@ import com.child.project.jwtToken.JwtAuthenticationFilter;
 @EnableWebSecurity
 // public class SecurityConfig extends WebSecurityConfigurerAdapter {
 public class SecurityConfig {
-	
+
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
-	
+
 	// ** HttpSecurity
 	// => 시큐리티 설정을 위한 오브젝트
-	// => 빌더를 이용해서 cors, csrf, httpBasic, session, authorizeRequests 등 
-	//    다양한 시큐리티관련 설정을 할 수있다. 
-	
+	// => 빌더를 이용해서 cors, csrf, httpBasic, session, authorizeRequests 등
+	// 다양한 시큐리티관련 설정을 할 수있다.
+
 	@Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
 		// ** Filter 등록
 		// => http.addFilterBefore( NewFilter(), BasicAuthenticationFilter.class )
-		//	  : BasicAuthenticationFilter 의 Pre Filter 로 등록
+		// : BasicAuthenticationFilter 의 Pre Filter 로 등록
 		// => http.addFilterAfter(NewFilter(), BasicAuthenticationFilter.class )
-		//	  : BasicAuthenticationFilter 의 Post Filter 로 등록
-		
+		// : BasicAuthenticationFilter 의 Post Filter 로 등록
+
 		// ** jwtAuthenticationFilter 를 Security filter 에 등록
-		// => 아래 68행~ return 구문의 cors() 호출 위치를 보면, 
-		//    스프링 시큐리티의 Authentication Filter 인증보다 앞서 CorsFilter 검증이 일어나고,
-		//    이어서 jwtAuthenticationFilter 가 실행되도록 설정.  
-		// => 즉, 매 request 마다 CorsFilter 실행후 jwtAuthenticationFilter 실행하도록 설정. 
-		//    이 순서가 필수는 아니지만 적절하기때문에 이렇게 설정함.
+		// => 아래 68행~ return 구문의 cors() 호출 위치를 보면,
+		// 스프링 시큐리티의 Authentication Filter 인증보다 앞서 CorsFilter 검증이 일어나고,
+		// 이어서 jwtAuthenticationFilter 가 실행되도록 설정.
+		// => 즉, 매 request 마다 CorsFilter 실행후 jwtAuthenticationFilter 실행하도록 설정.
+		// 이 순서가 필수는 아니지만 적절하기때문에 이렇게 설정함.
 		http.addFilterAfter(
 				jwtAuthenticationFilter,
 				CorsFilter.class);
-		
+
 		// ** http 시큐리티 빌더
 		// => disable(): 사용 안함 설정
 		// => and() : 체이닝 방식을 사용하여 진행 할 때 사용
@@ -59,37 +59,41 @@ public class SecurityConfig {
 		// => cors(): CorsFilter 추가, 추가하지 않을 시 corsConfigurationSource 정의
 		// => sessionManagement: 한번에 단일 사용자 인스턴스만 인증되도록 하는 방법
 		// => sessionCreationPolicy: 세션 정책
-		//		.ALWAYS: 항상 세션을 생성
-		//		.IF_REQUIRED: 필요시 생성(기본)
-		//		.NEVER: 생성하지 않지만 기존 존재시 사용
-		//		.STATELESS: 생성하지도 않고, 존재해도 사용하지않음 (JWT 토큰방식을 이용할 경우 사용) 
+		// .ALWAYS: 항상 세션을 생성
+		// .IF_REQUIRED: 필요시 생성(기본)
+		// .NEVER: 생성하지 않지만 기존 존재시 사용
+		// .STATELESS: 생성하지도 않고, 존재해도 사용하지않음 (JWT 토큰방식을 이용할 경우 사용)
 		// => authorizeRequests(): RequestMatcher를 기반으로 엑세스 제한 기능
 		// => antMatcher: 제시한 ant 패턴과 일치할 때만 호출 가능
 		// => anyRequest ~ authenticated : 어떠한 요청도 인가 받아야함.
-		
+
 		return http.httpBasic().disable() // token을 사용하므로 basic 인증 disable (사용안함)
-        		//.formLogin().disable()  
-                .csrf().disable() // csrf는 현재 사용하지 않으므로 disable
-                .cors().and()     
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).and()
-                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                // => session 기반이 아님을 선언
+				// .formLogin().disable()
+				.csrf().disable() // csrf는 현재 사용하지 않으므로 disable
+				.cors().and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).and()
+				// .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				// => session 기반이 아님을 선언
 				.authorizeRequests()
-				.antMatchers("/", "/api/**", "/user/**", "/resources/**", "/uploadImage/**").permitAll()
-				// .antMatchers("/", "/home", "/user/**", "/resources/**", "/uploadImage/**").permitAll() 
-				// => "/", "/home", "/resources/**", "/uploadImage/**", "/member/**" 등의 경로는 인증 안해도 됨.
-				.anyRequest().authenticated().and() 
+				.antMatchers("/", "/api/prg/**", "/api/prgPln/**", "/api/mem/**", "/api/att/**", "/api/adm/**",
+						"/api/lvn/**", "/api/meal/**", "/api/staff/**")
+				.permitAll()
+				// .antMatchers("/", "/home", "/user/**", "/resources/**",
+				// "/uploadImage/**").permitAll()
+				// => "/", "/home", "/resources/**", "/uploadImage/**", "/member/**" 등의 경로는 인증
+				// 안해도 됨.
+				.anyRequest().authenticated().and()
 				// => 위 이외의 모든 경로는 인증해야됨.
-                .build();
-    } //filterChain
+				.build();
+	} // filterChain
 
 	// application.properties에서도 변경가능
 	// X-Frame-Options
 	// https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/X-Frame-Options#apache_%EC%84%A4%EC%A0%95
 	// @Override
 	// protected void configure(HttpSecurity http) throws Exception {
-	// 	http.headers().frameOptions().sameOrigin();
+	// http.headers().frameOptions().sameOrigin();
 
 	// }
 
-} //class
+} // class

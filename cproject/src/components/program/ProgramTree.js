@@ -17,7 +17,7 @@ function ProgramTree({ name, setData, treeUpdate }) {
     useEffect(() => {
         if (treeUpdate !== true && treeUpdate !== false) {
             // prgSearch();
-            apiCall('/prg/prgSearch', 'GET', treeUpdate, null)
+            apiCall('/prg/prgSearch', 'GET', treeUpdate)
                 .then((response) => {
                     setPrgData(response.data);
                     setData([]);
@@ -25,7 +25,7 @@ function ProgramTree({ name, setData, treeUpdate }) {
                     console.log(error);
                 })
         } else {
-            apiCall('/prg/prgList', 'GET', null, null)
+            apiCall('/prg/prgList', 'GET')
                 .then((response) => {
                     setPrgData(response.data);
                 }).catch((error) => {

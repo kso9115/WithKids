@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './userprogram.css';
-import { Link, Outlet } from 'react-router-dom';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { apiCall } from '../../server/apiService';
-
+import { API_BASE_URL } from '../../server/app-config';
 
 function UserprogramMain() {
     const [listData, setListData] = useState([]);
@@ -36,7 +35,7 @@ function UserprogramMain() {
                             <Link to="/user/program/dtails" state={ele} key={ele.prgId + 2}>
                                 <div className='userPrgImgBox'>
                                     <img style={{ width: "270px", height: "270px", marginBottom: "10px" }}
-                                        src={"/api/prg/prgSlideImg?prgId=" + ele.prgId} alt=""
+                                        src={API_BASE_URL + "/api/prg/prgSlideImg?prgId=" + ele.prgId} alt=""
                                     />
                                     <p>{ele.prgNm}</p>
                                     <p style={{ fontSize: "14px" }}>{ele.plnPrd}</p>

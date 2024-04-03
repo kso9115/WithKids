@@ -13,16 +13,14 @@ function MakeModal({ modal, setData, closeModal }) {
     const [program, setProgram] = useState([]);
 
     useEffect(() => {
-        const prgList = async () => {
-            try {
-                const response = await axios.get('/api/prg/prgList');
-                setProgram(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
         if (modal) {
-            prgList();
+            apiCall('/prg/prgList', 'GET')
+                .then((response) => {
+                    setProgram(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
         }
     }, [modal])
     return (program.map((e) => {
@@ -202,6 +200,9 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                     <button type="button" onClick={openModal}>+</button>
                     <input type="text" id='prgNm' name='prgNm' value={plnData.prgNm || ""} onChange={prgpChange} disabled />
                 </div>
+
+                <div><span>*</span>진행일자</div>
+                <div><input type="date" id='plnDate' name='plnDate' value={plnData.plnDate || ""} onChange={prgpChange} /></div>
 
                 <div><span>*</span>진행자</div>
                 <div><input type="text" id='prgHst' name='prgHst' value={plnData.prgHst || ""} onChange={prgpChange} /></div>

@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 // import com.child.project.domain.ProgramDTO;
 import com.child.project.entity.Program;
+import com.child.project.entity.ProgramApplication;
 import com.child.project.entity.ProgramDetails;
 import com.child.project.entity.ProgramDetailsId;
 import com.child.project.entity.ProgramId;
+import com.child.project.repository.ProgramApplicationRepository;
 import com.child.project.repository.ProgramDetailsRepository;
 import com.child.project.repository.ProgramRepository;
 
@@ -28,6 +30,8 @@ public class ProgramServiceImpl implements ProgramService {
 	private final ProgramRepository repository;
 	// private final ProgramDTO DTO;
 	private final ProgramDetailsRepository prgdrepository;
+
+	private final ProgramApplicationRepository prgarepository;
 
 	@Override
 	public List<Program> selectList() {
@@ -122,6 +126,11 @@ public class ProgramServiceImpl implements ProgramService {
 	public List<ProgramDetails> selectAllPlan() {
 
 		return prgdrepository.selectAllPlan();
+	}
+
+	@Override
+	public ProgramApplication aplSave(ProgramApplication entity) {
+		return prgarepository.save(entity);
 	}
 
 	// @Override
