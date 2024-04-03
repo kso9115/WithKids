@@ -6,6 +6,7 @@ import Session from 'react-session-api';
 import leftBackground from '../../assets/images/leftBackground.png';
 import faceId from '../../assets/images/free-icon-face-id-2415069.png';
 import padLock from '../../assets/images/free-icon-padlock-2575570.png';
+import { apiCall } from '../../server/apiService';
 // import leftBackground from '../../images/leftBackground.png';
 // import faceId from '../../images/free-icon-face-id-2415069.png';
 // import padLock from '../../images/free-icon-padlock-2575570.png';
@@ -40,10 +41,14 @@ function Login({ setSessionName }) {
         console.log("자 ~ 실행은 됐다~");
         if(staffId.trim().length>0 && password.trim().length>0){
 
-            axios.post("api/staff/staffLogin", {
+            // axios.post("api/staff/staffLogin", {
+            //     staffId: staffId,
+            //     staffPsw : password
+            //     })
+            apiCall('/staff/staffLogin','POST',{
                 staffId: staffId,
                 staffPsw : password
-                })
+            },null)
                 .then(result => {
                     console.log(result.data);
                     sessionStorage.setItem("staffname", JSON.stringify(result));

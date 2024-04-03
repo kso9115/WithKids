@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Icon } from '@iconify/react'
 import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays, addMonths } from 'date-fns';
 import axios from 'axios';
 import './mealManagement.css'
+import { apiCall } from '../../server/apiService';
 
 function MealManagement() {
 
@@ -30,7 +31,7 @@ function MealManagement() {
     const thisMonth = format(currentMonth, 'yyyy') + format(currentMonth, 'M')
         === format(selectedDate, 'yyyy') + format(selectedDate, 'M') ? "block" : "none";
     
-        let size = format(monthEnd, 'd');
+    let size = format(monthEnd, 'd');
     let rows = 60 / size + "%";
 
     //이전 월 혹은 다음 월 선택 했을 때, 이동
@@ -55,12 +56,15 @@ function MealManagement() {
         console.log("1111");
         const mealList = () => 
         console.log(format(currentMonth,"yyyy-MM"));
-        axios.
-            get("/api/meal/mealListYM", {
-                params: {
-                    yearMonth : format(currentMonth,"yyyy-MM")
-                }
-            })
+        // axios.
+        //     get("/api/meal/mealListYM", {
+        //         params: {
+        //             yearMonth : format(currentMonth,"yyyy-MM")
+        //         }
+        //     })
+        apiCall('/meal/mealListYM','GET',{
+            yearMonth : format(currentMonth,"yyyy-MM")
+        },null)
             .then((response) => {
             console.log("mealList에 대한 요청");
             setMealData(response.data);
@@ -77,8 +81,9 @@ function MealManagement() {
             //         console.log("mealList에 대한 요청 에러 => " + err);
             //     });
         const memList = () =>
-            axios
-                .get("/api/mem/admissionList")
+            // axios
+            //     .get("/api/mem/admissionList")
+            apiCall('/mem/admissionList','GET',null,null)
                 .then((res) => {
                     // console.log(res.data); // 데이터 전달 확인용
                     setMemData(res.data);
@@ -126,9 +131,66 @@ function MealManagement() {
     //   }); 
     //   console.log({starD});
 
+    // 체크 박스 만들기 => 값을 읽어오기 
+    const mealCatagoryList = [
+        { name : '조식'},
+        { name : '중식'},
+        { name : '석식'},
+        { name : '간식'},
+    ]
+    const [checkedMealList, setCheckedMealList] = useState(new Set()); // 체크된 항목 List를 담아두는 useState
+    const [checked, setChecked] = useState(false); // 체크 여부 판단
+
+    const  onCheckedItem = useCallback(
+        (checked, item) => {
+            
+            if(checked) { 
+                checkedMealList.add(item);
+                const set = new Set(checkedMealList);
+                setCheckedMealList(set);
+                setChecked(!checked);
+                
+            } else if(!checked) {
+                checkedMealList.delete(item);
+                const set = new Set(checkedMealList)
+                setCheckedMealList(set);
+                setChecked(!checked);
+                
+            }    
+        },[checkedMealList]
+    );
+    console.log(checkedMealList); // 내부에 있는 것과 외부에 있는 것의 차이 : onCheckedItem 읽고 난 후 , set 되기 때문에, 내부에 있으면 미변경
 
     return (
         <div className="mealBox">
+            <div className='mealCheckbox'>
+                <h3>급식 구분 조회</h3>
+                {
+                    mealCatagoryList.map((item)=>{
+                        return(
+                            <label key={item.name} >
+                                <input 
+                                    type='checkbox'
+                                    id={item.name}
+                                    onChange={(e)=>{
+                                        onCheckedItem(e.target.checked, e.target.id);
+                                    }}
+                                />
+                                <lable htmlFor={item.name}>
+                                    {/* <span></span> */}
+                                    {item.name}
+                                </lable>&nbsp;&nbsp;
+                            </label>
+                        );
+                    })
+                }
+                {/* <div>
+                    <div><input type="checkbox" /> 조식</div> &nbsp;&nbsp;
+                    <div><input type="checkbox" /> 중식</div> &nbsp;&nbsp;
+                    <div><input type="checkbox" /> 석식</div> &nbsp;&nbsp;
+                    <div><input type="checkbox" /> 간식</div> &nbsp;&nbsp;
+                </div> */}
+            </div>
             <div>
                 <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth}></Icon>
                 {format(currentMonth, 'yyyy')}년
@@ -136,8 +198,8 @@ function MealManagement() {
                 <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
                 <div style={{ display: thisMonth }}>이번달</div>
             </div>
-            <div></div>
-            <div>
+            {/* <div></div> */}
+            <div className='mealListBox'>
                 <div className='meal_mng_list' style={{
                     display: 'grid',
                     gridTemplateColumns: "10% 5% 5%" + rows + " 20% "

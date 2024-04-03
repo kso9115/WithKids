@@ -9,6 +9,7 @@ import './AdmLvng_Manager.css';
 import { admLvng_mng } from "../../hooks/searchbox/searchData";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { apiCall } from "../../server/apiService";
 
 
 
@@ -84,8 +85,9 @@ function AdmLvng_Manager() {
     // 공통된 로직을 함수로 분리
     // 
     const axiF = (url, params, setData) => {
-        axios
-            .post(url, null, { params })
+        // axios
+        //     .post(url, null, { params })
+        apiCall('url','POST',{ params },null)
             .then((res) => {
                 console.log(res.data);
                  if (!res.data) setData({ memSerial: memDataOne.memSerial });
@@ -101,10 +103,12 @@ function AdmLvng_Manager() {
         if (memDataOne.constructor === Object && Object.keys(memDataOne).length !== 0) {
             // NemberAdmission 데이터 요청
 
-            axiF("/api/adm/admMemOne", { memSerial: memDataOne.memSerial }, setAdmMemOne);
+            // axiF("/api/adm/admMemOne", { memSerial: memDataOne.memSerial }, setAdmMemOne);
+            axiF("/adm/admMemOne", { memSerial: memDataOne.memSerial }, setAdmMemOne);
 
             // 퇴소 데이터 요청
-            axiF("/api/lvn/lvngMemOne", { memSerial: memDataOne.memSerial }, setLvngMem);
+            // axiF("/api/lvn/lvngMemOne", { memSerial: memDataOne.memSerial }, setLvngMem);
+            axiF("/lvn/lvngMemOne", { memSerial: memDataOne.memSerial }, setLvngMem);
         }
     }, [memDataOne]);
 
@@ -186,12 +190,13 @@ function AdmLvng_Manager() {
         if (admMemOne.memSerial) {
             console.log({data});
             if (window.confirm(" 데이터 신규 등록 및 수정 하시겠습니까?")) {
-                axios
-                    .post(`/api/${type == "1" ? "adm" : "lvn"}/${dml}`,  data , {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
+                // axios
+                //     .post(`/api/${type == "1" ? "adm" : "lvn"}/${dml}`,  data , {
+                //         headers: {
+                //             'Content-Type': 'application/json'
+                //         }
+                //     })
+                apiCall(`/${type == "1" ? "adm" : "lvn"}/${dml}` , 'POST' , data ,null )
                     .then((res) => {
                         { type == "1" ? setAdmMemOne(res.data) : setLvngMem(res.data) };
                         

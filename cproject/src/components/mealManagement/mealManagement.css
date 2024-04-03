@@ -1,8 +1,21 @@
-.mealBox div {
-    border-bottom : 1.5px solid var(--admin);
-    /* border-right : 0px solid var(--admin);  */
-    border-left : 1.5px solid var(--admin);
+/* 체크 박스 */
+.mealCheckbox {
+    display: inline-block;
+    padding: 5px ;
+    background-color: var(--admin);
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
+/* 체크박스 내부 조,중,석,간 */
+.mealCheckbox>label>label{
+    display: flex;
+}
+/* 보더 */
+.mealListBox>div{
+    border-bottom : 2px solid var(--admin);
+}
+
+/* attandance 페이지와 공통 CSS */
 .meal_mng>div:nth-child(1){
     display: flex;
     gap: 10px;
