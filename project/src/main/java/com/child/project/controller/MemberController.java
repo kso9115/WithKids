@@ -109,7 +109,7 @@ public class MemberController {
     public String memInsert(@RequestBody Member entity) {
         String message = "";
         log.info("memInesert !!! 데이터 전달되는 부분 확인");
-        log.info("entity 값을 확인해보자" + entity);
+        log.info("entity 값을 확인해보자" + entity); //잘와유
         // log.info("넘어오나?" + entity.getMemSerial());
 
         // save하려는 값이 없으면 실행x
@@ -140,9 +140,9 @@ public class MemberController {
     public String memEduInsert(@RequestBody Education entity) {
         String message = "";
         log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%데이터 전달되는 부분 확인");
-        // log.info("entity 값을 확인해보자" + entity);
+        log.info("entity 값을 확인해보자" + entity);
         // log.info("넘어오나?" + entity.getMemSerial());
-        log.info(entity);
+        // log.info(entity);
         try {
 
             memService.save(entity);
@@ -163,7 +163,7 @@ public class MemberController {
 
     @GetMapping("/memSearch")
     public List<Member> memSearch(Member entity) {
-        log.info("entity=>" + entity);
+        // log.info("entity=>" + entity);
         List<Member> list = memService.searchList(entity);
         log.info("오냐?");
         return list;
@@ -190,7 +190,7 @@ public class MemberController {
     public List<Member> selectAdmissionList() {
         log.info("센터 이용중인 리스트 출력하는 레포지토리 소환");
         List<Member> list = memService.selectAdmissionList();
-        log.info(list);
+        // log.info(list);
         return list;
     }
 

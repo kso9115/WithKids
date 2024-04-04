@@ -33,8 +33,8 @@ public class MealMngm implements Serializable {
     @Column(name = "mem_name")
     private String memName;
     
-    @Column(name="staff_id")
-    private String staffId;
+    // @Column(name="staff_id")
+    // private String staffId;
     @Column(name="staff_nm")
     private String staffNm;
     @Column(name="brf_meal")

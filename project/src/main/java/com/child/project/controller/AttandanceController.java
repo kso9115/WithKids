@@ -56,7 +56,7 @@ public class AttandanceController {
     public List<Attandance> attList(@RequestParam("yearMonth") String yearMonth) {
         // log.info("멤버리스트 출력하는 레포지토리 쿼리 소환");
         List<Attandance> list = attService.selectList3(yearMonth);
-        log.info(list);
+        // log.info(list);  //잘와유
         return list;
     }
 

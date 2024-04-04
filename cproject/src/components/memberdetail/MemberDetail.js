@@ -46,6 +46,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             ...eduDataOneD
         });
     }, [eduDataOneD]);
+    console.log(eduDataOneD);
 
     //== CRUD ===============================================
 
@@ -78,6 +79,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
     const saveMemData = () => {
         // 요청 두번가기때문에..필수입력사항 입력할 때인 memDataOneD에서 유효성 검사 진행
         if (mem_dtls_inp_ck(memDataOneD)) {
+            
             saveData(memDataOneD, '/mem/memInesert');
         }
     }

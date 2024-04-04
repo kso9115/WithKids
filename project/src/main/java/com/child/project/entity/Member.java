@@ -46,8 +46,8 @@ public class Member {
     private String memAge;
     @Column(name = "mem_mail")
     private String memMail;
-    @Column(name = "mem_mail2")
-    private String memMail2;
+    // @Column(name = "mem_mail2")
+    // private String memMail2;
     @Column(name = "mem_tel")
     private String memTel;
     @Column(name = "mem_phone")
