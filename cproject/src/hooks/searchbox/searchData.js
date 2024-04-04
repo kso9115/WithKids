@@ -170,7 +170,7 @@ export const stf_mng = {
             default: ''
         }
     ],
-    staffPstList: {}
+    staffPstList: []
 }
 
 if (window.location.pathname === "/home") {
@@ -184,6 +184,7 @@ if (window.location.pathname === "/home") {
                     })
                 }
             }
+            console.log(response.data);
             stf_mng.staffPstList = response.data
         })
         .catch((error) => {
@@ -253,6 +254,39 @@ export const prg_pln = {
             type: 'text',
             esntl: false,
             default: ''
+        }
+    ]
+}
+
+export const notice_dt = {
+    name: '공자사항 목록', // 서치 박스 위에 표시될 이름
+    action: '', // form 태그로 전달할 요청명
+    method: '', // form 태그로 전달할 요청 방식
+    content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
+        {
+            name: '작성일',
+            state: 'regdate',
+            type: 'date',
+            esntl: true,
+            default: [`${yyyy}-01-01`, `${yyyy}-12-31`]
+        },
+        {
+            name: '제목',
+            state: 'title',
+            type: 'text',
+            esntl: false,
+            default: ''
+        },
+        {
+            name: '중요공지',
+            state: 'emphasis',
+            type: 'select',
+            esntl: false,
+            default: [
+                { name: '일반', value: 0 }, { name: '중요', value: 1 }
+                // , { name: '돌봄교사', value: '돌봄교사' }, { name: '공익요원', value: '공익요원' }
+                // , { name: '영양사', value: '영양사' }, { name: '외부강사', value: '외부강사' }
+            ]
         }
     ]
 }

@@ -16,7 +16,7 @@ const staffList = {
 }
 
 function StaffManagement() {
-    
+
     const [stfDataOne, setStfDataOne] = useState({}); //직원 테이블 전체중에 리스트에서 선택한 행 보관
     const [listUpdate, setListUpdate] = useState(true); // 리스트 업데이트 용
     const staffPst = stf_mng.staffPstList; // 직위 정보를 호출
@@ -32,10 +32,10 @@ function StaffManagement() {
     function searchBoxClick(sbVal) {
         setListUpdate(sbVal);
     }
-    
+
     return (
         <div className='staff_mng' >
-            <SearchBox data={stf_mng} searchBoxClick={searchBoxClick } />
+            <SearchBox data={stf_mng} searchBoxClick={searchBoxClick} />
             <div className='staff_mng_mainBox'>
                 <div style={{
                     width: '40%',
