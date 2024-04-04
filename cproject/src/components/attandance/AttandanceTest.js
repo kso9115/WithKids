@@ -13,8 +13,65 @@ function AttandanceMangement() {
     // Member : Attandance 중복없는 memSerial list useState
     const [admissionData, setAdmissionData] = useState([]); // 이름 serial list
 
-    // Attandance 한명 useState
+    // Attandance 한명 useState : 출/결석 변경을 위한 상태값
     const [memAttDataOne, setMemAttDataOne] = useState({});
+
+
+    // 출/결석 변경을 위한 요청 발송 1
+    const handleAttendanceChange = (memSerial, memName, day, currentStatus) => {
+        const newStatus = currentStatus === '출' ? '결' : '출';
+
+        console.log(memSerial);
+        console.log(newStatus);
+        console.log(day);
+
+        // const params = { memSerial, day, newStatus } 
+        // 출석 상태 변경 요청 보내기
+        apiCall('/att/attChange', 'POST',
+            {
+                memSerial: memSerial,
+                memName: memName,
+                attDate: day,
+                attStatus: newStatus
+            })
+            .then(response => {
+                // 출석 status 변경 : 콜백사용하여 이전 상태 데이터 배열을 업데이트
+                setAttData(prevAttData => {
+                    return prevAttData.map(response => {
+                        if (response.memSerial === memSerial && parseInt(response.attDate.split("-")[2]) === parseInt(day)) {
+                            return {
+                                ...response,
+                                attStatus: newStatus
+                            };
+                        } else {
+                            return response;
+                        }
+                    });
+                });
+
+            })
+            .catch(error => {
+                console.error('출석 상태 변경 실패:', error);
+            });
+    };
+
+
+    // 출/결석 변경을 위한 요청 발송 2
+    // useEffect(() => {
+    //     // if (memAttDataOne.memSerial) {
+    //     //     console.log(memAttDataOne.memSerial);
+    //     // }
+    //     console.log("??????????????????????");
+    //     apiCall('/att/attChange', 'POST', { memSerial: memAttDataOne.memSerial })
+    //         .then((response) => {
+
+    //             console.log("attChange 요청가나????????????????");
+    //             console.log(response);
+    //             setMemAttDataOne(response.data);
+    //         }).catch((err) => {
+    //             console.log(err);
+    //         })
+    // }, [memAttDataOne.memSerial])
 
 
     const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -24,12 +81,11 @@ function AttandanceMangement() {
     const today = currentMonth.getDate();
     const month = currentMonth.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더합니다.
     const year = currentMonth.getFullYear();
-    console.log(today);  // 1일
-    console.log("currentMonth를 찍으면?" + currentMonth);
-    console.log("지금 렌더링해야할 월은?" + month);  // 4월
-    console.log(year);
-    const date = year + "-" + month + "-" + today
-    console.log(date);
+    // console.log(today);  // 1일
+    // console.log("currentMonth를 찍으면?" + currentMonth);
+    // console.log("지금 렌더링해야할 월은?" + month);  // 4월
+    // console.log(year);
+    // console.log(date);
 
 
     // 체크박스 전체선택, 특정 그룹 선택
@@ -158,7 +214,7 @@ function AttandanceMangement() {
                         }
                         return (
                             <div className={color} key={index + 1}>{index + 1}
-                                
+
                             </div>
                         );
                     })}
@@ -186,20 +242,23 @@ function AttandanceMangement() {
 
                                     // 날짜가 한자리 수 일 때 앞에 0을 붙여줘야된다
                                     if (index.length == 1) {
-                                        day = "0" + (index+1);
+                                        day = "0" + (index + 1);
                                     } else {
-                                        day = "" + (index+1);
+                                        day = "" + (index + 1);
                                     }
                                     // 시리얼 번호 비교 & 날짜 데이터 동일한지 비교하고 찾기
                                     let count = attData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
-                                    console.log(count);
+                                    // console.log(count);
+
                                     if (count) {
                                         return (
-                                            
+
                                             <div
                                                 className="attandance_data"
-                                                // 기본적으로 index가 0에서 시작하기때문에
-                                                key={index + 1} onClick={()=>setAttData()}>
+                                                // 기본적으로 index가 0에서 시작하기때문에 + 1
+                                                key={index + 1}
+                                                // onClick={() => setAttData([count.attStatus])}>
+                                                onClick={() => handleAttendanceChange(o.memSerial, o.memName, count.attDate, count.attStatus)}>
                                                 {count.attStatus}
 
 

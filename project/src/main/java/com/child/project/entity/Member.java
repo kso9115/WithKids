@@ -14,7 +14,7 @@ import lombok.ToString;
 
 @Table(name = "member")
 @Entity
-@Data   // get, set
+@Data // get, set
 @Builder
 @ToString
 @AllArgsConstructor
@@ -23,63 +23,64 @@ public class Member {
 
     @Id
     // @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="mem_serial")
+    @Column(name = "mem_serial")
     private String memSerial;
 
-    @Column(name="mem_name")
+    @Column(name = "mem_name")
     private String memName;
-    @Column(name="mem_login_pw")
+    @Column(name = "mem_login_pw")
     private String memLoginPW;
-    @Column(name="mem_resident_registration_number")    // 주민번호
+    @Column(name = "mem_resident_registration_number") // 주민번호
     private String memRegNum;
-    @Column(name="mem_birthday")
+    @Column(name = "mem_birthday")
     private String memBirth;
-    @Column(name="mem_sex")
+    @Column(name = "mem_sex")
     private String memSex;
-    @Column(name="mem_register_datetime")               // 접수일자
+    @Column(name = "mem_register_datetime") // 접수일자
     private String memRegisterDate;
-    @Column(name="mem_presence_family")
+    @Column(name = "mem_presence_family")
     private String memFamily;
-    @Column(name="mem_responsible_person")              // 담당자
+    @Column(name = "mem_responsible_person") // 담당자
     private String memResPerson;
-    @Column(name="mem_age")
+    @Column(name = "mem_age")
     private String memAge;
-    @Column(name="mem_mail")
+    @Column(name = "mem_mail")
     private String memMail;
-    @Column(name="mem_mail2")
+    @Column(name = "mem_mail2")
     private String memMail2;
-    @Column(name="mem_tel")
+    @Column(name = "mem_tel")
     private String memTel;
-    @Column(name="mem_phone")
+    @Column(name = "mem_phone")
     private String memPhone;
-    @Column(name="mem_zipcode")
+    @Column(name = "mem_zipcode")
     private String memZipCode;
-    @Column(name="mem_address1")
+    @Column(name = "mem_address1")
     private String memAddress1;
-    @Column(name="mem_address2")
+    @Column(name = "mem_address2")
     private String memAddress2;
-    @Column(name="mem_info")
+    @Column(name = "mem_info")
     private String memInfo;
-    @Column(name="mem_bank")
-    private String memBank;
-    @Column(name="mem_account")
-    private String memAccount;
-    @Column(name="mem_depositor")
-    private String memDepositor;
-    @Column(name="mem_agreeP")
+    @Column(name = "mem_agreeP")
     private String memAgreeP;
-    @Column(name="mem_agreeN")
+    @Column(name = "mem_agreeN")
     private String memAgreeN;
-    @Column(name="mem_str")
+
+    @Column(name = "mem_bank")
+    private String memBank;
+    @Column(name = "mem_account")
+    private String memAccount;
+    @Column(name = "mem_depositor")
+    private String memDepositor;
+
+    @Column(name = "mem_str")
     private String memStr;
-    @Column(name="mem_end")
+    @Column(name = "mem_end")
     private String memEnd;
-    @Column(name="mem_status")
+    @Column(name = "mem_status")
     private String memStatus;
 
-    // SQL 구문 처리 시 제외
+    // SQL 구문 처리 시 제외, front 표시용 가상컬럼
     @Transient
     private String memEndF;
-
 
 }
