@@ -67,7 +67,7 @@ function ListComponent({ name, setData, listUpdate }) {
                                     </div>
                                 );
                             }) :
-                            <div>정보가 없습니다.</div>
+                            <div className={`${name.name}List_none`}>정보가 없습니다.</div>
                         }
                     </div>
                 </div>

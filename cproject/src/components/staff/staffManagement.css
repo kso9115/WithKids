@@ -5,14 +5,15 @@
     height: 722px;
 }
 
-.staffList_row>div{
+.staffList_row>div {
     grid-template-columns: 17% 10% 16% 21% 12% 12% 12%;
 }
+
 .staffList_row>div:nth-child(1)>div {
     border-top: 2px solid var(--lgray);
 }
 
-.staffList_row>div:nth-child(n+1):hover{
+.staffList_row>div:nth-child(n+1):hover {
     background-color: var(--mgray);
     cursor: pointer;
 }
@@ -20,12 +21,22 @@
 .staffList_row>div>div {
     border-bottom: 1px solid var(--lgray);
 }
-.staffList_row>div>div:nth-child(n+2){
+
+.staffList_row>div>div:nth-child(n+2) {
     border-left: 1px solid var(--lgray);
 }
+
+.staffList_none,
 .staffList_row>div>div {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.staffList_row>div>div {
     height: 35px;
+}
+
+.staffList_none {
+    height: calc(100% - 35px);
 }

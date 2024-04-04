@@ -76,7 +76,7 @@ public class SecurityConfig {
 				// => session 기반이 아님을 선언
 				.authorizeRequests()
 				.antMatchers("/", "/api/prg/**", "/api/prgPln/**", "/api/mem/**", "/api/att/**", "/api/adm/**",
-						"/api/lvn/**", "/api/meal/**", "/api/staff/**")
+						"/api/lvn/**", "/api/meal/**", "/api/staff/**", "/api/notice/**")
 				.permitAll()
 				// .antMatchers("/", "/home", "/user/**", "/resources/**",
 				// "/uploadImage/**").permitAll()

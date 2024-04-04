@@ -1,12 +1,11 @@
 import "./programPlanDetails.css"
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Modal from "react-modal"
-import axios from "axios";
 import { prg_pln_inp_ck } from "../../hooks/inputCheck/programInputCheck";
 import AttachedFile from "../../hooks/func/AttachedFile";
-import { qs } from 'qs';
+
 import { apiCall } from "../../server/apiService";
 
 function MakeModal({ modal, setData, closeModal }) {

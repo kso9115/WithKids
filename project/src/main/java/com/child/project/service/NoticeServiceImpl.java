@@ -22,4 +22,12 @@ public class NoticeServiceImpl implements NoticeService {
         return repository.findAll();
     }
 
+    @Override
+    public Notice save(Notice entity) {
+        log.info("** register : entity => " + entity);
+        repository.save(entity); // 처리후 entity 를 return
+
+        return entity;
+    }
+
 }

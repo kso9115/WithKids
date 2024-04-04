@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ListComponent from '../../hooks/ListComponent';
 import SearchBox from '../../hooks/searchbox/SearchBox';
 import { notice_dt } from '../../hooks/searchbox/searchData';
+import NoticeDetails from './NoticeDetails';
 
 const noticeList = {
     name: 'notice',
@@ -21,11 +22,11 @@ function NoticeManagement() {
     }
 
     return (
-        <div className='staff_mng' >
+        <div className='notice_mng' >
             <SearchBox data={notice_dt} searchBoxClick={searchBoxClick} />
-            <div className='staff_mng_mainBox'>
+            <div className='notice_mng_mainBox'>
                 <div style={{
-                    width: '40%',
+                    width: '30%',
                     height: '100%',
                 }}>
                     <ListComponent name={noticeList} setData={setNoticeDataOne} listUpdate={listUpdate} />
@@ -38,10 +39,11 @@ function NoticeManagement() {
                     marginRight: '5px'
                 }}></div>
                 <div style={{
-                    width: '60%',
+                    width: '70%',
                     height: '100%'
                 }}>
-
+                    <NoticeDetails data={noticeDataOne} setData={setNoticeDataOne}
+                        listUpdate={listUpdate} setListUpdate={setListUpdate} />
                 </div>
             </div>
         </div>

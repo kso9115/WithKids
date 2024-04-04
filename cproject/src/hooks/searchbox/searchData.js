@@ -184,7 +184,6 @@ if (window.location.pathname === "/home") {
                     })
                 }
             }
-            console.log(response.data);
             stf_mng.staffPstList = response.data
         })
         .catch((error) => {
@@ -259,7 +258,7 @@ export const prg_pln = {
 }
 
 export const notice_dt = {
-    name: '공자사항 목록', // 서치 박스 위에 표시될 이름
+    name: '공지사항 관리', // 서치 박스 위에 표시될 이름
     action: '', // form 태그로 전달할 요청명
     method: '', // form 태그로 전달할 요청 방식
     content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
