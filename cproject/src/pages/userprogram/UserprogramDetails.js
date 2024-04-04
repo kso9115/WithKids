@@ -26,6 +26,7 @@ function UserprogramDetails() {
 
     const params = {
         memSerial: sessionData ? sessionData.data.id : null,
+        memName: sessionData ? sessionData.data.username : null,
         prgDate: toStringByFormatting(new Date()),
         prgId: prgOne.prgId,
         prgNm: prgOne.prgNm,
@@ -69,7 +70,7 @@ function UserprogramDetails() {
                     console.error('파일 다운로드 실패:', error);
                 })
     }
-    console.log(prgOne);
+    console.log(sessionData);
     function portone() {
         if (window.confirm('프로그램을 신청하시겠습니까?')) {
             apiCall('/user/aplCheck', 'GET', null, sessionData ? sessionData.data.token : null)

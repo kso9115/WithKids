@@ -120,4 +120,19 @@ public class ProgramPlanController {
 
 		return message;
 	}
+
+	@PostMapping("/aplSave")
+	public String aplSave(@RequestBody ProgramApplication entity) {
+		String message = "";
+
+		try {
+			log.info(" ProgramApplication Save 성공 => " + prgService.aplSave(entity));
+			message = "저장에 성공 했습니다.";
+		} catch (Exception e) {
+			log.info(" ProgramApplication Save Exception => " + e.toString());
+			return "저장에 실패 했습니다. 관리자에게 문의하세요.";
+		}
+
+		return message;
+	} // aplSave
 }

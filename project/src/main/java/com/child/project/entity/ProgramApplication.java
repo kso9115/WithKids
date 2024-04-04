@@ -28,6 +28,8 @@ public class ProgramApplication implements Serializable {
     @Column(name = "mem_serial")
     private String memSerial;
 
+    @Column(name = "mem_name")
+    private String memName;
     @Column(name = "prg_date")
     private String prgDate;
 

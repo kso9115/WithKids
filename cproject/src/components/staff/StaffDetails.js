@@ -15,7 +15,7 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
         }
     }, [data]);
 
-    console.log(staffDataOneD);
+    console.log(staffPst);
 
     function resetPswrd() {
         if (window.confirm("정말로 초기화 하시겠습니까?(되돌릴 수 없습니다.)"))

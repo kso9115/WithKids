@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { apiCall } from '../../server/apiService';
 import './programApplication.css';
 import { useEffect, useState } from 'react';
@@ -15,8 +16,40 @@ function ProgramApplication({ data, setData, listUpdate, setListUpdate }) {
                 console.log(error);
             })
     }, [data])
-    console.log(aplData);
-    console.log(data);
+
+    async function cnclAplct(data, i) {
+        if (data.costClsfc === "유료") {
+            try {
+                // GET 요청은 params에 실어 보냄
+                const response = await axios.post('/user', {
+                    imp_key: "",
+                    imp_secret:"",
+                });
+;
+            } catch (e) {
+                // 실패 시 처리
+                console.error(e);
+            }
+
+            // axios.post('/payments/cancel',)
+            //     .then(function (response) {
+            //         // response  
+            //     }).catch(function (error) {
+            //         // 오류발생시 실행
+            //     });
+        }
+        // data.costClsfc = '취소';
+        // aplData[i].costClsfc = '취소';
+        // apiCall('/prgPln/aplSave', 'POST', data)
+        //     .then((response) => {
+        //         setAplData({ ...aplData });
+        //         alert('취소에 성공했습니다.');
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //         alert('취소에 실패했습니다.');
+        //     })
+    }
     return (
         <div style={{
             height: '100%'
@@ -33,16 +66,21 @@ function ProgramApplication({ data, setData, listUpdate, setListUpdate }) {
                             <div>프로그램 요금</div>
                             <div>취소</div>
                         </div>
-                        {aplData.length > 0 ? 
-                            <div>
-                                <div>{aplData.memSerial}</div>
-                                <div>{aplData.prgDate}</div>
-                                <div>{aplData.prgNm}</div>
-                                <div>{aplData.costClsfc}</div>
-                                <div>{aplData.paidAmount}</div>
-                                <div>취소</div>
-                            </div>
-                        :
+                        {aplData.length > 0 ?
+                            aplData.map((ele, i) => (
+                                <div key={ele.memSerial}>
+                                    <div>{ele.memName}</div>
+                                    <div>{ele.prgDate}</div>
+                                    <div>{ele.prgNm}</div>
+                                    <div>{ele.costClsfc}</div>
+                                    <div>{ele.paidAmount}</div>
+                                    <div>
+                                        {ele.costClsfc === '취소' ? null : <button type='button' onClick={() => cnclAplct(ele, i)}>취소</button>}
+                                    </div>
+                                </div>
+                            ))
+
+                            :
                             <div>
                                 신청자가 없습니다.
                             </div>
