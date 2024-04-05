@@ -29,6 +29,9 @@ public interface ProgramDetailsRepository extends JpaRepository<ProgramDetails, 
 	@Query(value = "select * from program_details where rec='프로그램계획'", nativeQuery = true)
 	List<ProgramDetails> selectAllPlan();
 
+	@Query(value = "select * from program_details where rec='프로그램계획' and prg_nm like CONCAT('%',:word,'%')", nativeQuery = true)
+	List<ProgramDetails> selectSearchPlanUs(@Param("word") String word);
+
 	@Query(value = "select * from program_details where rec='프로그램계획' "
 			+ "and STR_TO_DATE(prg_date, '%Y-%m-%d') between STR_TO_DATE(:prg_date, '%Y-%m-%d') and STR_TO_DATE(:prg_date2, '%Y-%m-%d') "
 			+ "and prg_nm like CONCAT('%',:prg_nm,'%') and title like CONCAT('%',:title,'%') and prg_mngr like CONCAT('%',:prg_mngr,'%') ", nativeQuery = true)

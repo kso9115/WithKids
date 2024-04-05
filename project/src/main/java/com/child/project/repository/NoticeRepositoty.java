@@ -13,10 +13,10 @@ public interface NoticeRepositoty extends JpaRepository<Notice, Integer> {
     @Query(value = "select * from notice order by emphasis DESC, seq DESC", nativeQuery = true)
     List<Notice> selectAll();
 
-    @Query(value = "select * from notice where title like CONCAT('%',:word,'%') and content like CONCAT('%',:word,'%') order by emphasis DESC, seq DESC LIMIT :currPage, :rowPerPage", nativeQuery = true)
+    @Query(value = "select * from notice where title like CONCAT('%',:word,'%') order by emphasis DESC, seq DESC LIMIT :currPage, :rowPerPage", nativeQuery = true)
     List<Notice> selectPage(@Param("currPage") int currPage, @Param("rowPerPage") int rowPerPage,
             @Param("word") String word);
 
-    @Query(value = "select count(*) from notice", nativeQuery = true)
-    int noticeCount();
+    @Query(value = "select count(*) from notice where title like CONCAT('%',:word,'%') ", nativeQuery = true)
+    int noticeCount(@Param("word") String word);
 }

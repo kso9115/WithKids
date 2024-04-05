@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.child.project.entity.ProgramApplication;
@@ -28,9 +29,17 @@ public class ProgramPlanController {
 	ProgramService prgService;
 
 	@GetMapping("/prgPlnList")
-	public List<ProgramDetails> prgList() {
+	public List<ProgramDetails> prgPlnList() {
 
 		List<ProgramDetails> list = prgService.selectAllPlan();
+
+		return list;
+	} // prgList
+
+	@GetMapping("/prgPlnListUser")
+	public List<ProgramDetails> prgPlnListUser(@RequestParam("word") String word) {
+
+		List<ProgramDetails> list = prgService.selectSearchPlanUs(word);
 
 		return list;
 	} // prgList

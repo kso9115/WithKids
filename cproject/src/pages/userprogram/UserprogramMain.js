@@ -9,18 +9,24 @@ function UserprogramMain() {
     const [listData, setListData] = useState([]);
     const [word, setWord] = useState("");
     useEffect(() => {
-        apiCall('/prgPln/prgPlnList', 'GET')
+        apiCall('/prgPln/prgPlnListUser', 'GET', {
+            word: word
+        })
             .then((response) => {
                 setListData(response.data);
             })
             .catch((error) => {
                 console.log(error);
             })
-    }, [])
+    }, [word])
+
+    function setWordChange(params) {
+        setWord(params);
+    }
     console.log(listData);
     return (
         <>
-            <SearchBoxUser setWord={setWord} />
+            <SearchBoxUser setWord={setWordChange} />
             <div className='userPrgImg'>
                 <p></p>
                 <div>

@@ -37,7 +37,7 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public int noticeCount() {
-        return repository.noticeCount();
+    public int noticeCount(String word) {
+        return repository.noticeCount(word);
     }
 }

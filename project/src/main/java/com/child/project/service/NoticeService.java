@@ -12,5 +12,5 @@ public interface NoticeService {
 
     Notice save(Notice entity);
 
-    int noticeCount();
+    int noticeCount(String word);
 }

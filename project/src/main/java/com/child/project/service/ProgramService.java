@@ -26,10 +26,11 @@ public interface ProgramService {
 
 	Integer plnCnt(String prgId, String title);
 
-	// List<ProgramDetails> selectDetails();
 	List<ProgramDetails> selectDetails(String prgId, String rec);
 
 	List<ProgramDetails> selectAllPlan();
+
+	List<ProgramDetails> selectSearchPlanUs(String word);
 
 	List<ProgramApplication> selectAllApl(String prgId);
 
@@ -44,4 +45,6 @@ public interface ProgramService {
 	void deleteDtById(ProgramDetailsId entityId);
 
 	ProgramApplication aplSave(ProgramApplication entity);
+
+
 }

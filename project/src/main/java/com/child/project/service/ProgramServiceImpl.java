@@ -129,6 +129,11 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 
 	@Override
+	public List<ProgramDetails> selectSearchPlanUs(String word) {
+		return prgdrepository.selectSearchPlanUs(word);
+	}
+
+	@Override
 	public List<ProgramApplication> selectAllApl(String prgId) {
 		return prgarepository.selectAllApl(prgId);
 	}

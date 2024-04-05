@@ -7,18 +7,20 @@ function SearchBoxUser({ setWord }) {
         setSearchWord(event.target.value);
     }
 
-    function setWordChange(params) {
-        setWord(params);
-    }
+    function enterkey(event) {
+        if (event.key === 'Enter') {
+            setWord(searchWord)
+        }
+    };
 
     return (
         <div className={`userSearch`}>
             <div>
                 <div>제목</div>
                 <input type="text" placeholder='검색어를 입력하세요.'
-                    value={searchWord} onChange={searchWordChange}/>
-                <button type='button' onClick={() => { setWordChange(searchWord) }}>검색</button>
-                <button type='button' onClick={() => { setWordChange(""); setSearchWord("") }}>초기화</button>
+                    value={searchWord} onKeyUp={enterkey} onChange={searchWordChange} />
+                <button type='button' onClick={() => { setWord(searchWord) }}>검색</button>
+                <button type='button' onClick={() => { setWord(""); setSearchWord("") }}>초기화</button>
             </div>
         </div>
     );

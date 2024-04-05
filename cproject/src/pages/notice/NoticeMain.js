@@ -5,26 +5,28 @@ import { apiCall } from '../../server/apiService';
 import SearchBoxUser from '../../hooks/searchbox/SearchBoxUser';
 
 function NoticeMain() {
-    const [word, setWord] = useState("");
-    const [noticeCount, setNoticeCount] = useState(0);
-    const [noticeData, setNoticeData] = useState([]);
+    const [word, setWord] = useState(""); // 검색 단어 저장
+    const [noticeCount, setNoticeCount] = useState(0); // 공지사항 전체 개수
+    const [noticeData, setNoticeData] = useState([]); // 불러온 공지사항 저장
     const [selectPage, setSelectPage] = useState({
         rowPerPage: 10,
         currPage: 1,
         sno: 1,
-        eon: 5,
+        // eon: 5,
         displayPageNo: 5
-    });
+    }); // 페이지 네이션 세팅
 
     useEffect(() => {
-        apiCall(`/notice/noticeCount`, 'GET')
+        apiCall(`/notice/noticeCount`, 'GET', {
+            word: word
+        })
             .then((response) => {
                 setNoticeCount(response.data);
             })
             .catch((error) => {
                 console.log(error);
             })
-    }, [])
+    }, [word])
 
     useEffect(() => {
         apiCall(`/notice/selectPage`, 'GET', {
@@ -34,6 +36,7 @@ function NoticeMain() {
         })
             .then((response) => {
                 setNoticeData(response.data);
+
             })
             .catch((error) => {
                 console.log(error);
@@ -56,9 +59,16 @@ function NoticeMain() {
         setSelectPage({ ...selectPage });
     }
 
+    function setWordChange(params) {
+        setWord(params);
+        selectPage.currPage = 1;
+        selectPage.sno = 1;
+        setSelectPage({ ...selectPage });
+    }
+
     return (
         <>
-            <SearchBoxUser setWord={setWord} />
+            <SearchBoxUser setWord={setWordChange} />
             <div className="userNotice">
                 <p>전체<span> {noticeCount}</span>건</p>
                 <div>
@@ -98,7 +108,7 @@ function NoticeMain() {
                         'block' : 'none'
                 }} onClick={() => snoChange(true)}></div> */}
                 {console.log(selectPage.eon)}
-                {Math.ceil(noticeCount / selectPage.rowPerPage) >= selectPage.sno + selectPage.displayPageNo - 1 ?
+                {Math.ceil(noticeCount / selectPage.rowPerPage) > selectPage.sno + selectPage.displayPageNo - 1 ?
                     <div onClick={() => snoChange(true)}></div> : <div className='hide'></div>
                 }
             </div>
