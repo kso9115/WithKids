@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.child.project.entity.Notice;
@@ -13,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 
 @Log4j2
 @RestController
@@ -26,7 +26,13 @@ public class NoticeController {
     @GetMapping("/noticeList")
     public List<Notice> noticeList() {
         return service.findAll();
-    }
+    }// noticeList
+
+    @GetMapping("/selectPage")
+    public List<Notice> selectPage(@RequestParam("rowPerPage") int rowPerPage,
+            @RequestParam("currPage") int currPage) {
+        return service.selectPage(currPage, rowPerPage);
+    }// selectPage
 
     @PostMapping("/noticeSave")
     public String noticeSave(@RequestBody Notice entity) {
@@ -39,6 +45,11 @@ public class NoticeController {
             message = "실패 했습니다. 관리자에게 문의하세요.";
         }
         return message;
-    }
-    
+    }// noticeSave
+
+    @GetMapping("/noticeCount")
+    public int noticeCount() {
+        return service.noticeCount();
+    }// noticeCount
+
 }

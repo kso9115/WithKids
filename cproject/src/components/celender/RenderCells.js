@@ -3,6 +3,8 @@ import { format } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
 import axios from 'axios';
+import { apiCall } from '../../server/apiService';
+import { toStringByFormatting } from '../../hooks/formdate';
 
 function RenderCells({ currentMonth, selectedDate, onDateClick }) {
     const [stfAtn, setStfAtn] = useState([]);
@@ -18,11 +20,12 @@ function RenderCells({ currentMonth, selectedDate, onDateClick }) {
     let yymmddformatDate = '';
 
     useEffect(() => {
-        axios.get(`/api/staff/staffAtnList`)
+        apiCall('/staff/staffAtnList', 'GET')
             .then((response) => {
                 console.log(response.data)
                 setStfAtn(response.data);
-            }).catch((error) => {
+            })
+            .catch((error) => {
                 console.log(error);
             })
     }, [])
@@ -33,20 +36,6 @@ function RenderCells({ currentMonth, selectedDate, onDateClick }) {
         }
     }
 
-    function leftPad(value) {
-        if (value >= 10) {
-            return value;
-        }
-        return `0${value}`;
-    }
-
-    function toStringByFormatting(source, delimiter = '-') {
-        const year = source.getFullYear();
-        const month = leftPad(source.getMonth() + 1);
-        const day = leftPad(source.getDate());
-
-        return [year, month, day].join(delimiter);
-    }
 
     function handleMouseOver(event) {
         console.log(event.target.nextSibling);
@@ -100,7 +89,7 @@ function RenderCells({ currentMonth, selectedDate, onDateClick }) {
                             if (e.staffDate === toStringByFormatting(cloneDay)) {
                                 return (
                                     <div key={`${e.staffId}${e.staffDate}`}>
-                                        <div className='atnContent' 
+                                        <div className='atnContent'
                                             onMouseOver={handleMouseOver}
                                             onMouseOut={handleMouseOut}
                                         >{`${e.staffNm} : ${e.staffAtn}`}

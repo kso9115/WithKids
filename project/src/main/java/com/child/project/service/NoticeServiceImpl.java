@@ -19,7 +19,13 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public List<Notice> findAll() {
-        return repository.findAll();
+        return repository.selectAll();
+    }
+
+    @Override
+    public List<Notice> selectPage(int currPage, int rowPerPage) {
+        currPage = (currPage - 1) * rowPerPage;
+        return repository.selectPage(currPage, rowPerPage);
     }
 
     @Override
@@ -30,4 +36,8 @@ public class NoticeServiceImpl implements NoticeService {
         return entity;
     }
 
+    @Override
+    public int noticeCount() {
+        return repository.noticeCount();
+    }
 }

@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { apiCall } from '../../server/apiService';
 import { useState } from 'react';
 import { API_BASE_URL } from "../../server/app-config";
+import { toStringByFormatting } from '../../hooks/formdate';
 
 function UserprogramDetails() {
     const [prgOne, setPrgOne] = useState({});
@@ -33,19 +34,6 @@ function UserprogramDetails() {
         costClsfc: prgOne.costClsfc,
     }
 
-    function leftPad(value) {
-        if (value >= 10) return value;
-
-        return `0${value}`;
-    }
-
-    function toStringByFormatting(source, delimiter = '-') {
-        const year = source.getFullYear();
-        const month = leftPad(source.getMonth() + 1);
-        const day = leftPad(source.getDate());
-
-        return [year, month, day].join(delimiter);
-    }
 
     function downloadFile(event) {
         if (window.confirm(`${event.target.name} 파일을 다운로드 하시겠습니까?`))

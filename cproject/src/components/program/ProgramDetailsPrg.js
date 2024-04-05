@@ -3,6 +3,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import AttachedFile from '../../hooks/func/AttachedFile';
 import { prg_dtls_prg_inp_ck } from '../../hooks/inputCheck/programInputCheck'
 import { apiCall } from "../../server/apiService"
+import { toStringByFormatting } from '../../hooks/formdate';
 
 // 서브 컴포넌트
 function MakeDiv({ e, i, detailsChange }) {
@@ -53,20 +54,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         setPrgDetailData({ ...prgDetailData });
     }, [prgDetailData]);
 
-    function leftPad(value) {
-        if (value >= 10) {
-            return value;
-        }
-        return `0${value}`;
-    }
 
-    function toStringByFormatting(source, delimiter = '-') {
-        const year = source.getFullYear();
-        const month = leftPad(source.getMonth() + 1);
-        const day = leftPad(source.getDate());
-
-        return [year, month, day].join(delimiter);
-    }
 
     function deleteData() {
         if (prgDetailData.prgId && window.confirm("세부 프로그램을 삭제하시겠습니까?")) {

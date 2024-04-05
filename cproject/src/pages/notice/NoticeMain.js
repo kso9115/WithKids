@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import './notice.css'
 import { useEffect } from 'react';
+import { apiCall } from '../../server/apiService';
 
 function NoticeMain() {
-    const page = 51;
+    const [noticeCount, setNoticeCount] = useState(0);
+    const [noticeData, setNoticeData] = useState([]);
     const [selectPage, setSelectPage] = useState({
         rowPerPage: 10,
         currPage: 1,
@@ -11,12 +13,31 @@ function NoticeMain() {
         eon: 5,
         displayPageNo: 5
     });
-    useEffect(() => {
 
+    useEffect(() => {
+        apiCall(`/notice/noticeCount`, 'GET')
+            .then((response) => {
+                setNoticeCount(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }, [])
 
-    function currPageChange(event) {
+    useEffect(() => {
+        apiCall(`/notice/selectPage`, 'GET', {
+            rowPerPage: selectPage.rowPerPage,
+            currPage: selectPage.currPage
+        })
+            .then((response) => {
+                setNoticeData(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [selectPage])
 
+    function currPageChange(event) {
         selectPage.currPage = Number(event.target.textContent);
         setSelectPage({ ...selectPage });
     }
@@ -29,7 +50,6 @@ function NoticeMain() {
             selectPage.currPage = Number(selectPage.sno - 1);
             selectPage.sno = selectPage.sno - selectPage.displayPageNo;
         }
-
         setSelectPage({ ...selectPage });
     }
 
@@ -40,24 +60,20 @@ function NoticeMain() {
                     <div>제목</div>
                     <input type="text" placeholder='검색어를 입력하세요.' />
                     <button>검색</button>
-                    <button>초기화</button>
+                    <button type='button' onClick={() => setSelectPage({ ...selectPage })}>초기화</button>
                 </div>
             </div>
             <div className="userNotice">
-                <p>전체<span>20</span>건</p>
+                <p>전체<span> {noticeCount}</span>건</p>
                 <div>
-                    <div>
-                        <div>num</div>
-                        <div>제목</div>
-                        <div>작성일</div>
-                        <div>조회수</div>
-                    </div>
-                    <div>
-                        <div>159</div>
-                        <div>길고 긴 제목이 뭐가 있을까 생각하다가 막친 제목</div>
-                        <div>2024-04-03</div>
-                        <div>159</div>
-                    </div>
+                    {noticeData.map((ele) => (
+                        <div key={ele.seq}>
+                            <div>{ele.emphasis === 1 ? "" : ele.seq}</div>
+                            <div>{(ele.emphasis === 1 ? "(중요) " : "") + ele.title}</div>
+                            <div>{ele.regdate}</div>
+                            <div>{ele.cnt}</div>
+                        </div>
+                    ))}
                 </div>
             </div>
             <div className="userNoticePage">
@@ -74,18 +90,19 @@ function NoticeMain() {
                 <div>
                     {Array.from({ length: selectPage.displayPageNo }, (_, index) => (
                         <div style={{
-                            display: page >= selectPage.sno + index ?
+                            display: Math.ceil(noticeCount / selectPage.rowPerPage) >= selectPage.sno + index ?
                                 'flex' : 'none'
                         }} key={index} className={selectPage.currPage === selectPage.sno + index ? 'selectPage' : ''} onClick={currPageChange}>{selectPage.sno + index}</div>
-                    ))}
+                    )
+                    )}
                 </div>
 
                 {/* <div style={{
                     display: page - (page % selectPage.displayPageNo) >= selectPage.currPage ?
                         'block' : 'none'
                 }} onClick={() => snoChange(true)}></div> */}
-
-                {page - (page % selectPage.displayPageNo) >= selectPage.currPage ?
+                {console.log(selectPage.eon)}
+                {Math.ceil(noticeCount / selectPage.rowPerPage) >= selectPage.sno + selectPage.displayPageNo - 1 ?
                     <div onClick={() => snoChange(true)}></div> : <div className='hide'></div>
                 }
             </div>

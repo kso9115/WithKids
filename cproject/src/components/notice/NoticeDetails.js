@@ -4,6 +4,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useCallback, useEffect, useState } from 'react';
 import { notice_inp_ck } from '../../hooks/inputCheck/noticeInputCheck';
 import { apiCall } from '../../server/apiService';
+import { toStringByFormatting } from '../../hooks/formdate';
 
 function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
     let text = data.content;
@@ -13,17 +14,27 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
         setNoticeData(data)
     }, [data]);
 
-    const prgpChange = useCallback((event) => {
+    const noticeChange = useCallback((event) => {
         noticeData[event.target.name] = event.target.value;
         setNoticeData({ ...noticeData });
     }, [noticeData]);
 
-    function saveData(type, text) {
+    const emphasisCheck = useCallback((event) => {
 
+        noticeData[event.target.name] = (event.target.checked ? 1 : 0);
+        setNoticeData({ ...noticeData });
+    }, [noticeData]);
+
+    function saveData(type, text) {
         if (notice_inp_ck(noticeData, type, text)) {
             noticeData.content = text;
+            if (type === 'noticeInsert') {
+                noticeData.regdate = toStringByFormatting(new Date());
+            }
             apiCall('/notice/noticeSave', 'POST', noticeData)
                 .then((response) => {
+                    setData({})
+                    // text = "";
                     setListUpdate(!listUpdate);
                     alert(response.data);
                 })
@@ -37,7 +48,7 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
     function deleteData() {
 
     }
-
+    console.log(noticeData);
     return (
         <div style={{
             height: '100%'
@@ -58,7 +69,12 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
             <div className='notice_gridBox'>
                 <div><span>*</span>제목</div>
                 <div><input type="text" id='title' name='title'
-                    value={noticeData.title || ""} onChange={prgpChange}
+                    value={noticeData.title || ""} onChange={noticeChange}
+                /></div>
+
+                <div>중요공지</div>
+                <div><input type="checkbox" id='emphasis' name='emphasis'
+                    checked={noticeData.emphasis === 1} onChange={emphasisCheck}
                 /></div>
 
                 <div><span>*</span>내용</div>
