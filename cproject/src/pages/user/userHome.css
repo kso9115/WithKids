@@ -35,7 +35,7 @@ a:hover {
 .userNoticeHead,
 .userPrgHead,
 .userNoticeSearch>div,
-.userPrgSearch>div {
+.userSearch>div {
     font-family: 'home';
     display: flex;
     align-items: center;
@@ -63,19 +63,16 @@ a:hover {
     overflow: hidden;
 }
 
-.userNoticeSearch>div,
-.userPrgSearch>div {
+.userSearch>div {
     height: 150px;
     gap: 20px;
 }
 
-.userNoticeSearch>div>div,
-.userPrgSearch>div>div {
+.userSearch>div>div {
     font-size: 25px;
 }
 
-.userNoticeSearch>div>input,
-.userPrgSearch>div>input {
+.userSearch>div>input {
     font-size: 20px;
     width: 70%;
     border: 1px solid gray;
@@ -83,8 +80,7 @@ a:hover {
     padding: 5px 15px;
 }
 
-.userNoticeSearch>div>button,
-.userPrgSearch>div>button {
+.userSearch>div>button {
     color: white;
     background-color: #494e66;
     font-size: 20px;
@@ -92,4 +88,9 @@ a:hover {
     border: 1px solid #494e66;
     border-radius: 20px;
     padding: 5px 15px;
+    cursor: pointer;
+}
+
+.userSearch>div>button:hover{
+    font-size: 22px;
 }

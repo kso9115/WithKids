@@ -2,8 +2,10 @@ import { useState } from 'react';
 import './notice.css'
 import { useEffect } from 'react';
 import { apiCall } from '../../server/apiService';
+import SearchBoxUser from '../../hooks/searchbox/SearchBoxUser';
 
 function NoticeMain() {
+    const [word, setWord] = useState("");
     const [noticeCount, setNoticeCount] = useState(0);
     const [noticeData, setNoticeData] = useState([]);
     const [selectPage, setSelectPage] = useState({
@@ -27,7 +29,8 @@ function NoticeMain() {
     useEffect(() => {
         apiCall(`/notice/selectPage`, 'GET', {
             rowPerPage: selectPage.rowPerPage,
-            currPage: selectPage.currPage
+            currPage: selectPage.currPage,
+            word: word
         })
             .then((response) => {
                 setNoticeData(response.data);
@@ -35,7 +38,7 @@ function NoticeMain() {
             .catch((error) => {
                 console.log(error);
             })
-    }, [selectPage])
+    }, [selectPage, word])
 
     function currPageChange(event) {
         selectPage.currPage = Number(event.target.textContent);
@@ -55,14 +58,7 @@ function NoticeMain() {
 
     return (
         <>
-            <div className='userNoticeSearch'>
-                <div>
-                    <div>제목</div>
-                    <input type="text" placeholder='검색어를 입력하세요.' />
-                    <button>검색</button>
-                    <button type='button' onClick={() => setSelectPage({ ...selectPage })}>초기화</button>
-                </div>
-            </div>
+            <SearchBoxUser setWord={setWord} />
             <div className="userNotice">
                 <p>전체<span> {noticeCount}</span>건</p>
                 <div>

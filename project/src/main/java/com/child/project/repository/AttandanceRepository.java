@@ -48,7 +48,7 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
                         @Param("attandance_date") String attandance_date);
 
         // 유저 페이지 내 출석 처리 : 출석 버튼 클릭 시 본인 출석 입력되도록
-        @Query(value = "insert into attandance value(:mem_serial, :attandance_date, :mem_name, attandance_status)"
+        @Query(value = "insert into attandance value(:mem_serial, :attandance_date, :mem_name, :attandance_status)"
                         + "where mem_serial=(:mem_serial) and attandance_date=(:attandance_date)", nativeQuery = true)
         void userSave(@Param("mem_serial") String mem_serial,
                         @Param("attandance_status") String attandance_status,

@@ -3,10 +3,11 @@ import './userprogram.css';
 import { Link } from 'react-router-dom';
 import { apiCall } from '../../server/apiService';
 import { API_BASE_URL } from '../../server/app-config';
+import SearchBoxUser from '../../hooks/searchbox/SearchBoxUser';
 
 function UserprogramMain() {
     const [listData, setListData] = useState([]);
-
+    const [word, setWord] = useState("");
     useEffect(() => {
         apiCall('/prgPln/prgPlnList', 'GET')
             .then((response) => {
@@ -19,14 +20,7 @@ function UserprogramMain() {
     console.log(listData);
     return (
         <>
-            <div className='userPrgSearch'>
-                <div>
-                    <div>제목</div>
-                    <input type="text" placeholder='검색어를 입력하세요.' />
-                    <button>검색</button>
-                    <button>초기화</button>
-                </div>
-            </div>
+            <SearchBoxUser setWord={setWord} />
             <div className='userPrgImg'>
                 <p></p>
                 <div>

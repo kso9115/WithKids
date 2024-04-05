@@ -8,7 +8,7 @@ public interface NoticeService {
 
     List<Notice> findAll();
 
-    List<Notice> selectPage(int currPage, int rowPerPage);
+    List<Notice> selectPage(int currPage, int rowPerPage, String word);
 
     Notice save(Notice entity);
 

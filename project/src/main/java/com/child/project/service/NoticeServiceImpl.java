@@ -23,9 +23,9 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public List<Notice> selectPage(int currPage, int rowPerPage) {
+    public List<Notice> selectPage(int currPage, int rowPerPage, String word) {
         currPage = (currPage - 1) * rowPerPage;
-        return repository.selectPage(currPage, rowPerPage);
+        return repository.selectPage(currPage, rowPerPage, word);
     }
 
     @Override

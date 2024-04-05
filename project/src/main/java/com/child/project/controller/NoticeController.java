@@ -30,8 +30,8 @@ public class NoticeController {
 
     @GetMapping("/selectPage")
     public List<Notice> selectPage(@RequestParam("rowPerPage") int rowPerPage,
-            @RequestParam("currPage") int currPage) {
-        return service.selectPage(currPage, rowPerPage);
+            @RequestParam("currPage") int currPage , @RequestParam("word") String word) {
+        return service.selectPage(currPage, rowPerPage, word);
     }// selectPage
 
     @PostMapping("/noticeSave")
