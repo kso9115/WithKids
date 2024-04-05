@@ -31,10 +31,12 @@ function MealManagement() {
         { name: '간식', value: 'snk_meal' },
     ]
     const [checkedMealList, setCheckedMealList] = useState({
-        arr:"",
-        set: new Set()
+        brf_meal: true,
+        lnc_meal: true,
+        dnr_meal: true,
+        snk_meal: true
     }); // 체크된 항목 List를 담아두는 useState
-    const [checked, setChecked] = useState(true); // 체크 여부 판단
+    // const [checked, setChecked] = useState(true); // 체크 여부 판단
     
     // let day = startDate;
     let count = 0;
@@ -66,7 +68,7 @@ function MealManagement() {
     }
 
     useEffect(() => {
-        console.log("1111");
+        // console.log("1111");
         const mealList = () => 
         console.log(format(currentMonth,"yyyy-MM"));
         // axios.
@@ -75,9 +77,8 @@ function MealManagement() {
         //             yearMonth : format(currentMonth,"yyyy-MM")
         //         }
         //     })
-        apiCall('/meal/searchList','GET',{
-            yearMonth : format(currentMonth,"yyyy-MM"),
-            arr:checkedMealList.arr
+        apiCall('/meal/mealListYM','GET',{
+            yearMonth : format(currentMonth,"yyyy-MM")
         },null)
             .then((response) => {
                 console.log("mealList에 대한 요청");
@@ -87,6 +88,7 @@ function MealManagement() {
             .catch((err) => {
                 console.log("mealList에 대한 요청 에러 => " + err);
             });
+            console.log(mealData);
             // 변경 전
             // axios 
             //     .get("/api/meal/mealList")
@@ -110,7 +112,7 @@ function MealManagement() {
 
         memList()
         mealList();  // mealList매핑을 위해..
-    }, [format(currentMonth,"yyyy-MM"),checkedMealList]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
+    }, [format(currentMonth,"yyyy-MM")]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
     // console.log(mealData);
     // console.log(memMealDataOne);
 
@@ -151,18 +153,20 @@ function MealManagement() {
 
     const  onCheckedItem = useCallback(
         (checked, item) => {
-            if(checked) { 
-                checkedMealList.set.add(item);
-                checkedMealList.arr = "," + Array.from(checkedMealList.set).join(',');
-                setCheckedMealList({...checkedMealList});
-                setChecked(!checked);
-            } else if(!checked) {
-                checkedMealList.set.delete(item);
-                if(checkedMealList.set.size === 0 ) checkedMealList.arr = "";
-                else checkedMealList.arr = "," + Array.from(checkedMealList.set).join(',');
-                setCheckedMealList({...checkedMealList});
-                setChecked(!checked);
-            }
+            checkedMealList[item] = checked;
+            setCheckedMealList({...checkedMealList});
+            // if(checked) { 
+            //     checkedMealList.set.add(item);
+            //     checkedMealList.arr = "," + Array.from(checkedMealList.set).join(',');
+            //     setCheckedMealList({...checkedMealList});
+            //     setChecked(!checked);
+            // } else if(!checked) {
+            //     checkedMealList.set.delete(item);
+            //     if(checkedMealList.set.size === 0 ) checkedMealList.arr = "";
+            //     else checkedMealList.arr = "," + Array.from(checkedMealList.set).join(',');
+            //     setCheckedMealList({...checkedMealList});
+            //     setChecked(!checked);
+            // }
         },[checkedMealList]
     );
     console.log(checkedMealList); // 내부에 있는 것과 외부에 있는 것의 차이 : onCheckedItem 읽고 난 후 , set 되기 때문에, 내부에 있으면 미변경
@@ -190,16 +194,17 @@ function MealManagement() {
                         return(
                             <label key={item.name} >
                                 <input 
-                                    type='checkbox'
+                                    type='checkbox' 
+                                    defaultChecked='checked'
                                     id={item.value}
                                     onChange={(e)=>{
                                         onCheckedItem(e.target.checked, e.target.id);
                                     }}
                                 />
-                                <lable htmlFor={item.name}>
+                                <label htmlFor={item.name}>
                                     {/* <span></span> */}
                                     {item.name}
-                                </lable>&nbsp;&nbsp;
+                                </label>&nbsp;&nbsp;
                             </label>
                         );
                     })
@@ -212,13 +217,13 @@ function MealManagement() {
                 </div> */}
             </div>
             <div>
-                <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth}></Icon>
-                {format(currentMonth, 'yyyy')}년
+                <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth}></Icon>&nbsp;
+                {format(currentMonth, 'yyyy')}년&nbsp;
                 {format(currentMonth, 'MM')}월
-                <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
-                <div style={{ display: thisMonth }}>이번달</div>
+                &nbsp;<Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
+                &nbsp;&nbsp;<div style={{ display: thisMonth }}>이번달</div> 
             </div>
-            {/* <div></div> */}
+            {/* <div> </div> */}
             <div className='mealListBox'>
                 <div className='meal_mng_list' style={{
                     display: 'grid',
@@ -253,10 +258,10 @@ function MealManagement() {
                             <div>{o.memSerial}</div>
                             <div>{o.memName}</div>
                             <div>
-                                <div>조</div>
-                                <div>중</div>
-                                <div>석</div>
-                                <div>간</div>
+                                {checkedMealList.brf_meal ? <div>조식</div> : null}
+                                {checkedMealList.lnc_meal ? <div>중식</div> : null}
+                                {checkedMealList.dnr_meal ? <div>석식</div> : null}
+                                {checkedMealList.snk_meal ? <div>간식</div> : null}
                                 {/* <div>{o.brfMeal}</div>
                                     <div>{o.lncMeal}</div>
                                     <div>{o.dnrMeal}</div>
@@ -266,19 +271,23 @@ function MealManagement() {
                                 let day;
 
                                 if (index.length == 1) {
-                                    day = "0" + index;
+                                    day = "0" + (index+1);
                                 } else {
-                                    day = "" + index;
+                                    day = "" + (index+1);
                                 }
                                 // let count = mealData.find((item) => (item.memSerial === o.memSerial) && (item.mealDate.split("-")[2] === day));
-                                let count = mealData.find((item) => (item.c === o.memSerial) && (parseInt(item.mealDate.split("-")[2]) === parseInt(day)+1));
+                                let count = mealData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.mealDate.split("-")[2]) === parseInt(day)));
                                 if (count) {
                                     return (
                                         <div key={index + 1}>
-                                            <div>{count.brfMeal === 0 ? "X" : "O" }</div>
-                                            <div>{count.lncMeal === 0 ? "X" : "O" }</div>
-                                            <div>{count.dnrMeal === 0 ? "X" : "O" }</div>
-                                            <div>{count.snkMeal === 0 ? "X" : "O" }</div>
+                                            {checkedMealList.brf_meal ? <div>{count.brfMeal === 0 ? "X" : "O" }</div> : null}
+                                            {checkedMealList.lnc_meal ? <div>{count.lncMeal === 0 ? "X" : "O" }</div> : null}
+                                            {checkedMealList.dnr_meal ? <div>{count.dnrMeal === 0 ? "X" : "O" }</div> : null}
+                                            {checkedMealList.snk_meal ? <div>{count.snkMeal === 0 ? "X" : "O" }</div> : null}
+                                            
+                                            
+                                            
+                                            
                                         </div>
                                     );
                                 } 
@@ -291,10 +300,10 @@ function MealManagement() {
                                 }
                             })}
                             <div> 
-                                <div>조식</div>
-                                <div>중식</div>
-                                <div>석식</div>
-                                <div>간식</div>
+                                {checkedMealList.brf_meal ? <div>조식</div> : null}
+                                {checkedMealList.lnc_meal ? <div>중식</div> : null}
+                                {checkedMealList.dnr_meal ? <div>석식</div> : null}
+                                {checkedMealList.snk_meal ? <div>간식</div> : null}
                             </div>
                         </div>
                     )

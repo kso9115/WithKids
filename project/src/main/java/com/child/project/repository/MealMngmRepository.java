@@ -17,6 +17,4 @@ public interface MealMngmRepository extends JpaRepository<MealMngm,MealMngmId> {
     @Query(value = "select * from mealMngm where substr(meal_date,1,7)=(:meal_date)", nativeQuery = true)
     List<MealMngm> selectListYM(@Param("meal_date") String meal_date);
 
-    @Query(value = "select mem_serial, meal_date :arr from mealMngm where substr(meal_date,1,7)=:meal_date" , nativeQuery = true)
-    List<MealMngm> searchList(@Param("meal_date") String meal_date,@Param("arr") String arr);
 }
