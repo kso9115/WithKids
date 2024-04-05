@@ -14,7 +14,6 @@ import UserLogin from './pages/user/UserLogin.js';
 import UserprogramDetails from './pages/userprogram/UserprogramDetails';
 import UserprogramMain from './pages/userprogram/UserprogramMain.js';
 import NoticeMain from './pages/notice/NoticeMain.js';
-import UserSelect from './pages/select/UserSelect.js';
 import UserCheck from './pages/user/UserCheck.js';
 
 function App() {
@@ -25,7 +24,6 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Select />}></Route>
                     <Route path="/login" element={<Login />}></Route>
-                    <Route path="/userselect" element={<UserSelect />}></Route>
                     <Route path="/usercheck" element={<UserCheck />}></Route>
                     <Route path="/home" element={<Home />}></Route>
                     <Route path="/user" element={<UserHome />}>

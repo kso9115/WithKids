@@ -1,13 +1,15 @@
 import { format } from "date-fns";
 import { useCallback, useEffect, useState } from "react";
 import { apiCall } from "../../server/apiService";
+import './userCheck.css';
+import UserGPS from "./UserGPS.js";
+
 
 function UserCheck() {
     const [currentMonth, setCurrentMonth] = useState(new Date());
-    const [attOne, setAttOne] = useState({});
+    // const [attOne, setAttOne] = useState({});
 
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
-
 
     // useEffect(() => {
     // },[]);
@@ -27,12 +29,11 @@ function UserCheck() {
                 console.log("오잉");
                 // response : message
                 // setAttOne()
-                alert(response)
+                alert(`${params.attDate} ${params.memName}님 출석체크 완료하셨습니다.`)
             }).catch((err) => {
                 console.log(err);
             })
     }
-
 
     return (
         <div>
@@ -50,7 +51,8 @@ function UserCheck() {
 
                 <div style={{
                     marginBottom: '50px',
-                    fontSize: 30
+                    fontSize: 30,
+                    fontWeight:"bolder"
                 }}>{format(currentMonth, 'yyyy-MM-dd')}</div>
 
                 <div style={{
@@ -58,31 +60,22 @@ function UserCheck() {
                     gap: '50px',
                     justifyContent: 'center'
                 }}>
-                    <div
-                        style={{
-                            border: '1px solid black',
-                            backgroundColor: 'black',
-                            padding: 20,
-                            borderRadius: 10
-
-                        }}>
-                        <button className="attChange"
-                            onClick={attChange()}
+                    <div>
+                        <button className="btn attChange"
+                        // 함수를 콜백으로 만들었으면 함수를 전달해야지
+                        // 함수를 호출하고있으면 어떡하니 쯧쯧
+                            onClick={attChange}
                         >입실하기</button>
                     </div>
-                    <div
-                        style={{
-                            border: '1px solid black',
-                            backgroundColor: 'black',
-                            padding: 20,
-                            borderRadius: 10
-
-                        }}>
-                        <button>조식</button>&nbsp;
-                        <button>중식</button>&nbsp;
-                        <button>석식</button>&nbsp;
-                        <button>간식</button>
+                    <hr></hr>
+                    <div>
+                        <button className="btn attChange">조식</button>&nbsp;
+                        <button className="btn attChange">중식</button>&nbsp;
+                        <button className="btn attChange">석식</button>&nbsp;
+                        <button className="btn attChange">간식</button>
                     </div>
+
+                    <UserGPS/>
                 </div>
 
             </div>
