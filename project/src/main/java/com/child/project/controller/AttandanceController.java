@@ -2,6 +2,8 @@ package com.child.project.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,18 +74,30 @@ public class AttandanceController {
     }
 
     @PostMapping("/attInsert")
-    public String postMethodName(@RequestBody Attandance entity) {
+    public String postMethodName(@RequestBody Attandance entity, HttpServletRequest request) {
         String message="";
-        log.info(entity);
 
-        try {
-            attService.attInsert(entity);
-            message = "출력 성공";
-        } catch (Exception e) {
-            message = "출석 실패";
-            log.info(e.toString());
-        }
+        String ipAdress = request.getRemoteAddr();
+        // 마지막 점('.')의 인덱스를 찾음
+        int lastIndex = ipAdress.lastIndexOf('.');
+        String subnet = ipAdress.substring(0, lastIndex + 1); // 마지막 점('.') 포함
+
+        log.info(ipAdress);
         
+        log.info("00000000000000000000000000000000000000000000000000000000000000000000000000000000");
+        log.info(ipAdress.substring(0, 10));
+
+        // log.info(entity);
+        
+        if(subnet=="192.168.0"){
+            try {
+                attService.attInsert(entity);
+                message = "출력 성공";
+            } catch (Exception e) {
+                message = "출석 실패";
+                log.info(e.toString());
+            }
+        }
         return message;
     }
     
