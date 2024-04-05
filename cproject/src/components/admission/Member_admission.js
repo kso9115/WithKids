@@ -196,7 +196,7 @@ function Member_admission({admMemOne , dataDML } ){
                 <div><select name="admissionRs" value={admMemOneD.admissionRs || ''} onChange={admdChange}>
                         <option value="none" >--선택해 주세요--</option>
                         <option value="맞벌이 부부">맞벌이 부모</option>
-                        <option value='다문화 가정'>다문화가정</option>
+                        <option value='다문화 가정'>다문화 가정</option>
                         <option value='형재·자매가 재원중'>형제,자매가 재원중</option>
                         <option value='자녀가 3명 이상'>자녀가 3명이상</option>
                         <option value='무연고자'>무연고자</option>
