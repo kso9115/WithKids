@@ -40,7 +40,7 @@ function UserprogramDetails() {
             apiCall('/prg/filedownload', 'GET', {
                 prgId: prgOne.prgId,
                 prgDnm: prgOne.prgDnm,
-                fileName: prgOne.name
+                fileName: event.target.name
             })
                 .then((response) => {
                     // 파일 다운로드를 위해 blob 데이터를 URL로 변환

@@ -70,7 +70,7 @@
     border-top: 2px solid var(--lgray);
     border-bottom: 2px solid var(--lgray);
     grid-template-columns: 10% 70% 10% 10%;
-    grid-template-rows: 40px calc(100% - 40px);
+    grid-template-rows: 40px calc(70.7% - 20px) calc(29.3% - 20px);
     height: calc(100% - 32px);
 }
 
@@ -102,6 +102,10 @@
 }
 
 .notice_gridBox>div:nth-child(6) {
+    grid-column: span 3;
+}
+
+.notice_gridBox>div:nth-child(8) {
     grid-column: span 3;
 }
 

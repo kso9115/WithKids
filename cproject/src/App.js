@@ -1,20 +1,21 @@
 import './App.css';
-import Home from './pages/home/Home.js'
-import Login from './pages/login/Login.js'
-import Select from './pages/select/Select.js'
+import Home from './pages/home/Home'
+import Login from './pages/login/Login'
+import Select from './pages/select/Select'
 import UserHome from './pages/user/UserHome'
 import UserMain from './pages/user/UserMain'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Notice from './pages/notice/Notice.js'
-import Schedule from './pages/schedule/Schedule.js'
-import Survety from './pages/survery/Survery.js'
-import Userprogram from './pages/userprogram/Userprogram.js';
-import NoneLogin from './pages/err/errNoneLogin.js';
-import UserLogin from './pages/user/UserLogin.js';
+import UserNotice from './pages/notice/UserNotice'
+import Schedule from './pages/schedule/Schedule'
+import Survety from './pages/survery/Survery'
+import Userprogram from './pages/userprogram/Userprogram';
+import NoneLogin from './pages/err/errNoneLogin';
+import UserLogin from './pages/user/UserLogin';
 import UserprogramDetails from './pages/userprogram/UserprogramDetails';
-import UserprogramMain from './pages/userprogram/UserprogramMain.js';
-import NoticeMain from './pages/notice/NoticeMain.js';
-import UserCheck from './pages/user/UserCheck.js';
+import UserprogramMain from './pages/userprogram/UserprogramMain';
+import UserNoticeMain from './pages/notice/UserNoticeMain';
+import UserCheck from './pages/user/UserCheck';
+import UserNoticeDetails from './pages/notice/UserNoticeDetails';
 
 function App() {
 
@@ -28,9 +29,10 @@ function App() {
                     <Route path="/home" element={<Home />}></Route>
                     <Route path="/user" element={<UserHome />}>
                         <Route path="" element={<UserMain />}></Route>
-                        
-                        <Route path="notice" element={<Notice />}>
-                            <Route path="" element={<NoticeMain />}></Route>
+
+                        <Route path="notice" element={<UserNotice />}>
+                            <Route path="" element={<UserNoticeMain />}></Route>
+                            <Route path="dtails" element={<UserNoticeDetails />}></Route>
                         </Route>
                         {/* <Route path="programDtail" element={<UserprogramDetails />}></Route> */}
                         <Route path="schedule" element={<Schedule />}></Route>
@@ -43,7 +45,7 @@ function App() {
                     </Route>
 
                     <Route path="/errNoneLogin" element={<NoneLogin />}></Route>
-                    
+
                 </Routes>
             </BrowserRouter>
         </>

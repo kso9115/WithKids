@@ -4,7 +4,7 @@ import axios from 'axios';
 import { apiCall } from '../../server/apiService';
 
 
-function AttachedFile({ data, setData, name, files }) {
+function AttachedFile({ data, setData, name, files, prgTrue }) {
     const selectFile = useRef();
     // 파일을 저장
     const [isActive, setActive] = useState(false);
@@ -54,6 +54,7 @@ function AttachedFile({ data, setData, name, files }) {
 
     //
     function deleteFile() {
+        deleteFilef();
         const deleteCheck = document.querySelectorAll('.deleteCheck');
         const liveName = [];
         deleteCheck.forEach((e, i) => {
@@ -106,7 +107,7 @@ function AttachedFile({ data, setData, name, files }) {
                                 className='deleteCheckf allCheck' onChange={oneCheck} value={i} />
                         </div>
                         <div><label htmlFor={data[files][i].name} >{data[files][i].name}</label></div>
-                        <div><button type='button' name={data[files][i].name} onClick={downloadFile}>다운로드</button></div>
+                        <div><button type='button' name={data[files][i].name} onClick={() => alert("방금 추가한 파일은 다운로드 할 수 없습니다.")}>다운로드</button></div>
                     </div>
                 );
             }))
@@ -124,7 +125,6 @@ function AttachedFile({ data, setData, name, files }) {
             );
         } else return null;
     }
-
 
     function fullCheck(event) {
         const deleteCheck = document.querySelectorAll('.allCheck');
@@ -145,25 +145,45 @@ function AttachedFile({ data, setData, name, files }) {
 
     function downloadFile(event) {
         if (window.confirm(`${event.target.name} 파일을 다운로드 하시겠습니까?`)) {
-            apiCall('/prg/filedownload', 'GET', {
-                prgId: data.prgId,
-                prgDnm: data.prgDnm,
-                fileName: event.target.name
-            })
-                .then((response) => {
-                    const url = window.URL.createObjectURL(new Blob([response.data]));
-                    // a 태그를 생성하고 다운로드 링크를 설정하여 다운로드를 유도
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.setAttribute('download', event.target.name); // 다운로드할 파일명을 설정
-                    document.body.appendChild(link);
-                    link.click();
-                    // URL 객체의 사용이 끝나면 해제하여 메모리 누수를 방지
-                    URL.revokeObjectURL(url);
+            prgTrue ?
+                apiCall('/prg/filedownload', 'GET', {
+                    prgId: data.prgId,
+                    prgDnm: data.prgDnm,
+                    fileName: event.target.name
                 })
-                .catch((error) => {
-                    console.error('파일 다운로드 실패:', error);
+                    .then((response) => {
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
+                        // a 태그를 생성하고 다운로드 링크를 설정하여 다운로드를 유도
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', event.target.name); // 다운로드할 파일명을 설정
+                        document.body.appendChild(link);
+                        link.click();
+                        // URL 객체의 사용이 끝나면 해제하여 메모리 누수를 방지
+                        URL.revokeObjectURL(url);
+                    })
+                    .catch((error) => {
+                        console.error('파일 다운로드 실패:', error);
+                    })
+                :
+                apiCall('/notice/filedownload', 'GET', {
+                    seq: data.seq,
+                    fileName: event.target.name
                 })
+                    .then((response) => {
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
+                        // a 태그를 생성하고 다운로드 링크를 설정하여 다운로드를 유도
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', event.target.name); // 다운로드할 파일명을 설정
+                        document.body.appendChild(link);
+                        link.click();
+                        // URL 객체의 사용이 끝나면 해제하여 메모리 누수를 방지
+                        URL.revokeObjectURL(url);
+                    })
+                    .catch((error) => {
+                        console.error('파일 다운로드 실패:', error);
+                    })
         }
     }
 
@@ -172,7 +192,7 @@ function AttachedFile({ data, setData, name, files }) {
             <div>
                 <div><input type="checkbox" id='fullCheck' onChange={(event) => fullCheck(event)} /></div>
                 <div>파일</div>
-                <div>기존/신규</div>
+                <div>다운로드</div>
             </div>
 
             <label
@@ -197,8 +217,10 @@ function AttachedFile({ data, setData, name, files }) {
             <div>
                 <div></div>
                 <div>
-                    <button type='button' onClick={() => data && data.prgId && data.prgDnm ?
+                    {prgTrue ? <button type='button' onClick={() => data && data.prgId && data.prgDnm ?
                         selectFile.current.click() : alert("프로그램을 선택해 세부프로그램명을 입력해야 업로드 가능합니다.")}>추가</button>
+                        : <button type='button' onClick={() => selectFile.current.click()}>추가</button>}
+
                     <button type='button' onClick={deleteFile}>삭제</button>
                 </div>
             </div>

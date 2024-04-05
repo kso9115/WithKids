@@ -36,8 +36,8 @@ function MakeModal({ modal, setData, closeModal }) {
 
 function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
     Modal.setAppElement('#root') //App.js
-    let text = data.content;
     const [plnData, setPlnData] = useState({});
+    let text = plnData.content;
     useEffect(() => {
         setPlnData({
             ...data,
@@ -149,7 +149,7 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                 })
                 .catch((error) => {
                     console.log(error);
-                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                    alert("서버 통신 에러로 파일 저장에 실패했습니다.");
                 })
         }
     }
@@ -224,7 +224,7 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
 
             <div className='prg_pln_dtl_fileBox'>
                 <div>첨부파일</div>
-                <div><AttachedFile data={plnData} setData={setPlnData} name={'prgFile'} files={'prgFilef'}></AttachedFile></div>
+                <div><AttachedFile data={plnData} setData={setPlnData} name={'prgFile'} files={'prgFilef'} prgTrue={true}></AttachedFile></div>
             </div>
 
             <div className="prg_pln_dtl_textBox">

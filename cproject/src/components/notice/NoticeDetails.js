@@ -5,42 +5,77 @@ import { useCallback, useEffect, useState } from 'react';
 import { notice_inp_ck } from '../../hooks/inputCheck/noticeInputCheck';
 import { apiCall } from '../../server/apiService';
 import { toStringByFormatting } from '../../hooks/formdate';
+import AttachedFile from '../../hooks/func/AttachedFile';
 
 function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
-    let text = data.content;
     const [noticeData, setNoticeData] = useState({});
+    let text = noticeData.content;
 
     useEffect(() => {
-        setNoticeData(data)
+        setNoticeData({
+            ...data,
+            file: data.file ? data.file.split('?') : [],
+            filef: null
+        })
     }, [data]);
 
     const noticeChange = useCallback((event) => {
         noticeData[event.target.name] = event.target.value;
+        noticeData.content = text;
         setNoticeData({ ...noticeData });
-    }, [noticeData]);
+    }, [noticeData, text]);
 
     const emphasisCheck = useCallback((event) => {
-
         noticeData[event.target.name] = (event.target.checked ? 1 : 0);
+        noticeData.content = text;
         setNoticeData({ ...noticeData });
-    }, [noticeData]);
+    }, [noticeData, text]);
 
     function saveData(type, text) {
         if (notice_inp_ck(noticeData, type, text)) {
             noticeData.content = text;
-            if (type === 'noticeInsert') {
-                noticeData.regdate = toStringByFormatting(new Date());
+            let filef = "";
+            if (noticeData.filef) {
+                Array.from({ length: noticeData.filef.length }, (_, i) => {
+                    return filef += noticeData.filef[i].name + "?";
+                });
             }
-            apiCall('/notice/noticeSave', 'POST', noticeData)
+            let params = {
+                ...noticeData,
+                file: (filef + noticeData.file.join('?')).replace(/\?\s*$/, ''),
+                filef: null,
+            };
+            if (type === 'noticeInsert') {
+                params.regdate = toStringByFormatting(new Date());
+            }
+            apiCall('/notice/noticeSave', 'POST', params)
                 .then((response) => {
+                    saveFile();
                     setData({})
-                    // text = "";
                     setListUpdate(!listUpdate);
                     alert(response.data);
                 })
                 .catch((error) => {
                     console.log(error);
                     alert("서버 통신 에러로 요청에 실패했습니다.");
+                })
+        }
+    }
+
+    function saveFile() {
+        if (noticeData.filef && noticeData.filef.length> 0) {
+            let formData = new FormData();
+            for (let i = 0; i < noticeData.filef.length; i++) {
+                formData.append("filef", noticeData.filef[i]);
+            }
+            formData.append("seq", noticeData.seq);
+            apiCall('/notice/fileUpload', 'POST', formData)
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    alert("서버 통신 에러로 에 실패했습니다.");
                 })
         }
     }
@@ -54,7 +89,7 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
             height: '100%'
         }}>
             <div className='notice_header'>
-                <b>프로그램계획 정보</b>
+                <b>공지사항 작성</b>
                 <div>
                     <button type="button" onClick={() => setData({})}>입력취소</button>
                     <button type="button" value='삭제' onClick={deleteData}>삭제</button>
@@ -98,6 +133,9 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
                     >
                     </CKEditor>
                 </div>
+
+                <div>첨부파일</div>
+                <div><AttachedFile data={noticeData} setData={setNoticeData} name={'file'} files={'filef'}></AttachedFile></div>
             </div>
 
         </div>
