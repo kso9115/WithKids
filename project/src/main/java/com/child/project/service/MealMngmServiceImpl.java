@@ -30,6 +30,12 @@ public class MealMngmServiceImpl implements MealMngmService {
         return mealRepository.selectListYM(yearMonth);
     }
 
+    @Override
+    public List<MealMngm> searchList(String brf_meal, String lnc_meal, String dnr_meal, String sck_meal) {
+    
+        return mealRepository.searchList(brf_meal, lnc_meal, dnr_meal, sck_meal);
+    }
+
     // @Override
     // public MealMngm selectOne(MealMngmId mealMngmId) {
         

@@ -66,10 +66,11 @@ function MealManagement() {
             yearMonth : format(currentMonth,"yyyy-MM")
         },null)
             .then((response) => {
-            console.log("mealList에 대한 요청");
-            setMealData(response.data);
-            }).catch((err) => {
-            console.log("mealList에 대한 요청 에러 => " + err);
+                console.log("mealList에 대한 요청");
+                setMealData(response.data);
+            })
+            .catch((err) => {
+                console.log("mealList에 대한 요청 에러 => " + err);
             });
             // 변경 전
             // axios 
@@ -95,7 +96,7 @@ function MealManagement() {
         memList()
         mealList();  // mealList매핑을 위해..
     }, [format(currentMonth,"yyyy-MM")]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
-    console.log(mealData);
+    // console.log(mealData);
     // console.log(memMealDataOne);
 
     // for(let i = 1; i < untilrow ;i++){
@@ -133,33 +134,54 @@ function MealManagement() {
 
     // 체크 박스 만들기 => 값을 읽어오기 
     const mealCatagoryList = [
-        { name : '조식'},
-        { name : '중식'},
-        { name : '석식'},
-        { name : '간식'},
+        { name: '조식', value:'brf_meal'},
+        { name: '중식', value: 'lnc_meal' },
+        { name: '석식', value: 'dnr_meal' },
+        { name: '간식', value: 'snk_meal' },
     ]
     const [checkedMealList, setCheckedMealList] = useState(new Set()); // 체크된 항목 List를 담아두는 useState
     const [checked, setChecked] = useState(false); // 체크 여부 판단
 
     const  onCheckedItem = useCallback(
         (checked, item) => {
-            
+
             if(checked) { 
                 checkedMealList.add(item);
                 const set = new Set(checkedMealList);
+                const arr = Array.from(set);
+                console.log(arr.join(','));
                 setCheckedMealList(set);
                 setChecked(!checked);
-                
+
             } else if(!checked) {
                 checkedMealList.delete(item);
                 const set = new Set(checkedMealList)
                 setCheckedMealList(set);
                 setChecked(!checked);
-                
-            }    
+
+            }
+
+            
         },[checkedMealList]
     );
     console.log(checkedMealList); // 내부에 있는 것과 외부에 있는 것의 차이 : onCheckedItem 읽고 난 후 , set 되기 때문에, 내부에 있으면 미변경
+    
+    // 체크 박스에 대한 search하기
+    // const axiosCall=()=> {
+    //     apiCall("/meal/searchList", 'GET', {
+    //         brf_meal : brf_meal, 
+    //         lnc_meal : lnc_meal,
+    //         dnr_meal : dnr_meal,
+    //         sck_meal : sck_meal
+    //     }, null)
+    //     .then((response) => {
+    //         console.log("searchList 대한 요청");
+    //         setMealData(response.data);
+    //     })
+    //     .catch((err) => {
+    //         console.log("mealList에 대한 요청 에러 => " + err);
+    //     });
+    // }
 
     return (
         <div className="mealBox">
@@ -171,7 +193,7 @@ function MealManagement() {
                             <label key={item.name} >
                                 <input 
                                     type='checkbox'
-                                    id={item.name}
+                                    id={item.value}
                                     onChange={(e)=>{
                                         onCheckedItem(e.target.checked, e.target.id);
                                     }}

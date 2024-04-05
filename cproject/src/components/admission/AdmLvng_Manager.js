@@ -43,7 +43,7 @@ function AdmLvng_Manager() {
     ];
     subMenuArr[0].content = <MemberAdmission admMemOne={admMemOne} setAdmMemOne={setAdmMemOne}
         dataDML={dataDML}></MemberAdmission>
-    subMenuArr[1].content = <MemberLeaving memDataOne={memDataOne} lvngMem={lvngMem}
+    subMenuArr[1].content = <MemberLeaving memDataOne={memDataOne} lvngMem={lvngMem} setLvngMem={setLvngMem}
         dataDML={dataDML}></MemberLeaving>
 
     const [subCurrentTab, setSubCurrentTab] = useState(0);
@@ -100,8 +100,9 @@ function AdmLvng_Manager() {
         } , null)
             .then((res) => {
                 console.log(res.data);
-                 if (!res.data) setData({ memSerial: memDataOne.memSerial });
-                 else setData(res.data);
+                if (!res.data) setData({ memSerial: memDataOne.memSerial });
+                else setData(res.data);
+                
             })
             .catch((err) => {
                 console.log(err);
@@ -197,6 +198,7 @@ function AdmLvng_Manager() {
 
     // 코드 중복 정리 함수 작성. 
     function dataDML(type, dml, data) {
+        console.log(memDataOne.memSerial);
         if (admMemOne.memSerial) {
             console.log({data});
             if (window.confirm(" 데이터 신규 등록 및 수정 하시겠습니까?")) {
@@ -208,10 +210,11 @@ function AdmLvng_Manager() {
                 //     })
                 apiCall(`/${type == "1" ? "adm" : "lvn"}/${dml}` , 'POST' , data ,null )
                     .then((res) => {
-                        { type == "1" ? setAdmMemOne(res.data) : setLvngMem(res.data) };
-                        
+                        { type == "1" ? setAdmMemOne(res.data)  : setLvngMem(res.data) };
+                        alert("완료")
                     })
                     .catch((err) => {
+                        alert("완료")
                         console.log(err);
                         
                     })
