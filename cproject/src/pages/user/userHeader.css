@@ -80,3 +80,7 @@ header {
 .userLogout {
     cursor: pointer;
 }
+
+.usercheck {
+    cursor: pointer;
+}

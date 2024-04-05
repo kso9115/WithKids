@@ -16,11 +16,14 @@ function AttandanceMangement() {
     // Attandance 한명 useState : 출/결석 변경을 위한 상태값
     const [memAttDataOne, setMemAttDataOne] = useState({});
 
+    const [currentMonth, setCurrentMonth] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
 
     // 출/결석 변경을 위한 요청 발송 1
-    const handleAttendanceChange = (memSerial, memName, day, currentStatus) => {
+    const handleAttendanceChange = (memSerial, memName, day, currentStatus,index) => {
         const newStatus = currentStatus === '출' ? '결' : '출';
-
+        attData[index].attStatus = newStatus;
         console.log(memSerial);
         console.log(newStatus);
         console.log(day);
@@ -35,25 +38,36 @@ function AttandanceMangement() {
                 attStatus: newStatus
             })
             .then(response => {
+                // controller 확인 시 response에는 지금 message를 전달하고 있음
+
                 // 출석 status 변경 : 콜백사용하여 이전 상태 데이터 배열을 업데이트
-                setAttData(prevAttData => {
-                    return prevAttData.map(response => {
-                        if (response.memSerial === memSerial && parseInt(response.attDate.split("-")[2]) === parseInt(day)) {
-                            return {
-                                ...response,
-                                attStatus: newStatus
-                            };
-                        } else {
-                            return response;
-                        }
-                    });
-                });
+                // attData는 배열 내 하나의 객체들이 쭉 담겨있는 상태이므로 [ ] 중괄호 안에 펼쳐줘야 typeError미발생
+                setAttData([...attData]);
 
             })
             .catch(error => {
                 console.error('출석 상태 변경 실패:', error);
             });
     };
+
+    useEffect(() => {
+        // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
+        apiCall("/att/attList", "GET", { yearMonth: format(currentMonth, 'yyyy-MM') })
+            .then((response) => {
+                setAttData(response.data);
+            }).catch((err) => {
+                console.log(err);
+            })
+
+        // 입소중인 멤버 리스트 요청
+        apiCall("/mem/admissionList", "GET")
+            .then((response) => {
+                console.log(response.data);
+                setAdmissionData(response.data);
+            }).catch((err) => {
+                console.log(err);
+            })
+    }, [format(currentMonth, 'yyyy-MM'), ]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
 
 
     // 출/결석 변경을 위한 요청 발송 2
@@ -73,9 +87,7 @@ function AttandanceMangement() {
     //         })
     // }, [memAttDataOne.memSerial])
 
-
-    const [currentMonth, setCurrentMonth] = useState(new Date());
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    
 
     // 오늘 일자 확인
     const today = currentMonth.getDate();
@@ -133,6 +145,11 @@ function AttandanceMangement() {
     let size = format(monthEnd, 'd');
     let rows = 70 / size + "%";
 
+    // 출석률 계산
+    var attDate;
+
+    console.log(startDate);
+
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
     };
@@ -151,26 +168,9 @@ function AttandanceMangement() {
         count = format(addDays(startDate, 7), 'd') * 1
     }
 
-    console.log("보낼날짜확인" + format(currentMonth, 'yyyy-MM'));
+    // console.log("보낼날짜확인" + format(currentMonth, 'yyyy-MM'));
 
-    useEffect(() => {
-        // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
-        apiCall("/att/attList", "GET", { yearMonth: format(currentMonth, 'yyyy-MM') })
-            .then((response) => {
-                setAttData(response.data);
-            }).catch((err) => {
-                console.log(err);
-            })
-
-        // 입소중인 멤버 리스트 요청
-        apiCall("/mem/admissionList", "GET")
-            .then((response) => {
-                console.log(response.data);
-                setAdmissionData(response.data);
-            }).catch((err) => {
-                console.log(err);
-            })
-    }, [format(currentMonth, 'yyyy-MM')]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
+   
 
 
     // console.log(attData);
@@ -232,8 +232,8 @@ function AttandanceMangement() {
                                 <div><input type="checkbox" /></div>
                                 <div>{o.memSerial}</div>
                                 <div>{o.memName}</div>
-                                <div>출석률</div>
-                                <div>출석</div>
+                                <div></div>
+                                <div>{attDate}</div>
                                 <div>결석</div>
 
                                 {/* index : 날짜 count : 첫 번째 주 일요일*/}
@@ -247,8 +247,15 @@ function AttandanceMangement() {
                                         day = "" + (index + 1);
                                     }
                                     // 시리얼 번호 비교 & 날짜 데이터 동일한지 비교하고 찾기
+                                    // console.log(attData);
+                                    // console.log(o.memSerial);
+
                                     let count = attData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
+                                    let attindex = attData.findIndex((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
+                                    console.log();
+                                    attDate = (index+1);
                                     // console.log(count);
+                                    // console.log(attindex);
 
                                     if (count) {
                                         return (
@@ -258,7 +265,7 @@ function AttandanceMangement() {
                                                 // 기본적으로 index가 0에서 시작하기때문에 + 1
                                                 key={index + 1}
                                                 // onClick={() => setAttData([count.attStatus])}>
-                                                onClick={() => handleAttendanceChange(o.memSerial, o.memName, count.attDate, count.attStatus)}>
+                                                onClick={() => handleAttendanceChange(o.memSerial, o.memName, count.attDate, count.attStatus,attindex)}>
                                                 {count.attStatus}
 
 

@@ -21,4 +21,7 @@ public interface AttandanceService {
 
     // 출석 변경
     Attandance attSave(Attandance entity);
+
+    // 출석 입력
+    Attandance attInsert(Attandance entity);
 }

@@ -45,6 +45,12 @@ public class AttandanceServiceImpl implements AttandanceService {
         return entity;
     }
 
+    @Override
+    public Attandance attInsert(Attandance entity) {
+        return repository.save(entity);
+
+    }
+
     // 월별 db
     // @Override
     // public List<Attandance> selectList(String month) {

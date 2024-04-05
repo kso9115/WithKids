@@ -29,6 +29,11 @@ function UserHeader() {
             // window.location.reload();
         }
     }
+    function userCheck(){
+        if(window.confirm("출석체크 이동하시겠?")){
+            navigate("/usercheck")
+        }
+    }
     // if (icon.current.className === 'iconClick') {
 
     // } else {
@@ -55,6 +60,8 @@ function UserHeader() {
 
             <div id="login_group">
                 <ul>
+                    <li>{sessionData ? <div className='usercheck' onClick={userCheck}>출석 및 급식</div> :
+                        <Link to="/user/usercheck">로그인</Link>}</li>
                     <li><Link to="/">선택창(Test)</Link></li>
                     {sessionData ? <li><Link to="/">내정보</Link></li> :
                         null}

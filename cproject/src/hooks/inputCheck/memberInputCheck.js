@@ -2,6 +2,7 @@
 export function mem_dtls_inp_ck(memDataOneD) {
     // var regex = /^[0-9]*$/;
 
+    // 배열의 길이가 0이면 실행 x => else 에서 false로
     if (Object.keys(memDataOneD).length > 0) {
 
         // 대상자 번호
@@ -39,6 +40,13 @@ export function mem_dtls_inp_ck(memDataOneD) {
             alert("연락처를 입력해주세요.");
             return false;
         }
+        // return true를 안해주고 있었음..
+        alert("등록 및 수정 성공");
+        return true;
+
+    } else {
+        alert("대상자 번호를 입력해주세요.")
+        return false;
     }
 
 
