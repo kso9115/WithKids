@@ -22,6 +22,19 @@ function MealManagement() {
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
+
+    // 체크 박스 만들기 => 값을 읽어오기 
+    const mealCatagoryList = [
+        { name: '조식', value:'brf_meal'},
+        { name: '중식', value: 'lnc_meal' },
+        { name: '석식', value: 'dnr_meal' },
+        { name: '간식', value: 'snk_meal' },
+    ]
+    const [checkedMealList, setCheckedMealList] = useState({
+        arr:"",
+        set: new Set()
+    }); // 체크된 항목 List를 담아두는 useState
+    const [checked, setChecked] = useState(true); // 체크 여부 판단
     
     // let day = startDate;
     let count = 0;
@@ -62,11 +75,13 @@ function MealManagement() {
         //             yearMonth : format(currentMonth,"yyyy-MM")
         //         }
         //     })
-        apiCall('/meal/mealListYM','GET',{
-            yearMonth : format(currentMonth,"yyyy-MM")
+        apiCall('/meal/searchList','GET',{
+            yearMonth : format(currentMonth,"yyyy-MM"),
+            arr:checkedMealList.arr
         },null)
             .then((response) => {
                 console.log("mealList에 대한 요청");
+                console.log(response.data);
                 setMealData(response.data);
             })
             .catch((err) => {
@@ -95,7 +110,7 @@ function MealManagement() {
 
         memList()
         mealList();  // mealList매핑을 위해..
-    }, [format(currentMonth,"yyyy-MM")]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
+    }, [format(currentMonth,"yyyy-MM"),checkedMealList]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
     // console.log(mealData);
     // console.log(memMealDataOne);
 
@@ -132,36 +147,22 @@ function MealManagement() {
     //   }); 
     //   console.log({starD});
 
-    // 체크 박스 만들기 => 값을 읽어오기 
-    const mealCatagoryList = [
-        { name: '조식', value:'brf_meal'},
-        { name: '중식', value: 'lnc_meal' },
-        { name: '석식', value: 'dnr_meal' },
-        { name: '간식', value: 'snk_meal' },
-    ]
-    const [checkedMealList, setCheckedMealList] = useState(new Set()); // 체크된 항목 List를 담아두는 useState
-    const [checked, setChecked] = useState(false); // 체크 여부 판단
+
 
     const  onCheckedItem = useCallback(
         (checked, item) => {
-
             if(checked) { 
-                checkedMealList.add(item);
-                const set = new Set(checkedMealList);
-                const arr = Array.from(set);
-                console.log(arr.join(','));
-                setCheckedMealList(set);
+                checkedMealList.set.add(item);
+                checkedMealList.arr = "," + Array.from(checkedMealList.set).join(',');
+                setCheckedMealList({...checkedMealList});
                 setChecked(!checked);
-
             } else if(!checked) {
-                checkedMealList.delete(item);
-                const set = new Set(checkedMealList)
-                setCheckedMealList(set);
+                checkedMealList.set.delete(item);
+                if(checkedMealList.set.size === 0 ) checkedMealList.arr = "";
+                else checkedMealList.arr = "," + Array.from(checkedMealList.set).join(',');
+                setCheckedMealList({...checkedMealList});
                 setChecked(!checked);
-
             }
-
-            
         },[checkedMealList]
     );
     console.log(checkedMealList); // 내부에 있는 것과 외부에 있는 것의 차이 : onCheckedItem 읽고 난 후 , set 되기 때문에, 내부에 있으면 미변경
@@ -169,10 +170,7 @@ function MealManagement() {
     // 체크 박스에 대한 search하기
     // const axiosCall=()=> {
     //     apiCall("/meal/searchList", 'GET', {
-    //         brf_meal : brf_meal, 
-    //         lnc_meal : lnc_meal,
-    //         dnr_meal : dnr_meal,
-    //         sck_meal : sck_meal
+  
     //     }, null)
     //     .then((response) => {
     //         console.log("searchList 대한 요청");
@@ -273,7 +271,7 @@ function MealManagement() {
                                     day = "" + index;
                                 }
                                 // let count = mealData.find((item) => (item.memSerial === o.memSerial) && (item.mealDate.split("-")[2] === day));
-                                let count = mealData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.mealDate.split("-")[2]) === parseInt(day)+1));
+                                let count = mealData.find((item) => (item.c === o.memSerial) && (parseInt(item.mealDate.split("-")[2]) === parseInt(day)+1));
                                 if (count) {
                                     return (
                                         <div key={index + 1}>
