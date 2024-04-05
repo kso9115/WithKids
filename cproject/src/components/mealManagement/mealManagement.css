@@ -7,12 +7,16 @@
     margin-bottom: 10px;
 }
 /* 체크박스 내부 조,중,석,간 */
-.mealCheckbox>label>label{
+.mealCheckbox>label> {
     display: flex;
 }
 /* 보더 */
 .mealListBox>div{
     border-bottom : 2px solid var(--admin);
+}
+.mealBox>div:nth-child(2) {
+    display: flex;
+    margin-bottom: 10px;
 }
 
 /* attandance 페이지와 공통 CSS */
