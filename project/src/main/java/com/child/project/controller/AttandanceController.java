@@ -71,4 +71,21 @@ public class AttandanceController {
         return message;
     }
 
+    @PostMapping("/attInsert")
+    public String postMethodName(@RequestBody Attandance entity) {
+        String message="";
+        log.info(entity);
+
+        try {
+            attService.attInsert(entity);
+            message = "출력 성공";
+        } catch (Exception e) {
+            message = "출석 실패";
+            log.info(e.toString());
+        }
+        
+        return message;
+    }
+    
+
 }

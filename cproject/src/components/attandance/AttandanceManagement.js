@@ -38,7 +38,10 @@ function AttandanceMangement() {
                 attStatus: newStatus
             })
             .then(response => {
+                // controller 확인 시 response에는 지금 message를 전달하고 있음
+
                 // 출석 status 변경 : 콜백사용하여 이전 상태 데이터 배열을 업데이트
+                // attData는 배열 내 하나의 객체들이 쭉 담겨있는 상태이므로 [ ] 중괄호 안에 펼쳐줘야 typeError미발생
                 setAttData([...attData]);
 
             })

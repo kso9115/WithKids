@@ -28,8 +28,11 @@ public class Member {
 
     @Column(name = "mem_name")
     private String memName;
-    @Column(name = "mem_login_pw")
+
+    // updatable 업데이트 시 자동 업뎃방지
+    @Column(name = "mem_login_pw", updatable = false) 
     private String memLoginPW;
+
     @Column(name = "mem_resident_registration_number") // 주민번호
     private String memRegNum;
     @Column(name = "mem_birthday")
