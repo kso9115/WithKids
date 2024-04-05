@@ -31,9 +31,9 @@ public class MealMngmServiceImpl implements MealMngmService {
     }
 
     @Override
-    public List<MealMngm> searchList(String brf_meal, String lnc_meal, String dnr_meal, String sck_meal) {
+    public List<MealMngm> searchList(String meal_date,String arr) {
     
-        return mealRepository.searchList(brf_meal, lnc_meal, dnr_meal, sck_meal);
+        return mealRepository.searchList(meal_date, arr);
     }
 
     // @Override

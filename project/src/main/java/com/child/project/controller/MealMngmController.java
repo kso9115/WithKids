@@ -42,8 +42,10 @@ public class MealMngmController {
     }
 
     @GetMapping("/searchList")
-    public List<MealMngm> searchList(@RequestParam("brf_meal") String brf_meal,@RequestParam("lnc_meal") String lnc_meal,@RequestParam("dnr_meal") String dnr_meal,@RequestParam("sck_meal") String sck_meal){
-        List<MealMngm> searchList = mealService.searchList(brf_meal, lnc_meal, dnr_meal,sck_meal);
+    public List<MealMngm> searchList(@RequestParam("yearMonth") String yearMonth,@RequestParam("arr") String arr){
+        log.info("데이터 확인용 "+ arr);
+        log.info("데이터 확인용 "+ yearMonth);
+        List<MealMngm> searchList = mealService.searchList(yearMonth,arr);
         log.info("search meal List  요청까지 옴 ");
         return searchList; 
     } 
