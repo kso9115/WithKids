@@ -9,6 +9,7 @@ function UserHeader() {
     const [modal, setModal] = useState(false);
     const navigate = useNavigate();
     const icon = useRef();
+    const hide = useRef();
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
 
     function iconClick() {
@@ -29,11 +30,13 @@ function UserHeader() {
             // window.location.reload();
         }
     }
-    function userCheck(){
-        if(window.confirm("출석체크 이동하시겠?")){
+    function userCheck() {
+        if (window.confirm("출석체크 이동하시겠?")) {
             navigate("/usercheck")
         }
     }
+    const showUserMene = () => hide.current.className = "showUserMene";
+    const hideUserMene = () => hide.current.className = "";
     // if (icon.current.className === 'iconClick') {
 
     // } else {
@@ -41,10 +44,11 @@ function UserHeader() {
     // }
     return (
         <header className="dongle-regular">
-            <a id="logo" href="/user">
+            <a id="logo" href="/user" >
                 <img src={logo} alt=""></img>
-
             </a>
+
+            <img id='hideButton' src="/img/gnb_btn.png" alt='' onClick={showUserMene}></img>
 
             <nav>
                 <div id="userMenu">
@@ -56,19 +60,22 @@ function UserHeader() {
                         <li><Link to="#">찾아오시는길</Link></li>
                     </ul>
                 </div>
+
+                <div id="login_group" ref={hide}>
+                    <ul>
+                        <li>{sessionData ? <div className='usercheck' onClick={userCheck}>출석 및 급식</div> :
+                            <Link to="/user/usercheck">로그인</Link>}</li>
+                        <li><Link to="/">선택창(Test)</Link></li>
+                        {sessionData ? <li><Link to="/">내정보</Link></li> :
+                            null}
+                        <li>{sessionData ? <div className='userLogout' onClick={userLogout}>로그아웃</div> :
+                            <Link to="/user/UserLogin">로그인</Link>}</li>
+                        <li><img id='closeButton' src="/img/gnb_close.png" alt='' onClick={hideUserMene}></img></li>
+                    </ul>
+                </div>
             </nav>
 
-            <div id="login_group">
-                <ul>
-                    <li>{sessionData ? <div className='usercheck' onClick={userCheck}>출석 및 급식</div> :
-                        <Link to="/user/usercheck">로그인</Link>}</li>
-                    <li><Link to="/">선택창(Test)</Link></li>
-                    {sessionData ? <li><Link to="/">내정보</Link></li> :
-                        null}
-                    <li>{sessionData ? <div className='userLogout' onClick={userLogout}>로그아웃</div> :
-                        <Link to="/user/UserLogin">로그인</Link>}</li>
-                </ul>
-            </div>
+
 
             <div id="iconChat" className='' ref={icon} onClick={iconClick}>
                 <img src={iconChat} alt="" />

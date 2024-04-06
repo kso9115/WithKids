@@ -12,7 +12,10 @@ function UserHome() {
     return (
         <>
             <UserHeader></UserHeader>
-            <main style={{ minHeight: `840px`}}>
+            <main style={{
+                minHeight: `840px`
+                // , minWidth: `1200px`
+            }}>
                 <Outlet />
             </main>
             <UserFooter></UserFooter>  
