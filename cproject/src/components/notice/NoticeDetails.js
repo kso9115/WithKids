@@ -6,6 +6,7 @@ import { notice_inp_ck } from '../../hooks/inputCheck/noticeInputCheck';
 import { apiCall } from '../../server/apiService';
 import { toStringByFormatting } from '../../hooks/formdate';
 import AttachedFile from '../../hooks/func/AttachedFile';
+import { API_BASE_URL } from '../../server/app-config';
 
 function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
     const [noticeData, setNoticeData] = useState({});
@@ -63,7 +64,7 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
     }
 
     function saveFile() {
-        if (noticeData.filef && noticeData.filef.length> 0) {
+        if (noticeData.filef && noticeData.filef.length > 0) {
             let formData = new FormData();
             for (let i = 0; i < noticeData.filef.length; i++) {
                 formData.append("filef", noticeData.filef[i]);
@@ -84,6 +85,49 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
 
     }
     console.log(noticeData);
+
+    class CustomUploadAdapter {
+        constructor(loader) {
+            this.loader = loader;
+        }
+
+        upload() {
+            return new Promise((resolve, reject) => {
+                this.loader.file.then((file) => {
+                    const data = new FormData();
+                    data.append("seq", noticeData.seq);
+                    data.append("file", file);
+                    console.log(file);
+                    // 데이터를 서버로 전송하는 부분을 여기에 작성해야 합니다.
+                    apiCall('/notice/imgUpload', 'POST', data)
+                        .then((response) => {
+                            resolve({
+                                default: API_BASE_URL + "/api/notice/imgExport?seq="
+                                    + noticeData.seq + "&fileName=" + file.name
+                            });
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            alert("서버 통신 게시글의 이미지를 파일에 저장 실패했습니다.");
+                        })
+                    // 아래 코드는 Blob URL을 생성하며 이를 사용하여 이미지를 삽입합니다.
+                    // resolve({ default: window.URL.createObjectURL(file) });
+                });
+            });
+        }
+
+        abort() {
+            // 파일 전송이 중단될 때 처리하는 로직을 작성해야 합니다.
+            alert("TEST");
+        }
+    }
+
+    function uploadPlugin(editor) {
+        editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+            return new CustomUploadAdapter(loader);
+        };
+    }
+
     return (
         <div style={{
             height: '100%'
@@ -117,6 +161,9 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
                     <CKEditor
                         editor={ClassicEditor}
                         data={noticeData.content || ""}
+                        config={{
+                            extraPlugins: [uploadPlugin],
+                        }}
                         onReady={editor => {
                             // You can store the "editor" and use when it is needed.
                             console.log('Editor is ready to use!', editor);

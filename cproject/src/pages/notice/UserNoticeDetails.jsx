@@ -33,8 +33,14 @@ function UserNoticeDetails() {
             <div>
                 <div><p>{location.state.title}</p></div>
                 <div>
-                    <p>{location.state.regdate}</p>
-                    <p>{location.state.cnt}</p>
+                    <div>
+                        <p>등록일&nbsp;:&nbsp;</p>
+                        <p>{location.state.regdate}</p>
+                    </div>
+                    <div>
+                        <p>조회수&nbsp;:&nbsp;</p>
+                        <p>{location.state.cnt}</p>
+                    </div>
                 </div>
             </div>
 
@@ -43,7 +49,7 @@ function UserNoticeDetails() {
             <div>
                 <div>첨부파일:</div>
                 {location.state.file === "" ? <div>첨부파일이 없습니다.</div> :
-                    <div className='prgDetailsFile'>{
+                    <div className='userNoticeFile'>{
                         location.state.file ? location.state.file.split("?").map((e) => {
                             return (
                                 <div key={e}>

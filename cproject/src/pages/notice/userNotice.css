@@ -1,16 +1,14 @@
-.userNotice {
-    /* margin-top: 20px; */
-}
-
 .userNotice>p {
     padding: 10px 0;
     font-size: 17px;
     border-bottom: 1px solid var(--lgray);
 }
-.userNotice>p>span{
+
+.userNotice>p>span {
     color: var(--blue);
     font-weight: bold;
 }
+
 .userNotice>div>div {
 
     font-size: 20px;
@@ -31,7 +29,7 @@
     text-decoration: underline;
 }
 
-.userNotice>div>div>div>span{
+.userNotice>div>div>div>span {
     margin-right: 5px;
     padding: 0 7px;
     color: var(--blue);
@@ -104,4 +102,60 @@
     border: 1px solid black;
     color: black;
     cursor: pointer;
+}
+
+.userNoticeDetail>div:nth-child(1)>div {
+    font-family: "home";
+    text-align: center;
+}
+
+.userNoticeDetail>div:nth-child(1)>div:nth-child(1) {
+    padding: 50px;
+    font-size: 50px;
+    border-bottom: 1px solid var(--lgray);
+}
+
+.userNoticeDetail>div:nth-child(1)>div:nth-child(2),
+.userNoticeDetail>div:nth-child(1)>div:nth-child(2)>div,
+.userNoticeDetail>div:nth-child(3)>div:nth-child(1) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userNoticeDetail>div:nth-child(1)>div:nth-child(2) {
+    padding: 20px;
+    font-size: 25px;
+    gap: 30px;
+}
+
+.userNoticeDetail>div:nth-child(2) {
+    margin-top: 30px;
+    padding: 20px;
+    /* background-color: rgb(237, 237, 237);
+    border-top: 1px solid var(--lgray);
+    border-bottom: 1px solid var(--lgray); */
+}
+
+.userNoticeDetail>div:nth-child(3) {
+    display: flex;
+    border-top: 1px solid var(--lgray);
+    border-bottom: 1px solid var(--lgray);
+    padding: 20px;
+    background-color: rgb(237, 237, 237)
+}
+
+.userNoticeDetail>div:nth-child(3)>div:nth-child(2) {
+    margin-left: 30px;
+}
+
+.userNoticeFile>div {
+    height: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+.userNoticeFile>div>button {
+    font-size: 12px;
+    height: 22px;
 }
