@@ -16,5 +16,6 @@ public interface MealMngmService {
     // MealMngm selectOne(MealMngmId mealMngmId);
 
     MealMngm brfInsert(MealMngm entity);
-    
+
+    MealMngm selectOne(MealMngmId entityId);
 }
