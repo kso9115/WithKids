@@ -41,26 +41,26 @@ function MemberMangement() {
 
         // 멤버리스트를 업데이트 : 검색 or crud 진행 시 리스트 리렌더링 되도록
         memListUpdate={memListUpdate} setMemListUpdate={setMemListUpdate}
-        />;
-    subMenuArr[1].content = <MemberDetailNote />;
+    />;
+    subMenuArr[1].content = <MemberDetailNote data={memDataOne} setData={setMemDataOne}/>;
 
     // Post 요청을 보낼 시 : 학력 데이터 요청전달 후 출력
     useEffect(() => {
         // 왜오류나는지..?모르것다
         // if (memDataOne.constructor === Object && Object.keys(memDataOne).length !== 0) {
-            if (memDataOne.memSerial) {
+        if (memDataOne.memSerial) {
             // console.log("111들오나?"); // ㅇㅇ
             console.log(memDataOne.memSerial); // 클릭시 들어옴
             // const memSerial = memDataOne.memSerial;
-            
+
             apiCall('/mem/memSelectOneEdu', 'POST', { memSerial: memDataOne.memSerial })
-            .then((response)=>{
-                setEduDataOne(response.data);
-            }).catch((err)=>{
-                console.log("error => ", err);
-            })
+                .then((response) => {
+                    setEduDataOne(response.data);
+                }).catch((err) => {
+                    console.log("error => ", err);
+                })
         }
-    }, [memDataOne.memSerial]);    
+    }, [memDataOne.memSerial]);
     // 테이블이 두개니까 하나의 테이블에 memSerial이 들어가면 다른 테이블에 강제적으로 넣어주기
     // if (!response.data) setMemDataOne({ memSerial: memDataOne.memSerial });
 
@@ -71,7 +71,7 @@ function MemberMangement() {
 
     return (
         <div className='mem_mng'>
-            <SearchBox data={mem_mng} searchBoxClick={searchBoxClick}/>
+            <SearchBox data={mem_mng} searchBoxClick={searchBoxClick} />
 
             <div className='memberMainBox'>
                 <div style={{
@@ -91,7 +91,7 @@ function MemberMangement() {
 
                         // 멤버리스트를 업데이트 : 검색 or crud 진행 시 리스트 리렌더링 되도록
                         memListUpdate={memListUpdate}
-                        // setMemListUpdate={setMemListUpdate}
+                    // setMemListUpdate={setMemListUpdate}
                     />
                 </div>
 
