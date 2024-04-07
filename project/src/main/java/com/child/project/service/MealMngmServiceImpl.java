@@ -30,10 +30,19 @@ public class MealMngmServiceImpl implements MealMngmService {
         return mealRepository.selectListYM(yearMonth);
     }
 
-    // @Override
-    // public MealMngm selectOne(MealMngmId mealMngmId) {
+    @Override
+    public MealMngm brfInsert(MealMngm entity) {
         
-    //     return mealRepository.findById(mealMngmId);
-    // }
+        // return mealRepository.save(memSerial , mealDate , memName ,staffNm, brfMeal); 
+        if (entity !=null ) {
+            
+            return mealRepository.save(entity);
+            
+        } else {
+            return null;
+        }
+    }
+
+
 
 }

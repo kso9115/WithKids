@@ -284,10 +284,7 @@ function MealManagement() {
                                             {checkedMealList.lnc_meal ? <div>{count.lncMeal === 0 ? "X" : "O" }</div> : null}
                                             {checkedMealList.dnr_meal ? <div>{count.dnrMeal === 0 ? "X" : "O" }</div> : null}
                                             {checkedMealList.snk_meal ? <div>{count.snkMeal === 0 ? "X" : "O" }</div> : null}
-                                            
-                                            
-                                            
-                                            
+                                   
                                         </div>
                                     );
                                 } 
