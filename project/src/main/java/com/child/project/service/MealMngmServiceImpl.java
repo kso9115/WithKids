@@ -32,7 +32,7 @@ public class MealMngmServiceImpl implements MealMngmService {
     }
 
     @Override
-    public MealMngm brfInsert(MealMngm entity) {
+    public MealMngm mealInsert(MealMngm entity) {
 
         // return mealRepository.save(memSerial , mealDate , memName ,staffNm, brfMeal);
         if (entity != null) {
@@ -46,10 +46,11 @@ public class MealMngmServiceImpl implements MealMngmService {
 
     @Override
     public MealMngm selectOne(MealMngmId entityId) {
-
+        
         Optional<MealMngm> result = mealRepository.findById(entityId);
-
+        
         if (result.isPresent())
+        
             return result.get(); // ver01
         else
             return null;

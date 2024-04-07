@@ -18,13 +18,108 @@
 //                 console.log("에러남 -" + err);
 //             })
 
-function memSearch(src) {
-    axios
-    .get(`/api/${src==1 ? mem: adm}/memSearch`),{ params: memListUpdate }
-    .then((res) => {
-        setMemData(res.data);
-    }).catch((err) => {
-        console.log(err);
-    })
-}
+// function memSearch(src) {
+//     axios
+//     .get(`/api/${src==1 ? mem: adm}/memSearch`),{ params: memListUpdate }
+//     .then((res) => {
+//         setMemData(res.data);
+//     }).catch((err) => {
+//         console.log(err);
+//     })
+// }
         
+
+// console.log(format(currentMonth, 'yyyy-MM-dd'));
+//     const onbChange = ()=>{
+//         console.log("조식");
+//         apiCall('/meal/Insert', 'POST', {
+//             memSerial: sessionData ? sessionData.data.id : null,
+//             mealDate : format(currentMonth, 'yyyy-MM-dd'),
+//             memName: sessionData ? sessionData.data.username : null,
+//             staffNm : "장근정", 
+//             brfMeal : 1
+//         })
+//             .then((res) => {
+//                 console.log(res);
+//                 alert(`${res.data.memSerial} ${res.data.memName}님 아침 식사를 신청하셨습니다.`);
+//             }).catch((err) => {
+//                 console.log("에러 발생 => " +err);
+//             })
+//     }
+
+//     const onlChange = ()=>{
+//         console.log("중식");
+        
+//         apiCall('/meal/Insert', 'POST', {
+//             memSerial: sessionData ? sessionData.data.id : null,
+//             mealDate : format(currentMonth, 'yyyy-MM-dd'),
+//             memName: sessionData ? sessionData.data.username : null,
+//             staffNm : "장근정", 
+//             lncMeal : 1
+//         })
+//             .then((res) => {
+//                 console.log(res);
+//                 alert(`${res.data.memSerial} ${res.data.memName}님 점심 식사를 신청하셨습니다.`)
+//             }).catch((err) => {
+//                 console.log("에러 발생 => " +err);
+//             })
+//     }
+
+//     const ondChange = ()=>{
+//         console.log("석식");
+        
+//         apiCall('/meal/Insert', 'POST', {
+//             memSerial: sessionData ? sessionData.data.id : null,
+//             mealDate : format(currentMonth, 'yyyy-MM-dd'),
+//             memName: sessionData ? sessionData.data.username : null,
+//             staffNm : "장근정", 
+//             dnrMeal : 1
+//         })
+//             .then((res) => {
+//                 console.log(res);
+//                 alert(`${res.data.memSerial} ${res.data.memName}님 저녁 식사를 신청하셨습니다.`)
+//             }).catch((err) => {
+//                 console.log("에러 발생 => " +err);
+//             })
+//     }
+//     const onsChange = ()=>{
+//         console.log("간식");
+        
+//         apiCall('/meal/Insert', 'POST', {
+//             memSerial: sessionData ? sessionData.data.id : null,
+//             mealDate : format(currentMonth, 'yyyy-MM-dd'),
+//             memName: sessionData ? sessionData.data.username : null,
+//             staffNm : "장근정", 
+//             snkMeal : 1
+//          })
+//             .then((res) => {
+//                 console.log(res);
+//                 alert(`${res.data.memSerial} ${res.data.memName}님 간식을 신청하셨습니다.`)
+//             }).catch((err) => {
+//                 console.log("에러 발생 => " +err);
+//             })
+//     }
+
+
+    const insertMeal = (mealType, staffName) => {
+        const mealFieldMapping = {
+            '조식': 'brfMeal',
+            '중식': 'lncMeal',
+            '석식': 'dnrMeal',
+            '간식': 'snkMeal'
+        };
+        const mealField = mealFieldMapping[mealType];
+        apiCall('/meal/Insert', 'POST', {
+            memSerial: sessionData ? sessionData.data.id : null,
+            mealDate: format(currentMonth, 'yyyy-MM-dd'),
+            memName: sessionData ? sessionData.data.username : null,
+            staffNm: "장근정",
+            [mealField]: 1
+        })
+        .then((res) => {
+            console.log(res);
+            alert(`${res.data.memSerial} ${res.data.memName}님 ${mealType}을 신청하셨습니다.`)
+        }).catch((err) => {
+            console.log("에러 발생 => " +err);
+        })
+    }

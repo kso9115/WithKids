@@ -9,7 +9,6 @@ function UserCheck() {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     // const [attOne, setAttOne] = useState({});
     //
-    const[userMealSt ,setUsermealSt]=useState();
 
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
 
@@ -38,43 +37,40 @@ function UserCheck() {
     }
     console.log(sessionData);
     console.log(format(currentMonth, 'yyyy-MM-dd'));
-    const onbChange = ()=>{
-        console.log("조식")
-        apiCall('/meal/Insert', 'POST', {
-            memSerial: sessionData ? sessionData.data.id : null,
-            mealDate : format(currentMonth, 'yyyy-MM-dd'),
-            memName: sessionData ? sessionData.data.username : null,
-            staffNm : "장근정", 
-            brfMeal : 1
-        })
-            .then((res) => {
-                console.log(res);
-                setUsermealSt(res.data.brfMeal);
-                alert(`${res.data.memSerial} ${res.data.memName}님 아침 식사를 신청하셨습니다.`);
-            }).catch((err) => {
-                console.log("에러 발생 => " +err);
-            })
-    }
-console.log(userMealSt);
-    const onlChange = ()=>{
-        console.log("중식");
+    // const onbChange = ()=>{
+    //     console.log("조식");
+    //     apiCall('/meal/Insert', 'POST', {
+    //         memSerial: sessionData ? sessionData.data.id : null,
+    //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
+    //         memName: sessionData ? sessionData.data.username : null,
+    //         staffNm : "장근정", 
+    //         brfMeal : 1
+    //     })
+    //         .then((res) => {
+    //             console.log(res);
+    //             alert(`${res.data.memSerial} ${res.data.memName}님 아침 식사를 신청하셨습니다.`);
+    //         }).catch((err) => {
+    //             console.log("에러 발생 => " +err);
+    //         })
+    // }
+
+    // const onlChange = ()=>{
+    //     console.log("중식");
         
-        apiCall('/meal/Insert', 'POST', {
-            memSerial: sessionData ? sessionData.data.id : null,
-            mealDate : format(currentMonth, 'yyyy-MM-dd'),
-            memName: sessionData ? sessionData.data.username : null,
-            staffNm : "장근정", 
-            brfMeal : userMealSt,
-            lncMeal : 1
-        })
-            .then((res) => {
-                console.log(res);
-                setUsermealSt(res.data.brfMeal, res.data.lncMeal);
-                alert(`${res.data.memSerial} ${res.data.memName}님 점심 식사를 신청하셨습니다.`)
-            }).catch((err) => {
-                console.log("에러 발생 => " +err);
-            })
-    }
+    //     apiCall('/meal/Insert', 'POST', {
+    //         memSerial: sessionData ? sessionData.data.id : null,
+    //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
+    //         memName: sessionData ? sessionData.data.username : null,
+    //         staffNm : "장근정", 
+    //         lncMeal : 1
+    //     })
+    //         .then((res) => {
+    //             console.log(res);
+    //             alert(`${res.data.memSerial} ${res.data.memName}님 점심 식사를 신청하셨습니다.`)
+    //         }).catch((err) => {
+    //             console.log("에러 발생 => " +err);
+    //         })
+    // }
 
     // const ondChange = ()=>{
     //     console.log("석식");
@@ -84,14 +80,11 @@ console.log(userMealSt);
     //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
     //         memName: sessionData ? sessionData.data.username : null,
     //         staffNm : "장근정", 
-    //         brfMeal : userMealSt,
-    //         lncMeal : ,
     //         dnrMeal : 1
     //     })
     //         .then((res) => {
     //             console.log(res);
-    //             setUsermealSt(res.data.brfMeal, res.data.lncMeal , res.data.drnMeal);
-    //             alert(`${res.data.memSerial} ${res.data.memName}님 점심 식사를 신청하셨습니다.`)
+    //             alert(`${res.data.memSerial} ${res.data.memName}님 저녁 식사를 신청하셨습니다.`)
     //         }).catch((err) => {
     //             console.log("에러 발생 => " +err);
     //         })
@@ -104,19 +97,41 @@ console.log(userMealSt);
     //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
     //         memName: sessionData ? sessionData.data.username : null,
     //         staffNm : "장근정", 
-    //         brfMeal : userMealSt,
-    //         lncMeal : 
-    //         dnrMeal : 
     //         snkMeal : 1
     //      })
     //         .then((res) => {
     //             console.log(res);
-    //             setUsermealSt(res.data.brfMeal, res.data.lncMeal);
-    //             alert(`${res.data.memSerial} ${res.data.memName}님 점심 식사를 신청하셨습니다.`)
+    //             alert(`${res.data.memSerial} ${res.data.memName}님 간식을 신청하셨습니다.`)
     //         }).catch((err) => {
     //             console.log("에러 발생 => " +err);
     //         })
-    // }
+    // }  
+     
+    //통합
+    function insertMeal(mealType){
+        const mealFieldMapping = {
+            'breakfast': 'brfMeal',
+            'lunch': 'lncMeal',
+            'dinner': 'dnrMeal',
+            'snack': 'snkMeal'
+        };
+
+        const mealField = mealFieldMapping[mealType];
+        
+        apiCall('/meal/Insert', 'POST', {
+            memSerial: sessionData ? sessionData.data.id : null,
+            mealDate: format(currentMonth, 'yyyy-MM-dd'),
+            memName: sessionData ? sessionData.data.username : null,
+            staffNm: "장근정",
+            [mealField]: 1
+        })
+        .then((res) => {
+            console.log(res);
+            alert(`${res.data.memSerial} ${res.data.memName}님 ${mealType}을 신청하셨습니다.`)
+        }).catch((err) => {
+            console.log("에러 발생 => " +err);
+        })
+    };
 
     return (
         <div>
@@ -152,10 +167,10 @@ console.log(userMealSt);
                     </div>
                     <hr></hr>
                     <div>
-                        <button className="btn attChange" onClick={onbChange}>조식</button>&nbsp;
-                        <button className="btn attChange" onClick={onlChange}>중식</button>&nbsp;
-                        <button className="btn attChange">석식</button>&nbsp;
-                        <button className="btn attChange">간식</button>
+                        <button className="btn attChange" onClick={()=>insertMeal('breakfast')}>조식</button>&nbsp;
+                        <button className="btn attChange" onClick={()=>insertMeal('lunch')}>중식</button>&nbsp;
+                        <button className="btn attChange" onClick={()=>insertMeal('dinner')}>석식</button>&nbsp;
+                        <button className="btn attChange" onClick={()=>insertMeal('snack')}>간식</button>
                     </div>
 
                     <UserGPS/>

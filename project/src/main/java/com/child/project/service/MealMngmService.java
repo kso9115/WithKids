@@ -15,7 +15,7 @@ public interface MealMngmService {
     List<MealMngm> selectListYM(String yearMonth);
     // MealMngm selectOne(MealMngmId mealMngmId);
 
-    MealMngm brfInsert(MealMngm entity);
+    MealMngm mealInsert(MealMngm entity);
 
     MealMngm selectOne(MealMngmId entityId);
 }

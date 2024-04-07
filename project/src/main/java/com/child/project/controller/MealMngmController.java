@@ -44,27 +44,37 @@ public class MealMngmController {
 
     @PostMapping("/Insert")
     public MealMngm Insert(@RequestBody MealMngm entity, MealMngmId entityId) {
-        log.info("brfInsert 요청까지 옴 111=> " + entity);
-        // log.info("brfInsert 요청까지 옴 111=> " + entity.getBrfMeal() );
-        entityId.setMealDate(entity.getMealDate());
+        // log.info("brfInsert 요청까지 옴 111=> " + entity);
+       
         entityId.setMemSerial(entity.getMemSerial());
-        MealMngm mealOne = mealService.selectOne(entityId);
+        entityId.setMealDate(entity.getMealDate());
+        
 
-        if (entity.getBrfMeal() == 1)
-            mealOne.setBrfMeal(entity.getBrfMeal());
-        if (entity.getLncMeal() == 1)
-            mealOne.setLncMeal(entity.getLncMeal());
-        if (entity.getDnrMeal() == 1)
-            mealOne.setDnrMeal(entity.getDnrMeal());
-        if (entity.getBrfMeal() == 1)
-            mealOne.setSnkMeal(entity.getSnkMeal());
+        MealMngm mealOne = mealService.selectOne(entityId); 
 
-        MealMngm mealList = mealService.brfInsert(mealOne);
-        // MealMngm mealList = mealService.brfInsert(entity);
+        if(mealOne!=null){ // 데이터가 하나라도 입력 되어 있는 경우
+
+            if (entity.getBrfMeal() == 1)
+                mealOne.setBrfMeal(entity.getBrfMeal());
+            if (entity.getLncMeal() == 1)
+                mealOne.setLncMeal(entity.getLncMeal());
+            if (entity.getDnrMeal() == 1)
+                mealOne.setDnrMeal(entity.getDnrMeal());
+            if (entity.getBrfMeal() == 1)
+                mealOne.setSnkMeal(entity.getSnkMeal());
+                
+            return mealService.mealInsert(mealOne);
+
+        } else { // 데이터가 없는 경우 
+            
+            return mealService.mealInsert(entity);
+        }
+
+
         // log.info("brfInsert 요청까지 옴 222=> " + mealList );
 
         // return entity;
-        return mealList;
+        
     }
 
 }
