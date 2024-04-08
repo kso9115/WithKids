@@ -2,14 +2,21 @@ package com.child.project.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.child.project.entity.Attandance;
 import com.child.project.entity.AttandanceId;
 
+@Repository
 public interface AttandanceRepository extends JpaRepository<Attandance, AttandanceId> {
+
+        // private final JdbcTemplate jdbcTemplate;
 
         // DB리스트 데이터 싹 가져오기 : 학생별, 일자별 출석현황은 front단에서 처리
         @Query(value = "select * from attandance order by mem_name", nativeQuery = true)
@@ -54,4 +61,7 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
                         @Param("attandance_status") String attandance_status,
                         @Param("mem_name") String mem_name,
                         @Param("attandance_date") String attandance_date);
+
+        // @Query(value = "insert into attandance value(:mem_serial, :attandance_date, :mem_name, :attandance_status)"
+        // +"where ", nativeQuery = true)
 }

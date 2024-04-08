@@ -144,4 +144,11 @@ public class ProgramPlanController {
 
 		return message;
 	} // aplSave
+
+
+	@PostMapping("/memAplList")
+	public List<ProgramApplication> memAplList(@RequestBody ProgramApplication entity){
+		List<ProgramApplication> list = prgService.selectMemApl(entity.getMemSerial());
+		return list;
+	}
 }

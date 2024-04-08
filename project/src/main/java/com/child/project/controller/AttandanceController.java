@@ -83,15 +83,15 @@ public class AttandanceController {
         // String subnet = ipAdress.substring(0, lastIndex + 1); // 마지막 점('.') 포함
 
         // log.info(entity.get);
-        String latitude = entity.getLatitude().substring(0,7);
-        String longitude = entity.getLongitude().substring(0, 7);
+        String latitude = entity.getLatitude().substring(0,3);
+        String longitude = entity.getLongitude().substring(0, 4);
         
-        if(latitude == "37.34969" && longitude == "127.1069"){
+        if(latitude == "37.3" && longitude == "127.1"){
             try {
                 attService.attInsert(entity);
                 message = "출력 성공";
             } catch (Exception e) {
-                message = "출석 실패";
+                message = "출석 실패 : 위치를 확인해주세요";
                 log.info(e.toString());
             }
         }

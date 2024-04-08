@@ -23,3 +23,8 @@
 .searchBox input{
     height: 22px;
 }
+
+.att_mng_list > div > input[type="checkbox"]:checked ~ div:hover {
+    background-color: var(--mgray);
+    cursor: pointer;
+}

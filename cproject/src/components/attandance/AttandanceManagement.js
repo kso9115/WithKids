@@ -19,14 +19,41 @@ function AttandanceMangement() {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
 
+    // ===================================================================
 
-    // 출/결석 변경을 위한 요청 발송 1
+    const [checkList, setCheckList] = useState([]); // 체크된 아이템 리스트 상태 관리
+
+    // 전체 선택 기능
+    const handleAllChecked = (event) => {
+        if (event.target.checked) {
+            // 전체 선택이 체크되었을 때
+            const allItems = admissionData.map((o) => ({ memSerial: o.memSerial, memName: o.memName }));
+            setCheckList(allItems); // 모든 아이템을 선택한 것으로 설정
+        } else {
+            // 전체 선택이 해제되었을 때
+            setCheckList([]); // 선택된 아이템 리스트를 빈 배열로 설정하여 모두 해제
+        }
+    };
+
+    // 단일 아이템 선택
+    const handleItemChecked = (event, memSerial, memName) => {
+        if (event.target.checked) {
+            // 아이템이 선택되었을 때
+            setCheckList(prevState => [...prevState, { memSerial, memName }]); // 선택된 아이템의 memSerial을 추가
+        } else {
+            // 아이템이 해제되었을 때
+            // setCheckList(prevState => prevState.filter(item => item !== memSerial)); // 선택 해제된 아이템의 memSerial을 제외
+            setCheckList(prevState => prevState.filter(item => item.memSerial !== memSerial));
+        }
+    };
+
+    console.log(checkList); // 데이터 담기긴함 => map돌려서 전달해야하나..?
+    // ===================================================================
+
+    // 관리자 페이지 출/결석 변경을 위한 요청 발송 1
     const handleAttendanceChange = (memSerial, memName, day, currentStatus, index) => {
         const newStatus = currentStatus === '출' ? '결' : '출';
         attData[index].attStatus = newStatus;
-        console.log(memSerial);
-        console.log(newStatus);
-        console.log(day);
 
         // const params = { memSerial, day, newStatus } 
         // 출석 상태 변경 요청 보내기
@@ -50,6 +77,51 @@ function AttandanceMangement() {
             });
     };
 
+
+    // 관리자 페이지 체크 후 결석 데이터 요청
+    const handleAttendanceRegistration = () => {
+
+        // checkList 배열에 있는 각 memSerial에 대해 insert 요청
+        checkList.forEach(memData => {
+            // checkList.forEach(memData => {
+
+            const { memSerial, memName } = memData;
+
+            apiCall('/att/attChange', 'POST',
+                {
+                    memSerial: memSerial,
+                    memName: memName,
+                    attDate: format(currentMonth, 'yyyy-MM-dd'),
+                    attStatus: '결'
+                })
+                .then(response => {
+                    // controller 확인 시 response에는 지금 message를 전달하고 있음
+
+                    // 출석 status 변경 : 콜백사용하여 이전 상태 데이터 배열을 업데이트
+                    // attData는 배열 내 하나의 객체들이 쭉 담겨있는 상태이므로 [ ] 중괄호 안에 펼쳐줘야 typeError미발생
+                    // setAttData([...attData]);    // 리렌더링 테스트1
+                    // setAttData(attData);         // 리렌더링 테스트2
+
+                    // 리렌더링 테스트3
+                    // 출석 상태 변경 후에 해당 상태를 업데이트
+                    // item : attData 배열의 각 요소(그니까 리스트 데이터를 다시 map 돌려서 '결'이라는 상태값을 추가해준겨)
+                    const updatedAttData = attData.map(item => {
+                        if (item.memSerial === memSerial) {
+                            return { ...item, attStatus: '결' };
+                        }
+                        return item;
+                    });
+                    // 업데이트된 출석 데이터로 상태를 업데이트
+                    setAttData(updatedAttData);
+
+                })
+                .catch(error => {
+                    console.error('출석 상태 변경 실패:', error);
+                });
+
+        });
+    };
+
     // 출석 리스트(입소리스트) & 리스트 별 출석 현황 요청
     useEffect(() => {
         // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
@@ -70,6 +142,8 @@ function AttandanceMangement() {
             })
     }, [format(currentMonth, 'yyyy-MM'),]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
 
+
+
     // 오늘 일자 확인 => 지우기 필요없슴
     const today = currentMonth.getDate();
     const month = currentMonth.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더합니다.
@@ -79,39 +153,6 @@ function AttandanceMangement() {
     // console.log("지금 렌더링해야할 월은?" + month);  // 4월
     // console.log(year);
     // console.log(date);
-
-
-    // 체크박스 전체선택, 특정 그룹 선택
-    // const [selectAllChecked, setSelectAllChecked] = useState(false);
-    // const [checkboxes, setCheckboxes] = useState({
-    //     mojeon: false,
-    //     migeum: false
-    // });
-
-    // const selectAllChange = (e) => {
-    //     const { checked } = e.target;
-    //     setSelectAllChecked(checked);
-    //     setCheckboxes(prevState => ({
-    //       ...prevState,
-    //       mojeon: checked,
-    //       migeum: checked,
-    //     }));
-    //   };
-
-    //   const CheckboxChange = (event) => {
-    //     const { name, checked } = event.target;
-    //     setCheckboxes(prevState => ({
-    //       ...prevState,;
-    //       [name]: checked
-    //     }));
-    //     if (!checked) {
-    //       setSelectAllChecked(false);
-    //     } else {
-    //       // Check if all animal checkboxes are checked
-    //       const allChecked = Object.values(checkboxes).every(checkbox => checkbox);
-    //       setSelectAllChecked(allChecked);
-    //     }
-    //   };
 
     // 날짜 라이브러리
     const monthStart = startOfMonth(currentMonth);
@@ -176,7 +217,12 @@ function AttandanceMangement() {
                     gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows,
                     backgroundColor: "var(--admin)",
                 }}>
-                    <div><input type="checkbox" /></div>
+                    <div>
+                        <input type="checkbox"
+                            onChange={handleAllChecked}
+                            checked={checkList.length === admissionData.length}
+
+                        /></div>
                     <div>대상자 번호</div>
                     <div>이름</div>
                     <div>출석률</div>
@@ -208,7 +254,13 @@ function AttandanceMangement() {
                         }}>
                             <>
                                 {/* 우측에서는 체크박스, serial, 이름만 출력  */}
-                                <div><input type="checkbox" /></div>
+                                <div>
+                                    <input type="checkbox" className='checkbox'
+                                        // checked={checkList.includes(o.memSerial)}    // 체크안됨이슈
+                                        // some 함수 : 배열을 순회하면서 일치하는 조건이 있는지 확인
+                                        checked={checkList.some(item => item.memSerial === o.memSerial)}    // 체크안됨이슈해결
+                                        onChange={(e) => handleItemChecked(e, o.memSerial, o.memName)}
+                                    /></div>
                                 <div>{o.memSerial}</div>
                                 <div>{o.memName}</div>
                                 <div></div>
@@ -225,11 +277,13 @@ function AttandanceMangement() {
                                     } else {
                                         day = "" + (index + 1);
                                     }
-                                    // 시리얼 번호 비교 & 날짜 데이터 동일한지 비교하고 찾기
+
                                     // console.log(attData);
                                     // console.log(o.memSerial);
 
+                                    // 시리얼 번호 비교 & 날짜 데이터 동일한지 비교하고 찾기 : 객체형태임
                                     let count = attData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
+                                    // 인덱스도 찾아주기
                                     let attindex = attData.findIndex((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
                                     console.log();
                                     attDate = (index + 1);
@@ -264,7 +318,7 @@ function AttandanceMangement() {
                         </div>
                     )
                 })}
-                <div className='att_mng_list'
+                {/* <div className='att_mng_list'
                     style={{
                         display: 'grid',
                         gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows,
@@ -277,10 +331,10 @@ function AttandanceMangement() {
                     <div></div>
                     <div></div>
 
-                </div>
+                </div> */}
                 <div className='buttonBox'>
                     <div>
-                        <button type="submit" value='출석등록' >출석 등록</button>
+                        <button type="submit" value='출석등록' onClick={handleAttendanceRegistration}>오늘의 출석 등록</button>
                         <button type="submit" value='출석삭제'>출석 삭제</button>
                     </div>
                 </div>

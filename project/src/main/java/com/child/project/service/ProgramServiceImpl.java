@@ -143,6 +143,11 @@ public class ProgramServiceImpl implements ProgramService {
 		return prgarepository.save(entity);
 	}
 
+	@Override
+	public List<ProgramApplication> selectMemApl(String memSerial) {
+		return prgarepository.selectMemApl(memSerial);
+	}
+
 	// @Override
 	// public List<ProgramDetails> selectDetails() {
 	// return prgdrepository.findAll();
