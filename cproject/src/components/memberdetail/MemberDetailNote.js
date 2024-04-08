@@ -10,7 +10,7 @@ function MemberDetailNote({ data, setData }) {
     // 멤버가 신청한 프로그램을 띄워주려면 암튼...나는 시리얼로 확인해서 띄워줘야할거가튼대?
     useEffect(() => {
         console.log("??");
-        apiCall('/prgPln/prgAplList', 'POST', { memSerial: data.memSerial })
+        apiCall('/prgPln/memAplList', 'POST', { memSerial: data.memSerial })
             .then((response) => {
                 console.log({ memSerial: data.memSerial });
                 setMemDataOneD(response.data);

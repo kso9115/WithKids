@@ -194,6 +194,31 @@ public class MemberController {
         return list;
     }
 
+    // 비밀번호 초기화 : resetPW
+    @GetMapping("/resetPw")
+    // public String resetPw(@RequestParam Member entity) {
+    public String resetPw(Member entity) {
+        String message ="";
+
+        log.info(entity);
+        log.info("?????????????????????????????????????????");
+        // 초기 비밀번호 12345!
+        entity.setMemLoginPW(passwordEncoder.encode("12345!"));
+        try {
+            memService.resetPw(entity.getMemLoginPW(), entity.getMemSerial());
+            log.info("비밀번호 업데이트 성공");
+            message = "초기화에 성공했습니다.";
+        } catch (Exception e) {
+            log.info(e.toString());
+            message = "초기화에 실패했습니다.";
+        }
+
+
+
+        return message;
+    }
+    
+
     // 로그인 요청 ======================================
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Member entity) {

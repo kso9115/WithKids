@@ -33,7 +33,7 @@ function MemberMangement() {
     // 신규 버전 sub 탭
     const subMenuArr = [
         { name: '기본 인적 사항', content: '' },
-        { name: '특이사항', content: '' }
+        { name: '프로그램 신청 정보', content: '' }
     ]
     subMenuArr[0].content = <MemberDetail
         data={memDataOne} eduData={eduDataOne}

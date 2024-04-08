@@ -70,6 +70,13 @@ public class MemberServiceImpl implements MemberService {
     //     return repository.searchList(memStr, memEnd, memName, memSex, memResPerson, memStatus);
     // }
 
+
+    // 비밀번호 초기화
+    @Override
+    public void resetPw(String memLoginPW, String memSerial) {
+        repository.resetPassword(memLoginPW, memSerial);
+    }
+
     // ============================
     // Education 엔티티 접근
     @Override

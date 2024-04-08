@@ -46,5 +46,7 @@ public interface ProgramService {
 
 	ProgramApplication aplSave(ProgramApplication entity);
 
+	List<ProgramApplication> selectMemApl(String memSerial);
+
 
 }

@@ -79,7 +79,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
     const saveMemData = () => {
         // 요청 두번가기때문에..필수입력사항 입력할 때인 memDataOneD에서 유효성 검사 진행
         if (mem_dtls_inp_ck(memDataOneD)) {
-            
+
             saveData(memDataOneD, '/mem/memInesert');
         }
     }
@@ -144,6 +144,20 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             //         console.log(err);
             //     });
         }
+    }
+
+    // 비밀번호 초기화
+    function resetPswrd() {
+        if (window.confirm("정말로 초기화 하시겠습니까?(되돌릴 수 없습니다.)"))
+
+            console.log(memDataOneD.memSerial);
+        apiCall('/mem/resetPw', 'GET', { memSerial: memDataOneD.memSerial })
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     // 3. 입력 데이터 전체 리셋 : 대신에 data값을 setData({}) 빈객체로 넣어준다.
@@ -396,13 +410,13 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
 
             <div className='buttonBox'>
                 <div>
-                    <button type="reset" onClick={() => { setData({}); setEduDataOne({}) }}>입력취소11</button>
-                    <button type="reset" onClick={resutData}>입력취소</button>
+                    <button type="reset" onClick={() => { setData({}); setEduDataOne({}) }}>입력취소</button>
+                    <button type="submit" value='신규등록' onClick={() => { saveMemData(); saveEduData(); }}>등록 및 수정</button>
+                    {/* <button type="reset" onClick={resutData}>입력취소</button> */}
                     {/* <button type="submit" value='삭제' onClick={() => { deleteMemByMemserial(); deleteEduByMemserial(); }}>삭제</button> */}
                     <button type="submit" value='삭제' onClick={() => { deleteDataByMemserial(); }}>삭제</button>
-                    <button type="submit" value='신규등록' onClick={() => { saveMemData(); saveEduData(); }}>등록 및 수정</button>
                     {/* <button type="submit" value='업데이트' >업데이트</button> */}
-                    <button type="submit" value='pw초기화' >PW초기화</button>
+                    <button type="submit" value='pw초기화' onClick={() => resetPswrd()} >PW초기화</button>
                 </div>
             </div>
         </div >

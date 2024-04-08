@@ -25,6 +25,9 @@ public interface MemberService {
 
     // SearchBox 검색용 : member타입의 list 리턴
     List<Member> searchList(Member entity);
+
+    // pw 초기화
+    void resetPw(String memLoginPW, String memSerial);
     
 
     // ===================================================

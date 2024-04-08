@@ -3,7 +3,10 @@ package com.child.project.repository;
 import java.util.List;
 // import org.hibernate.mapping.List; 잘못임포트 => 제네릭타입 오류 
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -42,5 +45,13 @@ public interface MemberRepository extends JpaRepository<Member, String> {
         // attandance) select mem_serial from unique_serials ", nativeQuery = true)
         @Query(value = "select * from member where mem_status='이용' ", nativeQuery = true)
         List<Member> findAdmissionList();
+
+        // 비밀번호 초기화
+        // @Query(value = "delete")
+
+        @Modifying
+        @Transactional
+        @Query(value = "update member set mem_login_pw=:mem_login_pw where mem_serial=:mem_serial", nativeQuery = true)
+        void resetPassword(@Param("mem_login_pw") String memLoginPW, @Param("mem_serial") String memSerial);
 
 }
