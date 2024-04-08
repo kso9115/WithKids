@@ -13,12 +13,13 @@ function MemberDetailNote({ data, setData }) {
         apiCall('/prgPln/memAplList', 'POST', { memSerial: data.memSerial })
             .then((response) => {
                 console.log({ memSerial: data.memSerial });
+                
                 setMemDataOneD(response.data);
             })
             .catch((error) => {
                 console.log(error);
             })
-    }, [data])
+    }, [data.memSerial])
     // prgram_application 연결할 서비스, 서비스 임플, 레포지토리, 컨트롤러 추가하기
     // select prgId, prgNm, cost from program_application where mem_serial = (:mem_serial)
 
@@ -31,17 +32,19 @@ function MemberDetailNote({ data, setData }) {
                 <div>
                     <div>
                         <div>
-                            {/* <div>신청자</div> */}
                             <div>프로그램명</div>
+                            <div>신청자</div>
                             <div>신청일</div>
                             <div>구분</div>
                             <div>프로그램 요금</div>
                         </div>
                         {memDataOneD.length > 0 ?
                             memDataOneD.map((o, i) => (
-                                <div key={o.memSerial}>
-                                    {/* <div>{o.memName}</div> */}
+                                // 시리얼로 키값 주면 동일한 값이 여러번 나타날수있음
+                                // <div key={o.memSerial}>
+                                <div key={i}>
                                     <div>{o.prgNm}</div>
+                                    <div>{o.memName}</div>
                                     <div>{o.prgDate}</div>
                                     <div>{o.costClsfc}</div>
                                     <div>{o.paidAmount}</div>

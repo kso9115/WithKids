@@ -5,6 +5,8 @@ import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, ad
 // import ChildAttandanceList from './ChildAttandanceList';
 import axios from 'axios';
 import { apiCall } from '../../server/apiService';
+import isEqual from 'lodash/isEqual';
+
 
 function AttandanceMangement() {
 
@@ -106,13 +108,17 @@ function AttandanceMangement() {
                     // 출석 상태 변경 후에 해당 상태를 업데이트
                     // item : attData 배열의 각 요소(그니까 리스트 데이터를 다시 map 돌려서 '결'이라는 상태값을 추가해준겨)
                     const updatedAttData = attData.map(item => {
-                        if (item.memSerial === memSerial) {
+                        if (item.memSerial === memSerial && item.attDate == format(currentMonth, 'yyyy-MM-dd')) {
                             return { ...item, attStatus: '결' };
                         }
                         return item;
                     });
                     // 업데이트된 출석 데이터로 상태를 업데이트
-                    setAttData(updatedAttData);
+                    // setAttData(updatedAttData);
+                    if (!isEqual(updatedAttData, attData)) { // lodash의 isEqual 함수를 사용하여 배열 비교
+                        setAttData(updatedAttData);
+                    }
+                    console.log(updatedAttData);
 
                 })
                 .catch(error => {
