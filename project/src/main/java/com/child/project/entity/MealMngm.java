@@ -12,11 +12,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "mealMngm")
+@Table(name = "meal_mngm")
 @Entity
 @Getter
+@Setter
 @Builder
 @ToString
 @AllArgsConstructor
@@ -37,6 +39,7 @@ public class MealMngm implements Serializable {
     // private String staffId;
     @Column(name="staff_nm")
     private String staffNm;
+    
     @Column(name="brf_meal")
     private int brfMeal;
     @Column(name="lnc_meal")

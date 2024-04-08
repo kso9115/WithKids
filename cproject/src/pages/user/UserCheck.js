@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import { useCallback, useEffect, useState } from "react";
 import { apiCall } from "../../server/apiService";
 import './userCheck.css';
@@ -9,6 +9,7 @@ function UserCheck() {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [userLocation, setUserLocation] = useState(null); // 위치정보 전달할 useState ㅠㅠ안하고싶엇는디
     // const [attOne, setAttOne] = useState({});
+    //
 
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
 
@@ -61,6 +62,103 @@ function UserCheck() {
                 console.log(err);
             })
     }
+    console.log(sessionData);
+    console.log(format(currentMonth, 'yyyy-MM-dd'));
+    // const onbChange = ()=>{
+    //     console.log("조식");
+    //     apiCall('/meal/Insert', 'POST', {
+    //         memSerial: sessionData ? sessionData.data.id : null,
+    //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
+    //         memName: sessionData ? sessionData.data.username : null,
+    //         staffNm : "장근정", 
+    //         brfMeal : 1
+    //     })
+    //         .then((res) => {
+    //             console.log(res);
+    //             alert(`${res.data.memSerial} ${res.data.memName}님 아침 식사를 신청하셨습니다.`);
+    //         }).catch((err) => {
+    //             console.log("에러 발생 => " +err);
+    //         })
+    // }
+
+    // const onlChange = ()=>{
+    //     console.log("중식");
+        
+    //     apiCall('/meal/Insert', 'POST', {
+    //         memSerial: sessionData ? sessionData.data.id : null,
+    //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
+    //         memName: sessionData ? sessionData.data.username : null,
+    //         staffNm : "장근정", 
+    //         lncMeal : 1
+    //     })
+    //         .then((res) => {
+    //             console.log(res);
+    //             alert(`${res.data.memSerial} ${res.data.memName}님 점심 식사를 신청하셨습니다.`)
+    //         }).catch((err) => {
+    //             console.log("에러 발생 => " +err);
+    //         })
+    // }
+
+    // const ondChange = ()=>{
+    //     console.log("석식");
+        
+    //     apiCall('/meal/Insert', 'POST', {
+    //         memSerial: sessionData ? sessionData.data.id : null,
+    //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
+    //         memName: sessionData ? sessionData.data.username : null,
+    //         staffNm : "장근정", 
+    //         dnrMeal : 1
+    //     })
+    //         .then((res) => {
+    //             console.log(res);
+    //             alert(`${res.data.memSerial} ${res.data.memName}님 저녁 식사를 신청하셨습니다.`)
+    //         }).catch((err) => {
+    //             console.log("에러 발생 => " +err);
+    //         })
+    // }
+    // const onsChange = ()=>{
+    //     console.log("간식");
+        
+    //     apiCall('/meal/Insert', 'POST', {
+    //         memSerial: sessionData ? sessionData.data.id : null,
+    //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
+    //         memName: sessionData ? sessionData.data.username : null,
+    //         staffNm : "장근정", 
+    //         snkMeal : 1
+    //      })
+    //         .then((res) => {
+    //             console.log(res);
+    //             alert(`${res.data.memSerial} ${res.data.memName}님 간식을 신청하셨습니다.`)
+    //         }).catch((err) => {
+    //             console.log("에러 발생 => " +err);
+    //         })
+    // }  
+     
+    //통합
+    function insertMeal(mealType){
+        const mealFieldMapping = {
+            'breakfast': 'brfMeal',
+            'lunch': 'lncMeal',
+            'dinner': 'dnrMeal',
+            'snack': 'snkMeal'
+        };
+
+        const mealField = mealFieldMapping[mealType];
+        
+        apiCall('/meal/Insert', 'POST', {
+            memSerial: sessionData ? sessionData.data.id : null,
+            mealDate: format(currentMonth, 'yyyy-MM-dd'),
+            memName: sessionData ? sessionData.data.username : null,
+            staffNm: "장근정",
+            [mealField]: 1
+        })
+        .then((res) => {
+            console.log(res);
+            alert(`${res.data.memSerial} ${res.data.memName}님 ${mealType}을 신청하셨습니다.`)
+        }).catch((err) => {
+            console.log("에러 발생 => " +err);
+        })
+    };
 
     // 사용자 위치 가져오기 및 출석체크 호출 : 마운트 시에만 호출하게끔
     useEffect(() => {
@@ -107,10 +205,10 @@ function UserCheck() {
                     </div>
                     <hr></hr>
                     <div>
-                        <button className="btn attChange">조식</button>&nbsp;
-                        <button className="btn attChange">중식</button>&nbsp;
-                        <button className="btn attChange">석식</button>&nbsp;
-                        <button className="btn attChange">간식</button>
+                        <button className="btn attChange" onClick={()=>insertMeal('breakfast')}>조식</button>&nbsp;
+                        <button className="btn attChange" onClick={()=>insertMeal('lunch')}>중식</button>&nbsp;
+                        <button className="btn attChange" onClick={()=>insertMeal('dinner')}>석식</button>&nbsp;
+                        <button className="btn attChange" onClick={()=>insertMeal('snack')}>간식</button>
                     </div>
 
                     
