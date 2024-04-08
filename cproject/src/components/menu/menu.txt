@@ -1,0 +1,18 @@
+// map.set('MemberMangement', { name: '대상자 기본 정보', content: <MemberMangement /> });
+// map.set('Admission', { name: '입소/퇴소 관리', content: <Admission /> });
+// map.set('AttandanceMangement', { name: '출석관리', content: <AttandanceMangement /> });
+// map.set('MealManagement', { name: '급식관리 ', content: <MealManagement /> });
+// map.set('회원탈퇴', { name: 'Delete', content: null });
+// map.set('StaffManagement', { name: '직원관리', content: <StaffManagement /> });
+// map.set('Calender', { name: '캘린더', content: <Calender></Calender> });
+// map.set('ProgramManagement', { name: '프로그램정보관리', content: <ProgramManagement /> });
+// map.set('ProgramPlan', { name: '프로그램계획서 작성', content: <ProgramPlan /> });
+// map.set('NoticeManagement', { name: '공지사항 관리', content: <NoticeManagement /> });
+
+[아동관리] 1Lv : 아동관리 전 메뉴 열람, 출석관리 급식관리 수정가능<br></br>
+          2Lv : 1Lv + 아동관리 수정가능<br></br>
+
+[소통관리] 1Lv : 아동과 채팅 가능<br></br>
+
+[센터관리] 1Lv : 프로그램 관리 메뉴 열람<br></br>
+          2Lv : 1Lv + 센터 운영 전 메뉴 수정가능

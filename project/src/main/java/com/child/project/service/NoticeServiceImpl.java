@@ -40,4 +40,9 @@ public class NoticeServiceImpl implements NoticeService {
     public int noticeCount(String word) {
         return repository.noticeCount(word);
     }
+
+    @Override
+    public void updateCnt(int seq, int cnt) {
+        repository.updateCnt(seq, cnt);
+    }
 }

@@ -29,7 +29,6 @@ function App() {
                     <Route path="/home" element={<Home />}></Route>
                     <Route path="/user" element={<UserHome />}>
                         <Route path="" element={<UserMain />}></Route>
-
                         <Route path="notice" element={<UserNotice />}>
                             <Route path="" element={<UserNoticeMain />}></Route>
                             <Route path="dtails" element={<UserNoticeDetails />}></Route>

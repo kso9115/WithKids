@@ -46,6 +46,7 @@ function ProgramPlan() {
                     width: '30%',
                     height: '100%',
                 }}>
+                    <b>{prgPlnList.list}</b>
                     <ListComponent name={prgPlnList} setData={setPrgDataOne} listUpdate={listUpdate}></ListComponent>
                 </div>
                 <div style={{

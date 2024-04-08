@@ -2,7 +2,10 @@ package com.child.project.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,4 +22,9 @@ public interface NoticeRepositoty extends JpaRepository<Notice, Integer> {
 
     @Query(value = "select count(*) from notice where title like CONCAT('%',:word,'%') ", nativeQuery = true)
     int noticeCount(@Param("word") String word);
+
+    @Modifying
+	@Transactional
+	@Query(value = "update notice set cnt=:cnt where seq=:seq", nativeQuery = true)
+    void updateCnt(@Param("seq") int seq, @Param("cnt") int cnt);
 }

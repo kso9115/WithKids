@@ -29,6 +29,7 @@ function NoticeManagement() {
                     width: '30%',
                     height: '100%',
                 }}>
+                    <b>{noticeList.list}</b>
                     <ListComponent name={noticeList} setData={setNoticeDataOne} listUpdate={listUpdate} />
                 </div>
                 <div style={{

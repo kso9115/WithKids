@@ -3,7 +3,7 @@ import { stf_mng } from '../../hooks/searchbox/searchData'
 import ListComponent from '../../hooks/ListComponent';
 import Container from '../container/Container'
 import './staffManagement.css'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import StaffDetails from './StaffDetails';
 import StaffAttendance from './StaffAttendance';
 import axios from 'axios';
@@ -21,6 +21,7 @@ function StaffManagement() {
     const [listUpdate, setListUpdate] = useState(true); // 리스트 업데이트 용
     const staffPst = stf_mng.staffPstList; // 직위 정보를 호출
     const [subCurrentTab, setSubCurrentTab] = useState(0); // 탭창용
+    const hide = useRef();
     const subMenuArr = [
         { name: '직원 정보', content: '' },
         { name: '직원 근태', content: '' }
@@ -32,7 +33,8 @@ function StaffManagement() {
     function searchBoxClick(sbVal) {
         setListUpdate(sbVal);
     }
-
+    const hidemouseOver = () => hide.current.className = "stfPrmsDtlsHide stfhide";
+    const hidemouseOut = () => hide.current.className = "stfPrmsDtlsHide"
     return (
         <div className='staff_mng' >
             <SearchBox data={stf_mng} searchBoxClick={searchBoxClick} />
@@ -41,6 +43,21 @@ function StaffManagement() {
                     width: '40%',
                     height: '100%',
                 }}>
+                    <div ref={hide} className='stfPrmsDtlsHide'>
+                        <p>
+                            [아동관리] 1Lv : 아동관리 전 메뉴 열람, 출석관리 급식관리 수정가능<br></br>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;2Lv : 1Lv + 아동관리 수정가능<br></br>
+                            <br></br>
+                            [소통관리] 1Lv : 아동과 채팅 가능<br></br>
+                            <br></br>
+                            [센터관리] 1Lv : 프로그램 관리 메뉴 열람<br></br>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;2Lv : 1Lv + 센터 운영 전 메뉴 수정가능
+                        </p>
+                    </div>
+                    <b>{staffList.list}<span className='stfPrmsDtls'
+                        onMouseOver={hidemouseOver}
+                        onMouseOut={hidemouseOut}
+                    >권한 상세정보</span></b>
                     <ListComponent name={staffList} setData={setStfDataOne} listUpdate={listUpdate} />
                 </div>
                 <div style={{

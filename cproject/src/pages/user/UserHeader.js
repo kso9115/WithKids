@@ -56,17 +56,18 @@ function UserHeader() {
                         <li><Link to="#">센터 소개</Link></li>
                         <li><Link to="/user/notice">공지사항</Link></li>
                         <li><Link to="/user/program">프로그램</Link></li>
-                        <li><Link to="#">프로그램 후기</Link></li>
+                        {/* <li><Link to="#">프로그램 후기</Link></li> */}
                         <li><Link to="#">찾아오시는길</Link></li>
                     </ul>
                 </div>
 
                 <div id="login_group" ref={hide}>
                     <ul>
-                        <li>{sessionData ? <div className='usercheck' onClick={userCheck}>출석 및 급식</div> :
-                            <Link to="/user/usercheck">로그인</Link>}</li>
                         <li><Link to="/">선택창(Test)</Link></li>
-                        {sessionData ? <li><Link to="/">내정보</Link></li> :
+                        {sessionData ? <>
+                            <li><div className='usercheck' onClick={userCheck}>출석 및 급식</div></li>
+                            <li><Link to="/">내정보</Link></li>
+                        </> :
                             null}
                         <li>{sessionData ? <div className='userLogout' onClick={userLogout}>로그아웃</div> :
                             <Link to="/user/UserLogin">로그인</Link>}</li>

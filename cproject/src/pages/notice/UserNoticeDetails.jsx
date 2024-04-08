@@ -1,8 +1,20 @@
 import { useLocation } from "react-router-dom";
 import { apiCall } from "../../server/apiService";
+import { useEffect } from "react";
 
 function UserNoticeDetails() {
     const location = useLocation();
+    console.log(location);
+    useEffect(() => {
+        apiCall('/notice/updateCnt', 'GET', { seq: location.state.seq, cnt: location.state.cnt })
+            .then((response) => {
+                if (response.data === "실패") alert("조회수 증가에 실패했습니다.");
+            })
+            .catch((error) => {
+                console.log(error);
+                alert("서버 통신 에러로 조회수 증가에 실패했습니다.");
+            })
+    }, [location])
 
     function downloadFile(event) {
         if (window.confirm(`${event.target.name} 파일을 다운로드 하시겠습니까?`))
@@ -27,7 +39,6 @@ function UserNoticeDetails() {
                 })
     }
 
-    console.log(location);
     return (
         <div className="userNoticeDetail">
             <div>

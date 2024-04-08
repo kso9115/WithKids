@@ -12,6 +12,7 @@ function MakeDiv({ e, i, detailsChange }) {
 
 // 메인 컴포넌트
 function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }) {
+    const staffCntMng = JSON.parse(sessionStorage.getItem("staffname")).data.staffCntMng !== 2;
     const [prgDataOneD, setPrgDataOneD] = useState({}); // data 대,중,소 분류 프로그램명
     const [prgDetailData, setPrgDetailData] = useState({}); // subData
     useEffect(() => {
@@ -177,21 +178,23 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
 
             <div className='prg_dtlprg_gridBox3'>
                 <div><span>*</span>세부프로그램명</div>
-                <div><input type="text" name='prgDnm' value={prgDetailData.prgDnm || ""} onChange={prgdChange} /></div>
+                <div><input type="text" name='prgDnm' value={prgDetailData.prgDnm || ""} onChange={prgdChange} disabled={staffCntMng} /></div>
 
                 <div><span>*</span>세부프로그램 내용</div>
-                <div><textarea name='content' cols="140" rows="6" value={prgDetailData.content || ""} onChange={prgdChange}></textarea></div>
+                <div><textarea name='content' cols="140" rows="6" value={prgDetailData.content || ""} onChange={prgdChange} disabled={staffCntMng}></textarea></div>
 
                 <div>첨부파일</div>
                 <div><AttachedFile data={prgDetailData} setData={setPrgDetailData} name={'prgFile'} files={'prgFilef'}></AttachedFile></div>
             </div>
             <div className='buttonBox'>
-                <div>
-                    <button type="button" onClick={() => setPrgDetailData({})}>입력취소</button>
-                    <button type="button" value='삭제' onClick={deleteData}>삭제</button>
-                    <button type="button" value='신규' onClick={() => saveData("prgDtInsert")}>신규</button>
-                    <button type="button" value='저장' onClick={() => saveData("prgDtUpdate")}>저장</button>
-                </div>
+                {staffCntMng ? null :
+                    <div>
+                        <button type="button" onClick={() => setPrgDetailData({})}>입력취소</button>
+                        <button type="button" value='삭제' onClick={deleteData}>삭제</button>
+                        <button type="button" value='신규' onClick={() => saveData("prgDtInsert")}>신규</button>
+                        <button type="button" value='저장' onClick={() => saveData("prgDtUpdate")}>저장</button>
+                    </div>
+                }
             </div>
         </div>
     );

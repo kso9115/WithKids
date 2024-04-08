@@ -10,7 +10,7 @@ function UserprogramDetails() {
     const [prgOne, setPrgOne] = useState({});
     const location = useLocation();
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
-
+    
     useEffect(() => {
         apiCall('/prg/prgOne', 'POST', { prgId: location.state.prgId })
             .then((response) => {

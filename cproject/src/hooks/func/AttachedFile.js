@@ -5,6 +5,7 @@ import { apiCall } from '../../server/apiService';
 
 
 function AttachedFile({ data, setData, name, files, prgTrue }) {
+    const staffCntMng = JSON.parse(sessionStorage.getItem("staffname")).data.staffCntMng !== 2;
     const selectFile = useRef();
     // 파일을 저장
     const [isActive, setActive] = useState(false);
@@ -21,21 +22,17 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
     //드래그로 파일 저장 함수
     function handleDrop(event) {
         event.preventDefault();
+        if (!staffCntMng) {
+            const file = event.dataTransfer.files;
+            for (var i = 0; i < file.length; i++) {
+                dataTransfer.items.add(file[i])
+            }
+            selectFile.current.files = dataTransfer.files;
+            data[files] = selectFile.current.files;
 
-        const file = event.dataTransfer.files;
-        for (var i = 0; i < file.length; i++) {
-            dataTransfer.items.add(file[i])
+            setData({ ...data });
+
         }
-        selectFile.current.files = dataTransfer.files;
-        data[files] = selectFile.current.files;
-
-        let dataName = []
-        for (let i = 0; i < selectFile.current.files.length; i++) {
-            dataName.push(selectFile.current.files[i].name)
-        }
-        data[name] = dataName
-
-        setData({ ...data });
         setActive(false);
     };
 
@@ -210,19 +207,23 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
                     style={{ display: "none" }}
                     ref={selectFile}
                     onChange={onLoadFile}
-                    files={data[files]}
+                // files={data[files]}
                 />
             </label>
 
             <div>
                 <div></div>
-                <div>
-                    {prgTrue ? <button type='button' onClick={() => data && data.prgId && data.prgDnm ?
-                        selectFile.current.click() : alert("프로그램을 선택해 세부프로그램명을 입력해야 업로드 가능합니다.")}>추가</button>
-                        : <button type='button' onClick={() => selectFile.current.click()}>추가</button>}
+                {
+                    staffCntMng ? null :
+                        <div>
+                            {prgTrue ? <button type='button' onClick={() => data && data.prgId && data.prgDnm ?
+                                selectFile.current.click() : alert("프로그램을 선택해 세부프로그램명을 입력해야 업로드 가능합니다.")}>추가</button>
+                                : <button type='button' onClick={() => selectFile.current.click()}>추가</button>}
 
-                    <button type='button' onClick={deleteFile}>삭제</button>
-                </div>
+                            <button type='button' onClick={deleteFile}>삭제</button>
+                        </div>
+                }
+
             </div>
         </div>
 

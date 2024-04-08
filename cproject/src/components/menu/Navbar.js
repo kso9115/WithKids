@@ -1,19 +1,13 @@
 import './navbar.css'
 import React from 'react'
-import ChatManagement from '../chatMember/ChatManagement'
 import Modal from "react-modal"
-import axios from "axios";
 import { useState } from 'react';
 import { BiX } from "react-icons/bi";
 import { apiCall } from '../../server/apiService';
+import { useNavigate } from 'react-router-dom';
 
-const data = {
-    name: '임명건',
-    spot: '관리자'
-}
-
-
-function Navbar() {
+function Navbar({ loginInfo }) {
+    const navigate = useNavigate();
     const [modal, setModal] = useState(false);
     const [password, setPassword] = useState(["", "", ""]);
     let password0 = "";
@@ -52,7 +46,7 @@ function Navbar() {
         if (password[1] !== "" && !reg.test(password[1])) alert("숫자,영문,특수기호 포함 8글자로 입력해주세요.")
         else if (password[2] !== "" && password[1] !== password[2]) alert("변경 비밀번호와 비밀번호 확인이 서로 일치하지않습니다.")
         else {
-            apiCall('/staff/changePswrd', 'GET', { staffId: "", staffPsw: password[2] })
+            apiCall('/staff/changePswrd', 'GET', { staffId: loginInfo.data.id, staffPsw: password[2] })
                 .then((response) => {
                     console.log(response.data)
                 })
@@ -64,6 +58,13 @@ function Navbar() {
 
     if (password[1] !== "" && !reg.test(password[1])) password1 = "숫자,영문,특수기호 포함 8글자로 입력해주세요."
     if (password[2] !== "" && password[1] !== password[2]) password2 = "변경 비밀번호와 비밀번호 확인이 서로 일치하지않습니다."
+
+    function logout() {
+        if (window.confirm("로그아웃 하시겠습니까?")) {
+            sessionStorage.removeItem('staffname');
+            navigate("/login");
+        };
+    }
 
     return (
         <div id='navbar'>
@@ -88,7 +89,7 @@ function Navbar() {
 
                 <li className='nav_item'>
                     <div className='nav_icon' >
-                        <p onClick={dropdownHide} >{data.name + ' ' + data.spot}</p>
+                        <p onClick={dropdownHide} >{loginInfo ? loginInfo.data.username : ""} 님</p>
                     </div>
                     <div className='dropdown_menu hide'>
                         <ul>
@@ -129,7 +130,7 @@ function Navbar() {
                             <li>Activity Log</li>
                             {/* <li>Logout</li> */}
                         </ul>
-                        <div><p>Logout</p></div>
+                        <div onClick={logout}><p>Logout</p></div>
                     </div>
                     <div>
                         <ul>

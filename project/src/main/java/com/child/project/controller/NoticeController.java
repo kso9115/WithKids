@@ -212,4 +212,19 @@ public class NoticeController {
         return service.noticeCount(word);
     }// noticeCount
 
+    @GetMapping("/updateCnt")
+    public String updateCnt(@RequestParam("seq") int seq, @RequestParam("cnt") int cnt) {
+        String message = "";
+        try {
+
+            service.updateCnt(seq, cnt + 1);
+            log.info(" notice updateCnt 성공 ");
+            message = "성공";
+        } catch (Exception e) {
+            log.info(" notice updateCnt => " + e.toString());
+            message = "실패";
+        }
+        return message;
+    }
+
 }

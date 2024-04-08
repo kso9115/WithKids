@@ -26,11 +26,13 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     map.set('ProgramPlan', { name: '프로그램계획서 작성', content: <ProgramPlan /> });
     map.set('NoticeManagement', { name: '공지사항 관리', content: <NoticeManagement /> });
     function getTransTitle(menuName) {
-
+        if (menuAuthority(menuName)) {
+            return;
+        }
         // menuArr.filter((it)=>it.isDone)
         for (let i = 0; i < menuArr.length; i++) {
             if (map.get(menuName).name === menuArr[i].name) {
-                return;
+                return setCurrentTab(i);
             };
         }
 
@@ -81,3 +83,59 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
 }
 
 export default React.memo(Menu);
+
+function menuAuthority(menuName) {
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname")).data;
+    console.log(loginInfo);
+
+    // 출석관리
+    if (menuName === "AttandanceMangement" && loginInfo.staffChlCr < 1) {
+        alert("열람 권한이 없습니다. 관리자에게 문의 하세요");
+        return true;
+    }
+
+    // 대상자 기본정보
+    if (menuName === "MemberMangement" && loginInfo.staffChlCr < 1) {
+        alert("열람 권한이 없습니다. 관리자에게 문의 하세요");
+        return true;
+    }
+
+    // 입소/퇴소 관리
+    if (menuName === "Admission" && loginInfo.staffChlCr < 1) {
+        alert("열람 권한이 없습니다. 관리자에게 문의 하세요");
+        return true;
+    }
+
+    // 급식관리
+    if (menuName === "MealManagement" && loginInfo.staffChlCr < 1) {
+        alert("열람 권한이 없습니다. 관리자에게 문의 하세요");
+        return true;
+    }
+
+    // 공지사항 관리
+    if (menuName === "NoticeManagement" && loginInfo.staffCntMng !== 2) {
+        alert("열람 권한이 없습니다. 관리자에게 문의 하세요");
+        return true;
+    }
+
+    // 프로그램정보관리
+    if (menuName === "ProgramManagement" && loginInfo.staffCntMng < 1) {
+        alert("열람 권한이 없습니다. 관리자에게 문의 하세요");
+        return true;
+    }
+
+    // 프로그램계획서 작성
+    if (menuName === "ProgramPlan" && loginInfo.staffCntMng < 1) {
+        alert("열람 권한이 없습니다. 관리자에게 문의 하세요");
+        return true;
+    }
+
+    // 직원관리
+    if (menuName === "StaffManagement" && loginInfo.staffCntMng !== 2) {
+        alert("열람 권한이 없습니다. 관리자에게 문의 하세요");
+        return true;
+    }
+
+    return false;
+}
+

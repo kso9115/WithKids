@@ -7,14 +7,33 @@ import { Link } from "react-router-dom";
 import { API_BASE_URL } from "../../server/app-config";
     
 function Slide({data}) {
-    
+    const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+    let slidesToShow = 4;
+    const resizeListener = () => {
+        setInnerWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener("resize", resizeListener);
+
+        return () => {
+            window.removeEventListener("resize", resizeListener);
+        };
+    }, []);
+
+    if (innerWidth < 1020) {
+        slidesToShow = 2;
+    } else if (innerWidth < 1300) {
+        slidesToShow = 3;
+    } 
+
     const settings = {
         slide: 'div',
         dots: true,
         infinite: true,
         speed: 500,
         arrows: true,
-        slidesToShow: 4,
+        slidesToShow: slidesToShow,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,

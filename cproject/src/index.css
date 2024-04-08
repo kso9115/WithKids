@@ -107,6 +107,7 @@ code {
     }
 
     #login_group {
+        position: fixed !important;
         transition: all 0.3s ease-in-out;
         flex-direction: column;
         align-items: flex-start;
@@ -128,7 +129,7 @@ code {
         height: 100vh;
         background-color: rgba(0, 0, 0, 0.433);
         z-index: -1;
-        top:0;
+        top: 0;
         left: 0;
     }
 
@@ -136,12 +137,32 @@ code {
         flex-direction: column-reverse;
         gap: 15px;
         width: 150px;
-        height: 200px;
+        /* height: 200px; */
         padding: 10px;
         background-color: white;
     }
 
     #login_group>ul>li {
         padding: 0 !important;
+    }
+}
+
+@media (max-width: 1300px) {
+    .slick-slider {
+        width: 1000px !important;
+    }
+
+    .slick-list {
+        width: 1000px !important;
+    }
+}
+
+@media (max-width: 1020px) {
+    .slick-slider {
+        width: 700px !important;
+    }
+
+    .slick-list {
+        width: 700px !important;
     }
 }

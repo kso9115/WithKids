@@ -30,25 +30,7 @@ function ProgramApplication({ data, setData, listUpdate, setListUpdate }) {
                 // 실패 시 처리
                 console.error(e);
             }
-
-            // axios.post('/payments/cancel',)
-            //     .then(function (response) {
-            //         // response  
-            //     }).catch(function (error) {
-            //         // 오류발생시 실행
-            //     });
         }
-        // data.costClsfc = '취소';
-        // aplData[i].costClsfc = '취소';
-        // apiCall('/prgPln/aplSave', 'POST', data)
-        //     .then((response) => {
-        //         setAplData({ ...aplData });
-        //         alert('취소에 성공했습니다.');
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //         alert('취소에 실패했습니다.');
-        //     })
     }
     return (
         <div style={{

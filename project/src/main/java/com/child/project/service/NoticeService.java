@@ -13,4 +13,6 @@ public interface NoticeService {
     Notice save(Notice entity);
 
     int noticeCount(String word);
+
+    void updateCnt(int seq, int cnt);
 }

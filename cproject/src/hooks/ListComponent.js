@@ -28,7 +28,7 @@ function ListComponent({ name, setData, listUpdate }) {
 
     return (
         <>
-            <b>{name.list}</b>
+            
             <div className={`${name.name}List`} style={{
                 marginTop: '5px',
                 padding: '5px',
