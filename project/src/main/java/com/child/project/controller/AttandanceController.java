@@ -78,23 +78,23 @@ public class AttandanceController {
         String message = "";
 
         // String ipAdress = request.getRemoteAddr();
-        // // 마지막 점('.')의 인덱스를 찾음
+        // // 마지막 점('.')의 인덱스를 찾음https://apis.map.kakao.com/web/news
         // int lastIndex = ipAdress.lastIndexOf('.');
         // String subnet = ipAdress.substring(0, lastIndex + 1); // 마지막 점('.') 포함
 
-        log.info(entity);
         // log.info(entity.get);
-
-        // if(subnet=="192.168.0"){
-
-        try {
-            attService.attInsert(entity);
-            message = "출력 성공";
-        } catch (Exception e) {
-            message = "출석 실패";
-            log.info(e.toString());
+        String latitude = entity.getLatitude().substring(0,7);
+        String longitude = entity.getLongitude().substring(0, 7);
+        
+        if(latitude == "37.34969" && longitude == "127.1069"){
+            try {
+                attService.attInsert(entity);
+                message = "출력 성공";
+            } catch (Exception e) {
+                message = "출석 실패";
+                log.info(e.toString());
+            }
         }
-        // }
         return message;
     }
 
