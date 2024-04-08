@@ -4,9 +4,10 @@ import { useState, useEffect, useCallback } from 'react';
 import searchIcon from '../../assets/images/free-icon-search-149852.png';
 //모달창 지원
 import Modal from "react-modal";
+import { apiCall } from '../../server/apiService';
 
 function Member_admission({admMemOne , dataDML } ){
-    // 발자취 남기기 => 생각을 잘 못함 
+    // 발자취 남기기 => 생각을 잘못함 
     // const[admMem,SetAdmMem]=useState([]);
     // useEffect(()=>{
     //     axios
@@ -64,7 +65,7 @@ function Member_admission({admMemOne , dataDML } ){
     //         }else alert(" 신규 데이터 저장을 취소하셨습니다.");
     //     }  else alert(" admMemOneD에 memSerial 없다? ");
     // }
-    console.log(admMemOneD);
+    // console.log(admMemOneD);
     
     
     // // 7. update을 작성 
@@ -120,10 +121,48 @@ function Member_admission({admMemOne , dataDML } ){
     let [modal, setModal] = useState(false);
 
     // click 했을 때, staff 에서 값을 받아와야함.
-    const onSearchClick = (e) => {
-        console.log("자 ~ 클릭은 인식한다");
-
+    const onOpenClick = () => {
+        setModal(true);
+        console.log("트루");
     }
+    const onCloseClick = () => {
+        setModal(false);
+        console.log("폴스~");
+    }
+
+    function ModalRes({modal, setData, onCloseClick}){
+        const [staff,SetStaff] = useState([]);
+
+        useEffect(()=>{
+            if(modal){
+               apiCall('/staff/staffList','GET')
+               .then((res)=>{
+                    SetStaff(res.data);
+                    console.log(res.data);
+               })
+               .catch((err)=>{
+                    console.log("모달창 요청 에러 => " +  err);
+               }) 
+            }
+        },[modal])
+
+        return(staff.map((items) => {
+            console.log("리턴");
+            return(
+                <div key={items.staffNm} onClick={() => { 
+                        setData(items.staffNm)
+                        onCloseClick();  
+                }}>
+                    <div>{items.staffPst}</div>
+                    <div>{items.staffNm}</div>
+                    <div>{items.staffPhnn}</div>
+                </div>
+            )
+        }))
+    }
+
+    const staffSelect =(name)=> {setAdmMemOneD({ ...admMemOneD, memResponsiblePerson: name})};
+
     const modalStyle = {
         overlay: {
             backgroundColor: "rgba(0,0,0,0.5)",
@@ -133,20 +172,29 @@ function Member_admission({admMemOne , dataDML } ){
             height: "300px",
             margin: "auto",
             padding: "20px",
-            zIndex: "999999",
+            zIndex: "1",
         }
     }
 
     return (
         <div>
-            <Modal style={modalStyle}>
+            <Modal style={modalStyle} isOpen={modal} onRequestClose={onCloseClick}>
                 <h4>임직원 조회하기</h4>
-                <select name='' value={''} onChange={admdChange}>
-                    <option value="none" >--선택--</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
+                <div className='staffModal'>
+                    {/* <select name='' value={''} onChange={admdChange}>
+                        <option value="none" >--선택--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select> */}
+                    <div style={{ backgroundColor: 'var(--admin)' }}>
+                        <div>직급</div>
+                        <div>성함</div>
+                        <div>연락처</div>
+                    </div>
+                    <ModalRes modal={modal} setData={staffSelect} onCloseClick={onCloseClick}></ModalRes>
+                </div>
+                <button className="planModalClose" onClick={onCloseClick}>닫기</button>
             </Modal>
             <div style={{color:'black',fontWeight:'bold'}}>입소/이용 정보</div>
             <div className="adgridBox admissionBox">
@@ -222,7 +270,7 @@ function Member_admission({admMemOne , dataDML } ){
                 </div>
 
                 <div><span></span>담당자 성명</div>
-                <div><input type="text" name='name' onChange={admdChange} value={ admMemOneD.name || '' }/> <img className="sIcon" src={searchIcon} alt="search" onClick={onSearchClick}/> </div>
+                <div><input type="text" name='memResponsiblePerson' onChange={admdChange} value={ admMemOneD.memResponsiblePerson || '' }/> <img className="sIcon" src={searchIcon} alt="search" onClick={onOpenClick}/> </div>
                 
             </div>
             <br></br>

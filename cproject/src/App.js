@@ -16,6 +16,7 @@ import UserprogramMain from './pages/userprogram/UserprogramMain';
 import UserNoticeMain from './pages/notice/UserNoticeMain';
 import UserCheck from './pages/user/UserCheck';
 import UserNoticeDetails from './pages/notice/UserNoticeDetails';
+// import MealSaveP from './components/mealManagement/MealSaveP';
 
 function App() {
 
@@ -45,6 +46,8 @@ function App() {
                     </Route>
 
                     <Route path="/errNoneLogin" element={<NoneLogin />}></Route>
+                    {/* <Route path="/mealSaveP" element={<MealSaveP />}></Route> */}
+                    
 
                 </Routes>
             </BrowserRouter>

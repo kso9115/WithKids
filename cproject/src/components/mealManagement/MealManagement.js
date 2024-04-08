@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react'
 import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays, addMonths } from 'date-fns';
 import axios from 'axios';
 import './mealManagement.css';
 import { apiCall } from '../../server/apiService';
+import { Callbacks } from 'jquery';
 
 function MealManagement() {
 
@@ -184,12 +186,7 @@ function MealManagement() {
     //         console.log("mealList에 대한 요청 에러 => " + err);
     //     });
     // }
-
-    const onPopup = (memSerial)=>{
-        let url="./MealSaveP";
-        
-        window.open(url,'_blank', 'width=500,height=700,resizable=yes');
-    }
+  
 
     return (
         <div className="mealBox">
@@ -261,7 +258,8 @@ function MealManagement() {
                             display: 'grid',
                             gridTemplateColumns: "10% 5% 5% " + rows + "10%" }}>
 
-                            <div onClick={onPopup}>{o.memSerial}</div>
+                            {/* <Link to ={`/mealSaveP/${o.memSerial}`} state={{ meal : mealData}} target="_blank">{o.memSerial}</Link> */}
+                            <div>{o.memSerial}</div>
                             <div>{o.memName}</div>
                             <div>
                                 {checkedMealList.brf_meal ? <div>조식</div> : null}
@@ -281,7 +279,6 @@ function MealManagement() {
                                 } else {
                                     day = "" + (index+1);
                                 }
-                                // let count = mealData.find((item) => (item.memSerial === o.memSerial) && (item.mealDate.split("-")[2] === day));
                                 let count = mealData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.mealDate.split("-")[2]) === parseInt(day)));
                                 if (count) {
                                     return (
@@ -292,6 +289,14 @@ function MealManagement() {
                                             {checkedMealList.snk_meal ? <div>{count.snkMeal === 0 ? "X" : "O" }</div> : null}
                                    
                                         </div>
+                                        // <Link to = "/mealSaveP" state = {count.brfMeal} target="_blank">
+                                        //     <div key={index + 1}>
+                                        //         {checkedMealList.brf_meal ? <div>{count.brfMeal === 0 ? "X" : "O" }</div> : null}
+                                        //         {checkedMealList.lnc_meal ? <div>{count.lncMeal === 0 ? "X" : "O" }</div> : null}
+                                        //         {checkedMealList.dnr_meal ? <div>{count.dnrMeal === 0 ? "X" : "O" }</div> : null}
+                                        //         {checkedMealList.snk_meal ? <div>{count.snkMeal === 0 ? "X" : "O" }</div> : null}
+                                        //     </div>
+                                        // </Link>
                                     );
                                 } 
                                 else {
