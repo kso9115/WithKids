@@ -16,9 +16,9 @@ export default function UserGPS() {
     }
 
     // 위치 정보 가져오기 호출
-    getLocation();
+    // getLocation();
 
-    return(
+    return (
         <div>위치정보 가져와서 서버로 전송 or front에서 처리하거나..생각을해보자
             <div onClick={getLocation}>위치 정보 가져오기</div>
             <div onClick={showPosition}>위치 정보 출력</div>

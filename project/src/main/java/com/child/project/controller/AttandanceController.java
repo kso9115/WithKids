@@ -58,7 +58,7 @@ public class AttandanceController {
     public List<Attandance> attList(@RequestParam("yearMonth") String yearMonth) {
         // log.info("멤버리스트 출력하는 레포지토리 쿼리 소환");
         List<Attandance> list = attService.selectList3(yearMonth);
-        // log.info(list);  //잘와유
+        // log.info(list); //잘와유
         return list;
     }
 
@@ -75,21 +75,18 @@ public class AttandanceController {
 
     @PostMapping("/attInsert")
     public String postMethodName(@RequestBody Attandance entity, HttpServletRequest request) {
-        String message="";
+        String message = "";
 
-        String ipAdress = request.getRemoteAddr();
-        // 마지막 점('.')의 인덱스를 찾음
-        int lastIndex = ipAdress.lastIndexOf('.');
-        String subnet = ipAdress.substring(0, lastIndex + 1); // 마지막 점('.') 포함
+        // String ipAdress = request.getRemoteAddr();
+        // // 마지막 점('.')의 인덱스를 찾음https://apis.map.kakao.com/web/news
+        // int lastIndex = ipAdress.lastIndexOf('.');
+        // String subnet = ipAdress.substring(0, lastIndex + 1); // 마지막 점('.') 포함
 
-        log.info(ipAdress);
+        // log.info(entity.get);
+        String latitude = entity.getLatitude().substring(0,7);
+        String longitude = entity.getLongitude().substring(0, 7);
         
-        log.info("00000000000000000000000000000000000000000000000000000000000000000000000000000000");
-        log.info(ipAdress.substring(0, 10));
-
-        // log.info(entity);
-        
-        if(subnet=="192.168.0"){
+        if(latitude == "37.34969" && longitude == "127.1069"){
             try {
                 attService.attInsert(entity);
                 message = "출력 성공";
@@ -100,6 +97,5 @@ public class AttandanceController {
         }
         return message;
     }
-    
 
 }

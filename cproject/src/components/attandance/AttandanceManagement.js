@@ -21,7 +21,7 @@ function AttandanceMangement() {
 
 
     // 출/결석 변경을 위한 요청 발송 1
-    const handleAttendanceChange = (memSerial, memName, day, currentStatus,index) => {
+    const handleAttendanceChange = (memSerial, memName, day, currentStatus, index) => {
         const newStatus = currentStatus === '출' ? '결' : '출';
         attData[index].attStatus = newStatus;
         console.log(memSerial);
@@ -50,6 +50,7 @@ function AttandanceMangement() {
             });
     };
 
+    // 출석 리스트(입소리스트) & 리스트 별 출석 현황 요청
     useEffect(() => {
         // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
         apiCall("/att/attList", "GET", { yearMonth: format(currentMonth, 'yyyy-MM') })
@@ -67,29 +68,9 @@ function AttandanceMangement() {
             }).catch((err) => {
                 console.log(err);
             })
-    }, [format(currentMonth, 'yyyy-MM'), ]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
+    }, [format(currentMonth, 'yyyy-MM'),]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
 
-
-    // 출/결석 변경을 위한 요청 발송 2
-    // useEffect(() => {
-    //     // if (memAttDataOne.memSerial) {
-    //     //     console.log(memAttDataOne.memSerial);
-    //     // }
-    //     console.log("??????????????????????");
-    //     apiCall('/att/attChange', 'POST', { memSerial: memAttDataOne.memSerial })
-    //         .then((response) => {
-
-    //             console.log("attChange 요청가나????????????????");
-    //             console.log(response);
-    //             setMemAttDataOne(response.data);
-    //         }).catch((err) => {
-    //             console.log(err);
-    //         })
-    // }, [memAttDataOne.memSerial])
-
-    
-
-    // 오늘 일자 확인
+    // 오늘 일자 확인 => 지우기 필요없슴
     const today = currentMonth.getDate();
     const month = currentMonth.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더합니다.
     const year = currentMonth.getFullYear();
@@ -170,7 +151,7 @@ function AttandanceMangement() {
 
     // console.log("보낼날짜확인" + format(currentMonth, 'yyyy-MM'));
 
-   
+
 
 
     // console.log(attData);
@@ -196,8 +177,7 @@ function AttandanceMangement() {
                     backgroundColor: "var(--admin)",
                 }}>
                     <div><input type="checkbox" /></div>
-                    <div>일련번호
-                    </div>
+                    <div>대상자 번호</div>
                     <div>이름</div>
                     <div>출석률</div>
                     <div>출석</div>
@@ -220,7 +200,6 @@ function AttandanceMangement() {
                     })}
                 </div>
 
-
                 {admissionData && admissionData.map((o, i) => {
                     return (
                         <div className='att_mng_list' style={{
@@ -233,8 +212,8 @@ function AttandanceMangement() {
                                 <div>{o.memSerial}</div>
                                 <div>{o.memName}</div>
                                 <div></div>
-                                <div>{attDate}</div>
-                                <div>결석</div>
+                                <div></div>
+                                <div></div>
 
                                 {/* index : 날짜 count : 첫 번째 주 일요일*/}
                                 {Array.from({ length: size }, (_, index) => {
@@ -253,7 +232,7 @@ function AttandanceMangement() {
                                     let count = attData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
                                     let attindex = attData.findIndex((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
                                     console.log();
-                                    attDate = (index+1);
+                                    attDate = (index + 1);
                                     // console.log(count);
                                     // console.log(attindex);
 
@@ -265,7 +244,7 @@ function AttandanceMangement() {
                                                 // 기본적으로 index가 0에서 시작하기때문에 + 1
                                                 key={index + 1}
                                                 // onClick={() => setAttData([count.attStatus])}>
-                                                onClick={() => handleAttendanceChange(o.memSerial, o.memName, count.attDate, count.attStatus,attindex)}>
+                                                onClick={() => handleAttendanceChange(o.memSerial, o.memName, count.attDate, count.attStatus, attindex)}>
                                                 {count.attStatus}
 
 
@@ -275,7 +254,7 @@ function AttandanceMangement() {
                                     } else {
                                         return (
                                             <div key={index + 1}>
-                                                {/* 출석이 없으면 빈문자열 반환 */}
+                                                {/* 출석이 없으면 빈문자열 반환 */}-
                                             </div>
                                         )
                                     }
@@ -285,6 +264,26 @@ function AttandanceMangement() {
                         </div>
                     )
                 })}
+                <div className='att_mng_list'
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows,
+                    }}
+                >
+                    <div></div>
+                    <div>합계</div>
+                    <div>하는게</div>
+                    <div>맞을까?</div>
+                    <div></div>
+                    <div></div>
+
+                </div>
+                <div className='buttonBox'>
+                    <div>
+                        <button type="submit" value='출석등록' >출석 등록</button>
+                        <button type="submit" value='출석삭제'>출석 삭제</button>
+                    </div>
+                </div>
 
             </div>
         </div>

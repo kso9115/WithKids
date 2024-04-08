@@ -1,9 +1,40 @@
-.gridBox3 textarea{
-    width: 96.5%;
-    height: 183px;
+.gridBox3 {
+    height: 100%;
 }
 
-.gridBox4{
-    display: flex;
+.gridBox3>div {
+    margin-top: 5px;
+    height: calc(100% - 26px);
+    border: 1px solid var(--mgray);
+}
 
+.gridBox3>div>div {
+    height: 100%;
+    overflow: auto;
+}
+
+.gridBox3>div>div>div {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 30% 20% 30% 20%;
+    border-bottom: 1px solid var(--mgray);
+}
+
+.gridBox3>div>div>div:nth-child(1) {
+    font-weight: bold;
+    background-color: var(--admin);
+    position: sticky;
+    top: 0;
+}
+
+.gridBox3>div>div>div>div {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.gridBox3>div>div>div>div:nth-child(n+2) {
+    border-left: 1px solid var(--mgray);
 }
