@@ -9,7 +9,7 @@ import UserNotice from './pages/notice/UserNotice'
 import Schedule from './pages/schedule/Schedule'
 import Survety from './pages/survery/Survery'
 import Userprogram from './pages/userprogram/Userprogram';
-import NoneLogin from './pages/err/errNoneLogin';
+import NoneLogin from './pages/err/ErrNoneLogin';
 import UserLogin from './pages/user/UserLogin';
 import UserprogramDetails from './pages/userprogram/UserprogramDetails';
 import UserprogramMain from './pages/userprogram/UserprogramMain';
@@ -46,7 +46,7 @@ function App() {
 
                     <Route path="/errNoneLogin" element={<NoneLogin />}></Route>
                     {/* <Route path="/mealSaveP" element={<MealSaveP />}></Route> */}
-                    
+
 
                 </Routes>
             </BrowserRouter>

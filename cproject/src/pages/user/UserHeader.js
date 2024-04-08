@@ -53,11 +53,11 @@ function UserHeader() {
             <nav>
                 <div id="userMenu">
                     <ul>
-                        <li><Link to="#">센터 소개</Link></li>
+                        <li><Link to="/user">센터 소개</Link></li>
                         <li><Link to="/user/notice">공지사항</Link></li>
                         <li><Link to="/user/program">프로그램</Link></li>
                         {/* <li><Link to="#">프로그램 후기</Link></li> */}
-                        <li><Link to="#">찾아오시는길</Link></li>
+                        <li><Link to="/user">찾아오시는길</Link></li>
                     </ul>
                 </div>
 
