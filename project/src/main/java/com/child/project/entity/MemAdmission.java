@@ -43,6 +43,8 @@ public class MemAdmission {
     private String admissionType;
     @Column(name="admission_qualification")
     private String admissionQualification;
+    @Column(name="mem_responsible_person")
+    private String memResponsiblePerson;
 
     // 수정사항. 2024-03.24
     @Column(name="pre_fac_nm")

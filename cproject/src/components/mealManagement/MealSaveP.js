@@ -1,15 +1,23 @@
 import { useEffect, useState, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 
 
 function MealSaveP (mealData){
-    const[mealDataO, setMemDataO] = useState({});
+    const[mealDataO, setMealDataO] = useState({});
+    const location = useLocation();
+    alert("확인용 -> " + location.state);
+
     useEffect(() => {
-        setMemDataO({
+        setMealDataO({
             ...mealData
         });
     }, []);
-    console.log(mealDataO);
+    // console.log(mealDataO);
 
+    const onRChange = useCallback((event)=>{
+        console.log("값이 바뀌어야해");
+        setMealDataO[event.target.name] = event.target.value;
+    },[]);
     
 
     return (

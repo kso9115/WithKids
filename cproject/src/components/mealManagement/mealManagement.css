@@ -20,15 +20,16 @@
 }
 
 /* attandance 페이지와 공통 CSS */
-.meal_mng>div:nth-child(1){
+
+/* .meal_mng>div:nth-child(1){
     display: flex;
     gap: 10px;
 }
 
-.meal_mng_list>div {
+.meal_mng_list>Link>div {
     text-align: center;
     font-weight: bold;
-}
+} */
 
 .meal_mng_list .colorRed {
     color: red;
@@ -37,3 +38,11 @@
 .meal_mng_list .colorBlue {
     color: blue;
 }
+
+/* 모달창 */
+
+.staffModal>div{
+    display: grid;
+    grid-template-columns: 30% 35% 35%;
+    text-align: center;
+} 
