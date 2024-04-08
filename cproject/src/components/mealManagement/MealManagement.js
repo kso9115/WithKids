@@ -5,7 +5,8 @@ import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, ad
 import axios from 'axios';
 import './mealManagement.css';
 import { apiCall } from '../../server/apiService';
-import { Callbacks } from 'jquery';
+import Modal from "react-modal";
+
 
 function MealManagement() {
 
@@ -14,7 +15,7 @@ function MealManagement() {
     const [mealData, setMealData] = useState([]); // mealList 받아오기 
 
     // mealMng 테이블 list useState
-    // const [memMealDataOne, setMemMealDataOne] = useState({});
+    const [memMealDataOne, setMemMealDataOne] = useState({});
 
     const [currentMonth, setCurrentMonth] = useState(new Date()); // 내가 보려고 선택한 달
     const [selectedDate, setSelectedDate] = useState(new Date()); // 현재 2024년의 몇월 달 (현재기준 4월)
@@ -187,9 +188,87 @@ function MealManagement() {
     //     });
     // }
   
+    //=================  모달
+    // modal 만들기 
+    let [modal, setModal] = useState(false);
+    
+
+    // click 했을 때, staff 에서 값을 받아와야함.
+    const onOpenClick = (meal) => {
+        setModal(true);
+        console.log(meal);
+        setMemMealDataOne(meal);
+    }
+    const onCloseClick = () => {
+        setModal(false);
+    }
+    const modalStyle = {
+        overlay: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+        },
+        content: {
+            width: "500px",
+            height: "350px",
+            margin: "auto",
+            padding: "20px",
+            zIndex: "1",
+        }
+    }
+    const onChangeModal = useCallback((event)=>{
+        setMemMealDataOne[event.target.name] = event.target.value;
+    },[memMealDataOne]);
+
+    const onClickRequest = ()=> {
+        console.log("조식");
+        apiCall('/meal/Insert', 'POST', { 
+
+        })
+        .then((res) => {
+            console.log(res);
+            alert("수정완료");
+        })
+        .catch((err) => {
+            console.log("에러 발생 => " +err);
+        })
+    }
+
 
     return (
         <div className="mealBox">
+            <Modal isOpen={modal} onRequestClose={onCloseClick} style={modalStyle} >
+                <div>
+                    <div>아동식별번호</div>
+                    <div><input type='text' value={memMealDataOne.memSerial} disabled/></div> 
+
+                    <div>이름</div>
+                    <div><input type='text' value={memMealDataOne.memName} disabled/></div> 
+
+                    <div>입력 날짜</div>
+                    <div><input id ="MealDate" name="MealDate" type="date" value={memMealDataOne.mealDate} onChange={onChangeModal}/></div> 
+
+                    <div>조식</div>
+                    <div><input type="radio" id="brfMeal" name="brfMeal" value={1} checked={memMealDataOne.brfMeal===1} /><label htmlFor=''>Y</label>  &nbsp;
+                        <input type="radio" id="brfMeal" name="brfMeal" value={0} checked={memMealDataOne.brfMeal===0} /><label htmlFor=''>N</label>
+                    </div>
+
+                    <div>중식</div>
+                    <div><input type="radio" id="lncMeal" name="lncMeal" value={1} checked={memMealDataOne.lncMeal===1} /><label htmlFor=''>Y</label>  &nbsp;
+                        <input type="radio" id="lncMeal" name="lncMeal" value={0} checked={memMealDataOne.lncMeal===0} /><label htmlFor=''>N</label>
+                    </div>
+
+                    <div>석식</div>
+                    <div><input type="radio" id="dnrMeal" name="dnrMeal" value={1} checked={memMealDataOne.dnrMeal===1}/><label htmlFor=''>Y</label>  &nbsp;
+                        <input type="radio" id="dnrMeal" name="dnrMeal" value={0} checked={memMealDataOne.dnrMeal===0} /><label htmlFor=''>N</label>
+                    </div>
+
+                    <div>간식</div>
+                    <div><input type="radio" id="snkMeal" name="snkMeal" value={1} checked={memMealDataOne.snkMeal===1} /><label htmlFor=''>Y</label>  &nbsp;
+                        <input type="radio" id="snkMeal" name="snkMeal" value={0} checked={memMealDataOne.snkMeal===0}/><label htmlFor=''>N</label>
+                    </div>
+                </div>
+                <button className="planModalClose" onClick={onCloseClick}>닫기</button>
+                <button className="planModalClose" onClick={onClickRequest}>저장</button>
+            </Modal>
             <div className='mealCheckbox'>
                 <h3>급식 구분 조회</h3>
                 {
@@ -256,7 +335,7 @@ function MealManagement() {
                     return (
                         <div className='meal_mng_list' style={{
                             display: 'grid',
-                            gridTemplateColumns: "10% 5% 5% " + rows + "10%" }}>
+                            gridTemplateColumns: "10% 5% 5% " + rows + "10%" }} key={i+1}>
 
                             {/* <Link to ={`/mealSaveP/${o.memSerial}`} state={{ meal : mealData}} target="_blank">{o.memSerial}</Link> */}
                             <div>{o.memSerial}</div>
@@ -282,8 +361,8 @@ function MealManagement() {
                                 let count = mealData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.mealDate.split("-")[2]) === parseInt(day)));
                                 if (count) {
                                     return (
-                                        <div key={index + 1}>
-                                            {checkedMealList.brf_meal ? <div>{count.brfMeal === 0 ? "X" : "O" }</div> : null}
+                                        <div key={index + 1}  onClick={()=>onOpenClick(count)}>
+                                            {checkedMealList.brf_meal ? <div >{count.brfMeal === 0 ? "X" : "O" }</div> : null}
                                             {checkedMealList.lnc_meal ? <div>{count.lncMeal === 0 ? "X" : "O" }</div> : null}
                                             {checkedMealList.dnr_meal ? <div>{count.dnrMeal === 0 ? "X" : "O" }</div> : null}
                                             {checkedMealList.snk_meal ? <div>{count.snkMeal === 0 ? "X" : "O" }</div> : null}
