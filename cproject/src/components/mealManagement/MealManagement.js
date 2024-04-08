@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Icon } from '@iconify/react'
 import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays, addMonths } from 'date-fns';
 import axios from 'axios';
-import './mealManagement.css'
+import './mealManagement.css';
 import { apiCall } from '../../server/apiService';
 
 function MealManagement() {
@@ -82,13 +82,13 @@ function MealManagement() {
         },null)
             .then((response) => {
                 console.log("mealList에 대한 요청");
-                console.log(response.data);
+                // console.log(response.data);
                 setMealData(response.data);
             })
             .catch((err) => {
                 console.log("mealList에 대한 요청 에러 => " + err);
             });
-            console.log(mealData);
+            // console.log(mealData);
             // 변경 전
             // axios 
             //     .get("/api/meal/mealList")
@@ -169,7 +169,7 @@ function MealManagement() {
             // }
         },[checkedMealList]
     );
-    console.log(checkedMealList); // 내부에 있는 것과 외부에 있는 것의 차이 : onCheckedItem 읽고 난 후 , set 되기 때문에, 내부에 있으면 미변경
+    // console.log(checkedMealList); // 내부에 있는 것과 외부에 있는 것의 차이 : onCheckedItem 읽고 난 후 , set 되기 때문에, 내부에 있으면 미변경
     
     // 체크 박스에 대한 search하기
     // const axiosCall=()=> {
@@ -184,6 +184,12 @@ function MealManagement() {
     //         console.log("mealList에 대한 요청 에러 => " + err);
     //     });
     // }
+
+    const onPopup = (memSerial)=>{
+        let url="./MealSaveP";
+        
+        window.open(url,'_blank', 'width=500,height=700,resizable=yes');
+    }
 
     return (
         <div className="mealBox">
@@ -221,7 +227,7 @@ function MealManagement() {
                 {format(currentMonth, 'yyyy')}년&nbsp;
                 {format(currentMonth, 'MM')}월
                 &nbsp;<Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
-                &nbsp;&nbsp;<div style={{ display: thisMonth }}>이번달</div> 
+                &nbsp;&nbsp;<div style={{ display: thisMonth , color:'red'}}>이번 달</div> 
             </div>
             {/* <div> </div> */}
             <div className='mealListBox'>
@@ -255,7 +261,7 @@ function MealManagement() {
                             display: 'grid',
                             gridTemplateColumns: "10% 5% 5% " + rows + "10%" }}>
 
-                            <div>{o.memSerial}</div>
+                            <div onClick={onPopup}>{o.memSerial}</div>
                             <div>{o.memName}</div>
                             <div>
                                 {checkedMealList.brf_meal ? <div>조식</div> : null}
@@ -302,11 +308,16 @@ function MealManagement() {
                                 {checkedMealList.dnr_meal ? <div>석식</div> : null}
                                 {checkedMealList.snk_meal ? <div>간식</div> : null}
                             </div>
+
                         </div>
                     )
-
-
                 })}
+                {/* <div className='buttonBox'>
+                    <div>
+                        <button type="submit" value='신규'>신규</button>
+                        <button type="submit" value='저장'>저장</button>
+                    </div>
+                </div> */}
             </div>
         </div>
     );
