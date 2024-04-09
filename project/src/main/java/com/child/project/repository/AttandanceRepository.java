@@ -62,6 +62,12 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
                         @Param("mem_name") String mem_name,
                         @Param("attandance_date") String attandance_date);
 
-        // @Query(value = "insert into attandance value(:mem_serial, :attandance_date, :mem_name, :attandance_status)"
+        // @Query(value = "insert into attandance value(:mem_serial, :attandance_date,
+        // :mem_name, :attandance_status)"
         // +"where ", nativeQuery = true)
+
+        // 출석일자 카운팅하기
+        @Query(value = "select count(*) from attandance where attandance_status='출' and month(attandance_date)=month(current_date()) and year(attandance_date)=year(current_date()) group by :mem_serial", nativeQuery = true)
+        Integer attcount(@Param("mem_serial") String mem_serial);
+
 }

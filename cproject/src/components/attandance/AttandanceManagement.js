@@ -5,6 +5,8 @@ import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, ad
 // import ChildAttandanceList from './ChildAttandanceList';
 import axios from 'axios';
 import { apiCall } from '../../server/apiService';
+import isEqual from 'lodash/isEqual';
+
 
 function AttandanceMangement() {
 
@@ -18,6 +20,10 @@ function AttandanceMangement() {
 
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
+
+    // 출석일자 카운팅 해야함
+    const [attCount, setAttCount] = useState();
+
 
     // ===================================================================
 
@@ -106,13 +112,17 @@ function AttandanceMangement() {
                     // 출석 상태 변경 후에 해당 상태를 업데이트
                     // item : attData 배열의 각 요소(그니까 리스트 데이터를 다시 map 돌려서 '결'이라는 상태값을 추가해준겨)
                     const updatedAttData = attData.map(item => {
-                        if (item.memSerial === memSerial) {
+                        if (item.memSerial === memSerial && item.attDate == format(currentMonth, 'yyyy-MM-dd')) {
                             return { ...item, attStatus: '결' };
                         }
                         return item;
                     });
                     // 업데이트된 출석 데이터로 상태를 업데이트
-                    setAttData(updatedAttData);
+                    // setAttData(updatedAttData);
+                    if (!isEqual(updatedAttData, attData)) { // lodash의 isEqual 함수를 사용하여 배열 비교
+                        setAttData(updatedAttData);
+                    }
+                    console.log(updatedAttData);
 
                 })
                 .catch(error => {
@@ -127,7 +137,9 @@ function AttandanceMangement() {
         // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
         apiCall("/att/attList", "GET", { yearMonth: format(currentMonth, 'yyyy-MM') })
             .then((response) => {
+                console.log(response.data);
                 setAttData(response.data);
+                // setAttCount();
             }).catch((err) => {
                 console.log(err);
             })
@@ -135,11 +147,33 @@ function AttandanceMangement() {
         // 입소중인 멤버 리스트 요청
         apiCall("/mem/admissionList", "GET")
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 setAdmissionData(response.data);
+
+                // 1. 요청을 안에서 보내거나..
+                // apiCall("/att/attCount", "GET", { memSerial: response.memSerial })
+                //     .then((response) => {
+                //         console.log(response.memSerial);
+                //         setAttCount(response.data);
+                //         console.log(admissionData);
+                //     }).catch((error) => {
+                //         console.log(error);
+                //     })
+
             }).catch((err) => {
                 console.log(err);
             })
+
+        // 여기서하면 당연히 attData고, admissionData고 빈값이지...
+        // 위에서 리스트 넣어주고 함수 끝나기도 전에 호출해버리는거니까..
+        // apiCall("/att/attCount", "GET", { memSerial: attData.memSerial })
+        //     .then((response) => {
+        //         console.log(attData.memSerial);
+        //         setAttCount(response.data);
+        //         console.log(attCount);
+        //     }).catch((error)=>{
+        //         console.log(error);
+        //     })
     }, [format(currentMonth, 'yyyy-MM'),]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
 
 

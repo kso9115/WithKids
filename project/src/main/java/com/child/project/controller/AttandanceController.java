@@ -55,9 +55,13 @@ public class AttandanceController {
 
     // list가져오기
     @GetMapping("/attList")
-    public List<Attandance> attList(@RequestParam("yearMonth") String yearMonth) {
-        // log.info("멤버리스트 출력하는 레포지토리 쿼리 소환");
+    public List<Attandance> attList(@RequestParam("yearMonth") String yearMonth, Attandance entity) {
         List<Attandance> list = attService.selectList3(yearMonth);
+        log.info("멤버리스트 출력하는 레포지토리 쿼리 소환"+list);
+        log.info(attService.attcount(entity.getMemSerial()));
+        attService.attcount(entity.getMemSerial());
+        
+        
         // log.info(list); //잘와유
         return list;
     }
@@ -97,5 +101,12 @@ public class AttandanceController {
         }
         return message;
     }
+
+    @GetMapping("/attCount")
+    public Integer attCount(Attandance entity) {
+        log.info("멤버시리얼 넘어오낭~~~~~~~~~~~~~~~~~~~~~~~~~"+entity.getMemSerial());
+        return attService.attcount(entity.getMemSerial());
+    }
+    
 
 }

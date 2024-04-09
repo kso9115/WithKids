@@ -153,9 +153,11 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             console.log(memDataOneD.memSerial);
         apiCall('/mem/resetPw', 'GET', { memSerial: memDataOneD.memSerial })
             .then((response) => {
-                console.log(response.data)
+                alert("초기화 성공")
+                // console.log(response.data)   // return message하는중
             })
             .catch((error) => {
+                alert("초기화 실패")
                 console.log(error);
             })
     }

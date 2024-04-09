@@ -45,10 +45,17 @@ public class AttandanceServiceImpl implements AttandanceService {
         return entity;
     }
 
+    // 
     @Override
     public Attandance attInsert(Attandance entity) {
         return repository.save(entity);
 
+    }
+
+    // 출석 일자 카운팅
+    @Override
+    public Integer attcount(String memSerial) {
+        return repository.attcount(memSerial);
     }
 
     // 월별 db
