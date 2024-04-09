@@ -54,4 +54,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
         @Query(value = "update member set mem_login_pw=:mem_login_pw where mem_serial=:mem_serial", nativeQuery = true)
         void resetPassword(@Param("mem_login_pw") String memLoginPW, @Param("mem_serial") String memSerial);
 
+        @Query(value = "select A.*,B.education_background,B.education_name,B.education_grade,B.education_teacher,B.education_teacher_phone from member A left join mem_education B on A.mem_serial = B.mem_serial where A.mem_serial = :mem_serial", nativeQuery = true)
+        Member selectAllMember(@Param("mem_serial") String memSerial);
 }

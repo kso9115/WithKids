@@ -2,6 +2,8 @@ package com.child.project.service;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.child.project.entity.Attandance;
 import com.child.project.entity.Education;
 import com.child.project.entity.Member;
@@ -28,14 +30,13 @@ public interface MemberService {
 
     // pw 초기화
     void resetPw(String memLoginPW, String memSerial);
-    
 
     // ===================================================
-    
+
     // Edu Entity 접근 : 전체 리스트를 가져갈게아니라 하나의 파라미터만 전달해서 받기
     List<Education> selectEduList();
-    
-    // Edu Entity 접근 
+
+    // Edu Entity 접근
     Education selectEduData(String memSerial);
 
     // Edu Entity 접근
@@ -48,8 +49,6 @@ public interface MemberService {
     // 출석관리 : 이용 상태인 리스트만 가져오기
     List<Member> selectAdmissionList();
 
-
-    
-
+    Member selectAllMember(String memSerial);
 
 }

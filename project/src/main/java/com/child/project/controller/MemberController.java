@@ -109,7 +109,7 @@ public class MemberController {
     public String memInsert(@RequestBody Member entity) {
         String message = "";
         log.info("memInesert !!! 데이터 전달되는 부분 확인");
-        log.info("entity 값을 확인해보자" + entity); //잘와유
+        log.info("entity 값을 확인해보자" + entity); // 잘와유
         // log.info("넘어오나?" + entity.getMemSerial());
 
         // save하려는 값이 없으면 실행x
@@ -198,7 +198,7 @@ public class MemberController {
     @GetMapping("/resetPw")
     // public String resetPw(@RequestParam Member entity) {
     public String resetPw(Member entity) {
-        String message ="";
+        String message = "";
 
         log.info(entity);
         log.info("?????????????????????????????????????????");
@@ -213,11 +213,8 @@ public class MemberController {
             message = "초기화에 실패했습니다.";
         }
 
-
-
         return message;
     }
-    
 
     // 로그인 요청 ======================================
     @PostMapping("/login")
@@ -227,25 +224,25 @@ public class MemberController {
         Member userMember = memService.selectOne(entity.getMemSerial());
         log.info(userMember.getMemStatus());
 
-        if(userMember.getMemStatus()=="이용"){
-            
+        if (userMember.getMemStatus() == "이용") {
+
             // String password = entity.getMemLoginPW();
             // log.info("userMember의 pw => " +userMember.getMemLoginPW());
             // log.info("받아온 값 pw => " +entity.getMemLoginPW());
-    
+
             if (userMember != null && passwordEncoder.matches(entity.getMemLoginPW(), userMember.getMemLoginPW())) {
                 // log.info("로그인 요청 들어옴 => " + entity.getMemSerial()+ " : "
                 // +entity.getMemLoginPW());
-    
+
                 // token
                 final String token = tokenProvider.create(userMember);
-    
+
                 // 세션에 저장(이름이랑, id 정도를 저장)
                 // return ResponseEntity.status(HttpStatus.OK).body(userMember.getMemName());
                 // Map<String, String> responseData = new HashMap<>();
                 // responseData.put("memName", userMember.getMemName());
                 // responseData.put("memSerial", userMember.getMemSerial());
-    
+
                 final UserDTO userDTO = UserDTO.builder()
                         .token(token)
                         .id(userMember.getMemSerial())
@@ -254,10 +251,10 @@ public class MemberController {
                         .staffCmnMng(0)
                         .staffCntMng(0)
                         .build();
-    
+
                 return ResponseEntity.status(HttpStatus.OK).body(userDTO);
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("user Login faild"); // 비밀번호가 다른 경우 
+                return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("user Login faild"); // 비밀번호가 다른 경우
             }
         } else {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("user Status faild"); // 이용 중이 아닌 경우
@@ -265,4 +262,18 @@ public class MemberController {
 
     }
 
+    @PostMapping("/memEduAll")
+    public Member memEduAll(@RequestBody Member entity) {
+        // log.info("뭐가 나오긴 하냐 ?????" + entity.getMemSerial());
+        log.info("뭐가 나오긴 하냐 ?????" + entity);
+        try {
+            entity = memService.selectAllMember(entity.getMemSerial());
+            log.info("뭐가 나오긴 하냐 ?????" + entity);
+            return entity;
+        } catch (Exception e) {
+            log.info("member delete Exception" + e.toString());
+            return null;
+        }
+
+    }
 }

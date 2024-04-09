@@ -22,30 +22,88 @@
     font-size: 19px;
 }
 
+.userMemberBox {
+    display: flex;
+    margin-top: 50px;
+    gap: 10px;
+}
+
+/* .userMemberImg {
+    
+    border-radius: 50px;
+} */
+
+.userMemberImg>img {
+    width: 400px;
+    height: 600px;
+    border-radius: 50px;
+    border: 1px solid var(--lgray);
+}
+
 .userMemberInfo {
-    margin: auto;
-    margin-top: 100px;
     width: 800px;
     display: grid;
     grid-template-columns: 20% 80%;
-
     font-size: 20px;
+    border: 1px solid var(--lgray);
 }
 
 .userMemberInfo>div {
-    height: 100px;
+    /* height: 50px; */
     display: flex;
     align-items: center;
+    /* border: 1px solid var(--lgray); */
 }
 
-.userMemberInfo>div:nth-child(2n-1) {
+.userMemberInfo>div:nth-child(2n+1) {
     background-color: #FFD4CB;
-    /* color: white; */
     font-weight: bold;
     justify-content: center;
 }
 
 .userMemberInfo>div:nth-child(2n) {
     background-color: #FFFCFB;
-    padding-left: 50px;
+    padding-left: 20px;
+    border-left: 1px solid var(--lgray);
+}
+
+.userMemberInfo>div:nth-child(n+3) {
+    border-top: 1px solid var(--lgray);
+}
+
+.userMemberMg {
+    margin: 20px 0;
+    text-align: center;
+    font-size: 20px;
+    color: gray;
+}
+
+.userProgramBox {
+    margin: 50px 0;
+}
+
+.userProgramBox>div {
+    display: grid;
+    grid-template-columns: 40% 20% 15% 15% 10%;
+}
+
+.userProgramBox>div:nth-child(1) {
+    border: 1px solid var(--lgray);
+    background-color: #FFD4CB;
+    font-weight: bold;
+}
+
+.userProgramBox>div:nth-child(n+2) {
+    border-bottom: 1px solid var(--lgray);
+    border-left: 1px solid var(--lgray);
+    border-right: 1px solid var(--lgray);
+    /* background-color: white; */
+}
+
+.userProgramBox>div>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    font-size: 20px;
 }

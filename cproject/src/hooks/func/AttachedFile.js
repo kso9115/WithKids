@@ -24,14 +24,20 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
         event.preventDefault();
         if (!staffCntMng) {
             const file = event.dataTransfer.files;
-            for (var i = 0; i < file.length; i++) {
+
+            if (data[files]) {
+                for (let i = 0; i < data[files].length; i++) {
+                    dataTransfer.items.add(data[files][i])
+                }
+            }
+
+            for (let i = 0; i < file.length; i++) {
                 dataTransfer.items.add(file[i])
             }
             selectFile.current.files = dataTransfer.files;
             data[files] = selectFile.current.files;
 
             setData({ ...data });
-
         }
         setActive(false);
     };
@@ -40,7 +46,13 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
     function onLoadFile(event) {
         const file = event.target.files;
 
-        for (var i = 0; i < file.length; i++) {
+        if (data[files]) {
+            for (let i = 0; i < data[files].length; i++) {
+                dataTransfer.items.add(data[files][i])
+            }
+        }
+
+        for (let i = 0; i < file.length; i++) {
             dataTransfer.items.add(file[i])
         }
         selectFile.current.files = dataTransfer.files;
@@ -139,7 +151,7 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
         })
         if (count === deleteCheck.length) return document.getElementById('fullCheck').checked = true;
     }
-
+    console.log(prgTrue);
     function downloadFile(event) {
         if (window.confirm(`${event.target.name} 파일을 다운로드 하시겠습니까?`)) {
             prgTrue ?

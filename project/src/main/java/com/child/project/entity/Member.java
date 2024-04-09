@@ -3,6 +3,8 @@ package com.child.project.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -30,7 +32,7 @@ public class Member {
     private String memName;
 
     // updatable 업데이트 시 자동 업뎃방지
-    @Column(name = "mem_login_pw", updatable = false) 
+    @Column(name = "mem_login_pw", updatable = false)
     private String memLoginPW;
 
     @Column(name = "mem_resident_registration_number") // 주민번호
@@ -86,4 +88,7 @@ public class Member {
     @Transient
     private String memEndF;
 
+    @OneToOne
+    @JoinColumn(name = "mem_serial")
+    private Education education;
 }

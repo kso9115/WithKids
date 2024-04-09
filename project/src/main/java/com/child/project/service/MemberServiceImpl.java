@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import lombok.extern.log4j.Log4j2;
 
-
 import org.springframework.stereotype.Service;
 
 import com.child.project.entity.Attandance;
@@ -66,10 +65,10 @@ public class MemberServiceImpl implements MemberService {
 
     // @Override
     // public List<Member> searchList(String memStr, String memEnd, String memName,
-    //         String memSex, String memResPerson, String memStatus) {
-    //     return repository.searchList(memStr, memEnd, memName, memSex, memResPerson, memStatus);
+    // String memSex, String memResPerson, String memStatus) {
+    // return repository.searchList(memStr, memEnd, memName, memSex, memResPerson,
+    // memStatus);
     // }
-
 
     // 비밀번호 초기화
     @Override
@@ -109,6 +108,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<Member> selectAdmissionList() {
         return repository.findAdmissionList();
+    }
+
+    @Override
+    public Member selectAllMember(String memSerial) {
+        return repository.selectAllMember(memSerial);
     }
 
 }

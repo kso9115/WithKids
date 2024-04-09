@@ -184,7 +184,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                 <div><textarea name='content' cols="140" rows="6" value={prgDetailData.content || ""} onChange={prgdChange} disabled={staffCntMng}></textarea></div>
 
                 <div>첨부파일</div>
-                <div><AttachedFile data={prgDetailData} setData={setPrgDetailData} name={'prgFile'} files={'prgFilef'}></AttachedFile></div>
+                <div><AttachedFile data={prgDetailData} setData={setPrgDetailData} name={'prgFile'} files={'prgFilef'} prgTrue={true}></AttachedFile></div>
             </div>
             <div className='buttonBox'>
                 {staffCntMng ? null :
