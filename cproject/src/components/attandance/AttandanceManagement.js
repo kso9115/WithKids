@@ -92,7 +92,7 @@ function AttandanceMangement() {
 
             const { memSerial, memName } = memData;
             console.log("들어오니");
-            apiCall('/att/attInsert', 'POST',
+            apiCall('/att/attChange', 'POST',
                 {
                     memSerial: memSerial,
                     memName: memName,
@@ -203,12 +203,8 @@ function AttandanceMangement() {
 
     // console.log("보낼날짜확인" + format(currentMonth, 'yyyy-MM'));
 
-
-
-
     console.log(attData);
     console.log(admissionData);
-
 
     return (
         <div className="att_mng">
@@ -311,12 +307,7 @@ function AttandanceMangement() {
 
                                     if (count) {
                                         return (
-                                            <div>
-                                                {/* <div>{count[attindex].attcount}</div> */}
-                                                {/* {count.attcount}
-                                                {count.abscount} */}
-                                                {/* <div></div>
-                                                <div></div> */}
+                                               
                                                 <div
                                                     className="attandance_data"
                                                     // 기본적으로 index가 0에서 시작하기때문에 + 1
@@ -327,7 +318,7 @@ function AttandanceMangement() {
 
 
                                                 </div>
-                                            </div>
+
 
                                         );
                                     } else {

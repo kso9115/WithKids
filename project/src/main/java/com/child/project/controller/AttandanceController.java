@@ -57,7 +57,6 @@ public class AttandanceController {
     // list가져오기
     @GetMapping("/attList")
     public List<Attandance> attList(@RequestParam("yearMonth") String yearMonth) {
-        log.info("??????????????????????????????????????????????????나와랏");
         log.info(attService.selectList3(yearMonth));
         List<Attandance> list = attService.selectList3(yearMonth);
         log.info("멤버리스트 출력하는 레포지토리 쿼리 소환"+list);
@@ -73,9 +72,13 @@ public class AttandanceController {
     public String attSave(@RequestBody Attandance entity) {
         String message = "";
 
-        log.info("???오니????????????????????????????????????????????????");
-        log.info(entity);
-        attService.attSave(entity);
+        try {
+            attService.attSave(entity);
+            message = "추가 성공";
+        } catch (Exception e) {
+            log.info(e.toString());
+            message = "추가 실패";
+        }
 
         return message;
     }
@@ -90,11 +93,12 @@ public class AttandanceController {
         // String subnet = ipAdress.substring(0, lastIndex + 1); // 마지막 점('.') 포함
 
         // log.info(entity.get);
-        String latitude = entity.getLatitude().substring(0,3);
-        String longitude = entity.getLongitude().substring(0, 4);
-        
-        if(latitude == "37.3" && longitude == "127.1"){
+        String latitude = entity.getLatitude().substring(0,4);
+        String longitude = entity.getLongitude().substring(0, 5);
+
+        if(latitude.equals("37.3") && longitude.equals("127.1")){
             try {
+                log.info(attService.attInsert(entity));
                 attService.attInsert(entity);
                 message = "출력 성공";
             } catch (Exception e) {
