@@ -44,4 +44,7 @@ public class Attandance implements Serializable {
     @Transient
     private String longitude;
 
+    // 출석일자 전달용
+    @Transient
+    private String attcount;
 }

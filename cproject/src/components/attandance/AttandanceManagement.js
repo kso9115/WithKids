@@ -21,6 +21,10 @@ function AttandanceMangement() {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
 
+    // 출석일자 카운팅 해야함
+    const [attCount, setAttCount] = useState();
+
+
     // ===================================================================
 
     const [checkList, setCheckList] = useState([]); // 체크된 아이템 리스트 상태 관리
@@ -133,7 +137,9 @@ function AttandanceMangement() {
         // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
         apiCall("/att/attList", "GET", { yearMonth: format(currentMonth, 'yyyy-MM') })
             .then((response) => {
+                console.log(response.data);
                 setAttData(response.data);
+                // setAttCount();
             }).catch((err) => {
                 console.log(err);
             })
@@ -141,11 +147,33 @@ function AttandanceMangement() {
         // 입소중인 멤버 리스트 요청
         apiCall("/mem/admissionList", "GET")
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 setAdmissionData(response.data);
+
+                // 1. 요청을 안에서 보내거나..
+                // apiCall("/att/attCount", "GET", { memSerial: response.memSerial })
+                //     .then((response) => {
+                //         console.log(response.memSerial);
+                //         setAttCount(response.data);
+                //         console.log(admissionData);
+                //     }).catch((error) => {
+                //         console.log(error);
+                //     })
+
             }).catch((err) => {
                 console.log(err);
             })
+
+        // 여기서하면 당연히 attData고, admissionData고 빈값이지...
+        // 위에서 리스트 넣어주고 함수 끝나기도 전에 호출해버리는거니까..
+        // apiCall("/att/attCount", "GET", { memSerial: attData.memSerial })
+        //     .then((response) => {
+        //         console.log(attData.memSerial);
+        //         setAttCount(response.data);
+        //         console.log(attCount);
+        //     }).catch((error)=>{
+        //         console.log(error);
+        //     })
     }, [format(currentMonth, 'yyyy-MM'),]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
 
 
