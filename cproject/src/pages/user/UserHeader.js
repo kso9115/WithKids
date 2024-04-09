@@ -66,7 +66,7 @@ function UserHeader() {
                         <li><Link to="/">선택창(Test)</Link></li>
                         {sessionData ? <>
                             <li><div className='usercheck' onClick={userCheck}>출석 및 급식</div></li>
-                            <li><Link to="/">내정보</Link></li>
+                            <li><Link to="/user/myInfo">내정보</Link></li>
                         </> :
                             null}
                         <li>{sessionData ? <div className='userLogout' onClick={userLogout}>로그아웃</div> :

@@ -32,6 +32,7 @@ a:hover {
     color: black;
 }
 
+.userMyInfoHead,
 .userNoticeHead,
 .userPrgHead,
 .userNoticeSearch>div,
@@ -42,6 +43,7 @@ a:hover {
     justify-content: center;
 }
 
+.userMyInfoHead,
 .userNoticeHead,
 .userPrgHead {
     width: 100%;
@@ -50,11 +52,13 @@ a:hover {
     background-size: cover;
 }
 
+.userMyInfoHead,
 .userNoticeHead p,
 .userPrgHead p {
     font-size: 90px;
 }
 
+.userMyInfoContent,
 .userNoticeContent,
 .userPrgContent {
     max-width: 1200px;

@@ -16,6 +16,7 @@ import UserprogramMain from './pages/userprogram/UserprogramMain';
 import UserNoticeMain from './pages/notice/UserNoticeMain';
 import UserCheck from './pages/user/UserCheck';
 import UserNoticeDetails from './pages/notice/UserNoticeDetails';
+import UserMyInfo from './pages/user/UserMyInfo';
 // import MealSaveP from './components/mealManagement/MealSaveP';
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
                             <Route path="dtails" element={<UserprogramDetails />}></Route>
                         </Route>
                         <Route path="userlogin" element={<UserLogin />}></Route>
+                        <Route path="myInfo" element={<UserMyInfo />}></Route>
                     </Route>
 
                     <Route path="/errNoneLogin" element={<NoneLogin />}></Route>
