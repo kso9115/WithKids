@@ -56,4 +56,10 @@ public class MealMngmServiceImpl implements MealMngmService {
             return null;
     }
 
+    @Override
+    public MealMngm mnInsert(MealMngm entity) {
+        
+        return mealRepository.save(entity);
+    }
+
 }

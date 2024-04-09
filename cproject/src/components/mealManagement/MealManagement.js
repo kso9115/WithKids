@@ -214,24 +214,34 @@ function MealManagement() {
             zIndex: "1",
         }
     }
-    const onChangeModal = useCallback((event)=>{
-        setMemMealDataOne[event.target.name] = event.target.value;
-    },[memMealDataOne]);
+    const onChangeModal = (event)=>{
+        memMealDataOne[event.target.name] = event.target.value;
+        setMemMealDataOne({...memMealDataOne});
+    };
 
     const onClickRequest = ()=> {
-        console.log("조식");
-        apiCall('/meal/Insert', 'POST', { 
-
+       
+        apiCall('/meal/MInsert', 'POST', { 
+            memSerial : memMealDataOne.memSerial,
+            mealDate : memMealDataOne.mealDate,
+            memName : memMealDataOne.memName,
+            staffNm : "장근정",
+            brfMeal : memMealDataOne.brfMeal,
+            lncMeal : memMealDataOne.lncMeal,
+            dnrMeal : memMealDataOne.dnrMeal,
+            snkMeal :memMealDataOne.snkMeal
         })
         .then((res) => {
             console.log(res);
             alert("수정완료");
+            // setMealData(res.data); -> mealData를 변경하면 find 에러 생김 => 랜더링,., 어쩌지
         })
         .catch((err) => {
             console.log("에러 발생 => " +err);
         })
     }
 
+console.log(memMealDataOne);
 
     return (
         <div className="mealBox">
@@ -243,30 +253,33 @@ function MealManagement() {
                     <div>이름</div>
                     <div><input type='text' value={memMealDataOne.memName} disabled/></div> 
 
+                    <div>담당자 이름</div>
+                    <div><input type='text' value={memMealDataOne.staffNm} disabled/></div> 
+
                     <div>입력 날짜</div>
-                    <div><input id ="MealDate" name="MealDate" type="date" value={memMealDataOne.mealDate} onChange={onChangeModal}/></div> 
+                    <div><input id ="mealDate" name="mealDate" type="date" nema="mealDate" value={memMealDataOne.mealDate || ''} onChange={onChangeModal}/></div> 
 
                     <div>조식</div>
-                    <div><input type="radio" id="brfMeal" name="brfMeal" value={1} checked={memMealDataOne.brfMeal===1} /><label htmlFor=''>Y</label>  &nbsp;
-                        <input type="radio" id="brfMeal" name="brfMeal" value={0} checked={memMealDataOne.brfMeal===0} /><label htmlFor=''>N</label>
+                    <div><input type="radio" id="brfMeal" name="brfMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.brfMeal)===1} onChange={onChangeModal}/><label htmlFor=''>Y</label>  &nbsp;
+                        <input type="radio" id="brfMeal" name="brfMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.brfMeal)===0} onChange={onChangeModal}/><label htmlFor=''>N</label>
                     </div>
 
                     <div>중식</div>
-                    <div><input type="radio" id="lncMeal" name="lncMeal" value={1} checked={memMealDataOne.lncMeal===1} /><label htmlFor=''>Y</label>  &nbsp;
-                        <input type="radio" id="lncMeal" name="lncMeal" value={0} checked={memMealDataOne.lncMeal===0} /><label htmlFor=''>N</label>
+                    <div><input type="radio" id="lncMeal" name="lncMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.lncMeal)===1} onChange={onChangeModal} /><label htmlFor=''>Y</label>  &nbsp;
+                        <input type="radio" id="lncMeal" name="lncMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.lncMeal)===0} onChange={onChangeModal} /><label htmlFor=''>N</label>
                     </div>
 
                     <div>석식</div>
-                    <div><input type="radio" id="dnrMeal" name="dnrMeal" value={1} checked={memMealDataOne.dnrMeal===1}/><label htmlFor=''>Y</label>  &nbsp;
-                        <input type="radio" id="dnrMeal" name="dnrMeal" value={0} checked={memMealDataOne.dnrMeal===0} /><label htmlFor=''>N</label>
+                    <div><input type="radio" id="dnrMeal" name="dnrMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.dnrMeal)===1} onChange={onChangeModal} /><label htmlFor=''>Y</label>  &nbsp;
+                        <input type="radio" id="dnrMeal" name="dnrMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.dnrMeal)===0} onChange={onChangeModal} /><label htmlFor=''>N</label>
                     </div>
 
                     <div>간식</div>
-                    <div><input type="radio" id="snkMeal" name="snkMeal" value={1} checked={memMealDataOne.snkMeal===1} /><label htmlFor=''>Y</label>  &nbsp;
-                        <input type="radio" id="snkMeal" name="snkMeal" value={0} checked={memMealDataOne.snkMeal===0}/><label htmlFor=''>N</label>
+                    <div><input type="radio" id="snkMeal" name="snkMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.snkMeal)===1} onChange={onChangeModal} /><label htmlFor=''>Y</label>  &nbsp;
+                        <input type="radio" id="snkMeal" name="snkMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.snkMeal)===0} onChange={onChangeModal}/><label htmlFor=''>N</label>
                     </div>
                 </div>
-                <button className="planModalClose" onClick={onCloseClick}>닫기</button>
+                <button className="planModalClose" onClick={onCloseClick}>닫기</button> 
                 <button className="planModalClose" onClick={onClickRequest}>저장</button>
             </Modal>
             <div className='mealCheckbox'>
@@ -379,10 +392,13 @@ function MealManagement() {
                                     );
                                 } 
                                 else {
+                                    
                                     return (
                                         <div
                                             // className={color} 
-                                            key={index + 1}></div>
+                                            key={index + 1} 
+                                            onClick={()=>onOpenClick(o)}
+                                        ></div>
                                     );
                                 }
                             })}

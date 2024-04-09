@@ -21,13 +21,13 @@ function Login({ setSessionName }) {
         staffId = "";
 
         if (staffId !== null && staffId.trim().length !== 0 && staffId !== undefined) {
-            console.log("aa");
+            // console.log("aa");
             navigate("/home");
         }
     }, [navigate])
 
 
-    // serial 과 password useState
+    // id 과 password useState
     const [staffId, setStaffId] = useState("");
     const [password, setPassword] = useState("");
     // const [disabled, setDisabled] = useState(false);
@@ -38,7 +38,7 @@ function Login({ setSessionName }) {
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();
-        console.log("자 ~ 실행은 됐다~");
+        // console.log("자 ~ 실행은 됐다~");
         if(staffId.trim().length>0 && password.trim().length>0){
 
             // axios.post("api/staff/staffLogin", {

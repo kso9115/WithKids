@@ -225,37 +225,42 @@ public class MemberController {
         // log.info("여기까지 요청 왔다.");
 
         Member userMember = memService.selectOne(entity.getMemSerial());
-        // log.info(userMember);
+        log.info(userMember.getMemStatus());
 
-        // String password = entity.getMemLoginPW();
-        // log.info("userMember의 pw => " +userMember.getMemLoginPW());
-        // log.info("받아온 값 pw => " +entity.getMemLoginPW());
-
-        if (userMember != null && passwordEncoder.matches(entity.getMemLoginPW(), userMember.getMemLoginPW())) {
-            // log.info("로그인 요청 들어옴 => " + entity.getMemSerial()+ " : "
-            // +entity.getMemLoginPW());
-
-            // token
-            final String token = tokenProvider.create(userMember);
-
-            // 세션에 저장(이름이랑, id 정도를 저장)
-            // return ResponseEntity.status(HttpStatus.OK).body(userMember.getMemName());
-            // Map<String, String> responseData = new HashMap<>();
-            // responseData.put("memName", userMember.getMemName());
-            // responseData.put("memSerial", userMember.getMemSerial());
-
-            final UserDTO userDTO = UserDTO.builder()
-                    .token(token)
-                    .id(userMember.getMemSerial())
-                    .username(userMember.getMemName())
-                    .staffChlCr(0)
-                    .staffCmnMng(0)
-                    .staffCntMng(0)
-                    .build();
-
-            return ResponseEntity.status(HttpStatus.OK).body(userDTO);
+        if(userMember.getMemStatus()=="이용"){
+            
+            // String password = entity.getMemLoginPW();
+            // log.info("userMember의 pw => " +userMember.getMemLoginPW());
+            // log.info("받아온 값 pw => " +entity.getMemLoginPW());
+    
+            if (userMember != null && passwordEncoder.matches(entity.getMemLoginPW(), userMember.getMemLoginPW())) {
+                // log.info("로그인 요청 들어옴 => " + entity.getMemSerial()+ " : "
+                // +entity.getMemLoginPW());
+    
+                // token
+                final String token = tokenProvider.create(userMember);
+    
+                // 세션에 저장(이름이랑, id 정도를 저장)
+                // return ResponseEntity.status(HttpStatus.OK).body(userMember.getMemName());
+                // Map<String, String> responseData = new HashMap<>();
+                // responseData.put("memName", userMember.getMemName());
+                // responseData.put("memSerial", userMember.getMemSerial());
+    
+                final UserDTO userDTO = UserDTO.builder()
+                        .token(token)
+                        .id(userMember.getMemSerial())
+                        .username(userMember.getMemName())
+                        .staffChlCr(0)
+                        .staffCmnMng(0)
+                        .staffCntMng(0)
+                        .build();
+    
+                return ResponseEntity.status(HttpStatus.OK).body(userDTO);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("user Login faild"); // 비밀번호가 다른 경우 
+            }
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("user Login faild");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("user Status faild"); // 이용 중이 아닌 경우
         }
 
     }

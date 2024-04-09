@@ -18,4 +18,6 @@ public interface MealMngmService {
     MealMngm mealInsert(MealMngm entity);
 
     MealMngm selectOne(MealMngmId entityId);
+
+    MealMngm mnInsert(MealMngm entity);
 }
