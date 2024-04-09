@@ -77,4 +77,16 @@ public class MealMngmController {
         
     }
 
+    @PostMapping("/MInsert")
+    public MealMngm MInsert(@RequestBody MealMngm entity) {
+        // log.info("MInsert 요청까지 옴 111=> " + entity);
+ 
+        MealMngm mealListO = mealService.mnInsert(entity);
+
+
+        return mealListO;
+
+
+    }
+
 }
