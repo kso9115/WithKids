@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.child.project.domain.AttandanceDTO;
 import com.child.project.entity.Attandance;
 import com.child.project.service.AttandanceService;
 
@@ -55,11 +56,13 @@ public class AttandanceController {
 
     // list가져오기
     @GetMapping("/attList")
-    public List<Attandance> attList(@RequestParam("yearMonth") String yearMonth, Attandance entity) {
+    public List<Attandance> attList(@RequestParam("yearMonth") String yearMonth) {
+        log.info("??????????????????????????????????????????????????나와랏");
+        log.info(attService.selectList3(yearMonth));
         List<Attandance> list = attService.selectList3(yearMonth);
         log.info("멤버리스트 출력하는 레포지토리 쿼리 소환"+list);
-        log.info(attService.attcount(entity.getMemSerial()));
-        attService.attcount(entity.getMemSerial());
+        
+    
         
         
         // log.info(list); //잘와유
@@ -78,7 +81,7 @@ public class AttandanceController {
     }
 
     @PostMapping("/attInsert")
-    public String postMethodName(@RequestBody Attandance entity, HttpServletRequest request) {
+    public String postMethodName(@RequestBody Attandance entity) {
         String message = "";
 
         // String ipAdress = request.getRemoteAddr();
@@ -102,11 +105,11 @@ public class AttandanceController {
         return message;
     }
 
-    @GetMapping("/attCount")
-    public Integer attCount(Attandance entity) {
-        log.info("멤버시리얼 넘어오낭~~~~~~~~~~~~~~~~~~~~~~~~~"+entity.getMemSerial());
-        return attService.attcount(entity.getMemSerial());
-    }
+    // @GetMapping("/attCount")
+    // public Integer attCount(Attandance entity) {
+    //     log.info("멤버시리얼 넘어오낭~~~~~~~~~~~~~~~~~~~~~~~~~"+entity.getMemSerial());
+    //     return attService.attcount(entity.getMemSerial());
+    // }
     
 
 }

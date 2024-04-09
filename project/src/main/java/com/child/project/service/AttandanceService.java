@@ -2,6 +2,7 @@ package com.child.project.service;
 
 import java.util.List;
 
+import com.child.project.domain.AttandanceDTO;
 import com.child.project.entity.Attandance;
 
 public interface AttandanceService {
@@ -15,6 +16,8 @@ public interface AttandanceService {
     // 월별 selectList : 레포지토리에 쿼리 작성
     // List<Attandance> selectList3();
     List<Attandance> selectList3(String yearMonth);
+    // front에서 reduce 써주면 되는거라 일단꺼놓기..ㅠ.ㅠ
+    // List<AttandanceDTO> selectList3(String yearMonth);
 
     // 출석관리 : 이용중인 컬럼 리스트만 가져오기
     List<Attandance> selectAdmissionList();
@@ -26,5 +29,5 @@ public interface AttandanceService {
     Attandance attInsert(Attandance entity);
 
     // 출석 일수 확인
-    Integer attcount (String memSerial);
+    // Integer attcount (String memSerial);
 }

@@ -15,13 +15,13 @@ function AttandanceMangement() {
     // Member : Attandance 중복없는 memSerial list useState
     const [admissionData, setAdmissionData] = useState([]); // 이름 serial list
 
-    // Attandance 한명 useState : 출/결석 변경을 위한 상태값
+    // Attandance 한명 useState : 출/결석 변경을 위한 상태값 => attData씀
     const [memAttDataOne, setMemAttDataOne] = useState({});
 
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    // 출석일자 카운팅 해야함
+    // 출석일자 카운팅 해야함 : 필요없다
     const [attCount, setAttCount] = useState();
 
 
@@ -86,14 +86,13 @@ function AttandanceMangement() {
 
     // 관리자 페이지 체크 후 결석 데이터 요청
     const handleAttendanceRegistration = () => {
-
         // checkList 배열에 있는 각 memSerial에 대해 insert 요청
         checkList.forEach(memData => {
             // checkList.forEach(memData => {
 
             const { memSerial, memName } = memData;
-
-            apiCall('/att/attChange', 'POST',
+            console.log("들어오니");
+            apiCall('/att/attInsert', 'POST',
                 {
                     memSerial: memSerial,
                     memName: memName,
@@ -123,7 +122,6 @@ function AttandanceMangement() {
                         setAttData(updatedAttData);
                     }
                     console.log(updatedAttData);
-
                 })
                 .catch(error => {
                     console.error('출석 상태 변경 실패:', error);
@@ -150,30 +148,9 @@ function AttandanceMangement() {
                 // console.log(response.data);
                 setAdmissionData(response.data);
 
-                // 1. 요청을 안에서 보내거나..
-                // apiCall("/att/attCount", "GET", { memSerial: response.memSerial })
-                //     .then((response) => {
-                //         console.log(response.memSerial);
-                //         setAttCount(response.data);
-                //         console.log(admissionData);
-                //     }).catch((error) => {
-                //         console.log(error);
-                //     })
-
             }).catch((err) => {
                 console.log(err);
             })
-
-        // 여기서하면 당연히 attData고, admissionData고 빈값이지...
-        // 위에서 리스트 넣어주고 함수 끝나기도 전에 호출해버리는거니까..
-        // apiCall("/att/attCount", "GET", { memSerial: attData.memSerial })
-        //     .then((response) => {
-        //         console.log(attData.memSerial);
-        //         setAttCount(response.data);
-        //         console.log(attCount);
-        //     }).catch((error)=>{
-        //         console.log(error);
-        //     })
     }, [format(currentMonth, 'yyyy-MM'),]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
 
 
@@ -229,9 +206,8 @@ function AttandanceMangement() {
 
 
 
-    // console.log(attData);
-    // console.log(admissionData);
-
+    console.log(attData);
+    console.log(admissionData);
 
 
     return (
@@ -281,7 +257,12 @@ function AttandanceMangement() {
                 </div>
 
                 {admissionData && admissionData.map((o, i) => {
+                    let attcount = attData.reduce((cnt,item) => cnt +( item.memSerial === o.memSerial && item.attStatus === "출"),0);
+                    let abscount = attData.reduce((cnt,item) => cnt +(item.memSerial === o.memSerial && item.attStatus === "결"),0);
+                    let attRate = attcount/(attcount+abscount)*100;
+
                     return (
+
                         <div className='att_mng_list' style={{
                             display: 'grid',
                             gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows,
@@ -297,9 +278,12 @@ function AttandanceMangement() {
                                     /></div>
                                 <div>{o.memSerial}</div>
                                 <div>{o.memName}</div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
+                                <div>{attRate.toFixed()}%</div>
+                                {/* 해당하는 인덱스 반환 */}
+                                {/* <div>{attData.findIndex((item) => ((item.memSerial === o.memSerial)))}</div> */}
+                                
+                                <div>{attcount}</div>
+                                <div>{abscount}</div>
 
                                 {/* index : 날짜 count : 첫 번째 주 일요일*/}
                                 {Array.from({ length: size }, (_, index) => {
@@ -316,9 +300,10 @@ function AttandanceMangement() {
                                     // console.log(o.memSerial);
 
                                     // 시리얼 번호 비교 & 날짜 데이터 동일한지 비교하고 찾기 : 객체형태임
-                                    let count = attData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
+                                    var count = attData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
                                     // 인덱스도 찾아주기
                                     let attindex = attData.findIndex((item) => (item.memSerial === o.memSerial) && (parseInt(item.attDate.split("-")[2]) === parseInt(day)));
+
                                     console.log();
                                     attDate = (index + 1);
                                     // console.log(count);
@@ -326,16 +311,22 @@ function AttandanceMangement() {
 
                                     if (count) {
                                         return (
+                                            <div>
+                                                {/* <div>{count[attindex].attcount}</div> */}
+                                                {/* {count.attcount}
+                                                {count.abscount} */}
+                                                {/* <div></div>
+                                                <div></div> */}
+                                                <div
+                                                    className="attandance_data"
+                                                    // 기본적으로 index가 0에서 시작하기때문에 + 1
+                                                    key={index + 1}
+                                                    // onClick={() => setAttData([count.attStatus])}>
+                                                    onClick={() => handleAttendanceChange(o.memSerial, o.memName, count.attDate, count.attStatus, attindex)}>
+                                                    {count.attStatus}
 
-                                            <div
-                                                className="attandance_data"
-                                                // 기본적으로 index가 0에서 시작하기때문에 + 1
-                                                key={index + 1}
-                                                // onClick={() => setAttData([count.attStatus])}>
-                                                onClick={() => handleAttendanceChange(o.memSerial, o.memName, count.attDate, count.attStatus, attindex)}>
-                                                {count.attStatus}
 
-
+                                                </div>
                                             </div>
 
                                         );

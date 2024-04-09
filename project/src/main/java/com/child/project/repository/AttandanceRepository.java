@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.child.project.domain.AttandanceDTO;
 import com.child.project.entity.Attandance;
 import com.child.project.entity.AttandanceId;
 
@@ -31,13 +32,24 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
         @Query(value = "select mem_name, attandance_status from attandance where attandance_date = (:curruentDate)", nativeQuery = true)
         List<Attandance> findAttList2(@Param("curruentDate") String curruentDate);
 
-        // 문제 : 달별로 출석 데이터 출력
-        @Query(value = "select * from attandance where substring(attandance_date, 1, 7) = (:attandance_date)", nativeQuery = true)
         // @Query(value = "select * from attandance where attandance_date =
         // substring(DATE(NOW()), 1, 10)", nativeQuery = true)
         // @Query(value = "select * from attandance where attandance_date =
         // DATE_FORMAT(NOW(), '%Y-%m-%d')", nativeQuery = true)
-        List<Attandance> findAttList3(@Param("attandance_date") String attandance_date);
+
+        // 문제 : 달별로 출석 데이터 출력
+        @Query(value = "select * from attandance where substring(attandance_date, 1,7) = (:attandance_date)", nativeQuery = true)
+        List<Attandance> findAttList3(@Param("attandance_date") String
+        attandance_date);
+
+        // 출,결석 일자 포함하여 리스트 출력 : front에서 reduce 써주면 되는거라 일단꺼놓기..ㅠ.ㅠ
+        // @Query("select new com.child.project.domain.AttandanceDTO"+
+        // "(A.memSerial, A.attDate, A.memName, A.attStatus,"+
+        // "(select count(*) from Attandance as B where B.memSerial = A.memSerial and substring(attDate, 1, 7)  = :attandanceDate and attStatus = '출') as attcount ,"+
+        // "(select count(*) from Attandance as B where B.memSerial = A.memSerial and substring(attDate, 1, 7)  = :attandanceDate and attStatus = '결') as abscount )"+
+        // "from Attandance as A where substring(attDate, 1, 7) = :attandanceDate")
+        // List<AttandanceDTO> findAttList3(@Param("attandanceDate") String attandance_date);
+
 
         // 멤버에서 처리!!!!!!!!!!!!! => 왜냐면 이름이랑 시리얼번호만 중복없이 받으믄대니까!!
         // 리스트에서 중복된 시리얼 값을 제외하고 가져오기 : 퇴소한애들은 안져와야되니까 member에서 갖고오기
@@ -66,8 +78,11 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
         // :mem_name, :attandance_status)"
         // +"where ", nativeQuery = true)
 
-        // 출석일자 카운팅하기
-        @Query(value = "select count(*) from attandance where attandance_status='출' and month(attandance_date)=month(current_date()) and year(attandance_date)=year(current_date()) group by :mem_serial", nativeQuery = true)
-        Integer attcount(@Param("mem_serial") String mem_serial);
+        // 출석일자 카운팅하기 : 리스트 뽑아올 때 추가 컬럼으로 가져오기
+        // @Query(value = "select count(*) from attandance where attandance_status='출'
+        // and month(attandance_date)=month(current_date()) and
+        // year(attandance_date)=year(current_date()) group by :mem_serial", nativeQuery
+        // = true)
+        // Integer attcount(@Param("mem_serial") String mem_serial);
 
 }
