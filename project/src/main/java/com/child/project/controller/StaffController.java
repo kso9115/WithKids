@@ -79,27 +79,32 @@ public class StaffController {
         String password = entity.getStaffPsw();
 
         StaffDTO dto = service.findJoinOne(entity.getStaffId());
-        log.info(dto);
-        log.info("dto의 password => " + dto.getStaffPsw());
-        log.info("entity password => " + entity.getStaffPsw());
+        log.info(dto.getStaffLeave());
+        // log.info("dto의 password => " + dto.getStaffPsw());
+        // log.info("entity password => " + entity.getStaffPsw());
+        if (dto.getStaffLeave()==0){
+            if (dto != null && passwordEncoder.matches(password, dto.getStaffPsw())) {
+                // log.info("일단 dto는 null이 아니고 pass워드도 맞음");
+                final String token = tokenProvider.create(dto);
+    
+                final UserDTO userDTO = UserDTO.builder()
+                        .token(token)
+                        .id(dto.getStaffId())
+                        .username(dto.getStaffNm())
+                        .staffChlCr(dto.getStaffChlCr())
+                        .staffCmnMng(dto.getStaffCmnMng())
+                        .staffCntMng(dto.getStaffCntMng())
+                        .build();
+                log.info("login 성공 token = " + token);
+                return ResponseEntity.ok().body(userDTO);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("Login failed"); //관리자 id,pw 오류
+            }
 
-        if (dto != null && passwordEncoder.matches(password, dto.getStaffPsw())) {
-            log.info("일단 dto는 null이 아니고 pass워드도 맞음");
-            final String token = tokenProvider.create(dto);
-
-            final UserDTO userDTO = UserDTO.builder()
-                    .token(token)
-                    .id(dto.getStaffId())
-                    .username(dto.getStaffNm())
-                    .staffChlCr(dto.getStaffChlCr())
-                    .staffCmnMng(dto.getStaffCmnMng())
-                    .staffCntMng(dto.getStaffCntMng())
-                    .build();
-            log.info("login 성공 token = " + token);
-            return ResponseEntity.ok().body(userDTO);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
-                    .body("Login failed");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body("Login failed"); // 관리자 휴직 혹은 퇴사
         }
         // return entity;
     } // staffLogin

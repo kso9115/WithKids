@@ -15,7 +15,6 @@ function Home() {
 
     useEffect(() => {
         if (loginInfo === null || loginInfo.data.token.trim().length === 0 || loginInfo.data.token === undefined) {
-            console.log("aa");
             navigate("/errNoneLogin");
         }
     }, [navigate, loginInfo])

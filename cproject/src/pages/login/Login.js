@@ -59,9 +59,13 @@ function Login({ setSessionName }) {
                 })
                 .catch(err => {
                     setStaffLoginInfo('');
-                    if (err === 502) {
+                    if (err === 401) {
                         alert("id 또는 password 가 다릅니다, 다시하세요 ~~");
+                    } else if (err === 404 ){
+                        alert("이용이 중단된 관리자 입니다. ");
                     } else { alert(`** onLoginSubmit 시스템 오류, err=${err}`); }
+                    setStaffId('');
+                    setPassword('');
                 });
         } else {
             alert("id와 password는 모두 입력해 주셔야합니다.");
