@@ -46,5 +46,9 @@ public class Attandance implements Serializable {
 
     // 출석일자 전달용
     @Transient
+    // @Column(name = "att_count")
     private String attcount;
+    // @Column(name = "abs_count")
+    @Transient
+    private String abscount;
 }

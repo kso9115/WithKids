@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.child.project.domain.AttandanceDTO;
 import com.child.project.entity.Attandance;
 import com.child.project.repository.AttandanceRepository;
 
@@ -25,10 +26,17 @@ public class AttandanceServiceImpl implements AttandanceService {
     // select * from attandance where attandance_date = SUBSTRING(DATE(NOW()), 1,
     // 10)
     // 쿼리문 테스트
+    // list ver01
     @Override
     public List<Attandance> selectList3(String yearMonth) {
-        return repository.findAttList3(yearMonth);
+    return repository.findAttList3(yearMonth);
     }
+
+    // list ver02 : front에서 reduce 써주면 되는거라 일단꺼놓기..ㅠ.ㅠ
+    // @Override
+    // public List<AttandanceDTO> selectList3(String yearMonth) {
+    //     return repository.findAttList3(yearMonth);
+    // }
 
     // selectAdmissionList : 학생 시리얼 번호만 가져오기
     // member테이블에서 받아오므로 쓸일이 없어졌다..
@@ -45,7 +53,7 @@ public class AttandanceServiceImpl implements AttandanceService {
         return entity;
     }
 
-    // 
+    //
     @Override
     public Attandance attInsert(Attandance entity) {
         return repository.save(entity);
@@ -53,10 +61,10 @@ public class AttandanceServiceImpl implements AttandanceService {
     }
 
     // 출석 일자 카운팅
-    @Override
-    public Integer attcount(String memSerial) {
-        return repository.attcount(memSerial);
-    }
+    // @Override
+    // public Integer attcount(String memSerial) {
+    // return repository.attcount(memSerial);
+    // }
 
     // 월별 db
     // @Override
