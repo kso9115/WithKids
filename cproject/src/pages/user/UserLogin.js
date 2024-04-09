@@ -44,12 +44,28 @@ function UserLogin() {
                 })
                 .catch((error) => {
                     setUserLoginInfo('');
-                    if (error === 502) {
+                    if (error === 401 ) {
                         alert("id 또는 password 가 다릅니다, 다시하세요 ~~");
-                    } else { alert(`** onLoginSubmit 시스템 오류, err=${error}`); }
+                    } else if(error === 404  ){
+                        alert("이용이 중단된 사용자 입니다. ");
+
+                    }else { alert(`** onLoginSubmit 시스템 오류, err=${error}`); }
                 })
         } else {
             alert("serial 번호와 password를 확인해 주세요");
+        }
+        setSerial('');
+        setPassword('');
+    }
+
+    const handlerEnter = (e) => {
+        if (e.keyCode === 13) {
+            onSubmitHandler(e);
+        }
+    }
+    const handlerIdEnter = (e) => {
+        if (e.keyCode === 13) {
+            document.getElementById("password").focus();
         }
     }
 
@@ -57,10 +73,10 @@ function UserLogin() {
         <div className='useLoginBox'>
             <div>
                 <div><img className="user_Serial" src={faceSereial} alt="serial" />
-                    <input type="text" id="serial" name="serial" value={serial} onChange={handleSerialChange} />
+                    <input type="text" id="serial" name="serial" value={serial} onChange={handleSerialChange} onKeyDown={handlerIdEnter}/>
                 </div>
                 <div><img className="user_Password" src={facePW} alt="password"></img>
-                    <input type="password" id="password" name="password" value={password} onChange={handlePwChange} />
+                    <input type="password" id="password" name="password" value={password} onChange={handlePwChange} onKeyDown={handlerEnter} />
                 </div>
             </div>
             <div>

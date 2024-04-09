@@ -224,8 +224,8 @@ public class MemberController {
         Member userMember = memService.selectOne(entity.getMemSerial());
         log.info(userMember.getMemStatus());
 
-        if (userMember.getMemStatus() == "이용") {
-
+        if("이용".equals(userMember.getMemStatus())){
+            
             // String password = entity.getMemLoginPW();
             // log.info("userMember의 pw => " +userMember.getMemLoginPW());
             // log.info("받아온 값 pw => " +entity.getMemLoginPW());
@@ -233,7 +233,6 @@ public class MemberController {
             if (userMember != null && passwordEncoder.matches(entity.getMemLoginPW(), userMember.getMemLoginPW())) {
                 // log.info("로그인 요청 들어옴 => " + entity.getMemSerial()+ " : "
                 // +entity.getMemLoginPW());
-
                 // token
                 final String token = tokenProvider.create(userMember);
 
@@ -254,10 +253,12 @@ public class MemberController {
 
                 return ResponseEntity.status(HttpStatus.OK).body(userDTO);
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("user Login faild"); // 비밀번호가 다른 경우
+                log.info("페스워드까지 통과 못함");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("user Login faild"); // 비밀번호가 다른 경우 
             }
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("user Status faild"); // 이용 중이 아닌 경우
+            log.info("이용중 아님");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user Status faild"); // 이용 중이 아닌 경우
         }
 
     }
