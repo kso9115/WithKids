@@ -36,6 +36,17 @@ function Login({ setSessionName }) {
     const handleSerialChange = (event) => setStaffId(event.target.value);
     const handlePwChange = (event) => setPassword(event.target.value);
 
+    const handlerPwEnter = (e) => {
+        if (e.keyCode === 13) {
+            onSubmitHandler(e);
+        }
+    }
+    const handlerIdEnter = (e) => {
+        if (e.keyCode === 13) {
+            document.getElementById("password").focus();
+        }
+    }
+
     const onSubmitHandler = async (event) => {
         event.preventDefault();
         // console.log("자 ~ 실행은 됐다~");
@@ -60,9 +71,11 @@ function Login({ setSessionName }) {
                 .catch(err => {
                     setStaffLoginInfo('');
                     if (err === 401) {
+                        alert("이용이 중지된 관리자 입니다");
+                    } else if (err === 403 ){
                         alert("id 또는 password 가 다릅니다, 다시하세요 ~~");
                     } else if (err === 404 ){
-                        alert("이용이 중단된 관리자 입니다. ");
+                        alert("아이디를 찾을 수 없습니다.");
                     } else { alert(`** onLoginSubmit 시스템 오류, err=${err}`); }
                     setStaffId('');
                     setPassword('');
@@ -96,16 +109,16 @@ function Login({ setSessionName }) {
                     <div className='loginTable'>
                         <div className='idpwbox'>
                             <div><img className="staffId" src={faceId} alt="staffId" />
-                                <input type="text" id="staffId" name="staffId" value={staffId} onChange={handleSerialChange} />
+                                <input type="text" id="staffId" name="staffId" value={staffId} onChange={handleSerialChange} placeholder='ID를 입력해주세요' onKeyDown={handlerIdEnter} />
                             </div>
 
                             <div><img className="padLock" src={padLock} alt="password"></img>
-                                <input type="password" id="password" name="password" value={password} onChange={handlePwChange}/>
+                                <input type="password" id="password" name="password" value={password} onChange={handlePwChange} placeholder='PW를 입력해주세요'  onKeyDown={handlerPwEnter} autoFocus/>
                             </div>
                         </div>
 
                         <div className='loginBtn'>
-                            <input className='custom-btn' type="submit" value="로그인" onClick={onSubmitHandler}/>&nbsp;&nbsp;&nbsp;
+                            <input className='custom-btn' id="enterlogin" type="submit" value="로그인" onClick={onSubmitHandler} />&nbsp;&nbsp;&nbsp;
                             <input className='custom-btn' type="reset" value="취소" />
                         </div>
                     </div>

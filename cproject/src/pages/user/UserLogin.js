@@ -58,14 +58,25 @@ function UserLogin() {
         setPassword('');
     }
 
+    const handlerEnter = (e) => {
+        if (e.keyCode === 13) {
+            onSubmitHandler(e);
+        }
+    }
+    const handlerIdEnter = (e) => {
+        if (e.keyCode === 13) {
+            document.getElementById("password").focus();
+        }
+    }
+
     return (
         <div className='useLoginBox'>
             <div>
                 <div><img className="user_Serial" src={faceSereial} alt="serial" />
-                    <input type="text" id="serial" name="serial" value={serial} onChange={handleSerialChange} />
+                    <input type="text" id="serial" name="serial" value={serial} onChange={handleSerialChange} onKeyDown={handlerIdEnter}/>
                 </div>
                 <div><img className="user_Password" src={facePW} alt="password"></img>
-                    <input type="password" id="password" name="password" value={password} onChange={handlePwChange} />
+                    <input type="password" id="password" name="password" value={password} onChange={handlePwChange} onKeyDown={handlerEnter} />
                 </div>
             </div>
             <div>

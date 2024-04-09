@@ -77,36 +77,41 @@ public class StaffController {
     public ResponseEntity<?> staffLogin(@RequestBody Staff entity) {
         // log.info(" entityn = " + entity);
         String password = entity.getStaffPsw();
+        try {
+            StaffDTO dto = service.findJoinOne(entity.getStaffId());
 
-        StaffDTO dto = service.findJoinOne(entity.getStaffId());
-        log.info(dto.getStaffLeave());
-        // log.info("dto의 password => " + dto.getStaffPsw());
-        // log.info("entity password => " + entity.getStaffPsw());
-        if (dto.getStaffLeave()==0){
-            if (dto != null && passwordEncoder.matches(password, dto.getStaffPsw())) {
-                // log.info("일단 dto는 null이 아니고 pass워드도 맞음");
-                final String token = tokenProvider.create(dto);
+            log.info(dto.getStaffLeave());
+            // log.info("dto의 password => " + dto.getStaffPsw());
+            // log.info("entity password => " + entity.getStaffPsw());
+            if (dto.getStaffLeave()==0){
+                if (dto != null && passwordEncoder.matches(password, dto.getStaffPsw())) {
+                    // log.info("일단 dto는 null이 아니고 pass워드도 맞음");
+                    final String token = tokenProvider.create(dto);
+        
+                    final UserDTO userDTO = UserDTO.builder()
+                            .token(token)
+                            .id(dto.getStaffId())
+                            .username(dto.getStaffNm())
+                            .staffChlCr(dto.getStaffChlCr())
+                            .staffCmnMng(dto.getStaffCmnMng())
+                            .staffCntMng(dto.getStaffCntMng())
+                            .build();
+                    log.info("login 성공 token = " + token);
+                    return ResponseEntity.ok().body(userDTO);
+                } else {
+                    return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                            .body("Login failed"); //관리자 id,pw 오류
+                }
     
-                final UserDTO userDTO = UserDTO.builder()
-                        .token(token)
-                        .id(dto.getStaffId())
-                        .username(dto.getStaffNm())
-                        .staffChlCr(dto.getStaffChlCr())
-                        .staffCmnMng(dto.getStaffCmnMng())
-                        .staffCntMng(dto.getStaffCntMng())
-                        .build();
-                log.info("login 성공 token = " + token);
-                return ResponseEntity.ok().body(userDTO);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .body("Login failed"); //관리자 id,pw 오류
+                .body("Login failed"); // 관리자 휴직 혹은 퇴사
             }
-
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body("Login failed"); // 관리자 휴직 혹은 퇴사
-        }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND) 
+            .body("Login failed"); //아이디 없음
         // return entity;
+        }
     } // staffLogin
 
     @GetMapping("/resetPswrd")
