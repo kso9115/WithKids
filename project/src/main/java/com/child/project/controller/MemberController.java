@@ -3,9 +3,9 @@ package com.child.project.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.child.project.domain.UserDTO;
-import com.child.project.entity.Attandance;
 // import com.child.project.domain.MemberDTO;
 import com.child.project.entity.Education;
 import com.child.project.entity.Member;
@@ -15,13 +15,20 @@ import com.child.project.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-import java.util.HashMap;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,24 +54,6 @@ public class MemberController {
 
         return list;
     }
-
-    // @GetMapping("/memEduList")
-    // public List<Education> selectEduList() {
-    // log.info("memEduList 확인");
-    // List<Education> list = memService.selectEduList();
-
-    // // log.info("memEduList 확인" + list);
-
-    // return list;
-    // }
-
-    // Get방식 하나의 Edu 데이터 전달
-    // @GetMapping("/memSelectOneEdu")
-    // public Education selectEduData(@RequestParam("memSerial") String memSerial) {
-    // log.info("11111111111111111111111");
-    // Education selectOneEdu = memService.selectEduData(memSerial);
-    // return selectOneEdu;
-    // }
 
     // Post방식 하나의 Edu 데이터 전달 : Education타입의 바디에 담아서 전달
     @PostMapping("/memSelectOneEdu")
@@ -106,18 +95,47 @@ public class MemberController {
 
     // Member 엔티티, memSerial 가져올 entity추가
     @PostMapping("/memInesert")
-    public String memInsert(@RequestBody Member entity) {
+    public String memInsert(@RequestBody Member entity, HttpServletRequest request) throws IOException {
         String message = "";
-        log.info("memInesert !!! 데이터 전달되는 부분 확인");
-        log.info("entity 값을 확인해보자" + entity); // 잘와유
-        // log.info("넘어오나?" + entity.getMemSerial());
+        String realPath = request.getRealPath("/");
+        log.info("** realPath => " + realPath);
 
+        // // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
+        if (!realPath.contains("apache-tomcat")) {
+            realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\memberImg\\"
+                    + entity.getMemSerial() + "\\";
+        } else {
+            realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\memberImg\\"
+                    + entity.getMemSerial() + "\\";
+        }
+
+        // // 1.3 폴더 만들기 (없을수도 있음을 가정, File 클래스)
+        File file = new File(realPath);
+        if (!file.exists()) {
+            // 저장 폴더가 존재하지 않는경우 만들어줌
+            file.mkdir();
+        }
+
+        log.info(realPath);
+
+        // // ** File Copy 하기 (IO Stream)
+        file = new File(realPath + "memberImg.png"); // uploadImages 폴더에 화일존재
+        if (!file.isFile()) { // 존재하지않는 경우
+            String basicImagePath;
+            if (!realPath.contains("apache-tomcat"))
+                basicImagePath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\images\\memberImg.png";
+            else
+                basicImagePath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\images\\memberImg.png";
+            FileInputStream fi = new FileInputStream(new File(basicImagePath));
+            // => uploadImages 읽어 파일 입력바이트스트림 생성
+            FileOutputStream fo = new FileOutputStream(file);
+            // => 목적지 파일(realPath+"basicman4.png") 출력바이트스트림 생성
+            FileCopyUtils.copy(fi, fo);
+        }
+
+        log.info("entity 값을 확인해보자" + entity); // 잘와유
         // save하려는 값이 없으면 실행x
         try {
-            // if (memService.save(entity) != null) {
-
-            // }
-
             // 초기 기본 비밀번호 설정을 위한 값 부여
             entity.setMemLoginPW("12345!");
             entity.setMemRegisterDate("2023-03-26");
@@ -134,6 +152,59 @@ public class MemberController {
 
         return message;
     }
+
+    // 이미지 파일 업로드
+    @PostMapping("/imgUpload")
+    public String imgUpload(@RequestParam("memImg") MultipartFile memImg,
+            @RequestParam("memSerial") String memSerial, HttpServletRequest request)
+            throws IOException {
+
+        log.info("이미지업로드 들어오니");
+        // // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
+        String realPath = request.getRealPath("/");
+        log.info("** realPath => " + realPath);
+        // // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
+        // C:\Mtest\childProject\project\src\main\webapp\resources\memberImg
+        if (!realPath.contains("apache-tomcat"))
+            realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\memberImg\\"
+                    + memSerial + "\\"; // 개발중.
+        else
+            // 경로 아직없음
+            realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\memberImg\\"
+                    + memSerial + "\\";
+
+        // // 1.4) 저장경로 완성
+        String file1 = "";
+        // List<MultipartFile> uploadfilef = entity.getPrgFilef();
+        if (memImg != null && !memImg.isEmpty()) {
+            File delFile = new File(realPath + memImg);
+            if (delFile.isFile())
+                delFile.delete(); // file 존재시 삭제
+            file1 = realPath + "memberImg.png"; // 저장경로 완성
+            // file1 = realPath + prgImg.getOriginalFilename(); // 저장경로 완성
+            memImg.transferTo(new File(file1));
+        }
+
+        return "파일 저장 완료";
+    }
+
+    // 업로드 된 이미지 사용자 페이지에서 띄워주기
+    @GetMapping("/memOneImg")
+	public ResponseEntity<?> memOneImg(@RequestParam String memSerial, HttpServletRequest request) throws Exception {
+        
+        String realPath = request.getRealPath("/");
+        
+		if (!realPath.contains("apache-tomcat")) {
+			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\memberImg\\";
+		} else {
+            realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\memberImg\\";
+		}
+        
+        log.info(memSerial);
+		Resource resource = new FileSystemResource(realPath+memSerial+"\\memberImg.png");
+
+		return new ResponseEntity<>(resource, HttpStatus.OK);
+	}
 
     // Education 엔티티에 접근
     @PostMapping("/memEduInesert")
@@ -224,8 +295,8 @@ public class MemberController {
         Member userMember = memService.selectOne(entity.getMemSerial());
         log.info(userMember.getMemStatus());
 
-        if("이용".equals(userMember.getMemStatus())){
-            
+        if ("이용".equals(userMember.getMemStatus())) {
+
             // String password = entity.getMemLoginPW();
             // log.info("userMember의 pw => " +userMember.getMemLoginPW());
             // log.info("받아온 값 pw => " +entity.getMemLoginPW());
@@ -254,7 +325,7 @@ public class MemberController {
                 return ResponseEntity.status(HttpStatus.OK).body(userDTO);
             } else {
                 log.info("페스워드까지 통과 못함");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("user Login faild"); // 비밀번호가 다른 경우 
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("user Login faild"); // 비밀번호가 다른 경우
             }
         } else {
             log.info("이용중 아님");

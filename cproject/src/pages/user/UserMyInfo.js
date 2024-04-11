@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './userMyInfo.css'
 import { apiCall } from '../../server/apiService';
+import { API_BASE_URL } from '../../server/app-config';
 
 //서브 컴포넌트 MemberInfo
 function UserMemberInfo() {
@@ -20,7 +21,8 @@ function UserMemberInfo() {
         <>
             <div className='userMemberBox'>
                 <div className='userMemberImg'>
-                    <img src="/img/아동사진 예시.jpeg" alt="" />
+                    {/* 이미지 받아오기 위한 요청 진행 */}
+                    <img src={API_BASE_URL+"/api/mem/memOneImg?memSerial="+memData.memSerial} alt="" />
                 </div>
                 <div className='userMemberInfo'>
                     <div>ID</div><div>{memData.memSerial || ""}</div>

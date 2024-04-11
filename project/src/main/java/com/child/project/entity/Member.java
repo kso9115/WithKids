@@ -8,6 +8,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +33,7 @@ public class Member {
     @Column(name = "mem_name")
     private String memName;
 
-    // updatable 업데이트 시 자동 업뎃방지
+    // updatable : 업데이트 시 자동 업뎃방지
     @Column(name = "mem_login_pw", updatable = false)
     private String memLoginPW;
 
@@ -84,9 +86,16 @@ public class Member {
     @Column(name = "mem_status")
     private String memStatus;
 
+    // Table 보관용(File_Name): DB보관용
+    // 테이블에 별도로 저장하지 않을 예정이라 꺼놓기
+    // private String uploadfile;
+
     // SQL 구문 처리 시 제외, front 표시용 가상컬럼
     @Transient
-    private String memEndF;
+    private String memEndF; // 입소 종료 일자 표시용
+
+	@Transient
+	private MultipartFile uploadfilef; // 파일에 대한 정보가 들어있는 타입 생성
 
     @OneToOne
     @JoinColumn(name = "mem_serial")
