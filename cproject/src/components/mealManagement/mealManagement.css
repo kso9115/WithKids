@@ -40,9 +40,39 @@
 }
 
 /* 모달창 */
-
+/* 
 .staffModal>div{
     display: grid;
     grid-template-columns: 30% 35% 35%;
     text-align: center;
-} 
+}  */
+.helloModal {
+    margin-top: 5px;
+    padding: auto;
+}
+
+.helloModal>div {
+    display: grid;
+    grid-template-columns: 35% 60%;
+    margin-bottom: 5px;
+    column-gap: 5%;
+    font-size: large;
+    padding: 2px;
+}
+.helloModal input {
+    /* width: 100%; */
+    font-size: large;
+}
+.helloModal>div:nth-child(n+1):nth-child(-n+3)>div>input {
+    width: 100%;
+    /* font-size: large; */
+}
+
+.helloModal>div>div:first-child {
+    background-color: var(--admin);
+    text-align: center;
+    
+}
+.modalBtn {
+    margin-left: 10px;
+}

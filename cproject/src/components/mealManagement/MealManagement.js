@@ -208,7 +208,7 @@ function MealManagement() {
         },
         content: {
             width: "500px",
-            height: "350px",
+            height: "385px",
             margin: "auto",
             padding: "20px",
             zIndex: "1",
@@ -246,41 +246,51 @@ console.log(memMealDataOne);
     return (
         <div className="mealBox">
             <Modal isOpen={modal} onRequestClose={onCloseClick} style={modalStyle} >
-                <div>
-                    <div>아동식별번호</div>
-                    <div><input type='text' value={memMealDataOne.memSerial} disabled/></div> 
-
-                    <div>이름</div>
-                    <div><input type='text' value={memMealDataOne.memName} disabled/></div> 
-
-                    <div>담당자 이름</div>
-                    <div><input type='text' value={memMealDataOne.staffNm} disabled/></div> 
-
-                    <div>입력 날짜</div>
-                    <div><input id ="mealDate" name="mealDate" type="date" nema="mealDate" value={memMealDataOne.mealDate || ''} onChange={onChangeModal}/></div> 
-
-                    <div>조식</div>
-                    <div><input type="radio" id="brfMeal" name="brfMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.brfMeal)===1} onChange={onChangeModal}/><label htmlFor=''>Y</label>  &nbsp;
-                        <input type="radio" id="brfMeal" name="brfMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.brfMeal)===0} onChange={onChangeModal}/><label htmlFor=''>N</label>
+                <h3>수정하기</h3>
+                <div className='helloModal'>
+                    <div>
+                        <div>아동식별번호</div>
+                        <div><input type='text' value={memMealDataOne.memSerial} disabled/></div>
                     </div>
-
+                    <div>
+                        <div>이름</div>
+                        <div><input type='text' value={memMealDataOne.memName} disabled/></div> 
+                    </div>
+                    <div>
+                        <div>담당자 이름</div>
+                        <div><input type='text' value={memMealDataOne.staffNm} disabled/></div> 
+                    </div>
+                    <div>
+                        <div>입력 날짜</div>
+                        <div><input id ="mealDate" name="mealDate" type="date" nema="mealDate" value={memMealDataOne.mealDate || ''} onChange={onChangeModal}/></div> 
+                    </div>
+                    <div>
+                        <div>조식</div>
+                        <div><input type="radio" id="brfMeal" name="brfMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.brfMeal)===1} onChange={onChangeModal}/><label htmlFor=''>&nbsp;Y</label>  &nbsp;
+                            <input type="radio" id="brfMeal" name="brfMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.brfMeal)===0} onChange={onChangeModal}/><label htmlFor=''>&nbsp;N</label>
+                        </div>
+                    </div>
+                    <div>
                     <div>중식</div>
-                    <div><input type="radio" id="lncMeal" name="lncMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.lncMeal)===1} onChange={onChangeModal} /><label htmlFor=''>Y</label>  &nbsp;
-                        <input type="radio" id="lncMeal" name="lncMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.lncMeal)===0} onChange={onChangeModal} /><label htmlFor=''>N</label>
-                    </div>
-
+                        <div><input type="radio" id="lncMeal" name="lncMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.lncMeal)===1} onChange={onChangeModal} /><label htmlFor=''>&nbsp;Y</label>  &nbsp;
+                            <input type="radio" id="lncMeal" name="lncMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.lncMeal)===0} onChange={onChangeModal} /><label htmlFor=''>&nbsp;N</label>
+                        </div>
+                        </div>
+                    <div>
                     <div>석식</div>
-                    <div><input type="radio" id="dnrMeal" name="dnrMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.dnrMeal)===1} onChange={onChangeModal} /><label htmlFor=''>Y</label>  &nbsp;
-                        <input type="radio" id="dnrMeal" name="dnrMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.dnrMeal)===0} onChange={onChangeModal} /><label htmlFor=''>N</label>
-                    </div>
-
-                    <div>간식</div>
-                    <div><input type="radio" id="snkMeal" name="snkMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.snkMeal)===1} onChange={onChangeModal} /><label htmlFor=''>Y</label>  &nbsp;
-                        <input type="radio" id="snkMeal" name="snkMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.snkMeal)===0} onChange={onChangeModal}/><label htmlFor=''>N</label>
+                        <div><input type="radio" id="dnrMeal" name="dnrMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.dnrMeal)===1} onChange={onChangeModal} /><label htmlFor=''>&nbsp;Y</label>  &nbsp;
+                            <input type="radio" id="dnrMeal" name="dnrMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.dnrMeal)===0} onChange={onChangeModal} /><label htmlFor=''>&nbsp;N</label>
+                        </div>
+                        </div>
+                    <div>
+                        <div>간식</div>
+                        <div><input type="radio" id="snkMeal" name="snkMeal" value={parseInt(1)} checked={parseInt(memMealDataOne.snkMeal)===1} onChange={onChangeModal} /><label htmlFor=''>&nbsp;Y</label>  &nbsp;
+                            <input type="radio" id="snkMeal" name="snkMeal" value={parseInt(0)} checked={parseInt(memMealDataOne.snkMeal)===0} onChange={onChangeModal}/><label htmlFor=''>&nbsp;N</label>
+                        </div>
                     </div>
                 </div>
-                <button className="planModalClose" onClick={onCloseClick}>닫기</button> 
-                <button className="planModalClose" onClick={onClickRequest}>저장</button>
+                <button className="planModalClose modalBtn" onClick={onCloseClick}>닫기</button> 
+                <button className="planModalClose modalBtn" onClick={onClickRequest}>저장</button>
             </Modal>
             <div className='mealCheckbox'>
                 <h3>급식 구분 조회</h3>
@@ -392,7 +402,7 @@ console.log(memMealDataOne);
                                     );
                                 } 
                                 else {
-                                    
+                                    console.log();
                                     return (
                                         <div
                                             // className={color} 
@@ -412,12 +422,7 @@ console.log(memMealDataOne);
                         </div>
                     )
                 })}
-                {/* <div className='buttonBox'>
-                    <div>
-                        <button type="submit" value='신규'>신규</button>
-                        <button type="submit" value='저장'>저장</button>
-                    </div>
-                </div> */}
+                
             </div>
         </div>
     );
