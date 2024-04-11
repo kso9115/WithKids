@@ -84,7 +84,7 @@
 
 .userProgramBox>div {
     display: grid;
-    grid-template-columns: 40% 20% 15% 15% 10%;
+    grid-template-columns: 35% 20% 10% 15% 10% 10%;
 }
 
 .userProgramBox>div:nth-child(1) {
@@ -100,7 +100,7 @@
     /* background-color: white; */
 }
 
-.userProgramBox>div>div {
+.userProgramBox>div>div{
     display: flex;
     justify-content: center;
     align-items: center;

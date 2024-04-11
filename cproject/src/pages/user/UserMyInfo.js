@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import './userMyInfo.css'
 import { apiCall } from '../../server/apiService';
 
+import { Link } from 'react-router-dom';
+
 //서브 컴포넌트 MemberInfo
 function UserMemberInfo() {
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
@@ -66,6 +68,7 @@ function UserProgramInfo() {
                 <div>구분</div>
                 <div>프로그램 요금</div>
                 <div>취소</div>
+                <div>후기</div>
             </div>
             {prgData.map((ele,i) => (
                 <div>
@@ -74,6 +77,7 @@ function UserProgramInfo() {
                     <div>{ele.costClsfc}</div>
                     <div>{ele.paidAmount}</div>
                     <div>취소</div>
+                    <div><Link to="/survey">후기작성</Link></div>
                 </div>
             ))}
         </div>
