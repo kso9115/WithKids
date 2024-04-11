@@ -51,7 +51,6 @@ function UserCheck() {
         }
 
         // console.log(params); // 데이터 줄력됨 => 그대로 요청이랑 전달하면댄당
-
         apiCall('/att/attInsert', 'POST', params)
             .then((response) => {
                 console.log("오잉");

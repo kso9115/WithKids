@@ -13,6 +13,9 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
 
     // 1. Member Entity DB : 가져온 멤버 한명의 멤버 데이터를 사용하기 위해 useState에 저장
     const [memDataOneD, setMemDataOneD] = useState({});
+
+    const memImage = useRef();  // 이미지 등록
+
     useEffect(() => {
         // setMemDataOneD(data)     // data를 넣었을 때 어떤 값이 들어오든 바로 set진행?
         setMemDataOneD({
@@ -56,10 +59,10 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             console.error('데이터가 유효하지 않습니다.');
             return;
         }
-
         // if (mem_dtls_inp_ck(memDataOneD)) {
         apiCall(endpoint, 'POST', data)
             .then((response) => {
+                saveImg();
                 console.log("넘어오는 데이터 확인");
                 console.log(response.data);
 
@@ -125,24 +128,6 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                 }).catch((err) => {
                     console.log(err);
                 });
-
-            // axios.all([
-            //     axios.post('/api/mem/memDelete', null, { params: { memSerial: memDataOneD.memSerial } }),
-            //     axios.post('/api/mem/eduDelete', null, { params: { memSerial: eduDataOneD.memSerial } })
-            // ])
-            //     .then(axios.spread((memResponse, eduResponse) => {
-
-            //         setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
-            //         alert(memResponse.data + '\n' + eduResponse.data);
-
-            //         // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
-            //         setMemListUpdate(!memListUpdate);
-            //         console.log(memResponse.data);
-            //         console.log(eduResponse.data);
-            //     }))
-            //     .catch(function (err) {
-            //         console.log(err);
-            //     });
         }
     }
 
@@ -160,6 +145,26 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                 alert("초기화 실패")
                 console.log(error);
             })
+    }
+
+    // 이미지 등록
+    function saveImg() {
+        if (memImage.current.files[0]) {
+            console.log(memImage.current.files[0]);
+            // prgImage.current.files[0].name = "programImg.png"
+            let formData = new FormData();
+            formData.append("memImg", memImage.current.files[0]);
+            formData.append("memSerial", memDataOneD.memSerial);
+
+            apiCall('/mem/imgUpload', 'POST', formData, null)
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                })
+        }
     }
 
     // 3. 입력 데이터 전체 리셋 : 대신에 data값을 setData({}) 빈객체로 넣어준다.
@@ -326,6 +331,16 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                         onChange={memDataChange}>
                     </input>
                 </div>
+
+                <div>이미지</div>
+                <div><input ref={memImage} type='file'></input></div>
+                
+                <div></div>
+                <div></div>
+                
+                <div></div>
+                <div></div>
+                
             </div>
 
             <b>계좌번호</b>
