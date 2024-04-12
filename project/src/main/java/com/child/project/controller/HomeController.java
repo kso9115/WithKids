@@ -25,11 +25,11 @@ public class HomeController {
 		String realPath = request.getSession().getServletContext().getRealPath("/");
 
 		if (!realPath.contains("tomcat9")) {
-			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\programImg\\";
+			realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/programImg/";
 		} else {
 			realPath += "resources/programImg/";
 		}
-		Resource resource = new FileSystemResource(realPath + prgId + "\\programImg.png");
+		Resource resource = new FileSystemResource(realPath + prgId + "/programImg.png");
 
 		return new ResponseEntity<>(resource, HttpStatus.OK);
 	}
