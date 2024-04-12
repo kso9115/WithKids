@@ -54,16 +54,23 @@ public class NoticeController {
     public String noticeSave(@RequestBody Notice entity, HttpServletRequest request) throws IOException {
         String message = "";
 
-        String realPath = request.getRealPath("/");
+        String realPath = request.getSession().getServletContext().getRealPath("/");
         log.info("** realPath => " + realPath);
 
         // // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-        if (!realPath.contains("apache-tomcat")) {
+        // if (!realPath.contains("apache-tomcat")) {
+        //     realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\"
+        //             + entity.getSeq() + "\\"; // 개발중.
+        // } else {
+        //     realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\noticeFile\\"
+        //             + entity.getSeq() + "\\";
+        // }
+
+        if (!realPath.contains("tomcat9")) {
             realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\"
-                    + entity.getSeq() + "\\"; // 개발중.
-        } else {
-            realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\noticeFile\\"
                     + entity.getSeq() + "\\";
+        } else {
+            realPath += "resources/noticeFile/" + entity.getSeq() + "\\";
         }
 
         // // 1.3 폴더 만들기 (없을수도 있음을 가정, File 클래스)
@@ -89,16 +96,21 @@ public class NoticeController {
             throws IOException {
 
         // // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
-        String realPath = request.getRealPath("/");
+        String realPath = request.getSession().getServletContext().getRealPath("/");
         log.info("** realPath => " + realPath);
         // // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-        if (!realPath.contains("apache-tomcat"))
-            realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\"
-                    + seq + "\\"; // 개발중.
-        else
-            realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\noticeFile\\"
-                    + seq + "\\";
+        // if (!realPath.contains("apache-tomcat"))
+        //     realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\"
+        //             + seq + "\\"; // 개발중.
+        // else
+        //     realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\noticeFile\\"
+        //             + seq + "\\";
 
+        if (!realPath.contains("tomcat9")) {
+            realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\" + seq + "\\";
+        } else {
+            realPath += "resources/noticeFile/" + seq + "\\";
+        }
         // // 1.4) 저장경로 완성
         String file1 = "";
         // List<MultipartFile> uploadfilef = entity.getPrgFilef();
@@ -121,16 +133,21 @@ public class NoticeController {
             throws IOException {
 
         // // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
-        String realPath = request.getRealPath("/");
+        String realPath = request.getSession().getServletContext().getRealPath("/");
         log.info("** realPath => " + realPath);
         // // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-        if (!realPath.contains("apache-tomcat"))
-            realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\"
-                    + seq + "word\\"; // 개발중.
-        else
-            realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\noticeFile\\"
-                    + seq + "word\\";
+        // if (!realPath.contains("apache-tomcat"))
+        //     realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\"
+        //             + seq + "word\\"; // 개발중.
+        // else
+        //     realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\noticeFile\\"
+        //             + seq + "word\\";
 
+        if (!realPath.contains("tomcat9")) {
+            realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\" + seq + "word\\";
+        } else {
+            realPath += "resources/noticeFile/" + seq + "word\\";
+        }            
         // 1.3 폴더 만들기 (없을수도 있음을 가정, File 클래스)
         File file = new File(realPath);
         if (!file.exists()) {
@@ -157,13 +174,20 @@ public class NoticeController {
     public ResponseEntity<?> prgSlideImg(
             @RequestParam("seq") String seq, @RequestParam("fileName") String fileName, HttpServletRequest request)
             throws Exception {
-        String realPath = request.getRealPath("/");
+        String realPath = request.getSession().getServletContext().getRealPath("/");
 
-        if (!realPath.contains("apache-tomcat")) {
+        // if (!realPath.contains("apache-tomcat")) {
+        //     realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\";
+        // } else {
+        //     realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\noticeFile\\";
+        // }
+
+        if (!realPath.contains("tomcat9")) {
             realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\";
         } else {
-            realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\noticeFile\\";
+            realPath += "resources/noticeFile/";
         }
+
         Resource resource = new FileSystemResource(realPath + seq + "word\\" + fileName);
 
         return new ResponseEntity<>(resource, HttpStatus.OK);
@@ -174,15 +198,22 @@ public class NoticeController {
             @RequestParam("fileName") String fileName, HttpServletRequest request) {
 
         // // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
-        String realPath = request.getRealPath("/");
+        String realPath = request.getSession().getServletContext().getRealPath("/");
         log.info("** realPath => " + realPath);
         // // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-        if (!realPath.contains("apache-tomcat"))
-            realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\"
-                    + seq + "\\"; // 개발중.
-        else
-            realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\noticeFile\\"
-                    + seq + "\\";
+        // if (!realPath.contains("apache-tomcat"))
+        //     realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\"
+        //             + seq + "\\"; // 개발중.
+        // else
+        //     realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\noticeFile\\"
+        //             + seq + "\\";
+
+        if (!realPath.contains("tomcat9")) {
+            realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\noticeFile\\" + seq + "\\";
+        } else {
+            realPath += "resources/noticeFile/" + seq + "\\";
+        }
+                   
         try {
             // 파일 경로 생성
             Path filePath = Paths.get(realPath).resolve(fileName).normalize();
