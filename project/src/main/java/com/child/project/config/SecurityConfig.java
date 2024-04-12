@@ -77,6 +77,11 @@ public class SecurityConfig {
 				.authorizeRequests()
 				.antMatchers("/", "/api/prg/**", "/api/prgPln/**", "/api/mem/**", "/api/att/**", "/api/adm/**",
 						"/api/lvn/**", "/api/meal/**", "/api/staff/**", "/api/notice/**")
+//				.antMatchers("/project-0.0.1-SNAPSHOT/", "/project-0.0.1-SNAPSHOT/api/prg/**",
+//						"/project-0.0.1-SNAPSHOT/api/prgPln/**", "/project-0.0.1-SNAPSHOT/api/mem/**", 
+//						"/project-0.0.1-SNAPSHOT/api/att/**", "/project-0.0.1-SNAPSHOT/api/adm/**",
+//						"/project-0.0.1-SNAPSHOT/api/lvn/**", "/project-0.0.1-SNAPSHOT/api/meal/**", 
+//						"/project-0.0.1-SNAPSHOT/api/staff/**", "/project-0.0.1-SNAPSHOT/api/notice/**")
 				.permitAll()
 				// .antMatchers("/", "/home", "/user/**", "/resources/**",
 				// "/uploadImage/**").permitAll()

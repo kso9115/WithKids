@@ -22,14 +22,14 @@ public class HomeController {
 
 	@GetMapping("/api/user/prgImg")
 	public ResponseEntity<?> prgSlideImg(@RequestParam String prgId, HttpServletRequest request) throws Exception {
-		String realPath = request.getRealPath("/");
+		String realPath = request.getSession().getServletContext().getRealPath("/");
 
-		if (!realPath.contains("apache-tomcat")) {
-			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\programImg\\";
+		if (!realPath.contains("tomcat9")) {
+			realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/programImg/";
 		} else {
-			realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\programImg\\";
+			realPath += "resources/programImg/";
 		}
-		Resource resource = new FileSystemResource(realPath + prgId + "\\programImg.png");
+		Resource resource = new FileSystemResource(realPath + prgId + "/programImg.png");
 
 		return new ResponseEntity<>(resource, HttpStatus.OK);
 	}
