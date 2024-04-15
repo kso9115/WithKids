@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.core.io.FileSystemResource;
@@ -64,14 +65,18 @@ public class ProgramController {
 
 	@GetMapping("/prgSlideImg")
 	public ResponseEntity<?> prgSlideImg(@RequestParam String prgId, HttpServletRequest request) throws Exception {
-		String realPath = request.getRealPath("/");
+		String realPath = request.getSession().getServletContext().getRealPath("/");
+		log.info(" realPath => " + realPath);
 
-		if (!realPath.contains("apache-tomcat")) {
-			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\programImg\\";
+		if (!realPath.contains("tomcat9")) {
+			realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/programImg/";
 		} else {
-			realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\programImg\\";
+			realPath += "resources/programImg/";
 		}
-		Resource resource = new FileSystemResource(realPath + prgId + "\\programImg.png");
+
+		// Resource resource = new FileSystemResource(realPath + prgId +
+		// "/programImg.png");
+		Resource resource = new FileSystemResource(realPath + prgId + "/programImg.png");
 
 		return new ResponseEntity<>(resource, HttpStatus.OK);
 	}
@@ -97,19 +102,27 @@ public class ProgramController {
 	@PostMapping("/prgSave")
 	public String prgInsert(@RequestBody Program entity, HttpServletRequest request) throws IOException {
 		String message = "";
-		String realPath = request.getRealPath("/");
+		String realPath = request.getSession().getServletContext().getRealPath("/");
 		String prgImgPath = "";
 		log.info("** realPath => " + realPath);
 
 		// // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-		if (!realPath.contains("apache-tomcat")) {
-			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\programImg\\"
-					+ entity.getPrgId() + "\\";
-		} else {
-			realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\programImg\\"
-					+ entity.getPrgId() + "\\";
-		}
+		// if (!realPath.contains("apache-tomcat")) {
+		// realPath =
+		// "C:/Mtest/childProject/project/src/main/webapp/resources/programImg/"
+		// + entity.getPrgId() + "/";
+		// } else {
+		// realPath =
+		// "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/programImg/"
+		// + entity.getPrgId() + "/";
+		// }
 
+		if (!realPath.contains("tomcat9")) {
+			realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/programImg/"
+					+ entity.getPrgId() + "/";
+		} else {
+			realPath += "resources/programImg/" + entity.getPrgId() + "/";
+		}
 		// // 1.3 폴더 만들기 (없을수도 있음을 가정, File 클래스)
 		File file = new File(realPath);
 		if (!file.exists()) {
@@ -122,9 +135,9 @@ public class ProgramController {
 		if (!file.isFile()) { // 존재하지않는 경우
 			String basicImagePath;
 			if (!realPath.contains("apache-tomcat"))
-				basicImagePath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\images\\programImg.png";
+				basicImagePath = "C:/Mtest/childProject/project/src/main/webapp/resources/images/programImg.png";
 			else
-				basicImagePath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\images\\programImg.png";
+				basicImagePath = "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/images/programImg.png";
 			FileInputStream fi = new FileInputStream(new File(basicImagePath));
 			// => uploadImages 읽어 파일 입력바이트스트림 생성
 			FileOutputStream fo = new FileOutputStream(file);
@@ -170,18 +183,25 @@ public class ProgramController {
 		String message = "";
 
 		// // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
-		String realPath = request.getRealPath("/");
+		String realPath = request.getSession().getServletContext().getRealPath("/");
 		log.info("** realPath => " + realPath);
 
 		// // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-		if (!realPath.contains("apache-tomcat")) {
-			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\uploadFile\\"
-					+ entity.getPrgId() + entity.getPrgDnm() + "\\"; // 개발중.
+		// if (!realPath.contains("apache-tomcat")) {
+		// realPath =
+		// "C:/Mtest/childProject/project/src/main/webapp/resources/uploadFile/"
+		// + entity.getPrgId() + entity.getPrgDnm() + "/"; // 개발중.
+		// } else {
+		// realPath =
+		// "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/uploadFile/"
+		// + entity.getPrgId() + entity.getPrgDnm() + "/";
+		// }
+		if (!realPath.contains("tomcat9")) {
+			realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/uploadFile/"
+					+ entity.getPrgId() + entity.getPrgDnm() + "/";
 		} else {
-			realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\uploadFile\\"
-					+ entity.getPrgId() + entity.getPrgDnm() + "\\";
+			realPath += "resources/uploadFile/" + entity.getPrgId() + entity.getPrgDnm() + "/";
 		}
-
 		// // 1.3 폴더 만들기 (없을수도 있음을 가정, File 클래스)
 		File file = new File(realPath);
 		if (!file.exists()) {
@@ -228,16 +248,23 @@ public class ProgramController {
 			throws IOException {
 
 		// // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
-		String realPath = request.getRealPath("/");
+		String realPath = request.getSession().getServletContext().getRealPath("/");
 		log.info("** realPath => " + realPath);
 		// // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-		if (!realPath.contains("apache-tomcat"))
-			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\uploadFile\\"
-					+ prgId + prgDnm + "\\"; // 개발중.
-		else
-			realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\uploadFile\\"
-					+ prgId + prgDnm + "\\";
-
+		// if (!realPath.contains("apache-tomcat"))
+		// realPath =
+		// "C:/Mtest/childProject/project/src/main/webapp/resources/uploadFile/"
+		// + prgId + prgDnm + "/"; // 개발중.
+		// else
+		// realPath =
+		// "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/uploadFile/"
+		// + prgId + prgDnm + "/";
+		if (!realPath.contains("tomcat9")) {
+			realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/uploadFile/" + prgId + prgDnm
+					+ "/";
+		} else {
+			realPath += "resources/uploadFile/" + prgId + prgDnm + "/";
+		}
 		// // 1.4) 저장경로 완성
 		String file1 = "";
 		// List<MultipartFile> uploadfilef = entity.getPrgFilef();
@@ -260,16 +287,22 @@ public class ProgramController {
 			throws IOException {
 
 		// // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
-		String realPath = request.getRealPath("/");
+		String realPath = request.getSession().getServletContext().getRealPath("/");
 		log.info("** realPath => " + realPath);
 		// // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-		if (!realPath.contains("apache-tomcat"))
-			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\programImg\\"
-					+ prgId + "\\"; // 개발중.
-		else
-			realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\programImg\\"
-					+ prgId + "\\";
-
+		// if (!realPath.contains("apache-tomcat"))
+		// realPath =
+		// "C:/Mtest/childProject/project/src/main/webapp/resources/programImg/"
+		// + prgId + "/"; // 개발중.
+		// else
+		// realPath =
+		// "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/programImg/"
+		// + prgId + "/";
+		if (!realPath.contains("tomcat9")) {
+			realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/programImg/" + prgId + "/";
+		} else {
+			realPath += "resources/programImg/" + prgId + "/";
+		}
 		// // 1.4) 저장경로 완성
 		String file1 = "";
 		// List<MultipartFile> uploadfilef = entity.getPrgFilef();
@@ -290,15 +323,23 @@ public class ProgramController {
 			@RequestParam("fileName") String fileName, HttpServletRequest request) {
 
 		// // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
-		String realPath = request.getRealPath("/");
+		String realPath = request.getSession().getServletContext().getRealPath("/");
 		log.info("** realPath => " + realPath);
 		// // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-		if (!realPath.contains("apache-tomcat"))
-			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\uploadFile\\"
-					+ prgId + prgDnm + "\\"; // 개발중.
-		else
-			realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\uploadFile\\"
-					+ prgId + prgDnm + "\\";
+		// if (!realPath.contains("apache-tomcat"))
+		// realPath =
+		// "C:/Mtest/childProject/project/src/main/webapp/resources/uploadFile/"
+		// + prgId + prgDnm + "/"; // 개발중.
+		// else
+		// realPath =
+		// "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/uploadFile/"
+		// + prgId + prgDnm + "/";
+		if (!realPath.contains("tomcat9")) {
+			realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/uploadFile/" + prgId + prgDnm
+					+ "/";
+		} else {
+			realPath += "resources/uploadFile/" + prgId + prgDnm + "/";
+		}
 		try {
 			// 파일 경로 생성
 			Path filePath = Paths.get(realPath).resolve(fileName).normalize();
@@ -363,5 +404,4 @@ public class ProgramController {
 		return entity;
 	} // prgOne
 
-	
 }

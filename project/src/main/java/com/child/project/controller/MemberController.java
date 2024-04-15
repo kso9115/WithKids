@@ -97,18 +97,26 @@ public class MemberController {
     @PostMapping("/memInesert")
     public String memInsert(@RequestBody Member entity, HttpServletRequest request) throws IOException {
         String message = "";
-        String realPath = request.getRealPath("/");
+        String realPath = request.getSession().getServletContext().getRealPath("/");
         log.info("** realPath => " + realPath);
 
         // // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-        if (!realPath.contains("apache-tomcat")) {
-            realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\memberImg\\"
-                    + entity.getMemSerial() + "\\";
+        // if (!realPath.contains("apache-tomcat")) {
+        // realPath =
+        // "C:/Mtest/childProject/project/src/main/webapp/resources/memberImg/"
+        // + entity.getMemSerial() + "/";
+        // } else {
+        // realPath =
+        // "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/memberImg/"
+        // + entity.getMemSerial() + "/";
+        // }
+        if (!realPath.contains("tomcat9")) {
+            realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/memberImg/"
+                    + entity.getMemSerial() + "/";
         } else {
-            realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\memberImg\\"
-                    + entity.getMemSerial() + "\\";
+            realPath += "resources/memberImg/"
+                    + entity.getMemSerial() + "/";
         }
-
         // // 1.3 폴더 만들기 (없을수도 있음을 가정, File 클래스)
         File file = new File(realPath);
         if (!file.exists()) {
@@ -123,9 +131,9 @@ public class MemberController {
         if (!file.isFile()) { // 존재하지않는 경우
             String basicImagePath;
             if (!realPath.contains("apache-tomcat"))
-                basicImagePath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\images\\memberImg.png";
+                basicImagePath = "C:/Mtest/childProject/project/src/main/webapp/resources/images/memberImg.png";
             else
-                basicImagePath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\images\\memberImg.png";
+                basicImagePath = "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/images/memberImg.png";
             FileInputStream fi = new FileInputStream(new File(basicImagePath));
             // => uploadImages 읽어 파일 입력바이트스트림 생성
             FileOutputStream fo = new FileOutputStream(file);
@@ -161,18 +169,26 @@ public class MemberController {
 
         log.info("이미지업로드 들어오니");
         // // 1.1) 현제 웹어플리케이션의 실질적인 실행위치 확인
-        String realPath = request.getRealPath("/");
+        String realPath = request.getSession().getServletContext().getRealPath("/");
         log.info("** realPath => " + realPath);
         // // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
         // C:\Mtest\childProject\project\src\main\webapp\resources\memberImg
-        if (!realPath.contains("apache-tomcat"))
-            realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\memberImg\\"
-                    + memSerial + "\\"; // 개발중.
-        else
-            // 경로 아직없음
-            realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\memberImg\\"
-                    + memSerial + "\\";
+        // if (!realPath.contains("apache-tomcat"))
+        // realPath =
+        // "C:/Mtest/childProject/project/src/main/webapp/resources/memberImg/"
+        // + memSerial + "/"; // 개발중.
+        // else
+        // // 경로 아직없음
+        // realPath =
+        // "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/memberImg/"
+        // + memSerial + "/";
 
+        if (!realPath.contains("tomcat9")) {
+            realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/memberImg/"
+                    + memSerial + "/";
+        } else {
+            realPath += "resources/memberImg/" + memSerial + "/";
+        }
         // // 1.4) 저장경로 완성
         String file1 = "";
         // List<MultipartFile> uploadfilef = entity.getPrgFilef();
@@ -190,21 +206,28 @@ public class MemberController {
 
     // 업로드 된 이미지 사용자 페이지에서 띄워주기
     @GetMapping("/memOneImg")
-	public ResponseEntity<?> memOneImg(@RequestParam String memSerial, HttpServletRequest request) throws Exception {
-        
-        String realPath = request.getRealPath("/");
-        
-		if (!realPath.contains("apache-tomcat")) {
-			realPath = "C:\\Mtest\\childProject\\project\\src\\main\\webapp\\resources\\memberImg\\";
-		} else {
-            realPath = "E:\\Mtest\\IDESet\\apache-tomcat-9.0.85\\webapps\\project\\resources\\memberImg\\";
-		}
-        
-        log.info(memSerial);
-		Resource resource = new FileSystemResource(realPath+memSerial+"\\memberImg.png");
+    public ResponseEntity<?> memOneImg(@RequestParam String memSerial, HttpServletRequest request) throws Exception {
 
-		return new ResponseEntity<>(resource, HttpStatus.OK);
-	}
+        String realPath = request.getSession().getServletContext().getRealPath("/");
+
+        // if (!realPath.contains("apache-tomcat")) {
+        // realPath =
+        // "C:/Mtest/childProject/project/src/main/webapp/resources/memberImg/";
+        // } else {
+        // realPath =
+        // "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/memberImg/";
+        // }
+
+        if (!realPath.contains("tomcat9")) {
+            realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/memberImg/";
+        } else {
+            realPath += "resources/memberImg/";
+        }
+        log.info(memSerial);
+        Resource resource = new FileSystemResource(realPath + memSerial + "/memberImg.png");
+
+        return new ResponseEntity<>(resource, HttpStatus.OK);
+    }
 
     // Education 엔티티에 접근
     @PostMapping("/memEduInesert")
