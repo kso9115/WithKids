@@ -7,6 +7,7 @@ import Container from "../container/Container";
 import './AdmLvng_Manager.css';
 
 import { admLvng_mng } from "../../hooks/searchbox/searchData";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiCall } from "../../server/apiService";
@@ -33,7 +34,7 @@ function AdmLvng_Manager() {
     // 4. 퇴소 데이터 가져오기 
     const [lvngMem, setLvngMem] = useState({});
 
-    // 9. search Box 요청 => 감지하여 값 변경
+    // search Box 요청 => 감지하여 값 변경
     const[memListUpdate,setMemListUpdate] = useState(true); 
 
     // 1. 컨테이너에 정보 전달 
@@ -222,10 +223,7 @@ function AdmLvng_Manager() {
         } else alert(" admMemOne에 memSerial 없다? ");
     }
 
-    // 9. searchBox 요청
-
-
-
+    // searchBox 요청
     function searchBoxClick(sbVal){
         setMemListUpdate(sbVal);
     }

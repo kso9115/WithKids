@@ -169,7 +169,7 @@ function Member_admission({admMemOne , dataDML } ){
         },
         content: {
             width: "400px",
-            height: "300px",
+            height: "310px",
             margin: "auto",
             padding: "20px",
             zIndex: "1",
@@ -179,14 +179,8 @@ function Member_admission({admMemOne , dataDML } ){
     return (
         <div>
             <Modal style={modalStyle} isOpen={modal} onRequestClose={onCloseClick}>
-                <h4>임직원 조회하기</h4>
                 <div className='staffModal'>
-                    {/* <select name='' value={''} onChange={admdChange}>
-                        <option value="none" >--선택--</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select> */}
+                    <h4>임직원 조회하기</h4>    
                     <div style={{ backgroundColor: 'var(--admin)' }}>
                         <div>직급</div>
                         <div>성함</div>
