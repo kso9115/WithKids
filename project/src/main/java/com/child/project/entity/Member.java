@@ -2,6 +2,7 @@ package com.child.project.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -43,7 +44,7 @@ public class Member {
     private String memBirth;
     @Column(name = "mem_sex")
     private String memSex;
-    @Column(name = "mem_register_datetime") // 접수일자
+    @Column(name = "mem_register_datetime", updatable = false) // 접수일자
     private String memRegisterDate;
     @Column(name = "mem_presence_family")
     private String memFamily;
@@ -97,7 +98,8 @@ public class Member {
 	@Transient
 	private MultipartFile uploadfilef; // 파일에 대한 정보가 들어있는 타입 생성
 
-    @OneToOne
-    @JoinColumn(name = "mem_serial")
-    private Education education;
+    // @OneToOne(fetch = FetchType.LAZY)
+    // @OneToOne
+    // @JoinColumn(name = "mem_serial")
+    // private Education education;
 }

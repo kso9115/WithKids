@@ -55,6 +55,7 @@ function MemberMangement() {
 
             apiCall('/mem/memSelectOneEdu', 'POST', { memSerial: memDataOne.memSerial })
                 .then((response) => {
+                    console.log(response.data);
                     setEduDataOne(response.data);
                 }).catch((err) => {
                     console.log("error => ", err);

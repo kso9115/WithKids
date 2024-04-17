@@ -276,7 +276,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                     </input>
                 </div>
 
-                <div><span>*</span>전화번호</div>
+                <div>전화번호</div>
                 <div className='mem_tel'>
                     <input type='tel' name='memTel' placeholder='하이픈(-) 포함하여 작성'
                         value={memDataOneD.memTel || ""}
@@ -284,7 +284,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                     </input>
                 </div>
 
-                <div>휴대전화번호</div>
+                <div><span>*</span>휴대전화번호</div>
                 <div className='mem_phone'>
                     <input type='tel' name='memPhone' placeholder='하이픈(-) 포함하여 작성'
                         value={memDataOneD.memPhone || ""}

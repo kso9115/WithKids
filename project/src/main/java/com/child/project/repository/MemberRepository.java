@@ -15,7 +15,8 @@ import com.child.project.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, String> {
 
-        // List<Member> findAll();
+        @Query(value = "select * from member", nativeQuery = true)
+        List<Member> findAll();
         // List<Member> findbyMembers(long mem_serial);
 
         // JPQL : Entity 접근
