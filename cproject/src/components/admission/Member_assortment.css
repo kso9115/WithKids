@@ -35,3 +35,15 @@
     gap: 5px;
     margin-left: auto;
 }
+
+.staffModal>div {
+    display: grid;
+    grid-template-columns: 30% 30% 40%;
+}
+.staffModal div {
+    text-align: center;
+    padding-bottom: 1px;
+}
+.staffModal>h4 {
+    margin-bottom: 10px;
+}
