@@ -87,7 +87,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
             }
             formData.append("prgId", prgDetailData.prgId);
             formData.append("prgDnm", prgDetailData.prgDnm);
-            // console.log(data);
+
             apiCall('/prg/fileUpload', 'POST', formData)
                 .then((response) => {
                     console.log(response.data);

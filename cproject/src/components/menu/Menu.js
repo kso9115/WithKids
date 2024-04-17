@@ -25,11 +25,12 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     map.set('ProgramManagement', { name: '프로그램정보관리', content: <ProgramManagement /> });
     map.set('ProgramPlan', { name: '프로그램계획서 작성', content: <ProgramPlan /> });
     map.set('NoticeManagement', { name: '공지사항 관리', content: <NoticeManagement /> });
+
     function getTransTitle(menuName) {
         if (menuAuthority(menuName)) {
             return;
         }
-        // menuArr.filter((it)=>it.isDone)
+
         for (let i = 0; i < menuArr.length; i++) {
             if (map.get(menuName).name === menuArr[i].name) {
                 return setCurrentTab(i);
@@ -86,7 +87,6 @@ export default React.memo(Menu);
 
 function menuAuthority(menuName) {
     const loginInfo = JSON.parse(sessionStorage.getItem("staffname")).data;
-    console.log(loginInfo);
 
     // 출석관리
     if (menuName === "AttandanceMangement" && loginInfo.staffChlCr < 1) {

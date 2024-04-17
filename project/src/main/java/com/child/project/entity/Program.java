@@ -24,7 +24,7 @@ import lombok.ToString;
 @Table(name = "program")
 @IdClass(ProgramId.class)
 public class Program implements Serializable {
-	
+
 	@Id
 	@Column(name = "prg_id")
 	private String prgId;
@@ -68,28 +68,28 @@ public class Program implements Serializable {
 	private String prgNmbApi;
 
 	@Column(name = "prg_use")
-	private int prgUse;
+	private Integer prgUse;
 
 	@Column(name = "bdg_exc")
-	private int bdgExc;
+	private Integer bdgExc;
 
 	@Column(name = "bdg_amt")
-	private int bdgAmt;
+	private Integer bdgAmt;
 
 	@Column(name = "sgnn_cntr")
-	private int sgnnCntr;
+	private Integer sgnnCntr;
 
 	@Column(name = "cost_clsfc")
 	private String costClsfc;
 
 	@Column(name = "prg_fee")
-	private int prgFee;
+	private Integer prgFee;
 
 	@Column(name = "pln_nmb_ppl")
-	private int plnNmbPpl;
+	private Integer plnNmbPpl;
 
 	@Column(name = "wtl_rgs")
-	private int wtlRgs;
+	private Integer wtlRgs;
 
 	@Column(name = "f_typ")
 	private String ffTyp;
@@ -99,5 +99,14 @@ public class Program implements Serializable {
 
 	@Transient
 	private String type;
+
+	public Program(String prgId, String prgBigCls, String prgMidCls,
+			String prgSubCls, String prgNm) {
+		this.prgId = prgId;
+		this.prgBigCls = prgBigCls;
+		this.prgMidCls = prgMidCls;
+		this.prgSubCls = prgSubCls;
+		this.prgNm = prgNm;
+	}
 
 }

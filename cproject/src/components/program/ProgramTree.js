@@ -62,11 +62,6 @@ function ProgramTree({ name, setData, treeUpdate }) {
                                 treeData.at(-1).contents.at(-1).contents.push({
                                     prgSubCls: prgData[k].prgSubCls,
                                     count: `${treeCount++}`,
-                                    // contents: [{
-                                    //     prgId: prgData[k].prgId,
-                                    //     prgNm: prgData[k].prgNm,
-                                    //     count: `${treeCount++}`,
-                                    // }]
                                     contents: []
                                 })
                                 for (let l = 0; l < prgData.length; l++) {
@@ -85,11 +80,30 @@ function ProgramTree({ name, setData, treeUpdate }) {
                 }
                 check2 = '';
             }
-
         }
         check = '';
     }
-    // console.log(treeData);
+
+    function prgOne(prgId) {
+        apiCall('/prg/prgOne', 'POST', { prgId })
+            .then((response) => {
+                response.data = {
+                    ...response.data,
+                    ffTyp: !response.data.ffTyp ?
+                        new Set() : Array.isArray(response.data.ffTyp) ?
+                            response.data.cls_inc : response.data.ffTyp.indexOf(' ') > 0 ?
+                                new Set(response.data.ffTyp.split(' ')) : new Set([response.data.ffTyp]),
+                    clsInc: !response.data.clsInc ?
+                        new Set() : Array.isArray(response.data.clsInc) ?
+                            response.data.cls_inc : response.data.clsInc.indexOf(' ') > 0 ?
+                                new Set(response.data.clsInc.split(' ')) : new Set([response.data.clsInc]),
+                };
+                setData(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
     let treeMake = treeData.map((e) => {
         return (
@@ -103,19 +117,20 @@ function ProgramTree({ name, setData, treeUpdate }) {
                                         {e3.contents.map((e4) => {
                                             return (
                                                 <TreeItem key={e4.count} nodeId={e4.count} onClick={() => {
-                                                    let data = prgData[prgData.findIndex((item) => item.prgId === e4.prgId)];
-                                                    data = {
-                                                        ...data,
-                                                        ffTyp: !data.ffTyp ?
-                                                            new Set() : Array.isArray(data.ffTyp) ?
-                                                                data.cls_inc : data.ffTyp.indexOf(' ') > 0 ?
-                                                                    new Set(data.ffTyp.split(' ')) : new Set([data.ffTyp]),
-                                                        clsInc: !data.clsInc ?
-                                                            new Set() : Array.isArray(data.clsInc) ?
-                                                                data.cls_inc : data.clsInc.indexOf(' ') > 0 ?
-                                                                    new Set(data.clsInc.split(' ')) : new Set([data.clsInc]),
-                                                    };
-                                                    setData(data);
+                                                    prgOne(e4.prgId);
+                                                    // let data = prgData[prgData.findIndex((item) => item.prgId === e4.prgId)];
+                                                    // data = {
+                                                    //     ...data,
+                                                    //     ffTyp: !data.ffTyp ?
+                                                    //         new Set() : Array.isArray(data.ffTyp) ?
+                                                    //             data.cls_inc : data.ffTyp.indexOf(' ') > 0 ?
+                                                    //                 new Set(data.ffTyp.split(' ')) : new Set([data.ffTyp]),
+                                                    //     clsInc: !data.clsInc ?
+                                                    //         new Set() : Array.isArray(data.clsInc) ?
+                                                    //             data.cls_inc : data.clsInc.indexOf(' ') > 0 ?
+                                                    //                 new Set(data.clsInc.split(' ')) : new Set([data.clsInc]),
+                                                    // };
+                                                    // setData(data);
                                                 }}
                                                     label={e4.prgNm} >
                                                 </TreeItem>
@@ -130,7 +145,6 @@ function ProgramTree({ name, setData, treeUpdate }) {
             </TreeItem>
         )
     })
-
 
     function TreeOpenner() {
         let array = ['1'];
@@ -170,4 +184,3 @@ function ProgramTree({ name, setData, treeUpdate }) {
 }
 
 export default React.memo(ProgramTree);
-// export default ProgramTree;

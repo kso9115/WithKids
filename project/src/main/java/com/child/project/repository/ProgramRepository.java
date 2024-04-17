@@ -11,7 +11,8 @@ import com.child.project.entity.ProgramId;
 
 public interface ProgramRepository extends JpaRepository<Program, ProgramId> {
 
-        @Query(value = "select * from program order by prg_big_cls,prg_mid_cls,prg_sub_cls", nativeQuery = true)
+        // @Query(value = "select * from program order by prg_big_cls,prg_mid_cls,prg_sub_cls", nativeQuery = true)
+        @Query(value = "select new Program(prgId,prgBigCls,prgMidCls,prgSubCls,prgNm) from Program p order by prgBigCls,prgMidCls,prgSubCls")
         List<Program> findAll();
 
         @Query(value = "select * from program where prg_id=:prg_id", nativeQuery = true)

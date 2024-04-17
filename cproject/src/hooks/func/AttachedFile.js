@@ -7,7 +7,7 @@ import { apiCall } from '../../server/apiService';
 function AttachedFile({ data, setData, name, files, prgTrue }) {
     const staffCntMng = JSON.parse(sessionStorage.getItem("staffname")).data.staffCntMng !== 2;
     const selectFile = useRef();
-    // 파일을 저장
+
     const [isActive, setActive] = useState(false);
 
     //파일 드래그 시의 css 제어를 위해
@@ -61,7 +61,7 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
         setData({ ...data });
     }
 
-    //
+    // 기존파일 삭제
     function deleteFile() {
         deleteFilef();
         const deleteCheck = document.querySelectorAll('.deleteCheck');
@@ -74,6 +74,8 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
         data[name] = liveName;
         setData({ ...data });
     }
+
+    // 파일 추가시 삭제
     function deleteFilef() {
         const deleteCheckf = document.querySelectorAll('.deleteCheckf');
         const liveTransfer = new DataTransfer();
@@ -86,6 +88,7 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
         data[files] = selectFile.current.files;
         setData({ ...data });
     }
+
     // 기존파일 생성
     function fileMake() {
         if (Array.isArray(data[name]) && data[name].length > 0) {
@@ -116,7 +119,8 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
                                 className='deleteCheckf allCheck' onChange={oneCheck} value={i} />
                         </div>
                         <div><label htmlFor={data[files][i].name} >{data[files][i].name}</label></div>
-                        <div><button type='button' name={data[files][i].name} onClick={() => alert("방금 추가한 파일은 다운로드 할 수 없습니다.")}>다운로드</button></div>
+                        <div><button type='button' name={data[files][i].name}
+                            onClick={() => alert("방금 추가한 파일은 다운로드 할 수 없습니다.")}>다운로드</button></div>
                     </div>
                 );
             }))
@@ -128,7 +132,6 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
         if ((Array.isArray(data[name]) && data[name].length === 0) && (!data[files] || data[files] == null)) {
             return (
                 <>
-                    {/* <p>프로그램을 선택해 세부프로그램명을 입력해야 업로드 가능합니다.<br />드래그로 파일을 업로드 가능합니다.</p> */}
                     <p>드래그로 파일을 업로드 가능합니다.</p>
                 </>
             );
@@ -151,7 +154,7 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
         })
         if (count === deleteCheck.length) return document.getElementById('fullCheck').checked = true;
     }
-    console.log(prgTrue);
+
     function downloadFile(event) {
         if (window.confirm(`${event.target.name} 파일을 다운로드 하시겠습니까?`)) {
             prgTrue ?
@@ -219,7 +222,6 @@ function AttachedFile({ data, setData, name, files, prgTrue }) {
                     style={{ display: "none" }}
                     ref={selectFile}
                     onChange={onLoadFile}
-                // files={data[files]}
                 />
             </label>
 

@@ -9,17 +9,11 @@ import { prg_mng } from '../../hooks/searchbox/searchData'
 import { apiCall } from "../../server/apiService"
 
 function ProgramManagement() {
-    // console.log("ProgramManagement");
-    // const [srcData, setSrcData] = useState({});
     const [prgDataOne, setPrgDataOne] = useState({}); //프로그램 테이블 전체중에 트리에서 선택한 행 보관
     const [prgDetail, setPrgDetail] = useState([]); //프로그램 테이블 전체중에 트리에서 선택한 행의 프로그램 ID의 세부테이블 정보 보관
     const [treeUpdate, setTreeUpdate] = useState(true);//변화 감지
 
     const [subCurrentTab, setSubCurrentTab] = useState(0);
-    // const [subMenuArr, setSubMenuArr] = useState([
-    //     { name: '프로그램 상세정보', content: <ProgramDetails data={programId} setData={setProgramId} /> },
-    //     { name: '세부 프로그램', content: <ProgramDetailsPrg data={programId} setData={setProgramId} /> }
-    // ]);
 
     const subMenuArr = [
         { name: '프로그램 상세정보', content: '' },
@@ -29,7 +23,6 @@ function ProgramManagement() {
         treeUpdate={treeUpdate} setTreeUpdate={setTreeUpdate} />;
     subMenuArr[1].content = <ProgramDetailsPrg data={prgDataOne} setData={setPrgDataOne} subData={prgDetail}
         treeUpdate={treeUpdate} setTreeUpdate={setTreeUpdate} />;
-
 
     useEffect(() => {
         if (prgDataOne.constructor === Object

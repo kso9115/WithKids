@@ -38,7 +38,7 @@ function App() {
                         </Route>
                         {/* <Route path="programDtail" element={<UserprogramDetails />}></Route> */}
                         <Route path="schedule" element={<Schedule />}></Route>
-                        
+
                         <Route path="program" element={<Userprogram />}>
                             <Route path="" element={<UserprogramMain />}></Route>
                             <Route path="dtails" element={<UserprogramDetails />}></Route>

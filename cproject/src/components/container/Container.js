@@ -1,19 +1,14 @@
 import './container.css';
-import { useEffect, useState } from 'react';
 
 function Container({ menuArr, setMenuArr, currentTab, setCurrentTab, mainSub }) {
-    const [menus, setMenus] = useState();
-
-    useEffect(() => {
-        setMenus(menuArr);
-    }, [menuArr])
 
     const selectMenuHandler = (index) => {
         setCurrentTab(index);
     }
+
     const onRemove = (name, index) => {
-        setMenuArr(menus.filter(menu => menu.name !== name));
-        setMenus(menus.filter(menu => menu.name !== name));
+        setMenuArr(menuArr.filter(menu => menu.name !== name));
+
         if ((index === currentTab) && (currentTab - 1 < 0)) {
 
         } else if (index === currentTab) {
@@ -41,7 +36,7 @@ function Container({ menuArr, setMenuArr, currentTab, setCurrentTab, mainSub }) 
                                     (ele.name !== '메인' && mainSub === 'main')
                                         ? <div className="close"
                                             onClick={(event) => {
-                                                event.stopPropagation();
+                                                event.stopPropagation(); //상위 요소로 이벤트 전파 방지
                                                 onRemove(ele.name, index)
                                             }}
                                         >&nbsp;&nbsp;</div>
