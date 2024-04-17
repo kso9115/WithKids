@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import searchIcon from '../../assets/images/free-icon-search-149852.png';
 //모달창 지원
 import Modal from "react-modal";
+
 import { apiCall } from '../../server/apiService';
 
 function Member_admission({admMemOne , dataDML } ){
@@ -123,11 +124,9 @@ function Member_admission({admMemOne , dataDML } ){
     // click 했을 때, staff 에서 값을 받아와야함.
     const onOpenClick = () => {
         setModal(true);
-        console.log("트루");
     }
     const onCloseClick = () => {
         setModal(false);
-        console.log("폴스~");
     }
 
     function ModalRes({modal, setData, onCloseClick}){
@@ -147,7 +146,6 @@ function Member_admission({admMemOne , dataDML } ){
         },[modal])
 
         return(staff.map((items) => {
-            console.log("리턴");
             return(
                 <div key={items.staffNm} onClick={() => { 
                         setData(items.staffNm)
@@ -190,6 +188,7 @@ function Member_admission({admMemOne , dataDML } ){
                 </div>
                 <button className="planModalClose" onClick={onCloseClick}>닫기</button>
             </Modal>
+
             <div style={{color:'black',fontWeight:'bold'}}>입소/이용 정보</div>
             <div className="adgridBox admissionBox">
                 <div><span style={{color:"red"}}>*</span>입소/이용일자</div>
@@ -264,7 +263,9 @@ function Member_admission({admMemOne , dataDML } ){
                 </div>
 
                 <div><span></span>담당자 성명</div>
-                <div><input type="text" name='memResponsiblePerson' onChange={admdChange} value={ admMemOneD.memResponsiblePerson || '' }/> <img className="sIcon" src={searchIcon} alt="search" onClick={onOpenClick}/> </div>
+                <div><input type="text" name='memResponsiblePerson' onChange={admdChange} 
+                        value={ admMemOneD.memResponsiblePerson || '' }/> 
+                <img className="sIcon" src={searchIcon} alt="search" onClick={onOpenClick}/> </div>
                 
             </div>
             <br></br>

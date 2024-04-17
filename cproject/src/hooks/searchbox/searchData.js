@@ -43,7 +43,7 @@ export const prg_mng = {
 }
 
 export const admLvng_mng = {
-    name: '입소(이용) / 퇴소(종결) 관리 ', // 서치 박스 위에 표시될 이름
+    name: '입소(이용) / 퇴소(종결) 조회 ', // 서치 박스 위에 표시될 이름
     action: 'admLvng', // form 태그로 전달할 요청명
     method: 'get', // form 태그로 전달할 요청 방식
     content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
