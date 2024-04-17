@@ -49,19 +49,17 @@ public class MemberController {
     // 파라미터로 데이터를 전달하는게 아니니까 get매핑 사용해도 무방
     @GetMapping("/memList")
     public List<Member> memList() {
-        log.info("memList확인");
-        List<Member> list = memService.selectList();
-
         // log.info("memList확인" + list); // 넘어오는거 확인함
-
-        return list;
+        log.info("memList 들어오는지 확인");
+        // return list;
+        return memService.selectList();
     }
 
     // Post방식 하나의 Edu 데이터 전달 : Education타입의 바디에 담아서 전달
     @PostMapping("/memSelectOneEdu")
     public Education selectEduData(@RequestBody Education entity) {
-        // log.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&오냐?");
-
+        log.info("memSelectOneEdu 들어오는지 확인");
+        
         // String memSerial = entity.getMemSerial(); // memSerial 파라미터 값 저장
         try {
             Education selectOneEdu = memService.selectEduData(entity.getMemSerial());
@@ -359,7 +357,7 @@ public class MemberController {
         // log.info("뭐가 나오긴 하냐 ?????" + entity.getMemSerial());
         log.info("뭐가 나오긴 하냐 ?????" + entity);
         try {
-            entity = memService.selectAllMember(entity.getMemSerial());
+            // entity = memService.selectAllMember(entity.getMemSerial());
             log.info("뭐가 나오긴 하냐 ?????" + entity);
             return entity;
         } catch (Exception e) {
