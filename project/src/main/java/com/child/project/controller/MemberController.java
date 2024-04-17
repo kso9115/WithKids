@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -100,16 +102,6 @@ public class MemberController {
         String realPath = request.getSession().getServletContext().getRealPath("/");
         log.info("** realPath => " + realPath);
 
-        // // 1.2) realPath 를 이용해서 물리적 저장위치 (file1) 확인
-        // if (!realPath.contains("apache-tomcat")) {
-        // realPath =
-        // "C:/Mtest/childProject/project/src/main/webapp/resources/memberImg/"
-        // + entity.getMemSerial() + "/";
-        // } else {
-        // realPath =
-        // "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/memberImg/"
-        // + entity.getMemSerial() + "/";
-        // }
         if (!realPath.contains("tomcat9")) {
             realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/memberImg/"
                     + entity.getMemSerial() + "/";
@@ -143,14 +135,19 @@ public class MemberController {
 
         log.info("entity 값을 확인해보자" + entity); // 잘와유
         // save하려는 값이 없으면 실행x
+
+        // 현재 시간을 가져오기
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        // 날짜 포맷을 지정 "yyyy-MM-dd" 형식
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDateTime = currentTime.format(formatter);
+
         try {
             // 초기 기본 비밀번호 설정을 위한 값 부여
-            entity.setMemLoginPW("12345!");
-            entity.setMemRegisterDate("2023-03-26");
+            entity.setMemLoginPW("$2a$10$AlGFCUpTsqFJ0MFETCbnyOTnKA.qgpIhr0fe1SeTLlF3PCiYSZ9tG");
+            entity.setMemRegisterDate(formattedDateTime);
             memService.save(entity);
-
-            // 파라미터 값 저장
-            // log.info("member insert 성공 => " + memService.save(memEntity)); // 넘어오는거 확인완
 
             message = "아동 추가 입력 성공";
         } catch (Exception e) {

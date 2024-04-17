@@ -43,7 +43,7 @@ public class Member {
     private String memBirth;
     @Column(name = "mem_sex")
     private String memSex;
-    @Column(name = "mem_register_datetime") // 접수일자
+    @Column(name = "mem_register_datetime", updatable = false) // 접수일자
     private String memRegisterDate;
     @Column(name = "mem_presence_family")
     private String memFamily;

@@ -36,7 +36,7 @@ export function mem_dtls_inp_ck(memDataOneD) {
             return false;
         }
 
-        if (!memDataOneD.memTel) {
+        if (!memDataOneD.memPhone) {
             alert("연락처를 입력해주세요.");
             return false;
         }
