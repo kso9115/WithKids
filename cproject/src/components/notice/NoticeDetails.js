@@ -8,10 +8,16 @@ import { toStringByFormatting } from '../../hooks/formdate';
 import AttachedFile from '../../hooks/func/AttachedFile';
 import { API_BASE_URL } from '../../server/app-config';
 
+function configing() {
+    
+}
+
 function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
     const [noticeData, setNoticeData] = useState({});
     let text = noticeData.content;
-
+    // const config = {
+    //     extraPlugins: [uploadPlugin],
+    // };
     useEffect(() => {
         setNoticeData({
             ...data,
@@ -84,6 +90,7 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
     function deleteData() {
 
     }
+
     console.log(noticeData);
 
     class CustomUploadAdapter {
@@ -94,12 +101,13 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
         upload() {
             return new Promise((resolve, reject) => {
                 this.loader.file.then((file) => {
-                    const data = new FormData();
-                    data.append("seq", noticeData.seq);
-                    data.append("file", file);
-                    console.log(file);
+                    const formData = new FormData();
+                    
+                    formData.append("seq", noticeData.seq);
+                    formData.append("file", file);
+
                     // 데이터를 서버로 전송하는 부분을 여기에 작성해야 합니다.
-                    apiCall('/notice/imgUpload', 'POST', data)
+                    apiCall('/notice/imgUpload', 'POST', formData)
                         .then((response) => {
                             resolve({
                                 default: API_BASE_URL + "/api/notice/imgExport?seq="
@@ -123,6 +131,7 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
     }
 
     function uploadPlugin(editor) {
+        console.log(noticeData.seq);
         editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
             return new CustomUploadAdapter(loader);
         };
@@ -161,15 +170,18 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
                     <CKEditor
                         editor={ClassicEditor}
                         data={noticeData.content || ""}
-                        config={{
-                            extraPlugins: [uploadPlugin],
-                        }}
+                        // config={config
+                        //     // {
+                        //     // extraPlugins: [Object.keys(noticeData).length > 0 ? uploadPlugin : null],
+                        //     // }
+                        // }
                         onReady={editor => {
                             // You can store the "editor" and use when it is needed.
                             console.log('Editor is ready to use!', editor);
                         }}
                         onChange={(event, editor) => {
                             text = editor.getData();
+                            uploadPlugin(editor);
                         }}
                         onBlur={(event, editor) => {
                             // console.log('Blur.', editor);

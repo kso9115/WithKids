@@ -36,3 +36,5 @@ if (hostname === "localhost") {
 }
 
 export const API_BASE_URL = `${backendHost}`;
+// aws 서버 주소
+// export const API_BASE_URL = "http://3.128.205.98:8080/project-0.0.1-SNAPSHOT";
