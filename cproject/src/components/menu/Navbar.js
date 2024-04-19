@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { BiX } from "react-icons/bi";
 import { apiCall } from '../../server/apiService';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Navbar({ loginInfo }) {
     const navigate = useNavigate();
@@ -66,6 +67,37 @@ function Navbar({ loginInfo }) {
         };
     }
 
+    function test() {
+
+        // let myKey = '07e937ad482b12c5ba01d99a87bf2163';
+        // const config = {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'CL_AUTH_KEY': myKey, // 필요한 경우 토큰 등의 인증 정보를 설정합니다.
+        //     },
+        // };
+        // let to_list = ["01077649115", "01090881994", "01049199822"]
+
+        // // let formData = new FormData();
+        // // formData.append("from", "01049199822");
+        // // formData.append("to_list", to_list);
+        // // formData.append("text", "테스트 발송입니다.");
+
+        // axios.post('https://sens.apigw.ntruss.com/sms/v2',
+        //     {
+        //         from: "01049199822",
+        //         to_list: to_list,
+        //         text: "테스트 발송입니다."
+        //     }
+        //     // formData
+        //     , config)
+        //     .then((response) => {
+        //         console.log(response);
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
+    }
     return (
         <div id='navbar'>
             <ul className='navbar_nav'>
@@ -127,7 +159,7 @@ function Navbar({ loginInfo }) {
                             </Modal>
                             <li onClick={openModal}>비밀번호 변경</li>
                             <li>Settings</li>
-                            <li>Activity Log</li>
+                            <li onClick={test}>문자 전송</li>
                             {/* <li>Logout</li> */}
                         </ul>
                         <div onClick={logout}><p>Logout</p></div>
