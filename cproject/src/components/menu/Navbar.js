@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { BiX } from "react-icons/bi";
 import { apiCall } from '../../server/apiService';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
-function Navbar({ loginInfo }) {
+function Navbar({ loginInfo }) { 
+    Modal.setAppElement('#root') //App.js
     const navigate = useNavigate();
     const [modal, setModal] = useState(false);
     const [password, setPassword] = useState(["", "", ""]);
@@ -15,8 +15,14 @@ function Navbar({ loginInfo }) {
     let password1 = "";
     let password2 = "";
     let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/
+
     const openModal = () => setModal(true);
-    const closeModal = () => setModal(false);
+
+    const closeModal = () => {
+        setModal(false);
+        setPassword(["", "", ""]);
+    };
+
     const modalStyle = {
         overlay: {
             backgroundColor: "rgba(0,0,0,0.5)",
@@ -44,12 +50,24 @@ function Navbar({ loginInfo }) {
     }
 
     const pwChangeRequest = () => {
-        if (password[1] !== "" && !reg.test(password[1])) alert("숫자,영문,특수기호 포함 8글자로 입력해주세요.")
-        else if (password[2] !== "" && password[1] !== password[2]) alert("변경 비밀번호와 비밀번호 확인이 서로 일치하지않습니다.")
+        if (password[0] === "") alert("기존 비밀번호를 입력해주세요.");
+        else if (password[1] === "" || !reg.test(password[1])) alert("숫자,영문,특수기호 포함 8글자로 입력해주세요.");
+        else if (password[2] === "" || password[1] !== password[2]) alert("변경 비밀번호와 비밀번호 확인이 서로 일치하지않습니다.");
         else {
-            apiCall('/staff/changePswrd', 'GET', { staffId: loginInfo.data.id, staffPsw: password[2] })
+            apiCall('/staff/changePswrd', 'POST', {
+                staffId: loginInfo.data.id,
+                staffPsw: password[0],
+                type: password[2],
+            })
                 .then((response) => {
-                    console.log(response.data)
+                    if ("성공" === response.data) {
+                        alert("비밀번호 변경이 완료되었습니다.");
+                        sessionStorage.removeItem('staffname');
+                        navigate("/login");
+                    } else {
+                        alert(response.data);
+                    }
+                    // console.log(response.data)
                 })
                 .catch((error) => {
                     console.log(error);

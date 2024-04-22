@@ -108,7 +108,7 @@
     /* background-color: white; */
 }
 
-.userProgramBox>div>div{
+.userProgramBox>div>div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -117,10 +117,12 @@
 }
 
 .userMyInfoModalHeader {
-    color: white;
     font-size: 20px;
     text-align: center;
     background-color: var(--spring);
+    color: white;
+    /* background-color: #FFD4CB;
+    color: black; */
     height: 40px;
     line-height: 40px;
 }
@@ -162,9 +164,11 @@
     border-radius: 5px;
     text-align: center;
     margin: auto;
-
+    cursor: pointer;
     background-color: var(--spring);
     color: white;
+    /* background-color: #FFD4CB;
+    color: black; */
     border: 1px solid white;
 }
 

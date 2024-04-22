@@ -305,6 +305,29 @@ public class MemberController {
         return message;
     }
 
+    @PostMapping("/changePswrd")
+    public String changePswrd(@RequestBody Member entity) {
+        String message = "";
+        String password = entity.getMemLoginPW();
+        log.info(" member updataPassword " + entity.getMemLoginPW());
+        try {
+            Member userMember = memService.selectOne(entity.getMemSerial());
+            log.info(" member entity " + entity);
+            if (userMember != null && passwordEncoder.matches(password, userMember.getMemLoginPW())) {
+                entity.setMemLoginPW(passwordEncoder.encode(entity.getMemEndF()));
+                memService.resetPw(entity.getMemLoginPW(), entity.getMemSerial());
+                // service.updataPassword(entity.getStaffId(), entity.getStaffPsw());
+                return message = "성공";
+            } else {
+                return message = "입력하신 기존 비밀번호가 올바르지 않습니다."; // 관리자 id,pw 오류
+            }
+        } catch (Exception e) {
+            return message = "비밀번호 변경에 실패했습니다. 관리자에게 문의 바랍니다."; // 아이디 없음
+            // return entity;
+        }
+
+    } // resetPswrd
+
     // 로그인 요청 ======================================
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Member entity) {

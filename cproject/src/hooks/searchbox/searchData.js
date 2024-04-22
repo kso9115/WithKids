@@ -191,7 +191,6 @@ if (window.location.pathname === "/home") {
         })
 }
 
-
 export const att_mng = {
     name: '출석관리',
     action: 'attmng',

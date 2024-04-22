@@ -21,7 +21,8 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
         if (window.confirm("정말로 초기화 하시겠습니까?(되돌릴 수 없습니다.)"))
             apiCall('/staff/resetPswrd', 'GET', { staffId: staffDataOneD.staffId })
                 .then((response) => {
-                    console.log(response.data)
+                    console.log(response.data);
+                    alert('초기화 성공');
                 })
                 .catch((error) => {
                     console.log(error);

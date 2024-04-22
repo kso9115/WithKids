@@ -43,7 +43,7 @@
     font-weight: bold;
     position: sticky;
     top: 0;
-    z-index: 100;
+    /* z-index: 100; */
 }
 .prg_dtlprg_gridBox>div {
     /* height: calc(100% / 7); */

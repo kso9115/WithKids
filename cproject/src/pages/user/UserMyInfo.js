@@ -3,12 +3,14 @@ import './userMyInfo.css'
 import { apiCall } from '../../server/apiService';
 import { API_BASE_URL } from '../../server/app-config';
 import Modal from "react-modal"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BiX } from 'react-icons/bi';
 
 //서브 컴포넌트 MemberInfo
 function UserMemberInfo() {
+    Modal.setAppElement('#root') //App.js
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
+    const navigate = useNavigate();
     const [memData, setMemData] = useState({});
     const [modal, setModal] = useState(false);
     const [password, setPassword] = useState(["", "", ""]);
@@ -48,26 +50,40 @@ function UserMemberInfo() {
         password[num] = event.target.value;
         setPassword({ ...password })
     }
-
     const pwChangeRequest = () => {
-        if (password[1] !== "" && !reg.test(password[1])) alert("숫자,영문,특수기호 포함 8글자로 입력해주세요.")
-        else if (password[2] !== "" && password[1] !== password[2]) alert("변경 비밀번호와 비밀번호 확인이 서로 일치하지않습니다.")
+        if (password[0] === "") alert("기존 비밀번호를 입력해주세요.");
+        else if (password[1] === "" || !reg.test(password[1])) alert("숫자,영문,특수기호 포함 8글자로 입력해주세요.")
+        else if (password[2] === "" || password[1] !== password[2]) alert("변경 비밀번호와 비밀번호 확인이 서로 일치하지않습니다.")
         else {
-            // apiCall('/staff/changePswrd', 'GET', { staffId: loginInfo.data.id, staffPsw: password[2] })
-            //     .then((response) => {
-            //         console.log(response.data)
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     })
+            apiCall('/mem/changePswrd', 'POST', {
+                memSerial: sessionData.data.id,
+                memLoginPW: password[0],
+                memEndF: password[2]
+            })
+                .then((response) => {
+                    if ("성공" === response.data) {
+                        alert("비밀번호 변경이 완료되었습니다.");
+                        sessionStorage.removeItem('userLogin');
+                        navigate("/user");
+                    } else {
+                        alert(response.data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
         }
     }
+
+    if (password[1] !== "" && !reg.test(password[1])) password1 = "숫자,영문,특수기호 포함 8글자로 입력해주세요."
+    if (password[2] !== "" && password[1] !== password[2]) password2 = "변경 비밀번호와 비밀번호 확인이 서로 일치하지않습니다."
+
     return (
         <>
             <div className='userMemberBox'>
                 <div className='userMemberImg'>
                     {/* 이미지 받아오기 위한 요청 진행 */}
-                    <img src={API_BASE_URL+"/api/mem/memOneImg?memSerial="+memData.memSerial} alt="" />
+                    <img src={API_BASE_URL + "/api/mem/memOneImg?memSerial=" + memData.memSerial} alt="" />
                 </div>
                 <div className='userMemberInfo'>
                     <div>ID</div><div>{memData.memSerial || ""}</div>
@@ -148,7 +164,7 @@ function UserProgramInfo() {
                 <div>취소</div>
                 <div>후기</div>
             </div>
-            {prgData.map((ele,i) => (
+            {prgData.map((ele, i) => (
                 <div>
                     <div>{ele.prgNm}</div>
                     <div>{ele.prgDate}</div>

@@ -83,11 +83,11 @@ public class StaffController {
             log.info(dto.getStaffLeave());
             // log.info("dto의 password => " + dto.getStaffPsw());
             // log.info("entity password => " + entity.getStaffPsw());
-            if (dto.getStaffLeave()==0){
+            if (dto.getStaffLeave() == 0) {
                 if (dto != null && passwordEncoder.matches(password, dto.getStaffPsw())) {
                     // log.info("일단 dto는 null이 아니고 pass워드도 맞음");
                     final String token = tokenProvider.create(dto);
-        
+
                     final UserDTO userDTO = UserDTO.builder()
                             .token(token)
                             .id(dto.getStaffId())
@@ -100,17 +100,17 @@ public class StaffController {
                     return ResponseEntity.ok().body(userDTO);
                 } else {
                     return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                            .body("Login failed"); //관리자 id,pw 오류
+                            .body("Login failed"); // 관리자 id,pw 오류
                 }
-    
+
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body("Login failed"); // 관리자 휴직 혹은 퇴사
+                        .body("Login failed"); // 관리자 휴직 혹은 퇴사
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND) 
-            .body("Login failed"); //아이디 없음
-        // return entity;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Login failed"); // 아이디 없음
+            // return entity;
         }
     } // staffLogin
 
@@ -122,31 +122,45 @@ public class StaffController {
         log.info(entity.getStaffPsw());
         try {
             service.updataPassword(entity.getStaffId(), entity.getStaffPsw());
-            log.info(" member updataPassword 성공 ");
+            log.info(" Staff updataPassword 성공 ");
             message = "초기화에 성공했습니다.";
         } catch (Exception e) {
-            log.info(" member updataPassword Exception => " + e.toString());
+            log.info(" Staff updataPassword Exception => " + e.toString());
             message = "초기화에 실패했습니다. 관리자에게 문의하세요";
         }
 
         return message;
     } // resetPswrd
 
-    @GetMapping("/changePswrd")
-    public String changePswrd(Staff entity) {
+    @PostMapping("/changePswrd")
+    public String changePswrd(@RequestBody Staff entity) {
         String message = "";
-
-        entity.setStaffPsw(passwordEncoder.encode(entity.getStaffPsw()));
-        log.info(entity.getStaffPsw());
+        String password = entity.getStaffPsw();
+        log.info(" Staff updataPassword " + entity.getStaffPsw());
         try {
-            service.updataPassword(entity.getStaffId(), entity.getStaffPsw());
-            log.info(" member updataPassword 성공 ");
-            message = "초기화에 성공했습니다.";
+            StaffDTO dto = service.findJoinOne(entity.getStaffId());
+
+            if (dto != null && passwordEncoder.matches(password, dto.getStaffPsw())) {
+                entity.setStaffPsw(passwordEncoder.encode(entity.getType()));
+                service.updataPassword(entity.getStaffId(), entity.getStaffPsw());
+                return message = "성공";
+            } else {
+                return message = "입력하신 기존 비밀번호가 올바르지 않습니다."; // 관리자 id,pw 오류
+            }
         } catch (Exception e) {
-            log.info(" member updataPassword Exception => " + e.toString());
-            message = "초기화에 실패했습니다. 관리자에게 문의하세요";
+            return message = "비밀번호 변경에 실패했습니다. 관리자에게 문의 바랍니다."; // 아이디 없음
+            // return entity;
         }
-        return message;
+        // entity.setStaffPsw(passwordEncoder.encode(entity.getStaffPsw()));
+        // log.info(entity.getStaffPsw());
+        // try {
+        // service.updataPassword(entity.getStaffId(), entity.getStaffPsw());
+        // log.info(" member updataPassword 성공 ");
+        // message = "초기화에 성공했습니다.";
+        // } catch (Exception e) {
+        // log.info(" member updataPassword Exception => " + e.toString());
+        // message = "초기화에 실패했습니다. 관리자에게 문의하세요";
+        // }
     } // resetPswrd
 
     @PostMapping("/staffSave")
