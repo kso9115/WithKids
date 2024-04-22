@@ -6,6 +6,7 @@ import searchIcon from '../../assets/images/free-icon-search-149852.png';
 import Modal from "react-modal";
 
 import { apiCall } from '../../server/apiService';
+import { admission_inp_ck } from '../../hooks/inputCheck/admissionInputCheck';
 
 function Member_admission({admMemOne , dataDML } ){
     // 발자취 남기기 => 생각을 잘못함 
@@ -217,7 +218,7 @@ function Member_admission({admMemOne , dataDML } ){
                 </div>
                  
                 <div><span></span>전입여부</div>
-                <div><input type="radio" id="transfer" name="transfer" value={1} checked={admMemOneD.transfer == 1} onChange={admdChange}/><label htmlFor='transfer'>Y</label>  &nbsp;
+                <div><input type="radio" id="transfer" name="transfer" value={1} checked={admMemOneD.transfer == 1}  defaultChecked={true} onChange={admdChange}/><label htmlFor='transfer'>Y</label>  &nbsp;
                     <input type="radio" id="transfer" name="transfer" value={0} checked={admMemOneD.transfer == 0} onChange={admdChange}/> <label htmlFor='transfer'>N</label>
                 </div>
 

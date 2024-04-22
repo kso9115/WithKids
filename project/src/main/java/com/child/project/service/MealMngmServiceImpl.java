@@ -1,5 +1,6 @@
 package com.child.project.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +62,16 @@ public class MealMngmServiceImpl implements MealMngmService {
         
         return mealRepository.save(entity);
     }
+
+	@Override
+	public List<Integer> selectChartdata() {
+//		List<List<Integer>> list = new ArrayList<List<Integer>>();
+//		list.add(mealRepository.selectChartdata1());
+//		list.add(mealRepository.selectChartdata2());
+//		list.add(mealRepository.selectChartdata3());
+//		list.add(mealRepository.selectChartdata4());
+		// TODO Auto-generated method stub
+		return mealRepository.selectChartdata1();
+	}
 
 }

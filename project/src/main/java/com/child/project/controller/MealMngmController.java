@@ -88,5 +88,15 @@ public class MealMngmController {
 
 
     }
+    
+    // meal Chart Data
+    
+    @PostMapping("/chartData")
+    public List<Integer> chartData(){
+    	log.info("chartData 요청까지 옴 111");
+    	List<Integer> mealChart = mealService.selectChartdata();
+
+    	return mealChart; 
+    }
 
 }

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from '../../components/menu/Navbar';
 import { apiCall } from "../../server/apiService"
 
+
 function Home() {
     const navigate = useNavigate(); // 로그인 상태 저장 변수
     const loginInfo = JSON.parse(sessionStorage.getItem("staffname")); // 회원 로그인 정보

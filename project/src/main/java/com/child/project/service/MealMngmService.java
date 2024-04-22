@@ -20,4 +20,6 @@ public interface MealMngmService {
     MealMngm selectOne(MealMngmId entityId);
 
     MealMngm mnInsert(MealMngm entity);
+    
+    List<Integer> selectChartdata();
 }
