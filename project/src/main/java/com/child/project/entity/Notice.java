@@ -48,4 +48,18 @@ public class Notice {
 
     @Transient
     private List<MultipartFile> filef;
+
+    public Notice(Integer seq, String title, String regdate) {
+        this.seq = seq;
+        this.title = title;
+        this.regdate = regdate;
+    }
+
+    public Notice(Integer seq, String title, String regdate, Integer cnt, Integer emphasis) {
+        this.seq = seq;
+        this.title = title;
+        this.regdate = regdate;
+        this.cnt = cnt;
+        this.emphasis = emphasis;
+    }
 }

@@ -9,6 +9,10 @@
     grid-template-columns: 10% 70% 20%;
 }
 
+.noticeList_row>div:nth-child(2n+3) {
+    background-color: var(--sgray);
+}
+
 .noticeList_row>div:nth-child(1)>div {
     border-top: 2px solid var(--lgray);
 }

@@ -9,6 +9,10 @@
     grid-template-columns: 17% 10% 16% 21% 12% 12% 12%;
 }
 
+.staffList_row>div:nth-child(2n+3) {
+    background-color: var(--sgray);
+}
+
 .staffList_row>div:nth-child(1)>div {
     border-top: 2px solid var(--lgray);
 }

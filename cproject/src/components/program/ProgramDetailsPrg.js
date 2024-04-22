@@ -7,7 +7,7 @@ import { toStringByFormatting } from '../../hooks/formdate';
 
 // 서브 컴포넌트
 function MakeDiv({ e, i, detailsChange }) {
-    return (<><div>{i + 1}</div><div onClick={() => detailsChange(i)}>{e.prgDnm}</div><div>{e.content}</div></>);
+    return (<><div>{i + 1}</div><div onClick={() => detailsChange(e.prgDnm)}>{e.prgDnm}</div><div>{e.content}</div></>);
 }
 
 // 메인 컴포넌트
@@ -29,7 +29,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
             prgFilef: null
         })
     }, [data])
-
+    console.log(prgDetailData);
     // data를 바탕으로 div 생성
     function makeDiv() {
         if (Array.isArray(subData) && subData.length > 0) {
@@ -41,12 +41,27 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
     }
 
     //세부프로그램 목록에서 선택한 프로그램의 상세정보 전달
-    function detailsChange(i) {
-        // console.log(data[i]);
-        setPrgDetailData({
-            ...subData[i],
-            prgFile: subData[i].prgFile ? subData[i].prgFile.split('?') : [],
+    function detailsChange(prgDnm) {
+
+        apiCall('/prg/prgDetailsOne', 'POST', {
+            rec: "프로그램세부",
+            prgId: data.prgId,
+            prgDnm,
         })
+            .then((response) => {
+                setPrgDetailData({
+                    ...response.data,
+                    prgFile: response.data.prgFile ? response.data.prgFile.split('?') : [],
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        // setPrgDetailData({
+        //     ...subData[i],
+        //     prgFile: subData[i].prgFile ? subData[i].prgFile.split('?') : [],
+        // })
     }
 
     // text,radio타입 input태그와 select 태그의 value 값을 제어
@@ -54,8 +69,6 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
         prgDetailData[event.target.name] = event.target.value;
         setPrgDetailData({ ...prgDetailData });
     }, [prgDetailData]);
-
-
 
     function deleteData() {
         if (prgDetailData.prgId && window.confirm("세부 프로그램을 삭제하시겠습니까?")) {

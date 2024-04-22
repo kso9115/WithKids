@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import StaffDetails from './StaffDetails';
 import StaffAttendance from './StaffAttendance';
 import axios from 'axios';
+import { functions } from 'lodash';
 
 const staffList = {
     name: 'staff',
@@ -35,6 +36,7 @@ function StaffManagement() {
     }
     const hidemouseOver = () => hide.current.className = "stfPrmsDtlsHide stfhide";
     const hidemouseOut = () => hide.current.className = "stfPrmsDtlsHide"
+
     return (
         <div className='staff_mng' >
             <SearchBox data={stf_mng} searchBoxClick={searchBoxClick} />

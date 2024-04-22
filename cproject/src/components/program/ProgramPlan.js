@@ -6,6 +6,7 @@ import { prg_pln } from '../../hooks/searchbox/searchData';
 import ProgramPlanDetails from './ProgramPlanDetails';
 import ProgramApplication from './ProgramApplication';
 import Container from '../container/Container';
+import { apiCall } from '../../server/apiService';
 
 const prgPlnList = {
     name: 'prgPln',
@@ -16,7 +17,6 @@ const prgPlnList = {
 
 function ProgramPlan() {
     const [prgDataOne, setPrgDataOne] = useState({}); //프로그램 테이블 전체중에 트리에서 선택한 행 보관
-    const [prgDetail, setPrgDetail] = useState([]); //프로그램 테이블 전체중에 트리에서 선택한 행의 프로그램 ID의 세부테이블 정보 보관
     const [listUpdate, setListUpdate] = useState(true);//변화 감지
 
     const [subCurrentTab, setSubCurrentTab] = useState(0);
@@ -35,6 +35,24 @@ function ProgramPlan() {
         setListUpdate(param);
     }
 
+    function setPrgDataOneCg(listData) {
+        if (Array.isArray(listData) && listData.length === 0) {
+            setPrgDataOne([]);
+        } else {
+            apiCall('/prgPln/prgPlnOne', 'POST', {
+                rec: "프로그램계획",
+                prgId: listData.prgId,
+                prgDnm: listData.prgDnm,
+            })
+                .then((response) => {
+                    setPrgDataOne(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+    }
+
     return (
         <div className='pgr_pln' >
             <SearchBox
@@ -47,7 +65,7 @@ function ProgramPlan() {
                     height: '100%',
                 }}>
                     <b>{prgPlnList.list}</b>
-                    <ListComponent name={prgPlnList} setData={setPrgDataOne} listUpdate={listUpdate}></ListComponent>
+                    <ListComponent name={prgPlnList} setData={setPrgDataOneCg} listUpdate={listUpdate}></ListComponent>
                 </div>
                 <div style={{
                     borderWidth: 1,

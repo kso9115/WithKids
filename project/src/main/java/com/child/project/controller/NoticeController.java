@@ -44,6 +44,11 @@ public class NoticeController {
         return service.findAll();
     }// noticeList
 
+    @GetMapping("/noticeOne")
+    public Notice noticeOne(@RequestParam("seq") int seq) {
+        return service.selectOne(seq);
+    }// noticeOne
+
     @GetMapping("/selectPage")
     public List<Notice> selectPage(@RequestParam("rowPerPage") int rowPerPage,
             @RequestParam("currPage") int currPage, @RequestParam("word") String word) {

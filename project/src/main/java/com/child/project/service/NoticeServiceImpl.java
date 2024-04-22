@@ -45,4 +45,9 @@ public class NoticeServiceImpl implements NoticeService {
     public void updateCnt(int seq, int cnt) {
         repository.updateCnt(seq, cnt);
     }
+
+    @Override
+    public Notice selectOne(int seq) {
+        return repository.selectOne(seq);
+    }
 }

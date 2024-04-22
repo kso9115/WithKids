@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import './ErrNoneLogin.css'
+import './errNoneLogin.css'
 
 function ErrNoneLogin() {
 

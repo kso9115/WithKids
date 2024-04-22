@@ -2,6 +2,7 @@ package com.child.project.service;
 
 import java.util.List;
 
+import com.child.project.domain.ProgramDetailsDTO;
 import com.child.project.entity.Program;
 import com.child.project.entity.ProgramApplication;
 import com.child.project.entity.ProgramDetails;
@@ -14,7 +15,7 @@ public interface ProgramService {
 
 	Program selectOne(String prgId);
 
-	Program selectOne(ProgramId programId);
+	ProgramDetailsDTO selectJoinOne(ProgramDetailsId programDetailsId);
 
 	List<ProgramDetails> selectSlide();
 
@@ -27,6 +28,8 @@ public interface ProgramService {
 	Integer plnCnt(String prgId, String title);
 
 	List<ProgramDetails> selectDetails(String prgId, String rec);
+
+	ProgramDetails selectDetailsOne(ProgramDetailsId entity);
 
 	List<ProgramDetails> selectAllPlan();
 
@@ -47,6 +50,5 @@ public interface ProgramService {
 	ProgramApplication aplSave(ProgramApplication entity);
 
 	List<ProgramApplication> selectMemApl(String memSerial);
-
 
 }

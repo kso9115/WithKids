@@ -12,14 +12,19 @@ function UserprogramDetails() {
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
     
     useEffect(() => {
-        apiCall('/prg/prgOne', 'POST', { prgId: location.state.prgId })
+        apiCall('/prg/prgOne', 'POST', {
+            rec: "프로그램계획",
+            prgId: location.state.prgId,
+            prgDnm: location.state.prgDnm,
+        })
             .then((response) => {
-                // setPrgOne(response.data)
-                setPrgOne({
-                    ...location.state,
-                    costClsfc: response.data.costClsfc,
-                    prgFee: response.data.prgFee
-                });
+                setPrgOne(response.data)
+                console.log(response.data);
+                // setPrgOne({
+                //     ...location.state,
+                //     costClsfc: response.data.costClsfc,
+                //     prgFee: response.data.prgFee
+                // });
             }).catch((error) => {
                 console.error('프로그램 요금정보 가져오기 실패', error);
             })

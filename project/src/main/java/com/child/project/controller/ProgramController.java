@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.child.project.domain.ProgramDetailsDTO;
 import com.child.project.entity.Program;
 import com.child.project.entity.ProgramDetails;
 import com.child.project.entity.ProgramDetailsId;
@@ -94,6 +95,14 @@ public class ProgramController {
 		List<ProgramDetails> list = prgService.selectDetails(prgId, rec);
 
 		return list;
+	} // prgDetails
+
+	@PostMapping("/prgDetailsOne")
+	public ProgramDetails prgDetailsOne(@RequestBody ProgramDetailsId entityId) {
+
+		ProgramDetails entity = prgService.selectDetailsOne(entityId);
+
+		return entity;
 	} // prgDetails
 
 	// @RequestBody
@@ -353,10 +362,12 @@ public class ProgramController {
 		return message;
 	}
 
-	@PostMapping("/prgOne")
-	public Program prgOne(@RequestBody Program entity) {
+	
 
-		entity = prgService.selectOne(entity.getPrgId());
+	@PostMapping("/prgOne")
+	public ProgramDetailsDTO prgOne(@RequestBody ProgramDetailsId entityId) {
+
+		ProgramDetailsDTO entity = prgService.selectJoinOne(entityId);
 
 		return entity;
 	} // prgOne

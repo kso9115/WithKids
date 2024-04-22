@@ -9,6 +9,10 @@
     grid-template-columns: 20% 35% 30% 15%;
 }
 
+.prgPlnList_row>div:nth-child(2n+3) {
+    background-color: var(--sgray);
+}
+
 .prgPlnList_row>div:nth-child(1)>div,
 .planModal>div:nth-child(1)>div {
     border-top: 2px solid var(--lgray);

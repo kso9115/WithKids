@@ -121,4 +121,26 @@ public class ProgramDetails implements Serializable {
 
 	@Transient
 	private String prgDate2;
+
+	public ProgramDetails(String prgDnm, String content, String prgId) {
+		this.prgDnm = prgDnm;
+		this.content = content;
+		this.prgId = prgId;
+	}
+
+	public ProgramDetails(String prgDnm, String prgNm, String plnPrd, String prgId) {
+		this.prgDnm = prgDnm;
+		this.prgNm = prgNm;
+		this.plnPrd = plnPrd;
+		this.prgId = prgId;
+	}
+
+	public ProgramDetails(String prgDate, String prgNm, String prgDnm, String title, String prgMngr, String prgId) {
+		this.prgDate = prgDate;
+		this.prgNm = prgNm;
+		this.prgDnm = prgDnm;
+		this.title = title;
+		this.prgMngr = prgMngr;
+		this.prgId = prgId;
+	}
 }

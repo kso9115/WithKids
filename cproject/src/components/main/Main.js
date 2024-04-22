@@ -1,10 +1,12 @@
+import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
+import { format } from 'date-fns';
 
 function Main() {
+    const [currentMonth, setCurrentMonth] = useState(new Date());
 
     const state = {
-
-        series: [37, 6 ],
+        series: [37, 6],
         options: {
             chart: {
                 width: 500,
@@ -24,7 +26,7 @@ function Main() {
                 }
             }]
         }
-}
+    }
 
     return (
         <ReactApexChart options={state.options} series={state.series} type="pie" width={380} />

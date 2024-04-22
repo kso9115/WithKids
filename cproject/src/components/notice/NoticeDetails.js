@@ -91,8 +91,6 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
 
     }
 
-    console.log(noticeData);
-
     class CustomUploadAdapter {
         constructor(loader) {
             this.loader = loader;
@@ -131,7 +129,6 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
     }
 
     function uploadPlugin(editor) {
-        console.log(noticeData.seq);
         editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
             return new CustomUploadAdapter(loader);
         };

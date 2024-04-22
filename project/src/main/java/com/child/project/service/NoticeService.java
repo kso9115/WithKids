@@ -15,4 +15,6 @@ public interface NoticeService {
     int noticeCount(String word);
 
     void updateCnt(int seq, int cnt);
+
+    Notice selectOne(int seq);
 }

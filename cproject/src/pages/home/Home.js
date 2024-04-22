@@ -11,12 +11,12 @@ function Home() {
     const navigate = useNavigate(); // 로그인 상태 저장 변수
     const loginInfo = JSON.parse(sessionStorage.getItem("staffname")); // 회원 로그인 정보
 
-    useEffect(() => {
-        window.addEventListener('beforeunload', (event) => {  // 표준에 따라 기본 동작 방지  
-            event.preventDefault();  // Chrome에서는 returnValue 설정이 필요함  
-            event.returnValue = '';
-        });
-    });
+    // useEffect(() => {
+    //     window.addEventListener('beforeunload', (event) => {  // 표준에 따라 기본 동작 방지  
+    //         event.preventDefault();  // Chrome에서는 returnValue 설정이 필요함  
+    //         event.returnValue = '';
+    //     });
+    // });
     useEffect(() => {
         // window.addEventListener('beforeunload', (event) => {  // 표준에 따라 기본 동작 방지  
         //     event.preventDefault();  // Chrome에서는 returnValue 설정이 필요함  

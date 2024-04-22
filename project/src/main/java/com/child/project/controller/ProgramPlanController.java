@@ -36,6 +36,14 @@ public class ProgramPlanController {
 		return list;
 	} // prgList
 
+	@PostMapping("/prgPlnOne")
+	public ProgramDetails prgPlnOne(@RequestBody ProgramDetailsId entityId) {
+
+		ProgramDetails entity = prgService.selectDetailsOne(entityId);
+
+		return entity;
+	} // prgDetails
+
 	@GetMapping("/prgPlnListUser")
 	public List<ProgramDetails> prgPlnListUser(@RequestParam("word") String word) {
 

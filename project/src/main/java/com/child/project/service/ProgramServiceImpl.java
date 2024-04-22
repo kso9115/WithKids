@@ -4,11 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.data.repository.query.Param;
 // import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import com.child.project.domain.ProgramDetailsDTO;
 // import com.child.project.domain.ProgramDTO;
 import com.child.project.entity.Program;
 import com.child.project.entity.ProgramApplication;
@@ -44,13 +43,9 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 
 	@Override
-	public Program selectOne(ProgramId programId) {
-		Optional<Program> result = repository.findById(programId);
-
-		if (result.isPresent())
-			return result.get(); // ver01
-		else
-			return null;
+	public ProgramDetailsDTO selectJoinOne(ProgramDetailsId programDetailsId) {
+		return prgdrepository.selectJoinOne(programDetailsId.getRec(),
+				programDetailsId.getPrgId(), programDetailsId.getPrgDnm());
 	}
 
 	@Override
@@ -120,6 +115,16 @@ public class ProgramServiceImpl implements ProgramService {
 	@Override
 	public List<ProgramDetails> selectDetails(String prgId, String rec) {
 		return prgdrepository.selectDetails(prgId, rec);
+	}
+
+	@Override
+	public ProgramDetails selectDetailsOne(ProgramDetailsId entity) {
+		Optional<ProgramDetails> result = prgdrepository.findById(entity);
+		if (result.isPresent())
+			return result.get();
+		else
+			return null;
+		// return prgdrepository.findById(entity);
 	}
 
 	@Override

@@ -13,7 +13,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class Files {
 
-    private List<MultipartFile> files;
+    private List<Integer> brf_meal;
+    private List<Integer> lnc_meal;
+    private List<Integer> dnr_meal;
+    private List<Integer> snk_meal;
     // private List<Object> files;
     // private MultipartFile files1;
     // private MultipartFile files2;
