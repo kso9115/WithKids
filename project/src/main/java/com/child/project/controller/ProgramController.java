@@ -362,14 +362,20 @@ public class ProgramController {
 		return message;
 	}
 
-	
-
 	@PostMapping("/prgOne")
+	public Program prgOne(@RequestBody Program entity) {
+
+		entity = prgService.selectOne(entity.getPrgId());
+
+		return entity;
+	} // prgOne
+
+	@PostMapping("/prgdOne")
 	public ProgramDetailsDTO prgOne(@RequestBody ProgramDetailsId entityId) {
 
 		ProgramDetailsDTO entity = prgService.selectJoinOne(entityId);
 
 		return entity;
-	} // prgOne
+	} // prgdOne
 
 }

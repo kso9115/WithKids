@@ -43,7 +43,7 @@
 .userMemberInfo {
     width: 800px;
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 20% 30% 20% 30%;
     font-size: 20px;
     border: 1px solid var(--lgray);
 }
@@ -55,10 +55,18 @@
     /* border: 1px solid var(--lgray); */
 }
 
+.userMemberInfo>div:nth-child(4)> {
+    justify-content: center;
+}
+
 .userMemberInfo>div:nth-child(2n+1) {
     background-color: #FFD4CB;
     font-weight: bold;
     justify-content: center;
+}
+
+.userMemberInfo>div:nth-child(2n+6) {
+    grid-column: span 3;
 }
 
 .userMemberInfo>div:nth-child(2n) {
@@ -106,4 +114,62 @@
     align-items: center;
     height: 50px;
     font-size: 20px;
+}
+
+.userMyInfoModalHeader {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    background-color: var(--spring);
+    height: 40px;
+    line-height: 40px;
+}
+
+.userMyInfoModalHeader>svg {
+    position: absolute;
+    /* top: 3px; */
+    right: 0px;
+}
+
+.userMyInfoModalMain {
+    padding: 50px;
+}
+
+.userMyInfoModalMain>div {
+    height: 50px;
+    text-align: center;
+}
+
+.userMyInfoModalMain label {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.userMyInfoModalMain input {
+    width: 200px;
+}
+
+.userMyInfoModalMain p {
+    /* font-weight: bold; */
+    color: red;
+}
+
+.userMyInfoModalButton {
+    font-weight: bold;
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    margin: auto;
+
+    background-color: var(--spring);
+    color: white;
+    border: 1px solid white;
+}
+
+.userMyInfoModalButton:hover {
+    background-color: white;
+    color: var(--spring);
+    border: 1px solid var(--spring);
 }

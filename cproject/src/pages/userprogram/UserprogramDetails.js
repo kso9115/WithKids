@@ -12,7 +12,7 @@ function UserprogramDetails() {
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
     
     useEffect(() => {
-        apiCall('/prg/prgOne', 'POST', {
+        apiCall('/prg/prgdOne', 'POST', {
             rec: "프로그램계획",
             prgId: location.state.prgId,
             prgDnm: location.state.prgDnm,

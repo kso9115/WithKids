@@ -96,7 +96,10 @@ public class Member {
     private String memEndF; // 입소 종료 일자 표시용
 
 	@Transient
-	private MultipartFile uploadfilef; // 파일에 대한 정보가 들어있는 타입 생성
+    private MultipartFile uploadfilef; // 파일에 대한 정보가 들어있는 타입 생성
+    
+    @Transient
+    private Education education;
 
     // @OneToOne(fetch = FetchType.LAZY)
     // @OneToOne

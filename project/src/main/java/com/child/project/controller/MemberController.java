@@ -354,11 +354,9 @@ public class MemberController {
 
     @PostMapping("/memEduAll")
     public Member memEduAll(@RequestBody Member entity) {
-        // log.info("뭐가 나오긴 하냐 ?????" + entity.getMemSerial());
-        log.info("뭐가 나오긴 하냐 ?????" + entity);
         try {
-            // entity = memService.selectAllMember(entity.getMemSerial());
-            log.info("뭐가 나오긴 하냐 ?????" + entity);
+            entity = memService.selectAllMember(entity.getMemSerial());
+            // log.info("뭐가 나오긴 하냐 ?????" + entity);
             return entity;
         } catch (Exception e) {
             log.info("member delete Exception" + e.toString());

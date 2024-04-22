@@ -2,23 +2,66 @@ import { useEffect, useRef, useState } from 'react';
 import './userMyInfo.css'
 import { apiCall } from '../../server/apiService';
 import { API_BASE_URL } from '../../server/app-config';
-
+import Modal from "react-modal"
 import { Link } from 'react-router-dom';
+import { BiX } from 'react-icons/bi';
 
 //서브 컴포넌트 MemberInfo
 function UserMemberInfo() {
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
     const [memData, setMemData] = useState({});
+    const [modal, setModal] = useState(false);
+    const [password, setPassword] = useState(["", "", ""]);
+    let password0 = "";
+    let password1 = "";
+    let password2 = "";
+    let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/
     console.log(memData);
     useEffect(() => {
         apiCall('/mem/memEduAll', 'POST', { memSerial: sessionData.data.id })
             .then((response) => {
+                console.log(response.data);
                 setMemData(response.data);
             })
             .catch((error) => {
                 console.log(error);
             })
     }, [])
+
+    const modalStyle = {
+        overlay: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+        },
+        content: {
+            width: "600px",
+            height: "360px",
+            margin: "auto",
+            padding: "0px",
+            zIndex: "999999",
+        }
+    }
+    const openModal = () => setModal(true);
+
+    const closeModal = () => setModal(false);
+
+    const pwChange = (event, num) => {
+        password[num] = event.target.value;
+        setPassword({ ...password })
+    }
+
+    const pwChangeRequest = () => {
+        if (password[1] !== "" && !reg.test(password[1])) alert("숫자,영문,특수기호 포함 8글자로 입력해주세요.")
+        else if (password[2] !== "" && password[1] !== password[2]) alert("변경 비밀번호와 비밀번호 확인이 서로 일치하지않습니다.")
+        else {
+            // apiCall('/staff/changePswrd', 'GET', { staffId: loginInfo.data.id, staffPsw: password[2] })
+            //     .then((response) => {
+            //         console.log(response.data)
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     })
+        }
+    }
     return (
         <>
             <div className='userMemberBox'>
@@ -28,6 +71,7 @@ function UserMemberInfo() {
                 </div>
                 <div className='userMemberInfo'>
                     <div>ID</div><div>{memData.memSerial || ""}</div>
+                    <div>비밀번호</div><div><button type='button' onClick={openModal}>비밀번호 변경</button></div>
                     <div>이름</div><div>{memData.memName || ""}</div>
                     <div>생년월일</div><div>{memData.memBirth || ""}</div>
                     <div>성별</div><div>{memData.memSex || ""}</div>
@@ -41,6 +85,38 @@ function UserMemberInfo() {
                     <div>학급정보</div><div>{memData.education ? `${memData.education.eduName} ${memData.education.eduBack} ${memData.education.eduGrade} 
             , 담임: ${memData.education.eduTeacher}(${memData.education.eduTeacherPhone})` : ""}</div>
                 </div>
+                <Modal isOpen={modal} onRequestClose={closeModal} style={modalStyle}>
+                    <div className="userMyInfoModalHeader">
+                        <b>비밀번호 변경</b>
+
+                        <BiX size="2em" onClick={closeModal} />
+                        {/* <button className="navbarModalClose" onClick={closeModal}>X</button> */}
+                    </div>
+
+                    <div className="userMyInfoModalMain">
+                        <div>
+                            <label>기존 비밀번호</label>&nbsp;:&nbsp;&nbsp;<input type="password"
+                                placeholder='기존 비밀번호를 입력하세요.'
+                                value={password[0]} onChange={(event) => { pwChange(event, 0) }} />
+                            <p>{password0}</p>
+                        </div>
+
+                        <div>
+                            <label>변경 비밀번호</label>&nbsp;:&nbsp;&nbsp;<input type="password"
+                                placeholder='숫자,영문,특수기호 포함 8글자'
+                                value={password[1]} onChange={(event) => { pwChange(event, 1) }} />
+                            <p>{password1}</p>
+                        </div>
+
+                        <div>
+                            <label>비밀번호 확인</label>&nbsp;:&nbsp;&nbsp;<input type="password"
+                                placeholder='다시 한번 입력해주세요.'
+                                value={password[2]} onChange={(event) => { pwChange(event, 2) }} />
+                            <p>{password2}</p>
+                        </div>
+                    </div>
+                    <div className="userMyInfoModalButton" onClick={pwChangeRequest}>비밀번호 변경</div>
+                </Modal>
             </div>
             <div className='userMemberMg'>해당 정보가 사실과 다를시에 센터 선생님들께 연락 부탁드립니다.</div>
         </>

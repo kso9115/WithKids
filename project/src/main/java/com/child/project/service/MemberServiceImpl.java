@@ -112,7 +112,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member selectAllMember(String memSerial) {
-        return repository.selectAllMember(memSerial);
+        Member member = repository.selectOneMember(memSerial);
+        member.setEducation(eduRepository.selectEduMember(memSerial));
+        return member;
     }
 
 }
