@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.child.project.domain.MealDTO;
 import com.child.project.entity.MealMngm;
 import com.child.project.entity.MealMngmId;
 import com.child.project.repository.MealMngmRepository;
@@ -47,11 +48,11 @@ public class MealMngmServiceImpl implements MealMngmService {
 
     @Override
     public MealMngm selectOne(MealMngmId entityId) {
-        
+
         Optional<MealMngm> result = mealRepository.findById(entityId);
-        
+
         if (result.isPresent())
-        
+
             return result.get(); // ver01
         else
             return null;
@@ -59,19 +60,23 @@ public class MealMngmServiceImpl implements MealMngmService {
 
     @Override
     public MealMngm mnInsert(MealMngm entity) {
-        
+
         return mealRepository.save(entity);
     }
 
-	@Override
-	public List<Integer> selectChartdata() {
-//		List<List<Integer>> list = new ArrayList<List<Integer>>();
-//		list.add(mealRepository.selectChartdata1());
-//		list.add(mealRepository.selectChartdata2());
-//		list.add(mealRepository.selectChartdata3());
-//		list.add(mealRepository.selectChartdata4());
-		// TODO Auto-generated method stub
-		return mealRepository.selectChartdata1();
-	}
+    @Override
+    public MealDTO selectChartdata(MealDTO dto) {
+        log.info(" Test gkgkgkgkgkgkgkgk"+mealRepository.selectChartdata2());
+        dto.setBrk_meal(mealRepository.selectChartdata1());
+        dto.setLnc_meal(mealRepository.selectChartdata2());
+        dto.setDnr_meal(mealRepository.selectChartdata3());
+        dto.setSnk_meal(mealRepository.selectChartdata4());
+        // list.add(mealRepository.selectChartdata1());
+        // list.add(mealRepository.selectChartdata2());
+        // list.add(mealRepository.selectChartdata3());
+        // list.add(mealRepository.selectChartdata4());
+        // TODO Auto-generated method stub
+        return dto;
+    }
 
 }

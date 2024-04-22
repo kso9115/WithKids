@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.child.project.domain.MealDTO;
 import com.child.project.entity.MealMngm;
 import com.child.project.entity.MealMngmId;
 import com.child.project.service.MealMngmService;
@@ -92,11 +93,11 @@ public class MealMngmController {
     // meal Chart Data
     
     @PostMapping("/chartData")
-    public List<Integer> chartData(){
+    public MealDTO chartData(MealDTO dto){
     	log.info("chartData 요청까지 옴 111");
-    	List<Integer> mealChart = mealService.selectChartdata();
+    	dto = mealService.selectChartdata(dto);
 
-    	return mealChart; 
+    	return dto; 
     }
 
 }
