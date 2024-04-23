@@ -9,6 +9,9 @@ public interface AttandanceService {
 
     // 출석관리 전체 멤버를 뽑아주기 위함
     List<Attandance> selectList();
+    
+    // 한명의 데이터만 받아오기 
+    Attandance selectedOne(String memSerial, String attandanceDate);
 
     // 출석관리 : 월별 selectList
     // List<Attandance> selectList(String month);

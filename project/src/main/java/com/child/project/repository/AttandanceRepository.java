@@ -22,6 +22,13 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
         // DB리스트 데이터 싹 가져오기 : 학생별, 일자별 출석현황은 front단에서 처리
         @Query(value = "select * from attandance order by mem_name", nativeQuery = true)
         List<Attandance> findAttList();
+        
+        // ++ 한명의 데이터를 가져오기 
+        @Query(value = "select * from attandance "
+        		+ "where mem_serial=(:mem_serial) and attandance_date=(:attandance_date)", 
+        		nativeQuery = true)
+        Attandance selectedOne(@Param("mem_serial") String mem_serial,
+        						@Param("attandance_date") String attandance_date);
 
         // 월을 기준으로 데이터 전체 가져오기
         // @Query(value = "select * from attandance "
