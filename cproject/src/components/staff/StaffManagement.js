@@ -47,8 +47,8 @@ function StaffManagement() {
                 }}>
                     <div ref={hide} className='stfPrmsDtlsHide'>
                         <p>
-                            [아동관리] 1Lv : 아동관리 전 메뉴 열람, 출석관리 급식관리 수정가능<br></br>
-                            &emsp;&emsp;&emsp;&emsp;&emsp;2Lv : 1Lv + 아동관리 수정가능<br></br>
+                            [아동관리] 1Lv : 출석관리 급식관리 메뉴 열람<br></br>
+                            &emsp;&emsp;&emsp;&emsp;&emsp;2Lv : 1Lv + 아동관리 전 메뉴 수정가능<br></br>
                             <br></br>
                             [소통관리] 1Lv : 아동과 채팅 가능<br></br>
                             <br></br>

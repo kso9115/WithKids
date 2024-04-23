@@ -1,11 +1,12 @@
 import './pagesCollapse.css'
 
-function PagesCollapse({ name, menu, getTransTitle, conName ,img}) {
+function PagesCollapse({ name, menu, getTransTitle, conName, img }) {
 
     function menuHide(e) {
-        if (e.target.nextSibling.className === "menu-side-menu") {
-            e.target.nextSibling.className = 'menu-side-menu hide';
-            e.target.className = 'menu-side-name afterIcon';
+        e.stopPropagation();
+        if (e.currentTarget.nextSibling.className === "menu-side-menu") {
+            e.currentTarget.nextSibling.className = 'menu-side-menu hide';
+            e.currentTarget.className = 'menu-side-name afterIcon';
         } else {
             document.querySelectorAll('.menu-side-menu').forEach((e) => {
                 e.className = 'menu-side-menu hide'
@@ -13,8 +14,8 @@ function PagesCollapse({ name, menu, getTransTitle, conName ,img}) {
             document.querySelectorAll('.menu-side-name').forEach((e) => {
                 e.className = 'menu-side-name afterIcon'
             })
-            e.target.nextSibling.className = 'menu-side-menu'
-            e.target.className = 'menu-side-name afterIconRot';
+            e.currentTarget.nextSibling.className = 'menu-side-menu'
+            e.currentTarget.className = 'menu-side-name afterIconRot';
         }
     }
 
@@ -26,9 +27,9 @@ function PagesCollapse({ name, menu, getTransTitle, conName ,img}) {
                 marginRight: '7px',
             }}></img>{name}</div>
             <div className='menu-side-menu hide'>
-                {menu.map((e,i) => {
-                    return(
-                        <p key={'pages'+i} onClick={() => getTransTitle(conName[i])} >{e}</p>
+                {menu.map((e, i) => {
+                    return (
+                        <p key={'pages' + i} onClick={() => getTransTitle(conName[i])} >{e}</p>
                     );
                 })}
             </div>

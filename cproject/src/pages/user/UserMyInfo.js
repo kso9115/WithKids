@@ -142,9 +142,8 @@ function UserMemberInfo() {
 function UserProgramInfo() {
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
     const [prgData, setPrgData] = useState([]);
-
+    const [rend, setRend] = useState(false);
     useEffect(() => {
-        console.log("??");
         apiCall('/prgPln/memAplList', 'POST', { memSerial: sessionData.data.id })
             .then((response) => {
                 setPrgData(response.data);
@@ -152,8 +151,22 @@ function UserProgramInfo() {
             .catch((error) => {
                 console.log(error);
             })
-    }, [])
-    console.log(prgData);
+    }, [rend])
+
+    function prgCnclt(ele) {
+        console.log(sessionData.data.token);
+        if (window.confirm("신청을 취소하시겠습니까?")) {
+            apiCall('/user/prgCnclt', 'POST', ele, sessionData.data.token)
+                .then((response) => {
+                    alert(response.data);
+                    setRend(!rend);
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+        } else alert("취소하셨습니다.");
+    }
+
     return (
         <div className='userProgramBox'>
             <div>
@@ -163,21 +176,26 @@ function UserProgramInfo() {
                 <div>프로그램 요금</div>
                 <div>취소</div>
                 <div>후기</div>
+                <div>결제정보</div>
             </div>
             {prgData.map((ele, i) => (
-                <div>
+                <div key={ele.prgNm}>
                     <div>{ele.prgNm}</div>
                     <div>{ele.prgDate}</div>
                     <div>{ele.costClsfc}</div>
                     <div>{ele.paidAmount}</div>
-                    <div>취소</div>
-                    <div><Link to="/survey">후기작성</Link></div>
+                    <div>{ele.cnclt === 0 ? <p className='cnclt' onClick={() => prgCnclt(ele)}>취소</p> : "취소완료"}</div>
+                    {/* <div><Link to="/survey">후기작성</Link></div> */}
+                    <div><Link className='cnclt' to="https://docs.google.com/forms/d/e/1FAIpQLSc9cUTDM9g3RqnzCx9NlrbQUt1G--JxYx-lJQye0TCRFGzZSw/viewform?embedded=true" target="_blank">후기작성</Link></div>
+                    <div>{ele.costClsfc === "유료" ?
+                        <Link className='cnclt' to='https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=StdpayCARDINIpayTest20240423154314390044&noMethod=1' target="_blank">
+                            결제정보
+                        </Link> : ""}</div>
                 </div>
             ))}
         </div>
     );
 }
-
 
 //메인 컴포넌트
 function UserMyInfo() {

@@ -1,5 +1,6 @@
 package com.child.project.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.child.project.domain.ProgramDetailsDTO;
@@ -51,4 +52,11 @@ public interface ProgramService {
 
 	List<ProgramApplication> selectMemApl(String memSerial);
 
+	Integer MemAplCk(String memSerial, String prgId);
+
+	void prgCnclt(ProgramApplication entity) ;
+
+	String refundRequest(String access_token, String merchant_uid, String reason) throws Exception;
+	
+	String getToken(String apiKey, String secretKey) throws IOException;
 }

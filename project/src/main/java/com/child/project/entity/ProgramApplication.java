@@ -1,12 +1,16 @@
 package com.child.project.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ColumnDefault;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,4 +58,12 @@ public class ProgramApplication implements Serializable {
 
     @Column(name = "pg_tid")
     private String pgTid;
+
+    private Integer cnclt;
+
+    @PrePersist
+    public void setCreatedAt() {
+        this.cnclt = this.cnclt == null ? 0 : this.cnclt;
+    }
+
 }

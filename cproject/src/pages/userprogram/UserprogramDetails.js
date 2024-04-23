@@ -122,8 +122,8 @@ function UserprogramDetails() {
     function prgAplSave(data) {
         apiCall('/user/aplSave', 'POST', data, sessionData.data.token)
             .then((response) => {
-                alert('신청이 완료 되었습니다.');
-                console.log(response.data);
+                alert(response.data);
+                // console.log(response.data);
             })
             .catch((error) => {
                 alert('신청에 실패했습니다.\n관리자에게 문의하세요.');

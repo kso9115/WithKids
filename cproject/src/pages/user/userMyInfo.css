@@ -92,7 +92,7 @@
 
 .userProgramBox>div {
     display: grid;
-    grid-template-columns: 35% 20% 10% 15% 10% 10%;
+    grid-template-columns: 35% 15% 7% 15% 7% 10% 11%;
 }
 
 .userProgramBox>div:nth-child(1) {
@@ -116,6 +116,12 @@
     font-size: 20px;
 }
 
+.userProgramBox .cnclt:hover {
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--spring);
+}
 .userMyInfoModalHeader {
     font-size: 20px;
     text-align: center;
