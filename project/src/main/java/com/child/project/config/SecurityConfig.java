@@ -75,14 +75,18 @@ public class SecurityConfig {
 				// .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				// => session 기반이 아님을 선언
 				.authorizeRequests()
+				.antMatchers("/api/jwtPrg").hasRole("staff_cnt_mng")
+				.antMatchers("/api/jwtPrg").hasRole("staff_all")
+				.antMatchers("/api/jwtMem").hasRole("staff_chl_cr")
+				.antMatchers("/api/jwtMem").hasRole("staff_all")
 				.antMatchers("/", "/api/prg/**", "/api/prgPln/**", "/api/mem/**", "/api/att/**", "/api/adm/**",
-						"/api/lvn/**", "/api/meal/**", "/api/staff/**", "/api/notice/**")
+						"/api/lvn/**", "/api/meal/**", "/api/staff/**", "/api/notice/**").permitAll()
 //				.antMatchers("/project-0.0.1-SNAPSHOT/", "/project-0.0.1-SNAPSHOT/api/prg/**",
 //						"/project-0.0.1-SNAPSHOT/api/prgPln/**", "/project-0.0.1-SNAPSHOT/api/mem/**", 
 //						"/project-0.0.1-SNAPSHOT/api/att/**", "/project-0.0.1-SNAPSHOT/api/adm/**",
 //						"/project-0.0.1-SNAPSHOT/api/lvn/**", "/project-0.0.1-SNAPSHOT/api/meal/**", 
 //						"/project-0.0.1-SNAPSHOT/api/staff/**", "/project-0.0.1-SNAPSHOT/api/notice/**")
-				.permitAll()
+				// .permitAll()
 				// .antMatchers("/", "/home", "/user/**", "/resources/**",
 				// "/uploadImage/**").permitAll()
 				// => "/", "/home", "/resources/**", "/uploadImage/**", "/member/**" 등의 경로는 인증

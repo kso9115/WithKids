@@ -86,7 +86,7 @@ public class StaffController {
             if (dto.getStaffLeave() == 0) {
                 if (dto != null && passwordEncoder.matches(password, dto.getStaffPsw())) {
                     // log.info("일단 dto는 null이 아니고 pass워드도 맞음");
-                    final String token = tokenProvider.create(dto);
+                    final String token = tokenProvider.createToken(dto.getStaffId());
 
                     final UserDTO userDTO = UserDTO.builder()
                             .token(token)

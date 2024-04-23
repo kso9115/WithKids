@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -17,6 +18,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 // ** 인증필터(AuthenticationFilter) 클래스 만들기 & 등록하기
 // => 등록: SecurityConfig.java 의 filterChain 메서드 참고
@@ -84,11 +88,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 			if (token != null && !token.equalsIgnoreCase("null")) {
 
-				// 2) 토큰 검증 & userId 가져오기
-				// JWT이므로 인가 서버에 요청 하지 않고도 검증 가능
-				// TokenProvider 의 검증메서드를 통해 검증후 id 전달받음 (위조된 경우 예외처리 됨)
-				String userId = tokenProvider.validateAndGetUserId(token);
-				log.info("Authenticated user ID : " + userId);
+				// 2) 토큰 검증 & claims 가져오기
+				Map<String, Object> claims = tokenProvider.validateToken(token);
+				log.info("** Authenticated 결과 JWT claims: " + claims);
+				String userId = (String) claims.get("userId");
+				// String pw = (String) claims.get("pw");
+				List<String> roleList = (List<String>) claims.get("roleList");
 
 				// 3) 인증 완료
 				// => 스프링시큐리티의 인증과정 ( https://ittrue.tistory.com/287 참고)
@@ -115,8 +120,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 						// (보통은 스프링에서 제공하는 interface UserDetails 를 사용하기도함)
 						// => 컨트롤러에서 @AuthenticationPrincipal 로 제공받음
 						null, // Password를 의미하며 보통은 null 로 처리
-						AuthorityUtils.NO_AUTHORITIES // 권한없음
-				);
+						roleList.stream()
+								.map(str -> new SimpleGrantedAuthority("ROLE_" + str))
+								.collect(Collectors.toList()));
+
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				// => details 필드에 인증 소스인 request 값 set
 
