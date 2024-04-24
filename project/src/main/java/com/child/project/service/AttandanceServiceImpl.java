@@ -22,6 +22,11 @@ public class AttandanceServiceImpl implements AttandanceService {
     public List<Attandance> selectList() {
         return repository.findAttList();
     }
+    
+    @Override
+    public Attandance selectedOne(String memSerial, String attandanceDate) {
+    	return repository.selectedOne(memSerial,attandanceDate);
+    }
 
     // select * from attandance where attandance_date = SUBSTRING(DATE(NOW()), 1,
     // 10)

@@ -76,7 +76,7 @@ function Login({ setSessionName }) {
                         alert("id 또는 password 가 다릅니다, 다시하세요 ~~");
                     } else if (err === 404 ){
                         alert("아이디를 찾을 수 없습니다.");
-                    } else { alert(`** onLoginSubmit 시스템 오류, err=${err}`); }
+                    } else { alert(`** Login 시스템 오류, err=${err}`); }
                     setStaffId('');
                     setPassword('');
                 });

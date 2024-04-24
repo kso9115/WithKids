@@ -24,8 +24,8 @@ function UserLogin() {
     const onSubmitHandler = (event) => {
         event.preventDefault(); // 리프레시를 막아줌
 
-        console.log("serial 넘버 => " + serial);
-        console.log("password => " + password);
+        // console.log("serial 넘버 => " + serial);
+        // console.log("password => " + password);
 
         if (serial.length > 0 && password.length > 0) {
             apiCall('/mem/login', 'POST', {
@@ -45,14 +45,17 @@ function UserLogin() {
                 .catch((error) => {
                     setUserLoginInfo('');
                     if (error === 401 ) {
-                        alert("id 또는 password 가 다릅니다, 다시하세요 ~~");
-                    } else if(error === 404  ){
                         alert("이용이 중단된 사용자 입니다. ");
+                    } else if(error === 403  ){
+                        alert("id 또는 password 가 다릅니다, 다시하세요");
 
-                    }else { alert(`** onLoginSubmit 시스템 오류, err=${error}`); }
+                    }else if(error === 404  ){
+                        alert("아이디를 찾을 수 없습니다.");
+
+                    } else { alert(`** Login 시스템 오류, err=${error}`); }
                 })
         } else {
-            alert("serial 번호와 password를 확인해 주세요");
+            alert("serial 번호와 password를 모두 입력해 주셔야합니다");
         }
         setSerial('');
         setPassword('');

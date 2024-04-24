@@ -6,6 +6,7 @@ import searchIcon from '../../assets/images/free-icon-search-149852.png';
 import Modal from "react-modal";
 
 import { apiCall } from '../../server/apiService';
+import { admission_inp_ck } from '../../hooks/inputCheck/admissionInputCheck';
 
 function Member_admission({admMemOne , dataDML } ){
     // 발자취 남기기 => 생각을 잘못함 
@@ -115,9 +116,11 @@ function Member_admission({admMemOne , dataDML } ){
 
     // 함수 받아오기 
     const setDataDML = (type,dml, data)=>{
+       
         dataDML(type,dml, data);
+        
     }
-
+    
     // modal 만들기 
     let [modal, setModal] = useState(false);
 
@@ -217,7 +220,7 @@ function Member_admission({admMemOne , dataDML } ){
                 </div>
                  
                 <div><span></span>전입여부</div>
-                <div><input type="radio" id="transfer" name="transfer" value={1} checked={admMemOneD.transfer == 1} onChange={admdChange}/><label htmlFor='transfer'>Y</label>  &nbsp;
+                <div><input type="radio" id="transfer" name="transfer" value={1} checked={admMemOneD.transfer == 1}  defaultChecked={true} onChange={admdChange}/><label htmlFor='transfer'>Y</label>  &nbsp;
                     <input type="radio" id="transfer" name="transfer" value={0} checked={admMemOneD.transfer == 0} onChange={admdChange}/> <label htmlFor='transfer'>N</label>
                 </div>
 
@@ -254,19 +257,22 @@ function Member_admission({admMemOne , dataDML } ){
                 <div><span></span>입소/이용시작시간</div>
                 <div><input type="time" name="memRegisterTime" value={admMemOneD.memRegisterTime || ''} onChange={admdChange}/><span style={{fontSize:10 , color:"var(--lgray)"}}>(예시: 오후1:00)</span></div>
                 
-                <div><span style={{color:"red"}}>*</span>프로그램</div>
-                <div><select name="program"  onChange={admdChange}>
-                    <option value="none" >--선택해 주세요--</option>
-                        <option value="내부 프로그램">내부 프로그램</option>
-                        <option value='신청형 프로그램'>신청형 프로그램</option>
-                    </select>
-                </div>
 
-                <div><span></span>담당자 성명</div>
+                <div><span style={{color:"red"}}>*</span>담당자 성명</div>
                 <div><input type="text" name='memResponsiblePerson' onChange={admdChange} 
                         value={ admMemOneD.memResponsiblePerson || '' }/> 
                 <img className="sIcon" src={searchIcon} alt="search" onClick={onOpenClick}/> </div>
                 
+                <div>
+                    {/* <span style={{color:"red"}}>*</span>프로그램 */}
+                </div>
+                <div>
+                    {/* <select name="program"  onChange={admdChange}>
+                    <option value="none" >--선택해 주세요--</option>
+                        <option value="내부 프로그램">내부 프로그램</option>
+                        <option value='신청형 프로그램'>신청형 프로그램</option>
+                    </select> */}
+                </div>
             </div>
             <br></br>
             <div style={{color:'black',fontWeight:'bold'}}>입소/이용 상황 및 경위</div>
@@ -287,9 +293,12 @@ function Member_admission({admMemOne , dataDML } ){
                 </div> */}
                 <div>
                     <button type="reset" onClick={()=> setAdmMemOneD({}) }>입력취소</button>
-                    <button type="submit" value='삭제' onClick={()=>setDataDML("1","delete",admMemOneD)}>삭제</button>
-                    <button type="submit" value='신규' onClick={()=>setDataDML("1","insert",admMemOneD)}>신규</button>
-                    <button type="submit" value='저장' onClick={()=>setDataDML("1","update",admMemOneD)}>저장</button> 
+                    {/* <button type="submit" value='삭제' onClick={()=>{setDataDML("1","delete",admMemOneD)}}>삭제</button> */}
+                    <button type="submit" value='신규' onClick={()=>{
+                        if( admission_inp_ck(admMemOneD) ) {
+                            // console.log(`데이터가 뭐가 있지?`+ {admMemOneD});
+                            setDataDML("1","insert",admMemOneD)}
+                    }}>신규 및 수정</button>
                 </div>
             </div>
         </div>

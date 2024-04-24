@@ -23,6 +23,13 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
 		// 현재 사용X
         @Query(value = "select * from attandance order by mem_name", nativeQuery = true)
         List<Attandance> findAttList();
+        
+        // ++ 한명의 데이터를 가져오기 
+        @Query(value = "select * from attandance "
+        		+ "where mem_serial=(:mem_serial) and attandance_date=(:attandance_date)", 
+        		nativeQuery = true)
+        Attandance selectedOne(@Param("mem_serial") String mem_serial,
+        						@Param("attandance_date") String attandance_date);
 
         // 월을 기준으로 데이터 전체 가져오기
         // @Query(value = "select * from attandance "
@@ -91,5 +98,4 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
         // year(attandance_date)=year(current_date()) group by :mem_serial", nativeQuery
         // = true)
         // Integer attcount(@Param("mem_serial") String mem_serial);
-
 }

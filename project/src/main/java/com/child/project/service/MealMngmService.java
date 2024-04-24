@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.child.project.domain.MealDTO;
 import com.child.project.entity.MealMngm;
 import com.child.project.entity.MealMngmId;
 
@@ -20,4 +21,6 @@ public interface MealMngmService {
     MealMngm selectOne(MealMngmId entityId);
 
     MealMngm mnInsert(MealMngm entity);
+
+    MealDTO selectChartdata(MealDTO dto);
 }

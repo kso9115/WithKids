@@ -61,6 +61,7 @@ function UserCheck() {
                 console.log(err);
             })
     }
+
     console.log(sessionData);
     console.log(format(currentMonth, 'yyyy-MM-dd'));
     // const onbChange = ()=>{
@@ -134,6 +135,7 @@ function UserCheck() {
     // }  
      
     //통합
+    
     function insertMeal(mealType){
         const mealFieldMapping = {
             'breakfast': 'brfMeal',
@@ -152,8 +154,12 @@ function UserCheck() {
             [mealField]: 1
         })
         .then((res) => {
-            console.log(res);
-            alert(`${res.data.memSerial} ${res.data.memName}님 ${mealType}을 신청하셨습니다.`)
+            if(res.data.memSerial!=undefined && userLocation.latitude.equals("37.3") && userLocation.longitude.equals("127.1")){
+                console.log(res);
+                alert(`${res.data.memSerial} ${res.data.memName}님 ${mealType}을 신청하셨습니다.`);
+            } else {
+                alert("미출석 상태 이거나 센터가 아닙니다.");
+            }
         }).catch((err) => {
             console.log("에러 발생 => " +err);
         })
