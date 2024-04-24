@@ -203,10 +203,7 @@ function AdmLvng_Manager() {
 
     // 코드 중복 정리 함수 작성. 
     function dataDML(type, dml, data) {
-        console.log(admMemOne);
-        if(admission_inp_ck(admMemOne)){
             if (admMemOne.memSerial) {
-                console.log({data});
                 if (window.confirm(" 데이터 신규 등록 및 수정 하시겠습니까?")) {
                     // axios
                     //     .post(`/api/${type == "1" ? "adm" : "lvn"}/${dml}`,  data , {
@@ -220,14 +217,11 @@ function AdmLvng_Manager() {
                             alert("완료")
                         })
                         .catch((err) => {
-                            alert("완료")
-                            console.log(err);
-
+                            alert("신규등록 및 수정하는데 오류가 발생하였습니다. 문의 하세요")
+                            // console.log(err);
                         })
                 } else alert(" 취소하셨습니다.");
-            } else alert(" admMemOne에 memSerial 없다? ");
-    
-        }
+            } 
     }
     // searchBox 요청
     function searchBoxClick(sbVal){

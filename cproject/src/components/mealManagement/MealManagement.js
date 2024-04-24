@@ -9,23 +9,23 @@ import Modal from "react-modal";
 
 
 function MealManagement() {
-
+    
     // mealMng DB 전체 list
     const [memData, setMemData] = useState([]); // 이름과 serial 번호 받기 
     const [mealData, setMealData] = useState([]); // mealList 받아오기 
-
+    
     // mealMng 테이블 list useState
     const [memMealDataOne, setMemMealDataOne] = useState({});
-
+    
     const [currentMonth, setCurrentMonth] = useState(new Date()); // 내가 보려고 선택한 달
     const [selectedDate, setSelectedDate] = useState(new Date()); // 현재 2024년의 몇월 달 (현재기준 4월)
-
+    
     // currentMonth 
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
-
+    
     // 체크 박스 만들기 => 값을 읽어오기 
     const mealCatagoryList = [
         { name: '조식', value:'brf_meal'},
@@ -40,18 +40,19 @@ function MealManagement() {
         snk_meal: true
     }); // 체크된 항목 List를 담아두는 useState
     // const [checked, setChecked] = useState(true); // 체크 여부 판단
-    
+    // 모달창
+    let [modal, setModal] = useState(false);
     // let day = startDate;
     let count = 0;
     let color = "";
-
+    
     // 날짜 및 시간을 원하는 형태의 문자열로 변경 
     const thisMonth = format(currentMonth, 'yyyy') + format(currentMonth, 'M')
-        === format(selectedDate, 'yyyy') + format(selectedDate, 'M') ? "block" : "none";
+    === format(selectedDate, 'yyyy') + format(selectedDate, 'M') ? "block" : "none";
     
     let size = format(monthEnd, 'd');
     let rows = 60 / size + "%";
-
+    
     //이전 월 혹은 다음 월 선택 했을 때, 이동
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
@@ -59,17 +60,17 @@ function MealManagement() {
     const nextMonth = () => {
         setCurrentMonth(addMonths(currentMonth, 1));
     };
-
+    
     for (let i = 1; i < size; i++) {
         rows += " " + 60 / size + "%";
     }
-
+    
     if (format(monthStart, 'M') === format(startDate, 'M')) {
         count = format(startDate, 'd') * 1
     } else {
         count = format(addDays(startDate, 7), 'd') * 1
     }
-
+    
     useEffect(() => {
         // console.log("1111");
         const mealList = () => 
@@ -115,7 +116,7 @@ function MealManagement() {
 
         memList()
         mealList();  // mealList매핑을 위해..
-    }, [format(currentMonth,"yyyy-MM")]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
+    }, [format(currentMonth,"yyyy-MM"), modal]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
     // console.log(mealData);
     // console.log(memMealDataOne);
 
@@ -190,13 +191,11 @@ function MealManagement() {
   
     //=================  모달
     // modal 만들기 
-    let [modal, setModal] = useState(false);
     
 
     // click 했을 때, staff 에서 값을 받아와야함.
     const onOpenClick = (meal) => {
         setModal(true);
-        console.log(meal);
         setMemMealDataOne(meal);
     }
     const onCloseClick = () => {
@@ -220,25 +219,25 @@ function MealManagement() {
     };
 
     const onClickRequest = ()=> {
-       
-        apiCall('/meal/MInsert', 'POST', { 
-            memSerial : memMealDataOne.memSerial,
-            mealDate : memMealDataOne.mealDate,
-            memName : memMealDataOne.memName,
-            staffNm : "장근정",
-            brfMeal : memMealDataOne.brfMeal,
-            lncMeal : memMealDataOne.lncMeal,
-            dnrMeal : memMealDataOne.dnrMeal,
-            snkMeal :memMealDataOne.snkMeal
-        })
-        .then((res) => {
-            console.log(res);
-            alert("수정완료");
-            // setMealData(res.data); -> mealData를 변경하면 find 에러 생김 => 랜더링,., 어쩌지
-        })
-        .catch((err) => {
-            console.log("에러 발생 => " +err);
-        })
+
+            apiCall('/meal/MInsert', 'POST', { 
+                memSerial : memMealDataOne.memSerial,
+                mealDate : memMealDataOne.mealDate,
+                memName : memMealDataOne.memName,
+                staffNm : "장근정",
+                brfMeal : memMealDataOne.brfMeal,
+                lncMeal : memMealDataOne.lncMeal,
+                dnrMeal : memMealDataOne.dnrMeal,
+                snkMeal :memMealDataOne.snkMeal
+            })
+            .then((res) => {
+                console.log(res);
+                alert("수정완료");
+                // setMealData(res.data); //-> mealData를 변경하면 find 에러 생김 => 랜더링,., 어쩌지
+            })
+            .catch((err) => {
+                console.log("에러 발생 => " +err);
+            })
     }
 
 console.log(memMealDataOne);
@@ -355,6 +354,12 @@ console.log(memMealDataOne);
                 </div>
 
                 {memData.map((o, i) => {
+                    // let brfCount = mealDate.reduce((cnt,item) => cnt +( item.memSerial === o.memSerial && item.attStatus === "brk_meal"),0);
+                    // let lncCount = mealDate.reduce((cnt,item) => cnt +(item.memSerial === o.memSerial && item.attStatus === "lnc_meal"),0);
+                    // let dnrCount = mealDate.reduce((cnt,item) => cnt +(item.memSerial === o.memSerial && item.attStatus === "dnr_meal"),0);
+                    // let snkCount = mealDate.reduce((cnt,item) => cnt +(item.memSerial === o.memSerial && item.attStatus === "snk_meal"),0);
+                    
+
                     return (
                         <div className='meal_mng_list' style={{
                             display: 'grid',

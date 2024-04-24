@@ -62,49 +62,28 @@ public class AdmissionController {
     
 
     @PostMapping("/insert")
-    public String insert(@RequestBody MemAdmission entity) {
-        String message="";
+    public void insert(@RequestBody MemAdmission entity) {
+
         log.info("컴포넌트는 들어오냐? " + entity);
 
         if(admService.save(entity) != null){
             try{
-                message =" MemAdmission 추가 되었습니다.";
                 log.info(" MemAdmission insert 성공 => " + admService.save(entity) );
             } catch (Exception e){
-                message ="MemAdmission 추가되지 않았습니다. 관리자에게 문의해야 합니다.";
+
                 log.info(" MemAdmission insert 실패(에러남) => " + e.toString() );
             }
         } else {
-            message ="MemAdmission 추가되지 않았습니다. 입력하신 정보를 확인해주세요";
+        	log.info("MemAdmission 추가되지 않았습니다. 입력하신 정보를 확인해주세요");
         }
         
-        return message;
+
     }
     
-    @PostMapping("/update")
-    public String update(@RequestBody MemAdmission entity) {
-        String message="";
-        log.info("Update Controller까지는 옴?");
-        log.info("이것은 확인용임 =>" + entity.getMemSerial());
 
-        if(admService.save(entity) != null){
-            try{
-                message =" MemAdmission 수정 되었습니다.";
-                log.info(" MemAdmission Update 성공 => " + admService.save(entity) );
-            } catch (Exception e){
-                message ="MemAdmission 수정되지 않았습니다. 관리자에게 문의해야 합니다.";
-                log.info(" MemAdmission Update 실패(에러남) => " + e.toString() );
-            }
-        } else {
-            message ="MemAdmission 수정되지 않았습니다. 입력하신 정보를 확인해주세요";
-        }
-        
-
-        return message;
-    }
     
     @PostMapping("/delete")
-    public String delete(@RequestBody MemAdmission entity) {
+    public void delete(@RequestBody MemAdmission entity) {
         String message="";
 
         log.info("Delete Controller까지는 옴?");
