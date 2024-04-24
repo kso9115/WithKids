@@ -6,25 +6,26 @@ import java.util.UUID;
 
 import org.springframework.web.socket.WebSocketSession;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-
-@Getter
-@Setter
+@Data
 public class ChatRoomDTO {
-
-       private String roomId;
-    private String name;
-    private Set<WebSocketSession> sessions = new HashSet<>();
-    //WebSocketSession은 Spring에서 Websocket Connection이 맺어진 세션
-
-    public static ChatRoomDTO create(String name){
+	
+	// 채팅
+	private String roomId;
+	private String memSerial;
+	private String memName;
+	private Set<WebSocketSession> session = new HashSet<>();
+	// 웹 소캣의 연결이 완료된 세션
+	
+    public static ChatRoomDTO create(String memName){
         ChatRoomDTO room = new ChatRoomDTO();
 
+        // UUID : 고유 식별자로 중복이 되지않는 값으로 구성하기 위함
         room.roomId = UUID.randomUUID().toString();
-        room.name = name;
+        room.memName = memName;
         return room;
     }
-    
+	
+
 }

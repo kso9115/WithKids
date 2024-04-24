@@ -1,3 +1,4 @@
+import AttandanceChart from '../../pages/chartAPI/AttandanceChart';
 import './container.css';
 
 function Container({ menuArr, setMenuArr, currentTab, setCurrentTab, mainSub }) {

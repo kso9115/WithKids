@@ -28,6 +28,8 @@ function AttandanceMangement() {
     // ===================================================================
 
     const [checkList, setCheckList] = useState([]); // 체크된 아이템 리스트 상태 관리
+    const [memListUpdate, setMemListUpdate] = useState(true);   // insert 시 상태값 변경을 위해서
+    console.log(memListUpdate);
 
     // 전체 선택 기능
     const handleAllChecked = (event) => {
@@ -53,7 +55,7 @@ function AttandanceMangement() {
         }
     };
 
-    console.log(checkList); // 데이터 담기긴함 => map돌려서 전달해야하나..?
+    // console.log(checkList); // 데이터 담기긴함 => map돌려서 전달해야하나..?
     // ===================================================================
 
     // 관리자 페이지 출/결석 변경을 위한 요청 발송 1
@@ -110,6 +112,7 @@ function AttandanceMangement() {
                     // 리렌더링 테스트3
                     // 출석 상태 변경 후에 해당 상태를 업데이트
                     // item : attData 배열의 각 요소(그니까 리스트 데이터를 다시 map 돌려서 '결'이라는 상태값을 추가해준겨)
+                    alert("출석등록하시겠습니까?")
                     const updatedAttData = attData.map(item => {
                         if (item.memSerial === memSerial && item.attDate == format(currentMonth, 'yyyy-MM-dd')) {
                             return { ...item, attStatus: '결' };
@@ -121,13 +124,15 @@ function AttandanceMangement() {
                     if (!isEqual(updatedAttData, attData)) { // lodash의 isEqual 함수를 사용하여 배열 비교
                         setAttData(updatedAttData);
                     }
-                    console.log(updatedAttData);
+                    // console.log(updatedAttData);
                 })
                 .catch(error => {
                     console.error('출석 상태 변경 실패:', error);
                 });
 
         });
+        setMemListUpdate(memListUpdate);
+        console.log(memListUpdate);
     };
 
     // 출석 리스트(입소리스트) & 리스트 별 출석 현황 요청
@@ -135,7 +140,7 @@ function AttandanceMangement() {
         // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
         apiCall("/att/attList", "GET", { yearMonth: format(currentMonth, 'yyyy-MM') })
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);  //
                 setAttData(response.data);
                 // setAttCount();
             }).catch((err) => {
@@ -145,13 +150,14 @@ function AttandanceMangement() {
         // 입소중인 멤버 리스트 요청
         apiCall("/mem/admissionList", "GET")
             .then((response) => {
-                // console.log(response.data);
+                // console.log(response.data);  // 전체 데이터 들어옴
                 setAdmissionData(response.data);
 
             }).catch((err) => {
                 console.log(err);
             })
-    }, [format(currentMonth, 'yyyy-MM'),]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
+        // }
+    }, [format(currentMonth, 'yyyy-MM')], [memListUpdate]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
 
 
 
@@ -203,8 +209,8 @@ function AttandanceMangement() {
 
     // console.log("보낼날짜확인" + format(currentMonth, 'yyyy-MM'));
 
-    console.log(attData);
-    console.log(admissionData);
+    // console.log(attData);
+    // console.log(admissionData);
 
     return (
         <div className="att_mng">
@@ -253,9 +259,9 @@ function AttandanceMangement() {
                 </div>
 
                 {admissionData && admissionData.map((o, i) => {
-                    let attcount = attData.reduce((cnt,item) => cnt +( item.memSerial === o.memSerial && item.attStatus === "출"),0);
-                    let abscount = attData.reduce((cnt,item) => cnt +(item.memSerial === o.memSerial && item.attStatus === "결"),0);
-                    let attRate = attcount/(attcount+abscount)*100;
+                    let attcount = attData.reduce((cnt, item) => cnt + (item.memSerial === o.memSerial && item.attStatus === "출"), 0);
+                    let abscount = attData.reduce((cnt, item) => cnt + (item.memSerial === o.memSerial && item.attStatus === "결"), 0);
+                    let attRate = attcount / (attcount + abscount) * 100;
 
                     return (
 
@@ -277,7 +283,7 @@ function AttandanceMangement() {
                                 <div>{attRate.toFixed()}%</div>
                                 {/* 해당하는 인덱스 반환 */}
                                 {/* <div>{attData.findIndex((item) => ((item.memSerial === o.memSerial)))}</div> */}
-                                
+
                                 <div>{attcount}</div>
                                 <div>{abscount}</div>
 
@@ -307,17 +313,17 @@ function AttandanceMangement() {
 
                                     if (count) {
                                         return (
-                                               
-                                                <div
-                                                    className="attandance_data"
-                                                    // 기본적으로 index가 0에서 시작하기때문에 + 1
-                                                    key={index + 1}
-                                                    // onClick={() => setAttData([count.attStatus])}>
-                                                    onClick={() => handleAttendanceChange(o.memSerial, o.memName, count.attDate, count.attStatus, attindex)}>
-                                                    {count.attStatus}
+
+                                            <div
+                                                className="attandance_data"
+                                                // 기본적으로 index가 0에서 시작하기때문에 + 1
+                                                key={index + 1}
+                                                // onClick={() => setAttData([count.attStatus])}>
+                                                onClick={() => handleAttendanceChange(o.memSerial, o.memName, count.attDate, count.attStatus, attindex)}>
+                                                {count.attStatus}
 
 
-                                                </div>
+                                            </div>
 
 
                                         );
@@ -351,7 +357,7 @@ function AttandanceMangement() {
                 <div className='buttonBox'>
                     <div>
                         <button type="submit" value='출석등록' onClick={handleAttendanceRegistration}>오늘의 출석 등록</button>
-                        <button type="submit" value='출석삭제'>출석 삭제</button>
+                        {/* <button type="submit" value='출석삭제'>출석 삭제</button> */}
                     </div>
                 </div>
 

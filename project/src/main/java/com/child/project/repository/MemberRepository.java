@@ -43,6 +43,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
         // with 절 사용 시 다른 테이블명으로 생성되므로 기존 엔티티와 매칭되지 않음
         // @Query(value = "with unique_serials AS (select distinct mem_serial from
         // attandance) select mem_serial from unique_serials ", nativeQuery = true)
+//        @Query(value ="select mem_serial, mem_name from member where mem_status='이용'", nativeQuery = true)
         @Query(value = "select * from member where mem_status='이용' ", nativeQuery = true)
         List<Member> findAdmissionList();
 

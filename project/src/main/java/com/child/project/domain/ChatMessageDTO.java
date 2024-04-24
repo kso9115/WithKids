@@ -1,13 +1,11 @@
 package com.child.project.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ChatMessageDTO {
-    private String roomId;
-    private String writer; 
-    private String message;
-    
+	
+	private String from;
+    private String text;
+
 }

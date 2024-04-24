@@ -1,35 +1,22 @@
-import { useState } from "react";
-import ReactApexChart from "react-apexcharts";
-import { format } from 'date-fns';
+import logo from '../../assets/images/루피.PNG';
+import AttandanceChart from '../../pages/chartAPI/AttandanceChart';
+import Charts from '../../pages/chartAPI/AttCharts';
+import ChatTest from '../chatMember/ChatTest';
+import ChattingManagement2 from '../chatMember/ChattingManagement2';
+import ChattingManagement from './../chatMember/ChattingManagement';
 
 function Main() {
-    const [currentMonth, setCurrentMonth] = useState(new Date());
-
-    const state = {
-        series: [37, 6],
-        options: {
-            chart: {
-                width: 500,
-                type: 'pie',
-            },
-            // labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-            labels: ['출석', '결석'],
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 200
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }]
-        }
-    }
 
     return (
-        <ReactApexChart options={state.options} series={state.series} type="pie" width={380} />
+        <>
+            
+            {/* <img alt="logo" src={logo} width="1000" height="600" /> */}
+            {/* <div><ChatTest/></div> */}
+            <div><ChattingManagement2/></div>
+            {/* <div><ChattingManagement/></div> */}
+            
+            
+        </>
     );
 }
 export default Main;

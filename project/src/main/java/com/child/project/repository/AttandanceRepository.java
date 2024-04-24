@@ -20,6 +20,7 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
         // private final JdbcTemplate jdbcTemplate;
 
         // DB리스트 데이터 싹 가져오기 : 학생별, 일자별 출석현황은 front단에서 처리
+		// 현재 사용X
         @Query(value = "select * from attandance order by mem_name", nativeQuery = true)
         List<Attandance> findAttList();
 
@@ -29,6 +30,7 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
         // (:month);", nativeQuery = true)
         // List<Attandance> findAttList(@Param("month")String month);
 
+        // 현재 사용X
         @Query(value = "select mem_name, attandance_status from attandance where attandance_date = (:curruentDate)", nativeQuery = true)
         List<Attandance> findAttList2(@Param("curruentDate") String curruentDate);
 
@@ -37,8 +39,12 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
         // @Query(value = "select * from attandance where attandance_date =
         // DATE_FORMAT(NOW(), '%Y-%m-%d')", nativeQuery = true)
 
+        // 현재 사용O
         // 문제 : 달별로 출석 데이터 출력
-        @Query(value = "select * from attandance where substring(attandance_date, 1,7) = (:attandance_date)", nativeQuery = true)
+        // 4/24일 select * 로 전체 데이터 가져오는 쿼리에서 특정 컬럼만 가져오는 데이터로 변경
+        // @Query(value = "select * from attandance where substring(attandance_date, 1,7) = (:attandance_date)", nativeQuery = true)
+        @Query(value = "select mem_serial, attandance_date, mem_name, attandance_status "+
+        "from attandance where substring(attandance_date, 1,7) = (:attandance_date)", nativeQuery = true)
         List<Attandance> findAttList3(@Param("attandance_date") String
         attandance_date);
 
@@ -56,7 +62,8 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
         // with 절 사용 시 다른 테이블명으로 생성되므로 기존 엔티티와 매칭되지 않음
         // @Query(value = "with unique_serials AS (select distinct mem_serial from
         // attandance) select mem_serial from unique_serials ", nativeQuery = true)
-        @Query(value = "select * from member where mem_status='이용' ", nativeQuery = true)
+        @Query(value = "select mem_serial, mem_name"+
+        " from member where mem_status='이용' ", nativeQuery = true)
         List<Attandance> findAdmissionList();
 
         // 관리자 페이지 내 출,결석 처리 : 체크 후 버튼 클릭 시 '결' 입력
