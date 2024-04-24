@@ -16,7 +16,10 @@ import com.child.project.service.StaffService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -85,8 +88,22 @@ public class StaffController {
             // log.info("entity password => " + entity.getStaffPsw());
             if (dto.getStaffLeave() == 0) {
                 if (dto != null && passwordEncoder.matches(password, dto.getStaffPsw())) {
+                    List<String> roleList = new ArrayList<>();
+                    Map<String, Object> dataMap = new HashMap<>();
+
+                    if (dto.getStaffCntMng() == 2)
+                        roleList.add("PRGMANAGER");
+                    if (dto.getStaffChlCr() == 2)
+                        roleList.add("MEMMANAGER");
+                    if (dto.getStaffCntMng() != 2 && dto.getStaffChlCr() != 2)
+                        roleList.add("USER");
+
+                    dataMap.put("userId", dto.getStaffId());
+                    // dataMap.put("pw",this.password);
+                    dataMap.put("roleList", roleList);
+                    log.info("roleList 가 없지?? " + roleList);
                     // log.info("일단 dto는 null이 아니고 pass워드도 맞음");
-                    final String token = tokenProvider.createToken(dto.getStaffId());
+                    final String token = tokenProvider.createToken(dataMap);
 
                     final UserDTO userDTO = UserDTO.builder()
                             .token(token)
@@ -95,6 +112,7 @@ public class StaffController {
                             .staffChlCr(dto.getStaffChlCr())
                             .staffCmnMng(dto.getStaffCmnMng())
                             .staffCntMng(dto.getStaffCntMng())
+                            .roleList(roleList)
                             .build();
                     log.info("login 성공 token = " + token);
                     return ResponseEntity.ok().body(userDTO);

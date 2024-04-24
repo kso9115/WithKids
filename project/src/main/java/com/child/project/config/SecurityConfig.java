@@ -68,19 +68,24 @@ public class SecurityConfig {
 		// => anyRequest ~ authenticated : 어떠한 요청도 인가 받아야함.
 
 		return http.httpBasic().disable() // token을 사용하므로 basic 인증 disable (사용안함)
-				// .formLogin().disable()
+				.formLogin().disable() // 인증 적용전
+				.logout().disable()
+
 				.csrf().disable() // csrf는 현재 사용하지 않으므로 disable
 				.cors().and()
+
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).and()
 				// .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				// => session 기반이 아님을 선언
+
 				.authorizeRequests()
-				.antMatchers("/api/jwtPrg").hasRole("staff_cnt_mng")
-				.antMatchers("/api/jwtPrg").hasRole("staff_all")
-				.antMatchers("/api/jwtMem").hasRole("staff_chl_cr")
-				.antMatchers("/api/jwtMem").hasRole("staff_all")
+				// .antMatchers("/api/jwtPrg/").hasRole("staff_all")
+				.antMatchers("/api/jwtPrg/**").hasRole("PRGMANAGER")
+				// .antMatchers("/api/jwtMem/").hasRole("staff_all")
+				.antMatchers("/api/jwtMem/**").hasRole("MEMMANAGER")
 				.antMatchers("/", "/api/prg/**", "/api/prgPln/**", "/api/mem/**", "/api/att/**", "/api/adm/**",
 						"/api/lvn/**", "/api/meal/**", "/api/staff/**", "/api/notice/**").permitAll()
+				
 //				.antMatchers("/project-0.0.1-SNAPSHOT/", "/project-0.0.1-SNAPSHOT/api/prg/**",
 //						"/project-0.0.1-SNAPSHOT/api/prgPln/**", "/project-0.0.1-SNAPSHOT/api/mem/**", 
 //						"/project-0.0.1-SNAPSHOT/api/att/**", "/project-0.0.1-SNAPSHOT/api/adm/**",
@@ -91,7 +96,9 @@ public class SecurityConfig {
 				// "/uploadImage/**").permitAll()
 				// => "/", "/home", "/resources/**", "/uploadImage/**", "/member/**" 등의 경로는 인증
 				// 안해도 됨.
+				// .antMatchers("/api/").permitAll()
 				.anyRequest().authenticated().and()
+				// .anyRequest().permitAll().and()
 				// => 위 이외의 모든 경로는 인증해야됨.
 				.build();
 	} // filterChain

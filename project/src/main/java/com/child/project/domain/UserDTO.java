@@ -1,5 +1,7 @@
 package com.child.project.domain;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,7 +36,7 @@ public class UserDTO {
 	private Integer staffChlCr;
 	private Integer staffCmnMng;
 	private Integer staffCntMng;
-	private String roleList;
+	private List<String> roleList;
 	// private String email;
 	// private String password; // 필요시 test용, password는 보관하지않는것이 원칙임
 

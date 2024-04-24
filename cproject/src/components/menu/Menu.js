@@ -29,9 +29,9 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     map.set('NonePage', { name: '미작업 페이지', content: <NonePage /> });
 
     function getTransTitle(menuName) {
-        if (menuAuthority(menuName)) {
-            return;
-        }
+        // if (menuAuthority(menuName)) {
+        //     return;
+        // }
 
         for (let i = 0; i < menuArr.length; i++) {
             if (map.get(menuName).name === menuArr[i].name) {

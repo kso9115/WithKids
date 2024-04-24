@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -85,7 +84,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			// 1) request 에서 토큰 가져오기.
 			String token = parseBearerToken(request);
 			log.info("** TokenProvider.java, doFilterInternal(), token 확인=> " + token);
-
 			if (token != null && !token.equalsIgnoreCase("null")) {
 
 				// 2) 토큰 검증 & claims 가져오기
@@ -94,31 +92,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				String userId = (String) claims.get("userId");
 				// String pw = (String) claims.get("pw");
 				List<String> roleList = (List<String>) claims.get("roleList");
+				log.info("** roleList 확인=> " + roleList);
 
-				// 3) 인증 완료
-				// => 스프링시큐리티의 인증과정 ( https://ittrue.tistory.com/287 참고)
-				// -> id, password 등 인증정보 전달
-				// -> UsernamePasswordAuthenticationToken 에 보관
-				// -> 인증절차 완료 (여기서는 토큰이 있으므로 필요없음)
-				// -> SecurityContextHolder를 이용하여 SecurityContext에 인증된 Authentication을 저장
-				// ( SecurityContextHolder에 등록해야 인증된 user로 인식함)
-
-				// => UsernamePasswordAuthenticationToken
-				// 스프링 시큐리티에서 Username과 Password로 인증하기 위해 필요한 토큰.
-				// 위의 토큰에서 전달받은 사용자의 인증정보가 UsernamePasswordAuthenticationToken에 포함되어
-				// Authentication 객체 형태로 SecurityContext에 저장된다.
-
-				// => 생성자: UsernamePasswordAuthenticationToken(principal, credentials,
-				// authorities)
-				// - principal: 객체형, AuthenticationPrincipal(인증정보 or 인증본인) 이며
-				// @AuthenticationPrincipal 로 제공받을수있음.
-				// - credentials: 객체형, Password를 의미하며 보통은 null 로 처리
-				// - authorities: Collection Type, 권한목록
 				AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userId,
-						// => 인증된 사용자정보, 모든 객체형 사용가능
-						// (보통은 스프링에서 제공하는 interface UserDetails 를 사용하기도함)
-						// => 컨트롤러에서 @AuthenticationPrincipal 로 제공받음
 						null, // Password를 의미하며 보통은 null 로 처리
 						roleList.stream()
 								.map(str -> new SimpleGrantedAuthority("ROLE_" + str))

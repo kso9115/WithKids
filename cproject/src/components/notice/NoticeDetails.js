@@ -13,6 +13,7 @@ function configing() {
 }
 
 function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
     const [noticeData, setNoticeData] = useState({});
     let text = noticeData.content;
     // const config = {
@@ -55,7 +56,9 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
             if (type === 'noticeInsert') {
                 params.regdate = toStringByFormatting(new Date());
             }
-            apiCall('/notice/noticeSave', 'POST', params)
+            apiCall('/jwtPrg/noticeSave', 'POST', params
+                , loginInfo.data.token
+            )
                 .then((response) => {
                     saveFile();
                     setData({})
@@ -64,7 +67,9 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
                 })
                 .catch((error) => {
                     console.log(error);
-                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                    if (error === 403) alert("권한이 없습니다. ");
+                    else alert("서버 통신 에러로 요청에 실패했습니다.");
+                    
                 })
         }
     }
