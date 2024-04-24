@@ -115,5 +115,11 @@ public class AttandanceController {
     //     return attService.attcount(entity.getMemSerial());
     // }
     
+    @GetMapping("/attCount")
+    public List<Integer> attandanceCount(@RequestParam("attandanceDate") String attandanceDate) {
 
+        List<Integer> list = attService.attandanceCount(attandanceDate);
+
+        return list;
+    }
 }

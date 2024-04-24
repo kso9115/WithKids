@@ -10,7 +10,10 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     // 프로그램 정보를 저장하고 제어하기 위해
     const [prgDataOneD, setPrgDataOneD] = useState({});
     const prgImage = useRef();
-
+    // if (prgImage.current) {
+    //     console.log(prgImage.current);
+    // }
+    console.log(prgImage.current);
     // 가져온 프로그램 정보를 useState에 넣는과정()
     useEffect(() => {
         setPrgDataOneD({

@@ -65,6 +65,11 @@ public class AttandanceServiceImpl implements AttandanceService {
 
     }
 
+    @Override
+    public List<Integer> attandanceCount(String attandanceDate) {
+        return repository.attandanceCount(attandanceDate);
+    }
+
     // 출석 일자 카운팅
     // @Override
     // public Integer attcount(String memSerial) {

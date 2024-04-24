@@ -98,4 +98,6 @@ public interface AttandanceRepository extends JpaRepository<Attandance, Attandan
         // year(attandance_date)=year(current_date()) group by :mem_serial", nativeQuery
         // = true)
         // Integer attcount(@Param("mem_serial") String mem_serial);
+        @Query(value = "select count(attandance_status) from attandance where attandance_date =:attandance_date group by attandance_status;", nativeQuery = true)
+        List<Integer> attandanceCount(@Param("attandance_date") String attandanceDate);
 }

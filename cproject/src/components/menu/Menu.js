@@ -13,12 +13,14 @@ import React from 'react'
 import ProgramPlan from '../program/ProgramPlan'
 import NoticeManagement from '../notice/NoticeManagement'
 import NonePage from '../main/NonePage'
+import AttandanceStatistic from '../attandance/AttandanceStatistic'
 
 function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     const map = new Map();
     map.set('MemberMangement', { name: '대상자 기본 정보', content: <MemberMangement /> });
     map.set('Admission', { name: '입소/퇴소 관리', content: <Admission /> });
     map.set('AttandanceMangement', { name: '출석관리', content: <AttandanceMangement /> });
+    map.set('AttandanceStatistic', { name: '출석그래프', content: <AttandanceStatistic /> });
     map.set('MealManagement', { name: '급식관리 ', content: <MealManagement /> });
     map.set('회원탈퇴', { name: 'Delete', content: null });
     map.set('StaffManagement', { name: '직원관리', content: <StaffManagement /> });
@@ -61,7 +63,7 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
                 </div>
                 <PagesCollapse getTransTitle={getTransTitle} name='출석'
                     menu={['출석관리', '출석그래프']}
-                    conName={['AttandanceMangement', 'NonePage']} img='img/출석.png' />
+                    conName={['AttandanceMangement', 'AttandanceStatistic']} img='img/출석.png' />
                 <PagesCollapse getTransTitle={getTransTitle} name='아동관리'
                     menu={['대상자 기본 정보', '입소/퇴소 관리']}
                     conName={['MemberMangement', 'Admission']} img='img/사람.png' />

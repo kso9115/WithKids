@@ -15,7 +15,7 @@ function Main() {
             
             {/* <img alt="logo" src={logo} width="1000" height="600" /> */}
             {/* <div><ChatTest/></div> */}
-            <div><ChattingManagement2/></div>
+            {/* <div><ChattingManagement2/></div> */}
             {/* <div><ChattingManagement/></div> */}
             
             

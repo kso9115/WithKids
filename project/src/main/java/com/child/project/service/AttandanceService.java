@@ -31,6 +31,8 @@ public interface AttandanceService {
     // 출석 입력
     Attandance attInsert(Attandance entity);
 
+    List<Integer> attandanceCount(String attandanceDate);
+
     // 출석 일수 확인
     // Integer attcount (String memSerial);
 }
