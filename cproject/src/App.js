@@ -18,6 +18,7 @@ import UserCheck from './pages/user/UserCheck';
 import UserNoticeDetails from './pages/notice/UserNoticeDetails';
 import UserMyInfo from './pages/user/UserMyInfo';
 import Survey from './pages/survey/Survey';
+import ChattingManagement from './components/chatMember/ChattingManagement';
 // import MealSaveP from './components/mealManagement/MealSaveP';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                     <Route path="/login" element={<Login />}></Route>
                     <Route path="/usercheck" element={<UserCheck />}></Route>
                     <Route path="/home" element={<Home />}></Route>
+                    <Route path="/chat" element={<ChattingManagement />}></Route>
                     <Route path="/user" element={<UserHome />}>
                         <Route path="" element={<UserMain />}></Route>
                         <Route path="notice" element={<UserNotice />}>

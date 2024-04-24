@@ -38,7 +38,8 @@
 .mem_address1>input,
 .mem_address2>input,
 .mem_account>input,
-.mem_depositor>input {
+.mem_depositor>input,
+.mem_status>input {
     width: 100%;
     height: 22px;
 }

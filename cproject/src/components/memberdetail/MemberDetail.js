@@ -334,13 +334,19 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
 
                 <div>이미지</div>
                 <div><input ref={memImage} type='file'></input></div>
-                
+
+                <div>입소이용여부</div>
+                <div className='mem_status'>
+                    <input
+                        value={memDataOneD.memStatus || ""}
+                        onChange={memDataChange}
+                        disabled
+                    ></input>
+                </div>
+
                 <div></div>
                 <div></div>
-                
-                <div></div>
-                <div></div>
-                
+
             </div>
 
             <b>계좌번호</b>
@@ -431,7 +437,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                     <button type="submit" value='신규등록' onClick={() => { saveMemData(); saveEduData(); }}>등록 및 수정</button>
                     {/* <button type="reset" onClick={resutData}>입력취소</button> */}
                     {/* <button type="submit" value='삭제' onClick={() => { deleteMemByMemserial(); deleteEduByMemserial(); }}>삭제</button> */}
-                    <button type="submit" value='삭제' onClick={() => { deleteDataByMemserial(); }}>삭제</button>
+                    {/* <button type="submit" value='삭제' onClick={() => { deleteDataByMemserial(); }}>삭제</button> */}
                     {/* <button type="submit" value='업데이트' >업데이트</button> */}
                     <button type="submit" value='pw초기화' onClick={() => resetPswrd()} >PW초기화</button>
                 </div>
