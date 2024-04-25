@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './attandanceTest.css'
+import './AttandanceManagement.css'
 import { Icon } from '@iconify/react'
 import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths, addDays, addMonths } from 'date-fns';
 // import ChildAttandanceList from './ChildAttandanceList';
@@ -29,7 +29,6 @@ function AttandanceMangement() {
 
     const [checkList, setCheckList] = useState([]); // 체크된 아이템 리스트 상태 관리
     const [memListUpdate, setMemListUpdate] = useState(true);   // insert 시 상태값 변경을 위해서
-    console.log(memListUpdate);
 
     // 전체 선택 기능
     const handleAllChecked = (event) => {
@@ -112,7 +111,8 @@ function AttandanceMangement() {
                     // 리렌더링 테스트3
                     // 출석 상태 변경 후에 해당 상태를 업데이트
                     // item : attData 배열의 각 요소(그니까 리스트 데이터를 다시 map 돌려서 '결'이라는 상태값을 추가해준겨)
-                    alert("출석등록하시겠습니까?")
+
+                    // alert("출석등록하시겠습니까?")   // 여러명 체크했을 때 체크한 갯수만큼 뜬다..에바
                     const updatedAttData = attData.map(item => {
                         if (item.memSerial === memSerial && item.attDate == format(currentMonth, 'yyyy-MM-dd')) {
                             return { ...item, attStatus: '결' };
@@ -131,14 +131,29 @@ function AttandanceMangement() {
                 });
 
         });
-        setMemListUpdate(memListUpdate);
-        console.log(memListUpdate);
+        setMemListUpdate(!memListUpdate);
+        alert("출석등록하시겠습니까?")
     };
+    console.log(memListUpdate);
 
     // 출석 리스트(입소리스트) & 리스트 별 출석 현황 요청
     useEffect(() => {
+
+        // 입소중인 멤버 리스트 요청 : mem_serial , mem_name 컬럼
+        apiCall("/mem/admissionList", "GET")
+            .then((response) => {
+                console.log(response.data);  // 전체 데이터 들어옴
+                setAdmissionData(response.data);
+
+            }).catch((err) => {
+                console.log(err);
+            })
+
         // 멤버 리스트 출력을 위해 DB로 요청보내기 : 리스트를 가지고 오기 위한 DB요청(1~31일 데이터 나열)
-        apiCall("/att/attList", "GET", { yearMonth: format(currentMonth, 'yyyy-MM') })
+        // mem_serial, att_status, att_date
+        apiCall("/att/attList", "GET", {
+            yearMonth: format(currentMonth, 'yyyy-MM')
+        })
             .then((response) => {
                 // console.log(response.data);  //
                 setAttData(response.data);
@@ -147,17 +162,8 @@ function AttandanceMangement() {
                 console.log(err);
             })
 
-        // 입소중인 멤버 리스트 요청
-        apiCall("/mem/admissionList", "GET")
-            .then((response) => {
-                // console.log(response.data);  // 전체 데이터 들어옴
-                setAdmissionData(response.data);
-
-            }).catch((err) => {
-                console.log(err);
-            })
         // }
-    }, [format(currentMonth, 'yyyy-MM')], [memListUpdate]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
+    }, [format(currentMonth, 'yyyy-MM'), memListUpdate]); // 리스트 중 한명이라도 출결석 변경 시 렌더링..전체를 할 필요가 있나?
 
 
 
@@ -214,19 +220,30 @@ function AttandanceMangement() {
 
     return (
         <div className="att_mng">
-            <div>
-                <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth}></Icon>
-                {format(currentMonth, 'yyyy')}년
-                {format(currentMonth, 'M')}월
+            <div className='month_button'>
+                <div className="att_" style={{
+                }}>
+                    <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth}></Icon>
+                </div>
+                <div style={{
+                    fontSize: '13px'
+                }}>
+                    {/* {format(currentMonth, 'yyyy')}년 */}
+                    {format(currentMonth, 'M')}월
+                </div>
                 <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
-                <div style={{ display: thisMonth }}>오늘의 날짜는 : {format(currentMonth, 'dd')}일</div>
+                <div style={
+                    {
+                        display: thisMonth,
+                        fontSize: '13px'
+                    }}>오늘의 날짜는 {format(currentMonth, 'dd')}일</div>
 
             </div>
             <div></div>
             <div>
-                <div className='att_mng_list' style={{
+                <div className='att_mng_list attheader' style={{
                     display: 'grid',
-                    gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows,
+                    gridTemplateColumns: "2% 8% 7% 5% 4% 4% " + rows,
                     backgroundColor: "var(--admin)",
                 }}>
                     <div>
@@ -261,13 +278,18 @@ function AttandanceMangement() {
                 {admissionData && admissionData.map((o, i) => {
                     let attcount = attData.reduce((cnt, item) => cnt + (item.memSerial === o.memSerial && item.attStatus === "출"), 0);
                     let abscount = attData.reduce((cnt, item) => cnt + (item.memSerial === o.memSerial && item.attStatus === "결"), 0);
-                    let attRate = attcount / (attcount + abscount) * 100;
+                    let attRate;
+                    if(isNaN(attcount/(attcount + abscount))){
+                        attRate = "0"
+                    }else{
+                        attRate = attcount / (attcount + abscount) * 100;
+                    }
 
                     return (
 
-                        <div className='att_mng_list' style={{
+                        <div className='att_mng_list attdata' style={{
                             display: 'grid',
-                            gridTemplateColumns: "2% 8% 5% 5% 5% 5% " + rows,
+                            gridTemplateColumns: "2% 8% 7% 5% 4% 4% " + rows,
                         }}>
                             <>
                                 {/* 우측에서는 체크박스, serial, 이름만 출력  */}
@@ -280,7 +302,7 @@ function AttandanceMangement() {
                                     /></div>
                                 <div>{o.memSerial}</div>
                                 <div>{o.memName}</div>
-                                <div>{attRate.toFixed()}%</div>
+                                <div>{Math.floor(attRate)}%</div>
                                 {/* 해당하는 인덱스 반환 */}
                                 {/* <div>{attData.findIndex((item) => ((item.memSerial === o.memSerial)))}</div> */}
 
@@ -313,9 +335,8 @@ function AttandanceMangement() {
 
                                     if (count) {
                                         return (
-
                                             <div
-                                                className="attandance_data"
+                                                className={`attandance_data attcheck ${count.attStatus === '결' ? 'red-text' : ''}`}
                                                 // 기본적으로 index가 0에서 시작하기때문에 + 1
                                                 key={index + 1}
                                                 // onClick={() => setAttData([count.attStatus])}>
@@ -329,8 +350,8 @@ function AttandanceMangement() {
                                         );
                                     } else {
                                         return (
-                                            <div key={index + 1}>
-                                                {/* 출석이 없으면 빈문자열 반환 */}-
+                                            <div className="attandance_data" key={index + 1}>
+                                                {/* 출석이 없으면 빈문자열 반환 */}·
                                             </div>
                                         )
                                     }
@@ -354,14 +375,14 @@ function AttandanceMangement() {
                     <div></div>
 
                 </div> */}
-                <div className='buttonBox'>
+
+            </div>
+                <div className='buttonBox attButton'>
                     <div>
-                        <button type="submit" value='출석등록' onClick={handleAttendanceRegistration}>오늘의 출석 등록</button>
+                        <button type="submit" value='출석등록' onClick={handleAttendanceRegistration}>{format(currentMonth, 'dd')}일 출석 등록</button>
                         {/* <button type="submit" value='출석삭제'>출석 삭제</button> */}
                     </div>
                 </div>
-
-            </div>
         </div>
     );
 

@@ -1,0 +1,71 @@
+/* .att_mng{
+    width: 100% !important;
+} */
+
+
+
+
+.att_mng>div:nth-child(1){
+    display: flex;
+    gap: 10px;
+}
+.att_mng>div:nth-child(3) {
+    height: calc(100% - 60px);
+    overflow: auto;
+}
+.att_mng_list:nth-child(1){
+    /* position: sticky; */
+}
+
+.att_mng_list>div {
+    text-align: center;
+    /* font-weight: bold; */
+    border-bottom: 1px solid var(--lgray);
+    border-right: 1px solid var(--lgray);
+    font-size: 13px;
+    padding: 5px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+.attheader{
+    position: sticky;
+    top:0.1px;
+    font-weight: bold;
+    border-top: 1px solid var(--lgray);
+}
+
+.att_mng_list .colorRed {
+    color: red;
+}
+
+.att_mng_list .colorBlue {
+    color: blue;
+}
+
+.attcheck:hover:not(:first-child){
+    cursor: pointer;
+    background-color: var(--blue);
+    color: aliceblue;
+    
+}
+
+.month_button{
+    padding-bottom: 10px;
+}
+
+.attButton{
+    /* margin-left: initial; */
+    padding-bottom: 5px;
+}
+
+/* 결석 데이터 폰트 색상 */
+.red-text {
+    color: red;
+}
+
+.attdata:nth-child(2n){
+    background-color: var(--sgray);
+}
