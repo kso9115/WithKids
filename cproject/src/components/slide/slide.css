@@ -32,7 +32,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    padding: 0 5px;
+    padding: 0 10px;
 }
 
 .imgBox_Slider {
@@ -41,4 +41,8 @@
     border-radius: 15px;
     /* color: var(--admin); */
     margin: auto;
+}
+
+.imgBox_Slider p{
+    padding-bottom: 5px;
 }

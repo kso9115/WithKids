@@ -68,7 +68,7 @@ function SearchBox({ data, searchBoxClick }) {
 
     return (
         <>
-            <p style={{ marginBottom: '5px' }}>{data.name}</p>
+            <p style={{ marginBottom: '5px', fontWeight: 'bold' }}>{data.name}</p>
             <form action={data.action} method={data.method}>
                 <div className='searchBox'>
                     {

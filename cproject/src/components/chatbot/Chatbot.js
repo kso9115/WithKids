@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from "styled-components"
 import ChatBot from "react-simple-chatbot"
 import ChatbotModal from "react-modal"
 // import { Close } from "../../../image/index.js"
-// import { Close } from "'../../images/iconChat.png'"
+import { Close } from "../../assets/images/iconChat.png"
 
 import CheckBox from "./CheckBox.js"
 
@@ -298,7 +298,7 @@ const Chatbot = ({ isModal, setModal }) => {
                 },
             }}
         >
-            {/* <Closebtn src={Close} onClick={() => setModal(false)} /> */}
+            {/* <Closebtn src='/img/gnb_close.png' onClick={() => setModal(false)} /> */}
             <ThemeProvider theme={theme}>
                 <ChatBot
                     steps={steps}

@@ -13,11 +13,20 @@
     font-family: 'claytoy';
 }
 
+.treeName {
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+}
+
+.treeName>button {
+    font-size: 12px;
+}
+
 .treeBox {
     color: black;
     border-width: 1px;
     border-Style: solid;
     border-Color: var(--mgray);
-    height:-webkit-calc(100% - 26px);
+    height: -webkit-calc(100% - 26px);
 }
-

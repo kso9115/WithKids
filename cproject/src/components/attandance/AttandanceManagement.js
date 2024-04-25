@@ -354,13 +354,12 @@ function AttandanceMangement() {
                     <div></div>
 
                 </div> */}
-                <div className='buttonBox'>
-                    <div>
-                        <button type="submit" value='출석등록' onClick={handleAttendanceRegistration}>오늘의 출석 등록</button>
-                        {/* <button type="submit" value='출석삭제'>출석 삭제</button> */}
-                    </div>
+            </div>
+            <div className='buttonBox'>
+                <div>
+                    <button type="submit" value='출석등록' onClick={handleAttendanceRegistration}>오늘의 출석 등록</button>
+                    {/* <button type="submit" value='출석삭제'>출석 삭제</button> */}
                 </div>
-
             </div>
         </div>
     );

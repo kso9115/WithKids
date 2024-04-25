@@ -3,6 +3,7 @@
 .prg_dtl_gridBox3 {
     font-size: 14px;
     display: grid;
+    margin-top: 5px;
     margin-bottom: 60px;
     border-top: 2px solid var(--lgray);
     border-bottom: 2px solid var(--lgray);

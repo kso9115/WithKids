@@ -130,7 +130,7 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     }
 
     return (
-        <div style={{
+        <div className='prg_dtl_mainbox' style={{
             height: '100%'
         }}>
             <b>프로그램 기본정보</b>

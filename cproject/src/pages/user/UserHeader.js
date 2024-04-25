@@ -4,6 +4,7 @@ import iconChat from '../../assets/images/iconChat.png'
 // import Chatbot from '../../components/chatbot/Chatbot';
 import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Chatbot from '../../components/chatbot/Chatbot';
 
 function UserHeader() {
     const [modal, setModal] = useState(false);
@@ -13,7 +14,8 @@ function UserHeader() {
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
 
     function iconClick() {
-        if (document.getElementById("iconChat").classList === 'iconClick') {
+        console.log(document.getElementById("iconChat").classList.value);
+        if (document.getElementById("iconChat").classList.value === 'iconClick') {
             setModal(false)
             document.getElementById("iconChat").classList = '';
             document.getElementById("iconChat").innerHTML = '<img src="img/iconChat.png" alt="" />'
@@ -63,7 +65,7 @@ function UserHeader() {
 
                 <div id="login_group" ref={hide}>
                     <ul>
-                        <li><Link to="/">선택창(Test)</Link></li>
+                        {/* <li><Link to="/">선택창(Test)</Link></li> */}
                         {sessionData ? <>
                             <li><div className='usercheck' onClick={userCheck}>출석 및 급식</div></li>
                             <li><Link to="/user/myInfo">내정보</Link></li>
@@ -78,12 +80,12 @@ function UserHeader() {
 
 
 
-            <div id="iconChat" className='' ref={icon} onClick={iconClick}>
+            {/* <div id="iconChat" className='' ref={icon} onClick={iconClick}>
                 <img src={iconChat} alt="" />
             </div>
 
 
-            {/* <Chatbot isModal={modal} setModal={setModal}></Chatbot> */}
+            <Chatbot isModal={modal} setModal={setModal}></Chatbot> */}
         </header>
     );
 }

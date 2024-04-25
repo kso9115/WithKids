@@ -3,6 +3,11 @@
     gap: 10px;
 }
 
+.att_mng>div:nth-child(3) {
+    height: calc(100% - 50px);
+    overflow: auto;
+}
+
 .att_mng_list>div {
     text-align: center;
     font-weight: bold;

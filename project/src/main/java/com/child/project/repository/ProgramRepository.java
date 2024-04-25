@@ -15,6 +15,9 @@ public interface ProgramRepository extends JpaRepository<Program, ProgramId> {
         @Query(value = "select new Program(prgId,prgBigCls,prgMidCls,prgSubCls,prgNm) from Program p order by prgBigCls,prgMidCls,prgSubCls")
         List<Program> findAll();
 
+        @Query(value = "select * from program p order by prg_big_cls,prg_mid_cls,prg_sub_cls", nativeQuery = true)
+        List<Program> dataAll();
+
         @Query(value = "select * from program where prg_id=:prg_id", nativeQuery = true)
         Program selectOne(@Param("prg_id") String prgId);
 
@@ -28,5 +31,6 @@ public interface ProgramRepository extends JpaRepository<Program, ProgramId> {
         @Query(value = "select count(*) from program where prg_big_cls=:prg_big_cls and prg_mid_cls=:prg_mid_cls and prg_sub_cls=:prg_sub_cls", nativeQuery = true)
         Integer saveCat(@Param("prg_big_cls") String prgBigCls, @Param("prg_mid_cls") String prgMidCls,
                         @Param("prg_sub_cls") String prgSubCls);
+
 
 }

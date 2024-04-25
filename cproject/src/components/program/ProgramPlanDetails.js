@@ -181,9 +181,9 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                     <button type="button" value='저장'
                         onClick={() => saveData("prgPlnUpdate", text)}
                     >저장</button>
-                    <button type="button" value='test'
+                    {/* <button type="button" value='test'
                         onClick={saveFile}
-                    >test</button>
+                    >test</button> */}
                 </div>
             </div>
             <div className='prg_pln_dtl_gridBox'>

@@ -176,17 +176,17 @@ function Navbar({ loginInfo }) {
                                 <div className="navbarModalButton" onClick={pwChangeRequest}>비밀번호 변경</div>
                             </Modal>
                             <li onClick={openModal}>비밀번호 변경</li>
-                            <li>Settings</li>
-                            <li onClick={test}>문자 전송</li>
+                            <li onClick={() => alert("미구현 입니다.")}>Settings</li>
+                            <li onClick={() => alert("미구현 입니다.")}>문자 전송</li>
                             {/* <li>Logout</li> */}
                         </ul>
                         <div onClick={logout}><p>Logout</p></div>
                     </div>
-                    <div>
+                    {/* <div>
                         <ul>
-                            {/* <li><ChatManagement/></li> */}
+                            <li><ChatManagement/></li>
                         </ul>
-                    </div>
+                    </div> */}
                 </li>
             </ul>
         </div>

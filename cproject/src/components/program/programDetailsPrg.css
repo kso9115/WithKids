@@ -1,5 +1,6 @@
 .prg_dtlprg_grid {
     margin-bottom: 20px;
+    margin-top: 5px;
     text-align: center;
     height: 23.5%;
     border: 1px solid var(--lgray);
@@ -12,6 +13,10 @@
 .prg_dtlprg_gridBox3 {
     font-size: 14px;
     display: grid;
+}
+
+.prg_dtlprg_gridBox2 {
+    margin-top: 5px;
 }
 
 .prg_dtlprg_gridBox {

@@ -10,9 +10,10 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import { apiCall } from '../../server/apiService';
+import * as XLSX from 'xlsx';
 
 function ProgramTree({ name, setData, treeUpdate }) {
-    // console.log("ProgramTree");
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
     const [prgData, setPrgData] = useState([]); //프로그램 테이블 전체 보관
     useEffect(() => {
         if (treeUpdate !== true && treeUpdate !== false) {
@@ -154,12 +155,28 @@ function ProgramTree({ name, setData, treeUpdate }) {
         return array;
     }
 
+    function xssDownload() {
+        apiCall('/user/xssDownload', 'GET', {name: 'program'}, loginInfo.data.token)
+            .then((response) => {
+                const excelData = response.data;
+
+                // 데이터를 JSON 형태로 받아옴
+                const wb = XLSX.utils.book_new();
+                const ws = XLSX.utils.json_to_sheet(excelData);
+                XLSX.utils.book_append_sheet(wb, ws, "program 목록");
+
+                // 파일로 저장
+                XLSX.writeFile(wb, "program.xlsx");
+            }).catch((error) => {
+                console.log(error);
+            })
+    }
     return (
         <>
-            <div style={{
+            <div className='treeName' style={{
                 marginBottom: '5px'
             }}>
-                {name}
+                {name}<button type='button' onClick={xssDownload}>엑셀다운로드</button>
             </div>
             <div className='treeBox'>
                 <TreeView

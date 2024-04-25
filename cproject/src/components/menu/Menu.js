@@ -64,9 +64,11 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
                 <PagesCollapse getTransTitle={getTransTitle} name='출석'
                     menu={['출석관리', '출석그래프']}
                     conName={['AttandanceMangement', 'AttandanceStatistic']} img='img/출석.png' />
+                
                 <PagesCollapse getTransTitle={getTransTitle} name='아동관리'
                     menu={['대상자 기본 정보', '입소/퇴소 관리']}
                     conName={['MemberMangement', 'Admission']} img='img/사람.png' />
+                
                 <Charts getTransTitle={getTransTitle} name='급식관리'
                     conName={'MealManagement'} img='img/식사2.png' />
 
@@ -74,12 +76,19 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
                 <div className="menu-side-heading">
                     센터 운영 메뉴
                 </div>
-                <PagesCollapse getTransTitle={getTransTitle} name='관리용 게시판'
+                <Charts getTransTitle={getTransTitle} name='공지사항 관리'
+                    conName={'NoticeManagement'} img='img/관리.png' />
+                {/* <PagesCollapse getTransTitle={getTransTitle} name='관리용 게시판'
                     menu={['회의록', '일정관리', '공지사항 관리']}
-                    conName={['NonePage', 'NonePage', 'NoticeManagement']} img='img/관리.png' />
+                    conName={['NonePage', 'NonePage', 'NoticeManagement']} img='img/관리.png' /> */}
+                
                 <PagesCollapse getTransTitle={getTransTitle} name='프로그램 관리'
+                    menu={['프로그램정보관리', '프로그램계획서작성']}
+                    conName={['ProgramManagement', 'ProgramPlan']} img='img/프로그램.png' />
+                {/* <PagesCollapse getTransTitle={getTransTitle} name='프로그램 관리'
                     menu={['프로그램정보관리', '프로그램계획서작성', '프로그램일지 작성']}
-                    conName={['ProgramManagement', 'ProgramPlan', 'NonePage']} img='img/프로그램.png' />
+                    conName={['ProgramManagement', 'ProgramPlan', 'NonePage']} img='img/프로그램.png' /> */}
+                
                 <Charts getTransTitle={getTransTitle} name='직원 관리'
                     conName={'StaffManagement'} img='img/직원.png' />
             </ul>
