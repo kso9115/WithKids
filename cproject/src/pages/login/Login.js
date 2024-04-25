@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Session from 'react-session-api';
-import leftBackground from '../../assets/images/leftBackground.png';
-import faceId from '../../assets/images/free-icon-face-id-2415069.png';
-import padLock from '../../assets/images/free-icon-padlock-2575570.png';
+import imgBackground from '../../assets/images/1920_x_950_px.png';
 import { apiCall } from '../../server/apiService';
-// import leftBackground from '../../images/leftBackground.png';
-// import faceId from '../../images/free-icon-face-id-2415069.png';
+import poolImg from '../../assets/images/pool_1.png';
+import centerImg from '../../assets/images/pool_1000_x_200_px_1.png';
+
+
 // import padLock from '../../images/free-icon-padlock-2575570.png';
 
 function Login({ setSessionName }) {
@@ -86,26 +86,34 @@ function Login({ setSessionName }) {
     };
 
     return (
-        <div className="loginBox">
-            <div className='logLeftBox' style={{ width: '50%', heightht: '100%' }}>
-                <div><img className="leftBackground" src={leftBackground} alt="배경"></img></div>
-
+        
+        <div>
+            <div><img className="imgBackground" src={imgBackground} alt="배경"></img></div>
+            <div className='withkids'><img src={poolImg} alt="아이들의 행복을 위한 놀이터"></img></div>
+            {/* <div className='homehover'><a href='/user'>HomePage</a></div> */}
+            <div className='staffloginBox'>
                 <div>
-                    <div className='hovering'><a href='/' style={{ color: 'var(--admin)', fontFamily: '', fontWeight: 'bold' }}>Log In</a></div>
-                    <br />
-                    <div className='hovering'><a href="/home" style={{ color: 'var(--admin)', fontFamily: '', fontWeight: 'bold' }}>Home</a></div>
+                    <div><a href='/user'><img src={centerImg} alt='withkids아동관리센터'></img></a></div>
+                    <div>
+                        <i class="xi-profile-o xi-2x"></i>
+                        <div><input type="text" id="staffId" name="staffId" value={staffId} onChange={handleSerialChange} placeholder='ID를 입력해주세요' onKeyDown={handlerIdEnter} /></div>
+                    </div>
+                    <div>
+                    <i class="xi-lock-o xi-2x"></i>
+                        <div><input type="password" id="padLock" name="padLock" value={password} onChange={handlePwChange} placeholder='PW를 입력해주세요'  onKeyDown={handlerPwEnter} autoFocus/></div>
+                    </div>
                 </div>
-
+                <div className='loginBtn'>
+                    <input className='custom-btn2' id="enterlogin" type="submit" value="log in" onClick={onSubmitHandler} />
+                </div>
             </div>
-
-            <div className='logRightBox' style={{ width: '50%' }}>
-                <div className='logLogo'>
+                {/* <div className='logLogo'>
                     <img src='img/Community Child Center.png' alt="커뮤니티차일드센터"></img>
                     <h2 className="" style={{
                         fontSize: 60, fontWeight: 'bold', color: 'var(--admin)'
                     }}>L O G I N</h2>
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                     <div className='loginTable'>
                         <div className='idpwbox'>
                             <div><img className="staffId" src={faceId} alt="staffId" />
@@ -122,8 +130,7 @@ function Login({ setSessionName }) {
                             <input className='custom-btn' type="reset" value="취소" />
                         </div>
                     </div>
-                </div>
-            </div>
+                </div> */}
         </div>
     );
 }

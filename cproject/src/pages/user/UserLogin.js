@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
+
 //이미지
+import leftBackground from '../../assets/images/leftBackground.png';
 import faceSereial from "../../assets/images/free-icon-face-id-2415069.png";
 import facePW from "../../assets/images/free-icon-padlock-2575570.png";
 import { apiCall } from '../../server/apiService';
@@ -73,20 +75,39 @@ function UserLogin() {
     }
 
     return (
-        <div className='useLoginBox'>
-            <div>
-                <div><img className="user_Serial" src={faceSereial} alt="serial" />
-                    <input type="text" id="serial" name="serial" value={serial} onChange={handleSerialChange} onKeyDown={handlerIdEnter}/>
-                </div>
-                <div><img className="user_Password" src={facePW} alt="password"></img>
-                    <input type="password" id="password" name="password" value={password} onChange={handlePwChange} onKeyDown={handlerEnter} />
-                </div>
+        <div className="loginBox">
+            <div className='logLeftBox' style={{ width: '50%', height: '100%' }}>
+                <div><img className="leftBackground" src={leftBackground} alt="배경"></img></div>
             </div>
-            <div>
-                <input className='userLogin-btn' type="submit" value="로그인" onClick={onSubmitHandler} />&nbsp;&nbsp;&nbsp;
-                <input className='userLogin-btn' type="reset" value="취소" />
+
+            <div className='logRightBox' style={{ width: '50%' }}>
+                <div className='logLogo'>
+                    <img src='img/Community Child Center.png' alt="커뮤니티차일드센터"></img>
+                    <h2 className="" style={{
+                        fontSize: 60, fontWeight: 'bold', color: 'var(--admin)'
+                    }}>L O G I N</h2>
+                </div>
+                <div>
+                    <div className='loginTable'>
+                        <div className='idpwbox'>
+                            <div><img className="faceSereial" src={faceSereial} alt="faceSereial" />
+                                <input type="text" id="faceSereial" name="faceSereial" value={serial} onChange={handleSerialChange} placeholder='ID를 입력해주세요' onKeyDown={handlerIdEnter} />
+                            </div>
+
+                            <div><img className="facePW" src={facePW} alt="facePW"></img>
+                                <input type="text" id="facePW" name="facePW" value={password} onChange={handlePwChange} placeholder='PW를 입력해주세요' onKeyDown={handlerEnter} autoFocus/>
+                            </div>
+                        </div>
+
+                        <div className='loginBtn'>
+                            <input className='custom-btn' id="enterlogin" type="submit" value="로그인" onClick={onSubmitHandler} />&nbsp;&nbsp;&nbsp;
+                            <input className='custom-btn' type="reset" value="취소" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     )
 }
 export default UserLogin;
