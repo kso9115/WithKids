@@ -85,7 +85,7 @@ function MealChart() {
         name: "간식",
         // data: [189, 202, 183, 210, 229, 208, 207, 223, 230, 261, 175, 200],
         data: chartdata.snk_meal,
-        color: "var(--liteblue)" ,
+        color: "var(--lightblue)" ,
       }
       // Mealmgnm 로 데이터 변경
 

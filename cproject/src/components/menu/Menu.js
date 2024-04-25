@@ -12,7 +12,7 @@ import Charts from './Charts'
 import React from 'react'
 import ProgramPlan from '../program/ProgramPlan'
 import NoticeManagement from '../notice/NoticeManagement'
-import NonePage from '../main/NonePage'
+// import NonePage from '../main/NonePage'
 
 function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     const map = new Map();
@@ -26,7 +26,7 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     map.set('ProgramManagement', { name: '프로그램정보관리', content: <ProgramManagement /> });
     map.set('ProgramPlan', { name: '프로그램계획서 작성', content: <ProgramPlan /> });
     map.set('NoticeManagement', { name: '공지사항 관리', content: <NoticeManagement /> });
-    map.set('NonePage', { name: '미작업 페이지', content: <NonePage /> });
+    // map.set('NonePage', { name: '미작업 페이지', content: <NonePage /> });
 
     function getTransTitle(menuName) {
         // if (menuAuthority(menuName)) {

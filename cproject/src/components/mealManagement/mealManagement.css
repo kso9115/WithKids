@@ -1,4 +1,7 @@
 /* 체크 박스 */
+.backcolor {
+    background-color: #dde2f7;
+}
 .mealCheckbox {
     display: inline-block;
     padding: 5px ;
@@ -6,46 +9,62 @@
     border-radius: 10px;
     margin-bottom: 10px;
 }
+.meal_mng_list>div,.meal_mng_list2>div {
+    text-align: center;
+}
+
 /* 체크박스 내부 조,중,석,간 */
+
 .mealCheckbox>label> {
     display: flex;
 }
+
 /* 보더 */
-.mealListBox>div{
-    border-bottom : 2px solid var(--admin);
-}
+
 .mealBox>div:nth-child(2) {
     display: flex;
     margin-bottom: 10px;
 }
-
-/* attandance 페이지와 공통 CSS */
-
-/* .meal_mng>div:nth-child(1){
-    display: flex;
-    gap: 10px;
+.meal_mng_list>div ,.meal_mng_list2>div {
+    border-top: 1px solid var(--admin);
+    border-left: 1px solid var(--admin);
+}
+.meal_mng_list>div:last-child ,.meal_mng_list2>div:last-child {
+    border-right: 1px solid var(--admin);
 }
 
-.meal_mng_list>Link>div {
-    text-align: center;
-    font-weight: bold;
-} */
+/* 호버 주기 */
 
+.clickMealBox:hover {
+    background-color: #dde2f7;
+    cursor: pointer;
+}
+
+/* attandance 페이지와 공통 CSS */
+.dateBoxIcon {
+   margin-top: 3px;
+}
+/* .meal_mng_list>div:nth-child(n+1):nth-child(-n+3),
+.meal_mng_list>div:last-child{
+    background-color: #bec9f9;
+} */
+.meal_mng_list2>div:nth-child(n+1):nth-child(-n+2){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .meal_mng_list .colorRed {
     color: red;
+    background-color: #dde2f7;
 }
 
 .meal_mng_list .colorBlue {
     color: blue;
+    background-color: #dde2f7;
 }
 
 /* 모달창 */
-/* 
-.staffModal>div{
-    display: grid;
-    grid-template-columns: 30% 35% 35%;
-    text-align: center;
-}  */
+
 .helloModal {
     margin-top: 5px;
     padding: auto;

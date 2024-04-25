@@ -51,7 +51,7 @@ function MealManagement() {
     === format(selectedDate, 'yyyy') + format(selectedDate, 'M') ? "block" : "none";
     
     let size = format(monthEnd, 'd');
-    let rows = 60 / size + "%";
+    let rows = 73 / size + "%";
     
     //이전 월 혹은 다음 월 선택 했을 때, 이동
     const prevMonth = () => {
@@ -62,7 +62,7 @@ function MealManagement() {
     };
     
     for (let i = 1; i < size; i++) {
-        rows += " " + 60 / size + "%";
+        rows += " " + 73 / size + "%";
     }
     
     if (format(monthStart, 'M') === format(startDate, 'M')) {
@@ -74,7 +74,7 @@ function MealManagement() {
     useEffect(() => {
         // console.log("1111");
         const mealList = () => 
-        console.log(format(currentMonth,"yyyy-MM"));
+        // console.log(format(currentMonth,"yyyy-MM"));
         // axios.
         //     get("/api/meal/mealListYM", {
         //         params: {
@@ -85,7 +85,7 @@ function MealManagement() {
             yearMonth : format(currentMonth,"yyyy-MM")
         },null)
             .then((response) => {
-                console.log("mealList에 대한 요청");
+                // console.log("mealList에 대한 요청");
                 // console.log(response.data);
                 setMealData(response.data);
             })
@@ -321,17 +321,17 @@ console.log(memMealDataOne);
                 </div> */}
             </div>
             <div>
-                <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth}></Icon>&nbsp;
+                <Icon className='dateBoxIcon' icon="bi:arrow-left-circle-fill" onClick={prevMonth}></Icon>&nbsp;
                 {format(currentMonth, 'yyyy')}년&nbsp;
                 {format(currentMonth, 'MM')}월
-                &nbsp;<Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
+                &nbsp;<Icon className='dateBoxIcon' icon="bi:arrow-right-circle-fill" onClick={nextMonth}></Icon>
                 &nbsp;&nbsp;<div style={{ display: thisMonth , color:'red'}}>이번 달</div> 
             </div>
             {/* <div> </div> */}
             <div className='mealListBox'>
                 <div className='meal_mng_list' style={{
                     display: 'grid',
-                    gridTemplateColumns: "10% 5% 5%" + rows + " 20% "
+                    gridTemplateColumns: "10% 5% 5%" + rows + " 5% "
                 }}>
                     <div>아동식별번호</div>
                     <div>이름</div>
@@ -343,7 +343,7 @@ console.log(memMealDataOne);
                         } else if ((index + 1) % 7 === (count) % 7) {
                             color = "colorRed"
                         } else {
-                            color = ""
+                            color = "backcolor"
                         }
                         return (
                             <div className={color} key={index + 1}> {index + 1} </div>
@@ -354,16 +354,15 @@ console.log(memMealDataOne);
                 </div>
 
                 {memData.map((o, i) => {
-                    // let brfCount = mealDate.reduce((cnt,item) => cnt +( item.memSerial === o.memSerial && item.attStatus === "brk_meal"),0);
-                    // let lncCount = mealDate.reduce((cnt,item) => cnt +(item.memSerial === o.memSerial && item.attStatus === "lnc_meal"),0);
-                    // let dnrCount = mealDate.reduce((cnt,item) => cnt +(item.memSerial === o.memSerial && item.attStatus === "dnr_meal"),0);
-                    // let snkCount = mealDate.reduce((cnt,item) => cnt +(item.memSerial === o.memSerial && item.attStatus === "snk_meal"),0);
-                    
+                    let brfCount = mealData.reduce((cnt,item) => cnt +(o.memSerial === item.memSerial && item.brfMeal === 1),0);
+                    let lncCount = mealData.reduce((cnt,item) => cnt +(o.memSerial === item.memSerial && item.lncMeal === 1),0);
+                    let dnrCount = mealData.reduce((cnt,item) => cnt +(o.memSerial === item.memSerial && item.dnrMeal === 1),0);
+                    let snkCount = mealData.reduce((cnt,item) => cnt +(o.memSerial === item.memSerial && item.snkMeal === 1),0);
 
                     return (
-                        <div className='meal_mng_list' style={{
+                        <div className='meal_mng_list2' style={{
                             display: 'grid',
-                            gridTemplateColumns: "10% 5% 5% " + rows + "10%" }} key={i+1}>
+                            gridTemplateColumns: "10% 5% 5% " + rows + "5%" }} key={i+1}>
 
                             {/* <Link to ={`/mealSaveP/${o.memSerial}`} state={{ meal : mealData}} target="_blank">{o.memSerial}</Link> */}
                             <div>{o.memSerial}</div>
@@ -389,8 +388,8 @@ console.log(memMealDataOne);
                                 let count = mealData.find((item) => (item.memSerial === o.memSerial) && (parseInt(item.mealDate.split("-")[2]) === parseInt(day)));
                                 if (count) {
                                     return (
-                                        <div key={index + 1}  onClick={()=>onOpenClick(count)}>
-                                            {checkedMealList.brf_meal ? <div >{count.brfMeal === 0 ? "X" : "O" }</div> : null}
+                                        <div key={index + 1} className='clickMealBox' onClick={()=>onOpenClick(count)}>
+                                            {checkedMealList.brf_meal ? <div>{count.brfMeal === 0 ? "X" : "O" }</div> : null}
                                             {checkedMealList.lnc_meal ? <div>{count.lncMeal === 0 ? "X" : "O" }</div> : null}
                                             {checkedMealList.dnr_meal ? <div>{count.dnrMeal === 0 ? "X" : "O" }</div> : null}
                                             {checkedMealList.snk_meal ? <div>{count.snkMeal === 0 ? "X" : "O" }</div> : null}
@@ -409,8 +408,8 @@ console.log(memMealDataOne);
                                 else {
                                     console.log();
                                     return (
-                                        <div
-                                            // className={color} 
+                                        <div 
+                                            className="clickMealBox"
                                             key={index + 1} 
                                             onClick={()=>onOpenClick(o)}
                                         ></div>
@@ -418,10 +417,10 @@ console.log(memMealDataOne);
                                 }
                             })}
                             <div> 
-                                {checkedMealList.brf_meal ? <div>조식</div> : null}
-                                {checkedMealList.lnc_meal ? <div>중식</div> : null}
-                                {checkedMealList.dnr_meal ? <div>석식</div> : null}
-                                {checkedMealList.snk_meal ? <div>간식</div> : null}
+                                {checkedMealList.brf_meal ? <div><span>조식 : </span><span>{brfCount}개</span></div> : null}
+                                {checkedMealList.lnc_meal ? <div><span>중식 : </span><span>{lncCount}개</span></div> : null}
+                                {checkedMealList.dnr_meal ? <div><span>석식 : </span><span>{dnrCount}개</span></div> : null}
+                                {checkedMealList.snk_meal ? <div><span>간식 : </span><span>{snkCount}개</span></div> : null}
                             </div>
 
                         </div>
