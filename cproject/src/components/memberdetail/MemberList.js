@@ -92,7 +92,7 @@ function MemberList({ name, setData, memListUpdate }) {
 
             <div className={`memList`} >
                 <div className={`memList_container`}>
-                    <div className={`memList_row header`}>
+                    <div className={`memList_row memheader`}>
                         {/* <div className="memberList_cell">번호</div> */}
                         {name.title.map((o, i) => {
                             return (<div className={`memList_cell`} key={`${name.name}head${i}`}>{o}</div>);
@@ -101,13 +101,13 @@ function MemberList({ name, setData, memListUpdate }) {
 
                     {memData && memData.map((o, i) => {
                         return (
-                            <div className={`memList_row`}>
-                                <div className={`memList_cell`} key={o + i} onClick={() => setData({ ...o })}>
+                            // <div className={`memList_row`}>
+                                <div className={`memList_row memdata`} key={o + i} onClick={() => setData({ ...o })}>
                                     {name.menu.map((o2, i2) => {
-                                        return (<div key={o2 + i2}>{o[o2]}</div>)
+                                        return (<div className={`memList_cell`} key={o2 + i2}>{o[o2]}</div>)
                                     })}
                                 </div>
-                            </div>
+                            // </div>
                         )
                     })}
                 </div>

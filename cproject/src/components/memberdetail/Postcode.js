@@ -40,12 +40,15 @@ function PostCode({
             style={{
                border:1,
                borderStyle: 'solid',
-               borderColor:'black',
-               backgroundColor: 'black',
-               color:'white',
+               borderRadius:3,
+               borderColor:'var(--gray)',
+               backgroundColor: 'var(--sgray)',
+               color:'black',
                paddingLeft:10,
                paddingRight:10,
-               height:22
+               paddingBottom:1.5,
+               height:22,
+               cursor:'pointer'
             }}
             >검색하기</div>&nbsp;
         </>
