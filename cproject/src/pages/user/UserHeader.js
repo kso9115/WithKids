@@ -33,7 +33,7 @@ function UserHeader() {
         }
     }
     function userCheck() {
-        if (window.confirm("출석체크 이동하시겠?")) {
+        if (window.confirm("출석체크 화면으로 이동하시겠습니까?")) {
             navigate("/usercheck")
         }
     }
