@@ -62,81 +62,11 @@ function UserCheck() {
             })
     }
 
-    console.log(sessionData);
-    console.log(format(currentMonth, 'yyyy-MM-dd'));
-    // const onbChange = ()=>{
-    //     console.log("조식");
-    //     apiCall('/meal/Insert', 'POST', {
-    //         memSerial: sessionData ? sessionData.data.id : null,
-    //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
-    //         memName: sessionData ? sessionData.data.username : null,
-    //         staffNm : "장근정", 
-    //         brfMeal : 1
-    //     })
-    //         .then((res) => {
-    //             console.log(res);
-    //             alert(`${res.data.memSerial} ${res.data.memName}님 아침 식사를 신청하셨습니다.`);
-    //         }).catch((err) => {
-    //             console.log("에러 발생 => " +err);
-    //         })
-    // }
-
-    // const onlChange = ()=>{
-    //     console.log("중식");
-        
-    //     apiCall('/meal/Insert', 'POST', {
-    //         memSerial: sessionData ? sessionData.data.id : null,
-    //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
-    //         memName: sessionData ? sessionData.data.username : null,
-    //         staffNm : "장근정", 
-    //         lncMeal : 1
-    //     })
-    //         .then((res) => {
-    //             console.log(res);
-    //             alert(`${res.data.memSerial} ${res.data.memName}님 점심 식사를 신청하셨습니다.`)
-    //         }).catch((err) => {
-    //             console.log("에러 발생 => " +err);
-    //         })
-    // }
-
-    // const ondChange = ()=>{
-    //     console.log("석식");
-        
-    //     apiCall('/meal/Insert', 'POST', {
-    //         memSerial: sessionData ? sessionData.data.id : null,
-    //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
-    //         memName: sessionData ? sessionData.data.username : null,
-    //         staffNm : "장근정", 
-    //         dnrMeal : 1
-    //     })
-    //         .then((res) => {
-    //             console.log(res);
-    //             alert(`${res.data.memSerial} ${res.data.memName}님 저녁 식사를 신청하셨습니다.`)
-    //         }).catch((err) => {
-    //             console.log("에러 발생 => " +err);
-    //         })
-    // }
-    // const onsChange = ()=>{
-    //     console.log("간식");
-        
-    //     apiCall('/meal/Insert', 'POST', {
-    //         memSerial: sessionData ? sessionData.data.id : null,
-    //         mealDate : format(currentMonth, 'yyyy-MM-dd'),
-    //         memName: sessionData ? sessionData.data.username : null,
-    //         staffNm : "장근정", 
-    //         snkMeal : 1
-    //      })
-    //         .then((res) => {
-    //             console.log(res);
-    //             alert(`${res.data.memSerial} ${res.data.memName}님 간식을 신청하셨습니다.`)
-    //         }).catch((err) => {
-    //             console.log("에러 발생 => " +err);
-    //         })
-    // }  
-     
+    // console.log(sessionData);
+    // console.log(format(currentMonth, 'yyyy-MM-dd'));     
     //통합
-    
-    function insertMeal(mealType){
+
+    function insertMeal(mealType) {
         const mealFieldMapping = {
             'breakfast': 'brfMeal',
             'lunch': 'lncMeal',
@@ -145,7 +75,7 @@ function UserCheck() {
         };
 
         const mealField = mealFieldMapping[mealType];
-        
+
         apiCall('/meal/Insert', 'POST', {
             memSerial: sessionData ? sessionData.data.id : null,
             mealDate: format(currentMonth, 'yyyy-MM-dd'),
@@ -153,16 +83,16 @@ function UserCheck() {
             staffNm: "장근정",
             [mealField]: 1
         })
-        .then((res) => {
-            if(res.data.memSerial!=undefined && userLocation.latitude.equals("37.3") && userLocation.longitude.equals("127.1")){
-                console.log(res);
-                alert(`${res.data.memSerial} ${res.data.memName}님 ${mealType}을 신청하셨습니다.`);
-            } else {
-                alert("미출석 상태 이거나 센터가 아닙니다.");
-            }
-        }).catch((err) => {
-            console.log("에러 발생 => " +err);
-        })
+            .then((res) => {
+                if (res.data.memSerial != undefined && userLocation.latitude.equals("37.3") && userLocation.longitude.equals("127.1")) {
+                    console.log(res);
+                    alert(`${res.data.memSerial} ${res.data.memName}님 ${mealType}을 신청하셨습니다.`);
+                } else {
+                    alert("미출석 상태 이거나 센터가 아닙니다.");
+                }
+            }).catch((err) => {
+                console.log("에러 발생 => " + err);
+            })
     };
 
     // 사용자 위치 가져오기 및 출석체크 호출 : 마운트 시에만 호출하게끔
@@ -173,51 +103,19 @@ function UserCheck() {
     return (
         // 페이지 열릴 때 위치정보 바로 호출
         // <div onClick={getLocation()}>
-        <div>
-            <div style={{
-                width: '100vw',
-                height: '100vh',
-                textAlign: 'center',
-                paddingTop: '25%'
-            }}>
-                <img
-                    style={{
-                        marginBottom: '50px'
-                    }}
-                    src="img/Community Child Center.png" alt=""></img>
-
-                <div style={{
-                    marginBottom: '50px',
-                    fontSize: 30,
-                    fontWeight: "bolder"
-                }}>{format(currentMonth, 'yyyy-MM-dd')}</div>
-
-                <div style={{
-                    display: 'flex',
-                    gap: '50px',
-                    justifyContent: 'center'
-                }}>
+        <div className="phonback" >
+            <div><a href="/user">
+                <img src="img/Community Child Center.png" alt=""></img></a>
+                <div>{format(currentMonth, 'yyyy-MM-dd')}</div>
+                <div>
                     <div>
-                        <button
-                            id="attButton"
-                            className="btn attChange"
-                            // 함수를 콜백으로 만들었으면 함수를 전달해야지
-                            // 함수를 호출하고있으면 어떡하니 쯧쯧
-                            // onClick={attChange()}
-                            onClick={() => { attChange(); }}
-                        // onClick={attChange}
-                        >입실하기</button>
+                        <div><button className="btn attChange" onClick={() => { attChange(); }}><i className="xi-pen-o xi-3x mealicon">&nbsp;입실</i></button></div>
+                        <div><button className="btn attChange" onClick={() => insertMeal('breakfast')}><i className="xi-restaurant xi-3x mealicon">&nbsp;조식</i></button></div>
+                        <div><button className="btn attChange" onClick={() => insertMeal('lunch')}><i className="xi-restaurant xi-3x mealicon">&nbsp;중식</i></button></div>
+                        <div><button className="btn attChange" onClick={() => insertMeal('dinner')}><i className="xi-restaurant xi-3x mealicon">&nbsp;석식</i></button></div>
+                        <div><button className="btn attChange" onClick={() => insertMeal('snack')}><i className="xi-restaurant xi-3x mealicon">&nbsp;간식</i></button></div>                    
                     </div>
-                    <div>
-                        <button className="btn attChange" onClick={()=>insertMeal('breakfast')}>조식</button>&nbsp;
-                        <button className="btn attChange" onClick={()=>insertMeal('lunch')}>중식</button>&nbsp;
-                        <button className="btn attChange" onClick={()=>insertMeal('dinner')}>석식</button>&nbsp;
-                        <button className="btn attChange" onClick={()=>insertMeal('snack')}>간식</button>
-                    </div>
-
-                    
                 </div>
-
             </div>
         </div>
     )
