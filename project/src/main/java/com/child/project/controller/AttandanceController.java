@@ -66,48 +66,7 @@ public class AttandanceController {
         return list;
     }
 
-    @PostMapping("/attChange")
-    public String attSave(@RequestBody Attandance entity) {
-        String message = "";
-        
-        log.info(entity);
-
-        try {
-            attService.attSave(entity);
-            message = "추가 성공";
-        } catch (Exception e) {
-            log.info(e.toString());
-            message = "추가 실패";
-        }
-
-        return message;
-    }
-
-    @PostMapping("/attInsert")
-    public String postMethodName(@RequestBody Attandance entity) {
-        String message = "";
-
-        // String ipAdress = request.getRemoteAddr();
-        // // 마지막 점('.')의 인덱스를 찾음https://apis.map.kakao.com/web/news
-        // int lastIndex = ipAdress.lastIndexOf('.');
-        // String subnet = ipAdress.substring(0, lastIndex + 1); // 마지막 점('.') 포함
-
-        // log.info(entity.get);
-        String latitude = entity.getLatitude().substring(0,4);
-        String longitude = entity.getLongitude().substring(0, 5);
-
-        if(latitude.equals("37.3") && longitude.equals("127.1")){
-            try {
-                log.info(attService.attInsert(entity));
-                attService.attInsert(entity);
-                message = "출력 성공";
-            } catch (Exception e) {
-                message = "출석 실패 : 위치를 확인해주세요";
-                log.info(e.toString());
-            }
-        }
-        return message;
-    }
+    
 
     // @GetMapping("/attCount")
     // public Integer attCount(Attandance entity) {

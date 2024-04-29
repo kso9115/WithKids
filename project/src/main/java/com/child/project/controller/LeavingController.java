@@ -29,54 +29,5 @@ public class LeavingController {
 
         return lvngOne;
     }
-
-    @PostMapping("/insert")
-    public MemLeaving insert(@RequestBody MemLeaving entity) {
-        MemLeaving lvngOne = lvngService.save(entity) ;
-        log.info("컴포넌트는 들어오냐? " + entity);
-
-        if(lvngOne != null){
-            try{
-                log.info(" MemLeaving insert 성공 => " + lvngService.save(entity) );
-            } catch (Exception e){
-                log.info(" MemLeaving insert 실패(에러남) => " + e.toString() );
-            }
-        }
-        
-        return lvngOne;
-    }
-
-
-
-
-    @PostMapping("/update")
-    public MemLeaving update(@RequestBody MemLeaving entity) {
-        MemLeaving lvngOne = lvngService.save(entity) ;
-        log.info("Update Controller까지는 옴?");
-
-
-        if(lvngOne != null){
-            try{
-                log.info(" MemLeaving Update 성공 => " + lvngService.save(entity) );
-            } catch (Exception e){
-                log.info(" MemLeaving Update 실패(에러남) => " + e.toString() );
-            }
-        } 
-        
-        return lvngOne;
-    }
-
-
-
-    @PostMapping("/delete")
-    public MemLeaving delete(@RequestBody MemLeaving entity) {
-        MemLeaving lvngOne = lvngService.delete(entity) ;
-
-        // log.info("Delete Controller까지는 옴?");
-        
-        log.info(" MemLeaving delete 성공 => " + lvngOne ); 
-        
-        return lvngOne;
-    }
     
 }

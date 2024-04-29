@@ -79,9 +79,9 @@ public class SecurityConfig {
 				// => session 기반이 아님을 선언
 
 				.authorizeRequests()
-				 .antMatchers("/api/jwtPrg/").hasRole("PRGMANAGER")
+				 .antMatchers("/api/jwtPrg/**").hasRole("PRGMANAGER")
 //				.antMatchers("/project-0.0.1-SNAPSHOT/api/jwtPrg/**").hasRole("PRGMANAGER")
-				 .antMatchers("/api/jwtMem/").hasRole("MEMMANAGER")
+				 .antMatchers("/api/jwtMem/**").hasRole("MEMMANAGER")
 //				.antMatchers("/project-0.0.1-SNAPSHOT/api/jwtMem/**").hasRole("MEMMANAGER")
 				.antMatchers("/", "/api/prg/**", "/api/prgPln/**", "/api/mem/**", "/api/att/**", "/api/adm/**",
 						"/api/lvn/**", "/api/meal/**", "/api/staff/**", "/api/notice/**","/api/user/**").permitAll()

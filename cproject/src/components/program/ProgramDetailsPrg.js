@@ -12,7 +12,8 @@ function MakeDiv({ e, i, detailsChange }) {
 
 // 메인 컴포넌트
 function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }) {
-    const staffCntMng = JSON.parse(sessionStorage.getItem("staffname")).data.staffCntMng !== 2;
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
+    const staffCntMng = loginInfo.data.staffCntMng !== 2;
     const [prgDataOneD, setPrgDataOneD] = useState({}); // data 대,중,소 분류 프로그램명
     const [prgDetailData, setPrgDetailData] = useState({}); // subData
     useEffect(() => {
@@ -72,11 +73,11 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
 
     function deleteData() {
         if (prgDetailData.prgId && window.confirm("세부 프로그램을 삭제하시겠습니까?")) {
-            apiCall('/prg/prgDtdelete', 'POST', {
+            apiCall('/jwtPrg/prg/prgDtdelete', 'POST', {
                 prgId: prgDetailData.prgId,
                 prgDnm: prgDetailData.prgDnm,
                 rec: prgDetailData.rec
-            }, null)
+            }, loginInfo.data.token)
                 .then((response) => {
                     setPrgDetailData({});
                     setData(prgDataOneD);
@@ -85,8 +86,8 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     console.log(response.data);
                 })
                 .catch((error) => {
-                    console.log(error);
-                    alert("선택된 세부 프로그램 삭제에 실패했습니다.");
+                    if (error === 403) alert("권한이 없습니다. ");
+                    else alert("서버 통신 에러로 요청에 실패했습니다.");
                 })
         } else alert("선택된 세부 프로그램이 없습니다.");
     }
@@ -143,7 +144,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     type: 'prgDtUpdate'
                 }
             } else return alert("잘못된 요청입니다.");
-            apiCall('/prg/prgDtSave', 'POST', params)
+            apiCall('/jwtPrg/prg/prgDtSave', 'POST', params, loginInfo.data.token)
                 .then((response) => {
                     saveFile();
                     console.log(response.data);
@@ -152,8 +153,8 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
                     alert(response.data);
                 })
                 .catch((error) => {
-                    console.log(error);
-                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                    if (error === 403) alert("권한이 없습니다. ");
+                    else alert("서버 통신 에러로 요청에 실패했습니다.");
                 })
         }
     }

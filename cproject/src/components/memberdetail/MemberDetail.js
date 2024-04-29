@@ -10,7 +10,7 @@ import { mem_dtls_inp_ck } from '../../hooks/inputCheck/memberInputCheck';
 // setData={setMemDataOne} setEduDataOne={setEduDataOne}
 // memListUpdate={memListUpdate} setMemListUpdate={setMemListUpdate}
 function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, setMemListUpdate }) {
-
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
     // 1. Member Entity DB : 가져온 멤버 한명의 멤버 데이터를 사용하기 위해 useState에 저장
     const [memDataOneD, setMemDataOneD] = useState({});
 
@@ -60,7 +60,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             return;
         }
         // if (mem_dtls_inp_ck(memDataOneD)) {
-        apiCall(endpoint, 'POST', data)
+        apiCall(endpoint, 'POST', data, loginInfo.data.token)
             .then((response) => {
                 saveImg();
                 console.log("넘어오는 데이터 확인");
@@ -72,6 +72,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             }).catch((err) => {
                 // alert("요청 실패");
                 console.error(err);
+                if (err === 403) alert("권한이 없습니다. ");
             });
         // }
 
@@ -83,7 +84,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
         // 요청 두번가기때문에..필수입력사항 입력할 때인 memDataOneD에서 유효성 검사 진행
         if (mem_dtls_inp_ck(memDataOneD)) {
 
-            saveData(memDataOneD, '/mem/memInesert');
+            saveData(memDataOneD, '/jwtMem/mem/memInesert');
         }
     }
 
@@ -96,7 +97,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                 // 위의 data에서가 아닌 memDataOneD의 시리얼 값을 가져와줘야한다.
                 memSerial: memDataOneD.memSerial,
                 memName: memDataOneD.memName
-            }, '/mem/memEduInesert');
+            }, '/jwtMem/mem/memEduInesert');
         }
     }
 
@@ -107,7 +108,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
     function deleteDataByMemserial() {
         if (memDataOneD.memSerial && window.confirm("해당 아동을 삭제하시겠습니까?")) {
             // apiCall('/member/memDelete', 'POST', { params: { memSerial: memDataOneD.memSerial } })
-            apiCall('/mem/memDelete', 'POST', { memSerial: memDataOneD.memSerial })
+            apiCall('/jwtMem/mem/memDelete', 'POST', { memSerial: memDataOneD.memSerial }, loginInfo.data.token)
                 .then((memResponse) => {
                     setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
                     console.log(memResponse.data);
@@ -116,9 +117,11 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                     setMemListUpdate(!memListUpdate);
                 }).catch((err) => {
                     console.log(err);
+                    if (err === 403) alert("권한이 없습니다. ");
+                    // else alert("서버 통신 에러로 요청에 실패했습니다.");
                 });
 
-            apiCall('/mem/eduDelete', 'POST', { memSerial: memDataOneD.memSerial })
+            apiCall('/jwtMem/mem/eduDelete', 'POST', { memSerial: memDataOneD.memSerial })
                 .then((eduResponse) => {
                     // setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
                     console.log(eduResponse.data);
@@ -127,6 +130,8 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
                     setMemListUpdate(!memListUpdate);
                 }).catch((err) => {
                     console.log(err);
+                    if (err === 403) alert("권한이 없습니다. ");
+                    // else alert("서버 통신 에러로 요청에 실패했습니다.");
                 });
         }
     }
@@ -136,14 +141,15 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
         if (window.confirm("정말로 초기화 하시겠습니까?(되돌릴 수 없습니다.)"))
 
             console.log(memDataOneD.memSerial);
-        apiCall('/mem/resetPw', 'GET', { memSerial: memDataOneD.memSerial })
+        apiCall('/jwtMem/mem/resetPw', 'GET', { memSerial: memDataOneD.memSerial }, loginInfo.data.token)
             .then((response) => {
                 alert("초기화 성공")
                 // console.log(response.data)   // return message하는중
             })
             .catch((error) => {
-                alert("초기화 실패")
                 console.log(error);
+                if (error === 403) alert("권한이 없습니다. ");
+                else alert("초기화 실패")
             })
     }
 

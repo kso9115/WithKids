@@ -6,6 +6,7 @@ import { stf_dtls_inp_ck } from '../../hooks/inputCheck/staffInputCheck';
 import { apiCall } from '../../server/apiService';
 
 function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
     const [staffDataOneD, setStaffDataOneD] = useState({}); // 클릭한 직원정보 저장
 
     useEffect(() => {
@@ -19,20 +20,21 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
 
     function resetPswrd() {
         if (window.confirm("정말로 초기화 하시겠습니까?(되돌릴 수 없습니다.)"))
-            apiCall('/staff/resetPswrd', 'GET', { staffId: staffDataOneD.staffId })
+            apiCall('/jwtPrg/staff/resetPswrd', 'GET', { staffId: staffDataOneD.staffId }, loginInfo.data.token)
                 .then((response) => {
                     console.log(response.data);
                     alert('초기화 성공');
                 })
                 .catch((error) => {
-                    console.log(error);
+                    if (error === 403) alert("권한이 없습니다. ");
+                    else alert("서버 통신 에러로 요청에 실패했습니다.");
                 })
     }
 
     function saveData(type) {
         //유효성검사
         if (stf_dtls_inp_ck(staffDataOneD, type)) {
-            apiCall('/staff/staffSave', 'POST', { ...staffDataOneD, type })
+            apiCall('/jwtPrg/staff/staffSave', 'POST', { ...staffDataOneD, type }, loginInfo.data.token)
                 .then((response) => {
                     console.log(response.data);
                     setData({
@@ -42,8 +44,8 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
                     alert(response.data);
                 })
                 .catch((error) => {
-                    console.log(error);
-                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                    if (error === 403) alert("권한이 없습니다. ");
+                    else alert("서버 통신 에러로 요청에 실패했습니다.");
                 })
         }
     }
@@ -51,7 +53,7 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
     function deleteData() {
         if (staffDataOneD.staffId) {
             if (window.confirm("직원정보를 삭제하시겠습니까?")) {
-                apiCall('/staff/staffdelete', 'POST', staffDataOneD)
+                apiCall('/jwtPrg/staff/staffdelete', 'POST', staffDataOneD, loginInfo.data.token)
                     .then((response) => {
                         setData({});
                         setListUpdate(!listUpdate);
@@ -59,7 +61,8 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
                         console.log(response.data);
                     })
                     .catch((error) => {
-                        console.log(error);
+                        if (error === 403) alert("권한이 없습니다. ");
+                        else alert("서버 통신 에러로 요청에 실패했습니다.");
                     })
             } else alert("취소되었습니다.");
         } else alert("선택된 직원정보가 없습니다.");

@@ -5,6 +5,7 @@ import { apiCall } from "../../server/apiService";
 
 // 메인 컴포넌트
 function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
     const [staffAtnId, setStaffAtnId] = useState([]); // 클릭한 아이디 하나
     const [staffAtnOne, setStaffAtnOne] = useState({}); // 클릭한 날짜 하나
     useEffect(() => {
@@ -39,7 +40,7 @@ function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
         if (staffDataOneD.staffLeave == 1) {
             alert("휴직중인 직원입니다.");
         } else if (stf_spcn_inp_ck(staffAtnOne, type)) {
-            apiCall('/staff/staffAtnSave', 'POST', { ...staffAtnOne, type })
+            apiCall('/jwtPrg/staff/staffAtnSave', 'POST', { ...staffAtnOne, type }, loginInfo.data.token)
                 .then((response) => {
                     console.log(response.data);
                     setStaffAtnId([]);
@@ -48,8 +49,8 @@ function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
                     alert(response.data);
                 })
                 .catch((error) => {
-                    console.log(error);
-                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                    if (error === 403) alert("권한이 없습니다. ");
+                    else alert("서버 통신 에러로 요청에 실패했습니다.");
                 })
         }
     }
@@ -59,7 +60,7 @@ function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
             alert("휴직중인 직원입니다.");
         } else if (staffAtnOne.staffId) {
             if (window.confirm("직원 휴가/결근/특이사항을 삭제하시겠습니까?")) {
-                apiCall('/staff/staffAtnDelete', 'POST', staffAtnOne)
+                apiCall('/jwtPrg/staff/staffAtnDelete', 'POST', staffAtnOne, loginInfo.data.token)
                     .then((response) => {
                         alert(response.data);
                         console.log(response.data);
@@ -67,7 +68,8 @@ function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
                         // setData({});
                     })
                     .catch((error) => {
-                        console.log(error);
+                        if (error === 403) alert("권한이 없습니다. ");
+                        else alert("서버 통신 에러로 요청에 실패했습니다.");
                     })
             } else alert("취소되었습니다.");
         } else alert("선택된 직원 휴가/결근/특이사항이 없습니다.");
@@ -129,7 +131,7 @@ function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
             <div className='buttonBox'>
                 <div>
                     <button type="button" onClick={() => setStaffAtnOne({})}>입력취소</button>
-                    <button type="button" value='삭제' onClick={deleteData} >삭제</button>
+                    {/* <button type="button" value='삭제' onClick={deleteData} >삭제</button> */}
                     <button type="button" value='신규' onClick={() => saveData("stfSpcnInsert")}>신규</button>
                     <button type="button" value='저장' onClick={() => saveData("stfSpcnUpdate")}>저장</button>
                 </div>

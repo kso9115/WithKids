@@ -38,3 +38,7 @@
 .prg_apl_header>div>div>div>div:nth-child(n+2) {
     border-left: 1px solid var(--mgray);
 }
+
+.nonePrgPln {
+    grid-column: span 6;
+}

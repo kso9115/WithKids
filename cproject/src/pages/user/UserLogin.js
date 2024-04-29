@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 
 //이미지
-import backgroundimg from '../../assets/images/1920_x_950_px_2.png';
 // import faceSereial from "../../assets/images/free-icon-face-id-2415069.png";
 // import facePW from "../../assets/images/free-icon-padlock-2575570.png";
 import { apiCall } from '../../server/apiService';
@@ -80,7 +79,7 @@ function UserLogin() {
 
     return (
         <div className="loginBox">
-            <div><img className="backgroundimg" src={backgroundimg} alt="배경"></img></div>
+            {/*<div><img className="backgroundimg" src={backgroundimg} alt="배경"></img></div> */}
             {/* <div className='withkids'><img src={poolImg} alt="아이들의 행복을 위한 놀이터"></img></div> */}
             <div className='userloginBox'>
                 <div>

@@ -132,23 +132,7 @@ public class StaffController {
         }
     } // staffLogin
 
-    @GetMapping("/resetPswrd")
-    public String resetPswrd(Staff entity) {
-        String message = "";
-
-        entity.setStaffPsw(passwordEncoder.encode("mysql"));
-        log.info(entity.getStaffPsw());
-        try {
-            service.updataPassword(entity.getStaffId(), entity.getStaffPsw());
-            log.info(" Staff updataPassword 성공 ");
-            message = "초기화에 성공했습니다.";
-        } catch (Exception e) {
-            log.info(" Staff updataPassword Exception => " + e.toString());
-            message = "초기화에 실패했습니다. 관리자에게 문의하세요";
-        }
-
-        return message;
-    } // resetPswrd
+    
 
     @PostMapping("/changePswrd")
     public String changePswrd(@RequestBody Staff entity) {
@@ -181,87 +165,6 @@ public class StaffController {
         // }
     } // resetPswrd
 
-    @PostMapping("/staffSave")
-    public String staffSave(@RequestBody Staff entity
-    // , @RequestParam String type
-    ) {
-        String message = "";
-        log.info(" staff => " + entity);
-        log.info(" type => " + entity.getType());
-        if (service.countId(entity.getStaffId()) == 0 && "stfInsert".equals(entity.getType())) {
-            try {
-                entity.setStaffPsw(passwordEncoder.encode("mysql"));
-                log.info(" staff insert 성공 => " + service.save(entity));
-                message = "신규생성에 성공 했습니다.";
-            } catch (Exception e) {
-                log.info(" staff insert Exception => " + e.toString());
-                message = "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
-            }
-        } else if (service.countId(entity.getStaffId()) == 1 && "stfUpdate".equals(entity.getType())) {
-            try {
-                log.info(" staff Update 성공 => " + service.save(entity));
-                message = "저장에 성공 했습니다.";
-            } catch (Exception e) {
-                log.info(" staff Update Exception => " + e.toString());
-                message = "저장에 실패 했습니다. 관리자에게 문의하세요.";
-            }
-        } else if ("stfInsert".equals(entity.getType())) {
-            message = "ID 가 중복되었습니다.";
-        } else {
-            message = "요청에 실패했습니다. 관리자에게 문의하세요.";
-        }
-
-        return message;
-    } // staffSave
-
-    @PostMapping("/staffAtnSave")
-    public String staffAtnSave(@RequestBody StaffAtn entity
-    // , @RequestParam String type
-    ) {
-        String message = "";
-        log.info(" staffAtn => " + entity);
-        log.info(" type => " + entity.getType());
-        if (service.countAtn(entity.getStaffId(), entity.getStaffDate()) == 0
-                && "stfSpcnInsert".equals(entity.getType())) {
-            try {
-                log.info(" staffAtn insert 성공 => " + service.save(entity));
-                message = "신규생성에 성공 했습니다.";
-            } catch (Exception e) {
-                log.info(" staffAtn insert Exception => " + e.toString());
-                message = "신규생성에 실패 했습니다. 관리자에게 문의하세요.";
-            }
-        } else if (service.countAtn(entity.getStaffId(), entity.getStaffDate()) == 1
-                && "stfSpcnUpdate".equals(entity.getType())) {
-            try {
-                log.info(" staffAtn Update 성공 => " + service.save(entity));
-                message = "저장에 성공 했습니다.";
-            } catch (Exception e) {
-                log.info(" staffAtn Update Exception => " + e.toString());
-                message = "저장에 실패 했습니다. 관리자에게 문의하세요.";
-            }
-        } else if ("stfSpcnInsert".equals(entity.getType())) {
-            message = "ID와 날짜가 중복되었습니다.";
-        } else {
-            message = "요청에 실패했습니다. 관리자에게 문의하세요.";
-        }
-
-        return message;
-    } // staffSave
-
-    @PostMapping("/staffdelete")
-    public String staffdelete(@RequestBody Staff entity) {
-        String message = "";
-
-        try {
-            service.deleteById(entity.getStaffId());
-            log.info(" member delete 성공 ");
-            message = "삭제에 성공 했습니다.";
-        } catch (Exception e) {
-            log.info(" member delete Exception => " + e.toString());
-            message = "삭제에 실패 했습니다. 관리자에게 문의하세요.";
-        }
-
-        return message;
-    }// staffdelete
+    
 
 }

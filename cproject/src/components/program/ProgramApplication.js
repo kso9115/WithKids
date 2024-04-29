@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 function ProgramApplication({ data, setData, listUpdate, setListUpdate }) {
     const [aplData, setAplData] = useState([]);
-
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
     useEffect(() => {
         apiCall('/prgPln/prgAplList', 'POST', { prgId: data.prgId })
             .then((response) => {
@@ -18,7 +18,7 @@ function ProgramApplication({ data, setData, listUpdate, setListUpdate }) {
     }, [data])
 
     async function cnclAplct(data, i) {
-        if (data.costClsfc === "유료") {
+        if (data.costClsfc === "유료" && loginInfo.data.staffCntMng === 2) {
             try {
                 // GET 요청은 params에 실어 보냄
                 const response = await axios.post('/user', {
@@ -30,6 +30,8 @@ function ProgramApplication({ data, setData, listUpdate, setListUpdate }) {
                 // 실패 시 처리
                 console.error(e);
             }
+        } else if (loginInfo.data.staffCntMng !== 2) {
+            
         }
     }
     return (
@@ -63,8 +65,8 @@ function ProgramApplication({ data, setData, listUpdate, setListUpdate }) {
                             ))
 
                             :
-                            <div>
-                                신청자가 없습니다.
+                            <div >
+                                <div className='nonePrgPln'>신청자가 없습니다.</div>
                             </div>
                         }
                     </div>

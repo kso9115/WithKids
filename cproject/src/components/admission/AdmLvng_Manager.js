@@ -22,7 +22,7 @@ const memberList = {
 
 
 function AdmLvng_Manager() {
-
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
     // 2. memberManager 에서 선택한 아동 한명을 전달 받아, set 해주어, memDataOne 에 저장 
     const [memDataOne, setMemDataOne] = useState({});
     //console.log(memDataOne);
@@ -211,13 +211,14 @@ function AdmLvng_Manager() {
                     //             'Content-Type': 'application/json'
                     //         }
                     //     })
-                    apiCall(`/${type == "1" ? "adm" : "lvn"}/${dml}` , 'POST' , data ,null )
+                    apiCall(`/jwtMem/${type == "1" ? "adm" : "lvn"}/${dml}`, 'POST', data, loginInfo.data.token )
                         .then((res) => {
                             { type == "1" ? setAdmMemOne(res.data)  : setLvngMem(res.data) };
                             alert("완료")
                         })
                         .catch((err) => {
-                            alert("신규등록 및 수정하는데 오류가 발생하였습니다. 문의 하세요")
+                            if (err === 403) alert("권한이 없습니다. ");
+                            else alert("신규등록 및 수정하는데 오류가 발생하였습니다. 문의 하세요")
                             // console.log(err);
                         })
                 } else alert(" 취소하셨습니다.");

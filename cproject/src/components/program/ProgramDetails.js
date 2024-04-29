@@ -5,7 +5,8 @@ import { apiCall } from "../../server/apiService"
 
 
 function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
-    const staffCntMng = JSON.parse(sessionStorage.getItem("staffname")).data.staffCntMng !== 2;
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
+    const staffCntMng = loginInfo.data.staffCntMng !== 2;
     // console.log("ProgramDetails");
     // 프로그램 정보를 저장하고 제어하기 위해
     const [prgDataOneD, setPrgDataOneD] = useState({});
@@ -50,18 +51,19 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     function deleteData() {
         if (prgDataOneD.prgId) {
             if (window.confirm("프로젝트를 삭제하시겠습니까?")) {
-                apiCall('/prg/prgdelete', 'POST', {
+                apiCall('/jwtPrg/prg/prgdelete', 'POST', {
                     prgId: prgDataOneD.prgId,
                     prgBigCls: prgDataOneD.prgBigCls,
                     prgMidCls: prgDataOneD.prgMidCls
-                }, null)
+                }, loginInfo.data.token)
                     .then((response) => {
                         setData({});
                         setTreeUpdate(!treeUpdate);
                         alert(response);
                         console.log(response);
                     }).catch((error) => {
-                        console.log(error);
+                        if (error === 403) alert("권한이 없습니다. ");
+                        else alert("서버 통신 에러로 요청에 실패했습니다.");
                     })
             } else alert("취소되었습니다.");
         } else alert("선택된 프로그램이 없습니다.");
@@ -103,7 +105,7 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                 prgNmbApi,
                 type
             };
-            apiCall(`/prg/prgSave`, 'POST', params, null)
+            apiCall(`/jwtPrg/prg/prgSave`, 'POST', params, loginInfo.data.token)
                 .then((response) => {
                     console.log(response.data);
                     saveImg();
@@ -123,8 +125,8 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                     alert(response.data);
                 })
                 .catch((error) => {
-                    console.log(error);
-                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                    if (error === 403) alert("권한이 없습니다. ");
+                    else alert("서버 통신 에러로 요청에 실패했습니다.");
                 })
         }
     }

@@ -9,7 +9,8 @@ import isEqual from 'lodash/isEqual';
 
 
 function AttandanceMangement() {
-
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
+    console.log(loginInfo);
     // Attandance : DB 전체 list
     const [attData, setAttData] = useState([]);   // 출석 list
     // Member : Attandance 중복없는 memSerial list useState
@@ -64,13 +65,13 @@ function AttandanceMangement() {
 
         // const params = { memSerial, day, newStatus } 
         // 출석 상태 변경 요청 보내기
-        apiCall('/att/attChange', 'POST',
+        apiCall('/jwtMem/mem/attChange', 'POST',
             {
                 memSerial: memSerial,
                 memName: memName,
                 attDate: day,
                 attStatus: newStatus
-            })
+            }, loginInfo.data.token)
             .then(response => {
                 // controller 확인 시 response에는 지금 message를 전달하고 있음
 
@@ -81,6 +82,8 @@ function AttandanceMangement() {
             })
             .catch(error => {
                 console.error('출석 상태 변경 실패:', error);
+                if (error === 403) alert("권한이 없습니다. ");
+                // else alert("서버 통신 에러로 요청에 실패했습니다.");
             });
     };
 
@@ -93,13 +96,13 @@ function AttandanceMangement() {
 
             const { memSerial, memName } = memData;
             console.log("들어오니");
-            apiCall('/att/attChange', 'POST',
+            apiCall('/jwtMem/mem/attChange', 'POST',
                 {
                     memSerial: memSerial,
                     memName: memName,
                     attDate: format(currentMonth, 'yyyy-MM-dd'),
                     attStatus: '결'
-                })
+                }, loginInfo.data.token)
                 .then(response => {
                     // controller 확인 시 response에는 지금 message를 전달하고 있음
 
@@ -128,6 +131,8 @@ function AttandanceMangement() {
                 })
                 .catch(error => {
                     console.error('출석 상태 변경 실패:', error);
+                    if (error === 403) alert("권한이 없습니다. ");
+                    // else alert("서버 통신 에러로 요청에 실패했습니다.");
                 });
 
         });
@@ -279,9 +284,9 @@ function AttandanceMangement() {
                     let attcount = attData.reduce((cnt, item) => cnt + (item.memSerial === o.memSerial && item.attStatus === "출"), 0);
                     let abscount = attData.reduce((cnt, item) => cnt + (item.memSerial === o.memSerial && item.attStatus === "결"), 0);
                     let attRate;
-                    if(isNaN(attcount/(attcount + abscount))){
+                    if (isNaN(attcount / (attcount + abscount))) {
                         attRate = "0"
-                    }else{
+                    } else {
                         attRate = attcount / (attcount + abscount) * 100;
                     }
 
@@ -377,12 +382,12 @@ function AttandanceMangement() {
                 </div> */}
 
             </div>
-                <div className='buttonBox attButton'>
-                    <div>
-                        <button type="submit" value='출석등록' onClick={handleAttendanceRegistration}>{format(currentMonth, 'dd')}일 출석 등록</button>
-                        {/* <button type="submit" value='출석삭제'>출석 삭제</button> */}
-                    </div>
+            <div className='buttonBox attButton'>
+                <div>
+                    <button type="submit" value='출석등록' onClick={handleAttendanceRegistration}>{format(currentMonth, 'dd')}일 출석 등록</button>
+                    {/* <button type="submit" value='출석삭제'>출석 삭제</button> */}
                 </div>
+            </div>
         </div>
     );
 

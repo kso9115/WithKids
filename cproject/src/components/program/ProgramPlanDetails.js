@@ -36,6 +36,7 @@ function MakeModal({ modal, setData, closeModal }) {
 
 function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
     Modal.setAppElement('#root') //App.js
+    const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
     const [plnData, setPlnData] = useState({});
     let text = plnData.content;
     useEffect(() => {
@@ -80,11 +81,11 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
         console.log(data);
         if (data.rec) {
             if (window.confirm("프로젝트를 삭제하시겠습니까?")) {
-                apiCall('/prgPln/prgPlnDelete', 'POST', {
+                apiCall('/jwtPrg/prgPln/prgPlnDelete', 'POST', {
                     prgId: data.prgId,
                     prgDnm: data.prgDnm,
                     rec: data.rec
-                })
+                }, loginInfo.data.token)
                     .then((response) => {
                         setData({});
                         setListUpdate(!listUpdate);
@@ -92,7 +93,8 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                         console.log(response.data);
                     })
                     .catch((error) => {
-                        console.log(error);
+                        if (error === 403) alert("권한이 없습니다. ");
+                        else alert("서버 통신 에러로 요청에 실패했습니다.");
                     })
             } else alert("취소되었습니다.");
         } else alert("선택된 프로그램계획이 없습니다.");
@@ -120,7 +122,7 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
             delete params.plnPrd2;
             delete params.plnTm2;
             console.log(params);
-            apiCall('/prgPln/prgPlnSave', 'POST', params)
+            apiCall('/jwtPrg/prgPln/prgPlnSave', 'POST', params, loginInfo.data.token)
                 .then((response) => {
                     console.log(response.data);
                     saveFile();
@@ -128,8 +130,8 @@ function ProgramPlanDetails({ data, setData, listUpdate, setListUpdate }) {
                     alert(response.data);
                 })
                 .catch((error) => {
-                    console.log(error);
-                    alert("서버 통신 에러로 요청에 실패했습니다.");
+                    if (error === 403) alert("권한이 없습니다. ");
+                    else alert("서버 통신 에러로 요청에 실패했습니다.");
                 })
         }
     }

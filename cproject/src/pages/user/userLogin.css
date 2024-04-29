@@ -1,8 +1,14 @@
-
+.loginBox {
+    overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+        background-image: url('../../assets/images/1920_x_950_px_2.png');
+        background-size: cover;
+}
 
 /* 아이콘 크기 설정 밎 위치 선정 */
-.userloginBox i{
-    color : #305891;
+.userloginBox i {
+    color: #305891;
     text-align: center;
     justify-content: center;
 }
@@ -14,33 +20,41 @@
     right: 5%;
     text-align: center;
 }
-.userloginBox>div{
-    display : flex;
+
+.userloginBox>div {
+    display: flex;
     flex-direction: column;
     gap: 30px;
 }
+
 .userloginBox>div>div {
     display: flex;
     align-items: center;
 }
+
 .userloginBox>div>div img {
     width: 400px;
 }
+
 .userloginBox>div>div:first-of-type {
     justify-content: center;
 }
+
 .userloginBox>div>div:first-of-type>a {
     color: #ffffff;
     font-size: 30px;
 }
-.userloginBox .xi-profile-o, .userloginBox .xi-lock-o {
+
+.userloginBox .xi-profile-o,
+.userloginBox .xi-lock-o {
     position: absolute;
     padding-left: 8px;
     padding-top: 2px;
 }
 
 /* 인풋*/
-#faceSereial, #facePW {
+#faceSereial,
+#facePW {
     height: 55px;
     width: 400px;
     border: 0;
@@ -71,7 +85,7 @@
     box-shadow: 0 0 40px 40px rgb(253, 217, 13) inset, 0 0 0 0 rgb(136, 120, 32);
     background-color: transparent;
     transition: all 150ms ease-in-out;
-    
+
     &:hover {
         box-shadow: 0 0 10px 0 rgb(239, 236, 154) inset, 0 0 10px 4px rgb(239, 236, 154);
     }

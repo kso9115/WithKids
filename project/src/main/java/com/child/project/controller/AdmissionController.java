@@ -31,7 +31,6 @@ public class AdmissionController {
     // searchBox 에서의 반환 값은 member임 
     // MemberService memService; 하여 호출 하여야 하지만, 
     // 페이지 제작상 불편하니, admService 에서 만들어 작성함. 
-    
 
     @PostMapping("/admMem")
     public List<MemAdmission> admMem(){
@@ -41,7 +40,6 @@ public class AdmissionController {
         
         return list;
     }
-
 
     @PostMapping("/admMemOne")
     public MemAdmission admMemOne(@RequestBody MemAdmission entity) {
@@ -59,50 +57,6 @@ public class AdmissionController {
 
         return admOne;
     }
-    
-
-    @PostMapping("/insert")
-    public void insert(@RequestBody MemAdmission entity) {
-
-        log.info("컴포넌트는 들어오냐? " + entity);
-
-        if(admService.save(entity) != null){
-            try{
-                log.info(" MemAdmission insert 성공 => " + admService.save(entity) );
-            } catch (Exception e){
-
-                log.info(" MemAdmission insert 실패(에러남) => " + e.toString() );
-            }
-        } else {
-        	log.info("MemAdmission 추가되지 않았습니다. 입력하신 정보를 확인해주세요");
-        }
-        
-
-    }
-    
-
-    
-    @PostMapping("/delete")
-    public void delete(@RequestBody MemAdmission entity) {
-
-        log.info("Delete Controller까지는 옴?");
-
-        if(admService.delete(entity)!=null){
-            try {
-                
-                log.info(" MemAdmission delete 성공 => " + entity.getMemSerial() );
-                
-            } catch (Exception e) {
-                
-                log.info(" MemAdmission delete 실패(에러남) => " + e.toString() );
-            }
-        } else {
-            log.info("MemAdmission 삭제 불가능. 다시 한번 확인 부탁드립니다, ");
-        }
-        
-    }
-    
-
 
     //searchBoX mapping
     @GetMapping("/admSearch")

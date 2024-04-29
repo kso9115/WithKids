@@ -17,10 +17,10 @@ import AttandanceStatistic from '../attandance/AttandanceStatistic'
 
 function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     const map = new Map();
-    map.set('MemberMangement', { name: '대상자 기본 정보', content: <MemberMangement /> });
-    map.set('Admission', { name: '입소/퇴소 관리', content: <Admission /> });
     map.set('AttandanceMangement', { name: '출석관리', content: <AttandanceMangement /> });
     map.set('AttandanceStatistic', { name: '출석그래프', content: <AttandanceStatistic /> });
+    map.set('MemberMangement', { name: '대상자 기본 정보', content: <MemberMangement /> });
+    map.set('Admission', { name: '입소/퇴소 관리', content: <Admission /> });
     map.set('MealManagement', { name: '급식관리 ', content: <MealManagement /> });
     map.set('회원탈퇴', { name: 'Delete', content: null });
     map.set('StaffManagement', { name: '직원관리', content: <StaffManagement /> });
@@ -100,7 +100,7 @@ export default React.memo(Menu);
 
 function menuAuthority(menuName) {
     const loginInfo = JSON.parse(sessionStorage.getItem("staffname")).data;
-
+    console.log(loginInfo);
     // 출석관리
     if (menuName === "AttandanceMangement" && loginInfo.staffChlCr < 1) {
         alert("열람 권한이 없습니다. 관리자에게 문의 하세요");

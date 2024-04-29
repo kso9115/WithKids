@@ -56,7 +56,7 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
             if (type === 'noticeInsert') {
                 params.regdate = toStringByFormatting(new Date());
             }
-            apiCall('/jwtPrg/noticeSave', 'POST', params
+            apiCall('/jwtPrg/notice/noticeSave', 'POST', params
                 , loginInfo.data.token
             )
                 .then((response) => {
@@ -69,7 +69,6 @@ function NoticeDetails({ data, setData, listUpdate, setListUpdate }) {
                     console.log(error);
                     if (error === 403) alert("권한이 없습니다. ");
                     else alert("서버 통신 에러로 요청에 실패했습니다.");
-                    
                 })
         }
     }
