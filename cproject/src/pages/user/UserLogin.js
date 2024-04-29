@@ -76,6 +76,7 @@ function UserLogin() {
             document.getElementById("facePW").focus();
         }
     }
+    // console.log(sessionStorage);
 
     return (
         <div className="loginBox">
