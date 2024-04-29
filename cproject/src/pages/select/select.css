@@ -1,0 +1,15 @@
+#selectLink>a{
+    padding: 20px;
+    border: 1px solid;
+    /* background-color: aqua; */
+    width: 200px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#selectLink>a:hover{
+    
+    background-color: black;
+    color: white;
+}

@@ -87,8 +87,8 @@ function Login({ setSessionName }) {
 
     return (
         
-        <div>
-            <div><img className="imgBackground" src={imgBackground} alt="배경"></img></div>
+        <div className="imgBackground">
+            {/* <div><img src={imgBackground} alt="배경"></img></div> */}
             <div className='withkids'><img src={poolImg} alt="아이들의 행복을 위한 놀이터"></img></div>
             {/* <div className='homehover'><a href='/user'>HomePage</a></div> */}
             <div className='staffloginBox'>
@@ -99,21 +99,21 @@ function Login({ setSessionName }) {
                         <div><input type="text" id="staffId" name="staffId" value={staffId} onChange={handleSerialChange} placeholder='ID를 입력해주세요' onKeyDown={handlerIdEnter} /></div>
                     </div>
                     <div>
-                    <i class="xi-lock-o xi-2x"></i>
-                        <div><input type="password" id="padLock" name="padLock" value={password} onChange={handlePwChange} placeholder='PW를 입력해주세요'  onKeyDown={handlerPwEnter} autoFocus/></div>
+                        <i class="xi-lock-o xi-2x"></i>
+                        <div><input type="password" id="padLock" name="padLock" value={password} onChange={handlePwChange} placeholder='PW를 입력해주세요' onKeyDown={handlerPwEnter} autoFocus /></div>
                     </div>
                 </div>
                 <div className='loginBtn'>
                     <input className='custom-btn2' id="enterlogin" type="submit" value="log in" onClick={onSubmitHandler} />
                 </div>
             </div>
-                {/* <div className='logLogo'>
+            {/* <div className='logLogo'>
                     <img src='img/Community Child Center.png' alt="커뮤니티차일드센터"></img>
                     <h2 className="" style={{
                         fontSize: 60, fontWeight: 'bold', color: 'var(--admin)'
                     }}>L O G I N</h2>
                 </div> */}
-                {/* <div>
+            {/* <div>
                     <div className='loginTable'>
                         <div className='idpwbox'>
                             <div><img className="staffId" src={faceId} alt="staffId" />

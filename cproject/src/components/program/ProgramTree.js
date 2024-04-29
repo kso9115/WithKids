@@ -149,9 +149,10 @@ function ProgramTree({ name, setData, treeUpdate }) {
 
     function TreeOpenner() {
         let array = ['1'];
-        for (let i = 2; i < 20; i++) {
+        for (let i = 2; i < 100; i++) {
             array.push(i + "");
         }
+        console.log(array);
         return array;
     }
 

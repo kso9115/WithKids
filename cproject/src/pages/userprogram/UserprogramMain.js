@@ -38,7 +38,7 @@ function UserprogramMain() {
                                         src={API_BASE_URL + "/api/prg/prgSlideImg?prgId=" + ele.prgId} alt=""
                                     />
                                     <p>{ele.prgNm}</p>
-                                    <p style={{ fontSize: "14px" }}>{ele.plnPrd}</p>
+                                    <p style={{ fontSize: "14px",paddingTop:'5px' }}>{ele.plnPrd}</p>
                                 </div>
                             </Link>
                         );

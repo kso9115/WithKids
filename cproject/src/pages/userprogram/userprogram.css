@@ -8,6 +8,7 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 50px;
+    font-family: 'claytoy';
 }
 
 .userPrgImgBox>p {

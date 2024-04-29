@@ -33,9 +33,11 @@
     white-space: nowrap;
     overflow: hidden;
     padding: 0 10px;
+    font-family: 'claytoy';
 }
 
 .imgBox_Slider {
+    
     width: 300px;
     background-color: white;
     border-radius: 15px;
@@ -44,5 +46,7 @@
 }
 
 .imgBox_Slider p{
+    font-family: 'claytoy';
     padding-bottom: 5px;
+    padding-top: 5px;
 }

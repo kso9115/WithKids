@@ -1,10 +1,18 @@
 .withkids {
     position: absolute;
-    top: 45%;
+    top: 42%;
     left: 6%;
     font-size: 70px;
     font-weight: bolder;
     color: rgb(0, 0, 125);
+}
+
+.imgBackground{
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../assets/images/1920_x_950_px.png');
+    background-size: cover;
 }
 
 /*홈페이지 버튼*/
@@ -57,6 +65,7 @@
 
 /*인풋*/
 #staffId,#padLock {
+    font-size: 20px;
     height: 55px;
     width: 400px;
     border: 0;
@@ -77,7 +86,7 @@
     text-align: center;
     justify-content: center;
     width: 400px;
-    height: 45px;
+    height: 55px;
     border-color: var(--blue);
     border-radius: 15px;
     color: white;

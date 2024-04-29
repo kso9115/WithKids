@@ -1,5 +1,6 @@
 
 import { Link } from 'react-router-dom';
+import './select.css'
 
 function Select() {
     // const con = {
@@ -11,25 +12,26 @@ function Select() {
             width: '100vw',
             height: '100vh',
             textAlign: 'center',
-            paddingTop: '25%'
+            paddingTop: '15%'
         }}>
             <img
                 style={{
-                    marginBottom: '50px'
+                    marginBottom: '100px',
+                    height:'200px'
                 }}
-                src="img/Community Child Center.png" alt=""></img>
+                src="img/Community Child Center2.png" alt=""></img>
 
-            <div style={{
+            {/* <div style={{
                 marginBottom: '50px'
-            }}>안녕하세요 지역 아동 복지 센터 입니다.</div>
+            }}>안녕하세요 지역 아동 복지 센터 입니다.</div> */}
 
             <div style={{
                 display: 'flex',
-                gap: '50px',
+                gap: '100px',
                 justifyContent: 'center'
-            }}>
+            }} id='selectLink'>
                 <Link to="/user">사용자 홈페이지로</Link>
-                <Link to="/login">관리페이지로</Link>
+                <Link to="/login">관리 페이지로</Link>
             </div>
 
         </div>
