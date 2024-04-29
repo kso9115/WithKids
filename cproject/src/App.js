@@ -45,9 +45,9 @@ function App() {
                             <Route path="" element={<UserprogramMain />}></Route>
                             <Route path="dtails" element={<UserprogramDetails />}></Route>
                         </Route>
-                        <Route path="userlogin" element={<UserLogin />}></Route>
                         <Route path="myInfo" element={<UserMyInfo />}></Route>
                     </Route>
+                    <Route path="/userlogin" element={<UserLogin />}></Route>
                     <Route path="/survey" element={<Survey />}></Route>
                     <Route path="/errNoneLogin" element={<NoneLogin />}></Route>
                     {/* <Route path="/mealSaveP" element={<MealSaveP />}></Route> */}

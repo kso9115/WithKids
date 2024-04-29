@@ -5,10 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 
 //이미지
-import leftBackground from '../../assets/images/leftBackground.png';
-import faceSereial from "../../assets/images/free-icon-face-id-2415069.png";
-import facePW from "../../assets/images/free-icon-padlock-2575570.png";
+import backgroundimg from '../../assets/images/1920_x_950_px_2.png';
+// import faceSereial from "../../assets/images/free-icon-face-id-2415069.png";
+// import facePW from "../../assets/images/free-icon-padlock-2575570.png";
 import { apiCall } from '../../server/apiService';
+import poolImg from '../../assets/images/pool_1.png';
+import centerImg from '../../assets/images/pool_1000_x_200_px_1.png';
+
 
 function UserLogin() {
     const navigate = useNavigate();
@@ -46,12 +49,12 @@ function UserLogin() {
                 })
                 .catch((error) => {
                     setUserLoginInfo('');
-                    if (error === 401 ) {
+                    if (error === 401) {
                         alert("이용이 중단된 사용자 입니다. ");
-                    } else if(error === 403  ){
+                    } else if (error === 403) {
                         alert("id 또는 password 가 다릅니다, 다시하세요");
 
-                    }else if(error === 404  ){
+                    } else if (error === 404) {
                         alert("아이디를 찾을 수 없습니다.");
 
                     } else { alert(`** Login 시스템 오류, err=${error}`); }
@@ -70,17 +73,38 @@ function UserLogin() {
     }
     const handlerIdEnter = (e) => {
         if (e.keyCode === 13) {
-            document.getElementById("password").focus();
+            document.getElementById("facePW").focus();
         }
     }
+    // console.log(sessionStorage);
 
     return (
         <div className="loginBox">
-            <div className='logLeftBox' style={{ width: '50%', height: '100%' }}>
-                <div><img className="leftBackground" src={leftBackground} alt="배경"></img></div>
+            <div><img className="backgroundimg" src={backgroundimg} alt="배경"></img></div>
+            {/* <div className='withkids'><img src={poolImg} alt="아이들의 행복을 위한 놀이터"></img></div> */}
+            <div className='userloginBox'>
+                <div>
+                    <div><a href='/user'><img src={centerImg} alt='withkids아동관리센터'></img></a></div>
+                    <div>
+                        <i class="xi-profile-o xi-2x"></i>
+                        <div><input type="text" id="faceSereial" name="faceSereial" value={serial} onChange={handleSerialChange} placeholder='ID를 입력해주세요' onKeyDown={handlerIdEnter} /></div>
+                    </div>
+                    <div>
+                        <i class="xi-lock-o xi-2x"></i>
+                        <div><input type="password" id="facePW" name="facePW" value={password} onChange={handlePwChange} placeholder='PW를 입력해주세요' onKeyDown={handlerEnter} autoFocus /></div>
+                    </div>
+                </div>
+                <div className='userloginBtn'>
+                    <input className='usercustom-btn2' id="enterlogin" type="submit" value="log in" onClick={onSubmitHandler} />
+                </div>
             </div>
+        </div>
+    )
 
-            <div className='logRightBox' style={{ width: '50%' }}>
+}
+
+export default UserLogin;
+{/* <div className='logRightBox' style={{ width: '50%' }}>
                 <div className='logLogo'>
                     <img src='img/Community Child Center.png' alt="커뮤니티차일드센터"></img>
                     <h2 className="" style={{
@@ -105,9 +129,4 @@ function UserLogin() {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-    )
-}
-export default UserLogin;
+            </div> */}

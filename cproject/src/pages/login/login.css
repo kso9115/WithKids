@@ -16,7 +16,7 @@
 }
 
 /*홈페이지 버튼*/
-.homehover { 
+/* .homehover { 
     font-size: 30px;
     font-weight: bolder;
     background-color: aliceblue;
@@ -29,19 +29,9 @@
     font-size: 35px;
     font-weight: bolder;
     width: 190px;
-}
+} */
 
 /* 로그인 박스 */
-.staffloginBox>div>div img {
-    width: 400px;
-}
-.staffloginBox>div>div:first-of-type {
-    justify-content: center;
-}
-.staffloginBox>div>div:first-of-type>a {
-    color: #ffffff;
-    font-size: 30px;
-}
 .staffloginBox {
     position: absolute;
     top: 28%;
@@ -56,6 +46,16 @@
 .staffloginBox>div>div {
     display: flex;
     align-items: center;
+}
+.staffloginBox>div>div img {
+    width: 400px;
+}
+.staffloginBox>div>div:first-of-type {
+    justify-content: center;
+}
+.staffloginBox>div>div:first-of-type>a {
+    color: #ffffff;
+    font-size: 30px;
 }
 .staffloginBox .xi-profile-o, .staffloginBox .xi-lock-o {
     position: absolute;

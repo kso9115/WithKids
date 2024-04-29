@@ -72,7 +72,7 @@ function UserHeader() {
                         </> :
                             null}
                         <li>{sessionData ? <div className='userLogout' onClick={userLogout}>로그아웃</div> :
-                            <Link to="/user/UserLogin">로그인</Link>}</li>
+                            <Link to="/UserLogin">로그인</Link>}</li>
                         <li><img id='closeButton' src="/img/gnb_close.png" alt='' onClick={hideUserMene}></img></li>
                     </ul>
                 </div>
