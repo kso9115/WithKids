@@ -19,7 +19,7 @@ function UserprogramDetails() {
         })
             .then((response) => {
                 setPrgOne(response.data)
-                console.log(response.data);
+                // console.log(response.data);
                 // setPrgOne({
                 //     ...location.state,
                 //     costClsfc: response.data.costClsfc,
@@ -66,7 +66,9 @@ function UserprogramDetails() {
     console.log(sessionData);
     function portone() {
         if (window.confirm('프로그램을 신청하시겠습니까?')) {
+            // console.log(sessionData.data.token);
             apiCall('/user/aplCheck', 'GET', null, sessionData ? sessionData.data.token : null)
+            // apiCall('/user/aplCheck', 'GET', null, sessionData.data.token)
                 .then((response) => {
                     if (prgOne.costClsfc === '유료') {
                         if (!window.IMP) return;

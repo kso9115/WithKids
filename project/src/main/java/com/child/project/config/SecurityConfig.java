@@ -84,7 +84,7 @@ public class SecurityConfig {
 				 .antMatchers("/api/jwtMem/").hasRole("MEMMANAGER")
 //				.antMatchers("/project-0.0.1-SNAPSHOT/api/jwtMem/**").hasRole("MEMMANAGER")
 				.antMatchers("/", "/api/prg/**", "/api/prgPln/**", "/api/mem/**", "/api/att/**", "/api/adm/**",
-						"/api/lvn/**", "/api/meal/**", "/api/staff/**", "/api/notice/**").permitAll()
+						"/api/lvn/**", "/api/meal/**", "/api/staff/**", "/api/notice/**","/api/user/**").permitAll()
 				
 //				.antMatchers("/project-0.0.1-SNAPSHOT/", "/project-0.0.1-SNAPSHOT/api/prg/**", 
 //						"/project-0.0.1-SNAPSHOT/api/prgPln/**", "/project-0.0.1-SNAPSHOT/api/mem/**", 
