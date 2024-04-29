@@ -208,7 +208,6 @@ function UserCheck() {
                         // onClick={attChange}
                         >입실하기</button>
                     </div>
-                    <hr></hr>
                     <div>
                         <button className="btn attChange" onClick={()=>insertMeal('breakfast')}>조식</button>&nbsp;
                         <button className="btn attChange" onClick={()=>insertMeal('lunch')}>중식</button>&nbsp;
