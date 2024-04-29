@@ -3,7 +3,7 @@
     width: 100vw;
     height: 100vh;
     background-image: url('../../assets/images/KakaoTalk_phone.png');
-    /* background-size: cover; */
+    background-size: cover;
     background-position: center center;
 }
 .phonback>div {
