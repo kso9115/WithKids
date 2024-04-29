@@ -1,0 +1,53 @@
+.phonback {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../assets/images/KakaoTalk_phone.png');
+    /* background-size: cover; */
+    background-position: center center;
+}
+.phonback>div {
+    position: absolute;
+    top: 15%;
+    right: calc(50% - 100px);
+    text-align: center;
+} 
+.phonback>div:first-child {
+    font-size: 30px;
+    font-weight: bold;
+} 
+
+.phonback>div>div{
+    margin-bottom: 40px;
+    display: grid;
+} 
+.phonback>div>div>div{
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+}
+/*버튼*/
+.btn {
+    border: none;
+    background-color: transparent;
+}
+
+.mealicon {
+    width: 170px;
+    border : 2px solid #FD7B9B;
+    /* background-color: #346DFC; */
+    background:linear-gradient(#FFBEA0, #FF959F) ;
+    color: white;
+    font-family: "home";
+    font-style: normal;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 5px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+}
