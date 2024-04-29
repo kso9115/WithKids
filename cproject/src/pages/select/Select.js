@@ -28,10 +28,11 @@ function Select() {
             <div style={{
                 display: 'flex',
                 gap: '100px',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                fontSize:'20px'
             }} id='selectLink'>
-                <Link to="/user">사용자 홈페이지로</Link>
-                <Link to="/login">관리 페이지로</Link>
+                <Link to="/user">사용자 홈페이지</Link>
+                <Link to="/login">관리 페이지</Link>
             </div>
 
         </div>
