@@ -1,95 +1,78 @@
 
-.loginBox {
-    display: flex;
-}
-/* 왼쪽 사진 */
-.leftBackground {
-    width: 100%;
 
-}
-/* 로그인 탭 */
-.logLeftBox {
-    position: relative;
+/* 아이콘 크기 설정 밎 위치 선정 */
+.userloginBox i{
+    color : #305891;
+    text-align: center;
+    justify-content: center;
 }
 
-.logLeftBox>div:nth-child(2) {
+/* 로그인 박스 */
+.userloginBox {
     position: absolute;
-    right: 0%;
-    top: 40%;
-    font-size: 30px;
-    z-index: 2;
-    text-align: end;
-}
-.logLeftBox>div:nth-child(2)>div {
-    padding : 8px;
-}
-/* 로그인 로고 */
-.logRightBox {
-    margin: auto;
-}
-
-.logLogo,
-.logRightBox>div {
+    top: 28%;
+    right: 5%;
     text-align: center;
 }
-/* id, pw 크기 조정 */
-.idpwbox>div {
+.userloginBox>div{
+    display : flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.userloginBox>div>div {
     display: flex;
-    justify-content: center;
-    margin: 10px;
+    align-items: center;
 }
-.idpwbox img{
-    height: 30px;
-    margin-right: 10px;
-}
-.loginTable>div:first-child input {
-    height: 30px;
+.userloginBox>div>div img {
     width: 400px;
-    font-size: 15px;
+}
+.userloginBox>div>div:first-of-type {
+    justify-content: center;
+}
+.userloginBox>div>div:first-of-type>a {
+    color: #ffffff;
+    font-size: 30px;
+}
+.userloginBox .xi-profile-o, .userloginBox .xi-lock-o {
+    position: absolute;
+    padding-left: 8px;
+    padding-top: 2px;
+}
+
+/* 인풋*/
+#faceSereial, #facePW {
+    height: 55px;
+    width: 400px;
     border: 0;
     border-radius: 15px;
     outline: none;
-    padding-left: 10px;
+    padding-left: 50px;
     background-color: rgb(233, 233, 233);
 }
 
-/* 네비 바 호버 */
-.hovering {
-    border-radius: 10px 0px 0px 10px;
+/* 버튼*/
+.userloginBtn {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.usercustom-btn2 {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    width: 400px;
+    height: 45px;
+    border-color: rgb(241, 234, 41);
+    border-radius: 15px;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    box-shadow: 0 0 40px 40px rgb(253, 217, 13) inset, 0 0 0 0 rgb(136, 120, 32);
+    background-color: transparent;
+    transition: all 150ms ease-in-out;
     
     &:hover {
-        background: white;
-        transition: 1.2s;
-        /* color: var(--lgray); */
-      }
-}
-
-/* 버튼 크기 조절 */
-
-.custom-btn {
-    width: 130px;
-    height: 40px;
-    color: #fff;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-        7px 7px 20px 0px rgba(0,0,0,.1),
-        4px 4px 5px 0px rgba(0,0,0,.1);
-    background: rgb(247,150,192);
-    background: radial-gradient(circle, rgba(247,150,192,1) 0%, rgba(118,174,241,1) 100%);
-    border: none;
-    outline: none;
-    font-size: 15px;
-}
-.custom-btn:hover{
-  border: 1.5px solid #76aef1 ;
-  background: transparent;
-  color: #76aef1;
-  box-shadow: none;
-  font-size: 18px;
-  font-weight: bold;
-}
-.loginTable>div {
-    margin: 30px;
+        box-shadow: 0 0 10px 0 rgb(239, 236, 154) inset, 0 0 10px 4px rgb(239, 236, 154);
+    }
 }

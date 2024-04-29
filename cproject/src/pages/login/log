@@ -1,100 +1,95 @@
-import './login.css';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from "react-router-dom";
-import Session from 'react-session-api';
-import leftBackground from '../../assets/images/leftBackground.png';
-import faceId from '../../assets/images/free-icon-face-id-2415069.png';
-import padLock from '../../assets/images/free-icon-padlock-2575570.png';
-// import leftBackground from '../../images/leftBackground.png';
-// import faceId from '../../images/free-icon-face-id-2415069.png';
-// import padLock from '../../images/free-icon-padlock-2575570.png';
 
-function Login({ setSessionName }) {
-    const navigate = useNavigate();
-    useEffect(() => {
+.loginBox {
+    display: flex;
+}
+/* 왼쪽 사진 */
+.leftBackground {
+    width: 100%;
 
-        let loginId = "admin";
-        loginId = "";
-
-        if (loginId !== null && loginId.trim().length !== 0 && loginId !== undefined) {
-            console.log("aa");
-            navigate("/home");
-        }
-    }, [navigate])
-
-
-
-    const [id, setId] = useState("");
-    const [password, setPassword] = useState("");
-    // const [disabled, setDisabled] = useState(false);
-
-    const handleIdChange = (event) => setId(event.target.value);
-    const handlePwChange = (event) => setPassword(event.target.value);
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        axios.get("http://localhost:4000/api/member")
-            .then(result => {
-                let idPwCk = false;
-                result.data.forEach(element => {
-                    if ((element.id === id) && (element.password === password)) {
-                        idPwCk = true;
-                        console.log(element.id + " : " + element.password);
-                    }
-                });
-                if (idPwCk) {
-                    setSessionName(id);
-                    sessionStorage.setItem("sname", id);
-                    window.location.reload();
-                } else {
-                    alert("일치하는 계정이 없습니다.\n다시입력하세요")
-                }
-            })
-            .catch(err => console.log(err))
-    };
-
-    return (
-        <div className="loginBox">
-            <div className='logLeftBox' style={{ width: '50%', heightht: '100%' }}>
-                <div><img className="leftBackground" src={leftBackground} alt="배경"></img></div>
-
-                <div>
-                    <div className='hovering'><a href='/' style={{ color: 'var(--admin)', fontFamily: '', fontWeight: 'bold' }}>Log In</a></div>
-                    <br />
-                    <div className='hovering'><a href="/home" style={{ color: 'var(--admin)', fontFamily: '', fontWeight: 'bold' }}>Home</a></div>
-                </div>
-
-            </div>
-
-            <div className='logRightBox' style={{ width: '50%' }}>
-                <div className='logLogo'>
-                    <img src='img/Community Child Center.png' alt="커뮤니티차일드센터"></img>
-                    <h2 className="" style={{
-                        fontSize: 60, fontWeight: 'bold', color: 'var(--admin)'
-                    }}>L O G I N</h2>
-                </div>
-                <form onSubmit={handleSubmit}>
-                    <div className='loginTable'>
-                        <div className='idpwbox'>
-                            <div><img className="faceId" src={faceId} alt="ID" />
-                                <input type="text" id="id" name="id" value={id} onChange={handleIdChange} />
-                            </div>
-
-                            <div><img className="padLock" src={padLock} alt="password"></img>
-                                <input type="password" id="password" name="password" value={password} onChange={handlePwChange} />
-                            </div>
-                        </div>
-
-                        <div className='loginBtn'>
-                            <input className='custom-btn' type="submit" value="로그인" />&nbsp;&nbsp;&nbsp;
-                            <input className='custom-btn' type="reset" value="취소" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
+}
+/* 로그인 탭 */
+.logLeftBox {
+    position: relative;
 }
 
-export default Login;
+.logLeftBox>div:nth-child(2) {
+    position: absolute;
+    right: 0%;
+    top: 40%;
+    font-size: 30px;
+    z-index: 2;
+    text-align: end;
+}
+.logLeftBox>div:nth-child(2)>div {
+    padding : 8px;
+}
+/* 로그인 로고 */
+.logRightBox {
+    margin: auto;
+}
+
+.logLogo,
+.logRightBox>div {
+    text-align: center;
+}
+/* id, pw 크기 조정 */
+.idpwbox>div {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+.idpwbox img{
+    height: 30px;
+    margin-right: 10px;
+}
+.loginTable>div:first-child input {
+    height: 30px;
+    width: 400px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+}
+
+/* 네비 바 호버 */
+.hovering {
+    border-radius: 10px 0px 0px 10px;
+    
+    &:hover {
+        background: white;
+        transition: 1.2s;
+        /* color: var(--lgray); */
+      }
+}
+
+/* 버튼 크기 조절 */
+
+.custom-btn {
+    width: 130px;
+    height: 40px;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+    background: rgb(247,150,192);
+    background: radial-gradient(circle, rgba(247,150,192,1) 0%, rgba(118,174,241,1) 100%);
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+.custom-btn:hover{
+  border: 1.5px solid #76aef1 ;
+  background: transparent;
+  color: #76aef1;
+  box-shadow: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+.loginTable>div {
+    margin: 30px;
+}

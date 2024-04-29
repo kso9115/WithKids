@@ -43,7 +43,8 @@ function Login({ setSessionName }) {
     }
     const handlerIdEnter = (e) => {
         if (e.keyCode === 13) {
-            document.getElementById("password").focus();
+            document.getElementById("padLock").focus();
+            // $('.password').focus();
         }
     }
 
@@ -96,10 +97,10 @@ function Login({ setSessionName }) {
                     <div><a href='/user'><img src={centerImg} alt='withkids아동관리센터'></img></a></div>
                     <div>
                         <i class="xi-profile-o xi-2x"></i>
-                        <div><input type="text" id="staffId" name="staffId" value={staffId} onChange={handleSerialChange} placeholder='ID를 입력해주세요' onKeyDown={handlerIdEnter} /></div>
+                        <div><input type="text" id="stfId" name="stfId" value={staffId} onChange={handleSerialChange} placeholder='ID를 입력해주세요' onKeyDown={handlerIdEnter} /></div>
                     </div>
                     <div>
-                    <i class="xi-lock-o xi-2x"></i>
+                        <i class="xi-lock-o xi-2x"></i>
                         <div><input type="password" id="padLock" name="padLock" value={password} onChange={handlePwChange} placeholder='PW를 입력해주세요'  onKeyDown={handlerPwEnter} autoFocus/></div>
                     </div>
                 </div>
@@ -107,30 +108,6 @@ function Login({ setSessionName }) {
                     <input className='custom-btn2' id="enterlogin" type="submit" value="log in" onClick={onSubmitHandler} />
                 </div>
             </div>
-                {/* <div className='logLogo'>
-                    <img src='img/Community Child Center.png' alt="커뮤니티차일드센터"></img>
-                    <h2 className="" style={{
-                        fontSize: 60, fontWeight: 'bold', color: 'var(--admin)'
-                    }}>L O G I N</h2>
-                </div> */}
-                {/* <div>
-                    <div className='loginTable'>
-                        <div className='idpwbox'>
-                            <div><img className="staffId" src={faceId} alt="staffId" />
-                                <input type="text" id="staffId" name="staffId" value={staffId} onChange={handleSerialChange} placeholder='ID를 입력해주세요' onKeyDown={handlerIdEnter} />
-                            </div>
-
-                            <div><img className="padLock" src={padLock} alt="password"></img>
-                                <input type="password" id="password" name="password" value={password} onChange={handlePwChange} placeholder='PW를 입력해주세요'  onKeyDown={handlerPwEnter} autoFocus/>
-                            </div>
-                        </div>
-
-                        <div className='loginBtn'>
-                            <input className='custom-btn' id="enterlogin" type="submit" value="로그인" onClick={onSubmitHandler} />&nbsp;&nbsp;&nbsp;
-                            <input className='custom-btn' type="reset" value="취소" />
-                        </div>
-                    </div>
-                </div> */}
         </div>
     );
 }
