@@ -4,7 +4,7 @@ import Modal from "react-modal"
 import { useState } from 'react';
 import { BiX } from "react-icons/bi";
 import { apiCall } from '../../server/apiService';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar({ loginInfo }) { 
     Modal.setAppElement('#root') //App.js
@@ -176,7 +176,10 @@ function Navbar({ loginInfo }) {
                                 <div className="navbarModalButton" onClick={pwChangeRequest}>비밀번호 변경</div>
                             </Modal>
                             <li onClick={openModal}>비밀번호 변경</li>
-                            <li onClick={() => alert("미구현 입니다.")}>Settings</li>
+                            <li
+                            //     onClick={() => alert("미구현 입니다.")}
+                            // >Settings</li>
+                            ><Link to='/user'>사용자페이지</Link></li>
                             <li onClick={() => alert("미구현 입니다.")}>문자 전송</li>
                             {/* <li>Logout</li> */}
                         </ul>
