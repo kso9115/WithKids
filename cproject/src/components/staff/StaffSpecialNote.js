@@ -8,21 +8,32 @@ function StaffSpecialNote({ staffDataOneD, setStaffDataOneD }) {
     const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
     const [staffAtnId, setStaffAtnId] = useState([]); // 클릭한 아이디 하나
     const [staffAtnOne, setStaffAtnOne] = useState({}); // 클릭한 날짜 하나
+    console.log(staffAtnId);
     useEffect(() => {
-        if (staffDataOneD.constructor === Object && Object.keys(staffDataOneD).length > 0) {
-            console.log(staffDataOneD.staffId);
-            const param = {
-                staffId: staffDataOneD.staffId
-            }
-            apiCall('/staff/staffAtnId', 'POST', param)
-                .then((response) => {
-                    console.log(response.data)
-                    setStaffAtnId(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
+        // if (staffDataOneD.constructor === Object && Object.keys(staffDataOneD).length > 0) {
+        //     const param = {
+        //         staffId: staffDataOneD.staffId
+        //     }
+        //     apiCall('/staff/staffAtnId', 'POST', param)
+        //         .then((response) => {
+        //             console.log(response.data)
+        //             setStaffAtnId(response.data);
+        //         })
+        //         .catch((error) => {
+        //             console.log(error);
+        //         })
+        // }
+        const param = {
+            staffId: staffDataOneD.staffId
         }
+        apiCall('/staff/staffAtnId', 'POST', param)
+            .then((response) => {
+                console.log(response.data)
+                setStaffAtnId(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
         setStaffAtnOne({
             staffId: staffDataOneD.staffId,
             staffNm: staffDataOneD.staffNm
