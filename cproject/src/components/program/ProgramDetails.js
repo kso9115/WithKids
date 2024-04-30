@@ -131,9 +131,6 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
         }
     }
 
-    function testFile() {
-        console.log(prgImage.current.value)
-    }
     return (
         <div className='prg_dtl_mainbox' style={{
             height: '100%'
@@ -354,7 +351,7 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
                         <button type="button" value='삭제' onClick={deleteData}>삭제</button>
                         <button type="button" value='신규' onClick={() => saveData("prgInsert")}>신규</button>
                         <button type="button" value='저장' onClick={() => saveData("prgUpdate")}>저장</button>
-                        <button type="button" value='저장' onClick={testFile}>TEST</button>
+                        {/* <button type="button" value='저장' onClick={testFile}>TEST</button> */}
                     </div>
                 }
             </div>
