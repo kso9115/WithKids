@@ -59,7 +59,7 @@ function UserHeader() {
                         <li><Link to="/user/notice">공지사항</Link></li>
                         <li><Link to="/user/program">프로그램</Link></li>
                         {/* <li><Link to="#">프로그램 후기</Link></li> */}
-                        <li><Link to="/user">찾아오시는길</Link></li>
+                        {/* <li><Link to="/user">찾아오시는길</Link></li> */}
                         <li><Link to="/login">관리자(임시)</Link></li>
                     </ul>
                 </div>

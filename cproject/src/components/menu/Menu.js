@@ -56,7 +56,7 @@ function Menu({ menuArr, setMenuArr, setCurrentTab, setSessionName }) {
     return (
         <>
             <ul id='menuContainer'>
-                <div id='menuTitle'>모전 지역 아동 센터</div>
+                <div id='menuTitle'>지역 아동 센터</div>
                 <div className='menuHr' />
                 <div className="menu-side-heading">
                     아동 관리 메뉴

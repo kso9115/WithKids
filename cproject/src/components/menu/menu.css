@@ -19,6 +19,7 @@
 #menuTitle {
     text-align: center;
     line-height: 70px;
+    font-weight: bold;
 }
 
 .menu-side-heading {
