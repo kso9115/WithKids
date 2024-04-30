@@ -140,9 +140,13 @@ public class MemberController {
             realPath += "resources/memberImg/";
         }
         log.info(memSerial);
-        Resource resource = new FileSystemResource(realPath + memSerial + "/memberImg.png");
-
-        return new ResponseEntity<>(resource, HttpStatus.OK);
+        try {			
+        	Resource resource = new FileSystemResource(realPath + memSerial + "/memberImg.png");
+        	return new ResponseEntity<>(resource, HttpStatus.OK);
+		} catch (Exception e) {
+			log.info("member imgUpdate Exception" + e.toString());
+			return null;
+		}
     }
 
     @GetMapping("/memSearch")
