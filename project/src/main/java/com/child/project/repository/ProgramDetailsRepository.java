@@ -52,6 +52,7 @@ public interface ProgramDetailsRepository extends JpaRepository<ProgramDetails, 
 
 	@Query("select new com.child.project.domain.ProgramDetailsDTO(A.prgId" +
 			" ,A.prgNm" +
+			" ,A.prgDnm" +
 			" ,A.plnPrd" +
 			" ,A.plnNmbPpl" +
 			" ,A.plnDate" +

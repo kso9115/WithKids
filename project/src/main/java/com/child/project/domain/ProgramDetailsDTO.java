@@ -11,6 +11,7 @@ public class ProgramDetailsDTO {
 
     private String prgId;
     private String prgNm;
+    private String prgDnm;
     private String plnPrd;
     private Integer plnNmbPpl;
     private String plnDate;

@@ -10,7 +10,7 @@ function UserprogramDetails() {
     const [prgOne, setPrgOne] = useState({});
     const location = useLocation();
     var sessionData = JSON.parse(sessionStorage.getItem('userLogin'));
-    
+    console.log(prgOne);
     useEffect(() => {
         apiCall('/prg/prgdOne', 'POST', {
             rec: "프로그램계획",
@@ -41,6 +41,7 @@ function UserprogramDetails() {
 
 
     function downloadFile(event) {
+        console.log(prgOne.prgDnm);
         if (window.confirm(`${event.target.name} 파일을 다운로드 하시겠습니까?`))
             apiCall('/prg/filedownload', 'GET', {
                 prgId: prgOne.prgId,
@@ -63,12 +64,12 @@ function UserprogramDetails() {
                     console.error('파일 다운로드 실패:', error);
                 })
     }
-    console.log(sessionData);
+
     function portone() {
         if (window.confirm('프로그램을 신청하시겠습니까?')) {
             // console.log(sessionData.data.token);
             apiCall('/user/aplCheck', 'GET', null, sessionData ? sessionData.data.token : null)
-            // apiCall('/user/aplCheck', 'GET', null, sessionData.data.token)
+                // apiCall('/user/aplCheck', 'GET', null, sessionData.data.token)
                 .then((response) => {
                     if (prgOne.costClsfc === '유료') {
                         if (!window.IMP) return;
