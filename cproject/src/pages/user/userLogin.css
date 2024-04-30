@@ -4,6 +4,7 @@
         height: 100vh;
         background-image: url('../../assets/images/1920_x_950_px_2.png');
         background-size: cover;
+        background-position: center right;
 }
 
 /* 아이콘 크기 설정 밎 위치 선정 */

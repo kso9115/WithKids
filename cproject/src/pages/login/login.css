@@ -13,6 +13,7 @@
     height: 100vh;
     background-image: url('../../assets/images/1920_x_950_px.png');
     background-size: cover;
+    background-position: center right;
 }
 
 /*홈페이지 버튼*/
