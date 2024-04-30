@@ -49,7 +49,7 @@ public class MealMngmController {
     @PostMapping("/Insert")
     public MealMngm Insert(@RequestBody MealMngm entity, MealMngmId entityId) {
     	
-    		log.info("brfInsert 요청까지 옴 111=> " + entity);
+    		// log.info("brfInsert 요청까지 옴 111=> " + entity);
     		Attandance attmem = attService.selectedOne(entity.getMemSerial(), entity.getMealDate());
     		// log.info("안녕하세요! 여기는 meal 인서트 파트입니다. 저는 지금, 조건을 삽입하고 있습니다 지금은 누구?몇일?여부? => "+attmem);
     		
@@ -70,7 +70,7 @@ public class MealMngmController {
     					mealOne.setLncMeal(entity.getLncMeal());
     				if (entity.getDnrMeal() == 1)
     					mealOne.setDnrMeal(entity.getDnrMeal());
-    				if (entity.getBrfMeal() == 1)
+    				if (entity.getSnkMeal() == 1)
     					mealOne.setSnkMeal(entity.getSnkMeal());
     				
     				return mealService.mealInsert(mealOne);

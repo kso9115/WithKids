@@ -84,7 +84,10 @@ function UserCheck() {
             [mealField]: 1
         })
             .then((res) => {
-                if (res.data.memSerial != undefined && userLocation.latitude.equals("37.3") && userLocation.longitude.equals("127.1")) {
+                let latitude=userLocation.latitude.toFixed(1);
+                let longitude=userLocation.longitude.toFixed(1);
+                console.log(latitude);
+                if (res.data.memSerial != undefined &&  latitude=="37.3" && longitude =="127.1" ) {
                     console.log(res);
                     alert(`${res.data.memSerial} ${res.data.memName}님 ${mealType}을 신청하셨습니다.`);
                 } else {
