@@ -307,7 +307,7 @@ function MealManagement() {
                                         onCheckedItem(e.target.checked, e.target.id);
                                     }}
                                 />
-                                <label htmlFor={item.name}>
+                                <label htmlFor={item.value}>
                                     {/* <span></span> */}
                                     {item.name}
                                 </label>&nbsp;&nbsp;
