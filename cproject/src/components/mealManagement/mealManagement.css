@@ -13,6 +13,16 @@
     text-align: center;
 }
 
+.mealListBox {
+    height: calc(100% - 90px);
+    overflow: auto;
+}
+.mealListBox>div:nth-child(1){
+    border-top: 1px solid var(--admin);
+    background-color: white;
+    position: sticky;
+    top:0;
+}
 /* 체크박스 내부 조,중,석,간 */
 
 .mealCheckbox>label> {
@@ -25,8 +35,9 @@
     display: flex;
     margin-bottom: 10px;
 }
+
 .meal_mng_list>div ,.meal_mng_list2>div {
-    border-top: 1px solid var(--admin);
+    border-bottom: 1px solid var(--admin);
     border-left: 1px solid var(--admin);
 }
 .meal_mng_list>div:last-child ,.meal_mng_list2>div:last-child {

@@ -16,7 +16,8 @@
 .prg_apl_header>div>div>div {
     text-align: center;
     display: grid;
-    grid-template-columns: 10% 20% 30% 10% 20% 10%;
+    /* grid-template-columns: 10% 20% 30% 10% 20% 10%; */
+    grid-template-columns: 12% 22% 32% 12% 22%;
     border-bottom: 1px solid var(--mgray);
 }
 

@@ -18,20 +18,17 @@ function ProgramApplication({ data, setData, listUpdate, setListUpdate }) {
     }, [data])
 
     async function cnclAplct(data, i) {
-        if (data.costClsfc === "유료" && loginInfo.data.staffCntMng === 2) {
-            try {
-                // GET 요청은 params에 실어 보냄
-                const response = await axios.post('/user', {
-                    imp_key: "",
-                    imp_secret:"",
-                });
-;
-            } catch (e) {
-                // 실패 시 처리
-                console.error(e);
-            }
-        } else if (loginInfo.data.staffCntMng !== 2) {
-            
+        if (loginInfo.data.staffCntMng !== 2) {
+            if (window.confirm("신청을 취소하시겠습니까?")) {
+                // apiCall('/user/prgCnclt', 'POST', data, loginInfo.data.token)
+                //     .then((response) => {
+                //         alert(response.data);
+                //         setAplData([ ...aplData ]);
+                //     })
+                //     .catch((error) => {
+                //         console.error(error);
+                //     })
+            } else alert("취소하셨습니다.");
         }
     }
     return (
@@ -48,7 +45,7 @@ function ProgramApplication({ data, setData, listUpdate, setListUpdate }) {
                             <div>프로그램명</div>
                             <div>구분</div>
                             <div>프로그램 요금</div>
-                            <div>취소</div>
+                            {/* <div>취소</div> */}
                         </div>
                         {aplData.length > 0 ?
                             aplData.map((ele, i) => (
@@ -58,9 +55,9 @@ function ProgramApplication({ data, setData, listUpdate, setListUpdate }) {
                                     <div>{ele.prgNm}</div>
                                     <div>{ele.costClsfc}</div>
                                     <div>{ele.paidAmount}</div>
-                                    <div>
+                                    {/* <div>
                                         {ele.costClsfc === '취소' ? null : <button type='button' onClick={() => cnclAplct(ele, i)}>취소</button>}
-                                    </div>
+                                    </div> */}
                                 </div>
                             ))
 

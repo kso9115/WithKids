@@ -62,7 +62,7 @@ function MealManagement() {
     };
 
     for (let i = 1; i < size; i++) {
-        rows += " " + 73 / size + "%";
+        rows += " " + 75 / size + "%";
     }
 
     if (format(monthStart, 'M') === format(startDate, 'M')) {
