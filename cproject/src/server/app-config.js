@@ -33,8 +33,10 @@ const hostname = window && window.location && window.location.hostname;
 
 if (hostname === "localhost") {
   backendHost = "http://localhost:8080";
+} else {
+  backendHost = `http://${backendHost}:8080/project-0.0.1-SNAPSHOT`;
 }
-
+console.log(hostname);
 export const API_BASE_URL = `${backendHost}`;
 // aws 서버 주소
 // export const API_BASE_URL = "http://3.128.205.98:8080/project-0.0.1-SNAPSHOT";
