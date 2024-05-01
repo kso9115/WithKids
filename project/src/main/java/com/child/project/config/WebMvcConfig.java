@@ -1,14 +1,22 @@
 package com.child.project.config;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.child.project.controller.ProgramController;
+
+import lombok.extern.log4j.Log4j2;
+
 // ** WebMvcConfigurer
 // => 스프링의 자동설정에 원하는 설정을 추가 설정할수있는 메서드들을 제공하는 인터페이스. 
 // => 스프링부트 컨트롤러 매핑메서드에서는 "/" 무시됨 -> addViewControllers 메서드로 해결  
 
+@Log4j2
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
@@ -49,11 +57,24 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
+		InetAddress local;
+		String ip = "";
 		
+		try {
+			local = InetAddress.getLocalHost();
+			ip = local.getHostAddress();
+			log.info(" ip => " + ip);
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		}
+		if(ip.contains("192.168.0")) {
+			ip = "localhost";
+		}
 		// 모든 경로에 대해
 		registry.addMapping("/**")
 				// Origin이 http:localhost:3000에 대해
-				.allowedOrigins("http://localhost:3000")
+				.allowedOrigins("http://"+ ip +":3000")
+//				.allowedOrigins("http://localhost:3000")
 //				.allowedOrigins("http://3.35.135.209:3000")
 //				 .allowedOrigins("http://3.128.205.98:3000")	// aws 서버 리액트 주소
 				// GET, POST, PUT, PATCH, DELETE, OPTIONS 메서드를 허용한다.
