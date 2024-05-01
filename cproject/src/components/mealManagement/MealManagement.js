@@ -231,7 +231,7 @@ function MealManagement() {
             snkMeal: memMealDataOne.snkMeal
         }, loginInfo.data.token)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 alert("수정완료");
                 // setMealData(res.data); //-> mealData를 변경하면 find 에러 생김 => 랜더링,., 어쩌지
             })
@@ -242,7 +242,7 @@ function MealManagement() {
             })
     }
 
-    console.log(memMealDataOne);
+    // console.log(memMealDataOne);
 
     return (
         <div className="mealBox">
@@ -409,7 +409,7 @@ function MealManagement() {
                                     );
                                 }
                                 else {
-                                    console.log();
+                                    // console.log();
                                     return (
                                         <div
                                             className="clickMealBox"

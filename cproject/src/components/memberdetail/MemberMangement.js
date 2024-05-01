@@ -49,16 +49,15 @@ function MemberMangement() {
         // 왜오류나는지..?모르것다
         // if (memDataOne.constructor === Object && Object.keys(memDataOne).length !== 0) {
         if (memDataOne.memSerial) {
-            // console.log("111들오나?"); // ㅇㅇ
-            console.log(memDataOne.memSerial); // 클릭시 들어옴
+            // console.log(memDataOne.memSerial); // 클릭시 들어옴 콘솔확인용
             // const memSerial = memDataOne.memSerial;
 
             apiCall('/mem/memSelectOneEdu', 'POST', { memSerial: memDataOne.memSerial })
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     setEduDataOne(response.data);
                 }).catch((err) => {
-                    console.log("error => ", err);
+                    // console.log("error => ", err);
                 })
         }
     }, [memDataOne.memSerial]);
