@@ -13,7 +13,6 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
     const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
     // 1. Member Entity DB : 가져온 멤버 한명의 멤버 데이터를 사용하기 위해 useState에 저장
     const [memDataOneD, setMemDataOneD] = useState({});
-
     const memImage = useRef();  // 이미지 등록
 
     useEffect(() => {
@@ -49,7 +48,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             ...eduDataOneD
         });
     }, [eduDataOneD]);
-    console.log(eduDataOneD);
+    // console.log(eduDataOneD);    // 콘솔 확인용
 
     //== CRUD ===============================================
 
@@ -63,21 +62,21 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
         apiCall(endpoint, 'POST', data, loginInfo.data.token)
             .then((response) => {
                 saveImg();
-                console.log("넘어오는 데이터 확인");
-                console.log(response.data);
+                // console.log("넘어오는 데이터 확인");    // 콘솔 확인용
+                // console.log(response.data);
 
                 // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
                 // 변화 감지 후 리스트 리렌더링
                 setMemListUpdate(!memListUpdate);
             }).catch((err) => {
                 // alert("요청 실패");
-                console.error(err);
+                console.error(err);    // 콘솔 확인용
                 if (err === 403) alert("권한이 없습니다. ");
             });
         // }
 
-        console.log(memDataOneD);
-        console.log(eduDataOneD);   // memSerial , 이름 필요
+        // console.log(memDataOneD);   // 콘솔 확인용
+        // console.log(eduDataOneD);   // memSerial , 이름 필요
     }
 
     const saveMemData = () => {
@@ -105,13 +104,14 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
     // console.log(memDataOneD);
     // console.log(eduDataOneD);
 
+    // 삭제 미사용
     function deleteDataByMemserial() {
         if (memDataOneD.memSerial && window.confirm("해당 아동을 삭제하시겠습니까?")) {
             // apiCall('/member/memDelete', 'POST', { params: { memSerial: memDataOneD.memSerial } })
             apiCall('/jwtMem/mem/memDelete', 'POST', { memSerial: memDataOneD.memSerial }, loginInfo.data.token)
                 .then((memResponse) => {
                     setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
-                    console.log(memResponse.data);
+                    // console.log(memResponse.data);
 
                     // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
                     setMemListUpdate(!memListUpdate);
@@ -124,7 +124,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
             apiCall('/jwtMem/mem/eduDelete', 'POST', { memSerial: memDataOneD.memSerial })
                 .then((eduResponse) => {
                     // setData({});    // 부모로부터 전달받은 setMemDataOne 실행하여 빈객체 삽입
-                    console.log(eduResponse.data);
+                    // console.log(eduResponse.data);
 
                     // 멤버리스트 상태값 변화 감지 후 리스트 재업데이트
                     setMemListUpdate(!memListUpdate);
@@ -156,7 +156,7 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
     // 이미지 등록
     function saveImg() {
         if (memImage.current.files[0]) {
-            console.log(memImage.current.files[0]);
+            // console.log(memImage.current.files[0]);    // 콘솔 확인용
             // prgImage.current.files[0].name = "programImg.png"
             let formData = new FormData();
             formData.append("memImg", memImage.current.files[0]);
@@ -164,10 +164,10 @@ function MemberDetail({ data, eduData, setData, setEduDataOne, memListUpdate, se
 
             apiCall('/mem/imgUpload', 'POST', formData, null)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);    // 콘솔 확인용
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log(error);    // 콘솔 확인용
                     alert("서버 통신 에러로 요청에 실패했습니다.");
                 })
         }

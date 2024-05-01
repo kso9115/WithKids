@@ -53,13 +53,19 @@ function UserCheck() {
         // console.log(params); // 데이터 줄력됨 => 그대로 요청이랑 전달하면댄당
         apiCall('/att/attInsert', 'POST', params)
             .then((response) => {
-                console.log("오잉");
                 // response : message
                 // setAttOne()
-                alert(`${params.attDate} ${params.memName}님 출석체크 완료하셨습니다.`)
+                let latitude = userLocation.latitude.toFixed(1);
+                let longitude = userLocation.longitude.toFixed(1);
+                console.log(response.data.memSerial);
+                if (latitude == "37.3" && longitude == "127.1") {
+                    alert(`${params.attDate} ${params.memName}님 출석체크 완료하셨습니다.`);
+                } else{
+                    alert(`${params.memName}님 센터가 아닙니다`);
+                }
             }).catch((err) => {
-                console.log(err);
-            })
+                    console.log(err);
+                })
     }
 
     // console.log(sessionData);
@@ -84,10 +90,11 @@ function UserCheck() {
             [mealField]: 1
         })
             .then((res) => {
-                let latitude=userLocation.latitude.toFixed(1);
-                let longitude=userLocation.longitude.toFixed(1);
+                console.log(res.data.memSerial);
+                let latitude = userLocation.latitude.toFixed(1);
+                let longitude = userLocation.longitude.toFixed(1);
                 console.log(latitude);
-                if (res.data.memSerial != undefined &&  latitude=="37.3" && longitude =="127.1" ) {
+                if (res.data.memSerial != undefined && latitude == "37.3" && longitude == "127.1") {
                     console.log(res);
                     alert(`${res.data.memSerial} ${res.data.memName}님 ${mealType}을 신청하셨습니다.`);
                 } else {
@@ -116,7 +123,7 @@ function UserCheck() {
                         <div><button className="btn attChange" onClick={() => insertMeal('breakfast')}><i className="xi-restaurant xi-3x mealicon">&nbsp;조식</i></button></div>
                         <div><button className="btn attChange" onClick={() => insertMeal('lunch')}><i className="xi-restaurant xi-3x mealicon">&nbsp;중식</i></button></div>
                         <div><button className="btn attChange" onClick={() => insertMeal('dinner')}><i className="xi-restaurant xi-3x mealicon">&nbsp;석식</i></button></div>
-                        <div><button className="btn attChange" onClick={() => insertMeal('snack')}><i className="xi-restaurant xi-3x mealicon">&nbsp;간식</i></button></div>                    
+                        <div><button className="btn attChange" onClick={() => insertMeal('snack')}><i className="xi-restaurant xi-3x mealicon">&nbsp;간식</i></button></div>
                     </div>
                 </div>
             </div>

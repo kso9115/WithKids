@@ -1,5 +1,6 @@
 import './MemberSearch.css';
 
+// 미사용 컴포넌트
 function MemberSearch() {
     return (
         <div>

@@ -15,7 +15,7 @@ function MealSaveP (mealData){
     // console.log(mealDataO);
 
     const onRChange = useCallback((event)=>{
-        console.log("값이 바뀌어야해");
+        // console.log("값이 바뀌어야해");
         setMealDataO[event.target.name] = event.target.value;
     },[]);
     

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import CloseButton from './CloseButton'
 import Portal from './Portal'
 
+// 미사용 컴포넌트
 function Modal({
   className,
   onClose,

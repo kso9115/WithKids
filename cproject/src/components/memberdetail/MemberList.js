@@ -16,7 +16,7 @@ function MemberList({ name, setData, memListUpdate }) {
                     setMemData(response.data);
                     setData([]);    // 디테일 비워주기
                 }).catch((err) => {
-                    console.log(err);
+                    // console.log(err);    // 콘솔 확인용
                 })
         } else {
             apiCall(`/mem/memList`, "GET")
@@ -24,7 +24,7 @@ function MemberList({ name, setData, memListUpdate }) {
                     //console.log(response.data); // 데이터 전달 확인용
                     setMemData(response.data);
                 }).catch((err) => {
-                    console.log(err);
+                    // console.log(err);    // 콘솔 확인용
                 })
         }
     }, [memListUpdate]);

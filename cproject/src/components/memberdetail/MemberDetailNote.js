@@ -12,12 +12,12 @@ function MemberDetailNote({ data, setData }) {
         console.log("??");
         apiCall('/prgPln/memAplList', 'POST', { memSerial: data.memSerial })
             .then((response) => {
-                console.log({ memSerial: data.memSerial });
+                // console.log({ memSerial: data.memSerial });    // 콘솔 확인용
                 
                 setMemDataOneD(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);    // 콘솔 확인용
             })
     }, [data.memSerial])
     // prgram_application 연결할 서비스, 서비스 임플, 레포지토리, 컨트롤러 추가하기
