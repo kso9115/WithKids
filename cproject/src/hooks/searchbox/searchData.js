@@ -52,7 +52,7 @@ export const admLvng_mng = {
             state: ['memStr', 'memEndF'], // 테이블과 연결될 컬럼명
             type: 'date', //input 타입이나 select
             esntl: true, // 필수 요소 표현 유무
-            default: ['2023-01-01', '2023-12-31'] // 표현될 default 값
+            default: [`${yyyy}-01-01`, `${yyyy}-12-31`] // 표현될 default 값
         },
         {
             name: '대상자 성명',
@@ -96,7 +96,7 @@ export const mem_mng = {
             state: ['memStr', 'memEndF'], // 테이블과 연결될 컬럼명
             type: 'date', //input 타입이나 select
             esntl: true, // 필수 요소 표현 유무
-            default: ['2023-01-01', '2023-12-31'] // 표현될 default 값
+            default: [`${yyyy}-01-01`, `${yyyy}-12-31`] // 표현될 default 값
         },
         {
             name: '대상자 성명',
@@ -110,7 +110,7 @@ export const mem_mng = {
             state: 'memSex',
             type: 'select',
             esntl: false,
-            default: [{ name: '여성', value: '여성' }, { name: '남성', value: '남성' }]
+            default: [{ name: '여성', value: '여' }, { name: '남성', value: '남' }]
         },
         {
             name: '담당자 성명',
@@ -201,7 +201,7 @@ export const att_mng = {
             state: ['att_str', 'mem_end'], // 테이블과 연결될 컬럼명
             type: 'date', //input 타입이나 select
             esntl: true, // 필수 요소 표현 유무
-            default: ['2023-01-01', '2023-12-31'] // 표현될 default 값
+            default: [`${yyyy}-01-01`, `${yyyy}-12-31`] // 표현될 default 값
         },
         {
             name: '대상자 성명',
@@ -230,7 +230,7 @@ export const prg_pln = {
             state: ['prgDate', 'prgDate2'], // 테이블과 연결될 컬럼명
             type: 'date', //input 타입이나 select
             esntl: true, // 필수 요소 표현 유무
-            default: ['', ''] // 표현될 default 값
+            default: [`${yyyy}-01-01`, `${yyyy}-12-31`] // 표현될 default 값
         },
         {
             name: '담당자',
@@ -263,7 +263,7 @@ export const notice_dt = {
     content: [ // 서치 박스 안에 생성할 요소 객체를 모아둔 배열
         {
             name: '작성일',
-            state: 'regdate',
+            state: ['regdate', 'regdate2'],
             type: 'date',
             esntl: true,
             default: [`${yyyy}-01-01`, `${yyyy}-12-31`]

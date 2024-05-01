@@ -23,6 +23,12 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
+    public List<Notice> findSearch(Notice entity) {
+        return repository.findSearch(entity.getRegdate(), entity.getRegdate2(),
+                entity.getTitle(), entity.getEmphasis());
+    }
+
+    @Override
     public List<Notice> selectPage(int currPage, int rowPerPage, String word) {
         currPage = (currPage - 1) * rowPerPage;
         return repository.selectPage(currPage, rowPerPage, word);

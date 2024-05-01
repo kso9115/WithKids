@@ -49,6 +49,9 @@ public class Notice {
     @Transient
     private List<MultipartFile> filef;
 
+    @Transient
+    private String regdate2;
+
     public Notice(Integer seq, String title, String regdate) {
         this.seq = seq;
         this.title = title;

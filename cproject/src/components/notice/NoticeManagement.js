@@ -18,6 +18,7 @@ function NoticeManagement() {
     const [noticeDataOne, setNoticeDataOne] = useState({}); //직원 테이블 전체중에 리스트에서 선택한 행 보관
 
     function searchBoxClick(sbVal) {
+        
         setListUpdate(sbVal);
     }
 

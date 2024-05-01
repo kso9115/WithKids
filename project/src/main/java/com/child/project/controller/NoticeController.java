@@ -44,6 +44,14 @@ public class NoticeController {
         return service.findAll();
     }// noticeList
 
+    @GetMapping("/noticeSearch")
+    public List<Notice> noticeSearch(Notice entity) {
+        log.info(" prgList 도착 ");
+        List<Notice> list = service.findSearch(entity);
+
+        return list;
+    } // noticeSearch
+
     @GetMapping("/noticeOne")
     public Notice noticeOne(@RequestParam("seq") int seq) {
         return service.selectOne(seq);
