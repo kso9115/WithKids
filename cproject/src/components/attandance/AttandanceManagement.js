@@ -10,20 +10,19 @@ import isEqual from 'lodash/isEqual';
 
 function AttandanceMangement() {
     const loginInfo = JSON.parse(sessionStorage.getItem("staffname"));
-    console.log(loginInfo);
     // Attandance : DB 전체 list
     const [attData, setAttData] = useState([]);   // 출석 list
     // Member : Attandance 중복없는 memSerial list useState
     const [admissionData, setAdmissionData] = useState([]); // 이름 serial list
 
     // Attandance 한명 useState : 출/결석 변경을 위한 상태값 => attData씀
-    const [memAttDataOne, setMemAttDataOne] = useState({});
+    // const [memAttDataOne, setMemAttDataOne] = useState({});
 
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     // 출석일자 카운팅 해야함 : 필요없다
-    const [attCount, setAttCount] = useState();
+    // const [attCount, setAttCount] = useState();
 
 
     // ===================================================================
@@ -139,7 +138,6 @@ function AttandanceMangement() {
         setMemListUpdate(!memListUpdate);
         alert("출석등록하시겠습니까?")
     };
-    console.log(memListUpdate);
 
     // 출석 리스트(입소리스트) & 리스트 별 출석 현황 요청
     useEffect(() => {
@@ -147,7 +145,7 @@ function AttandanceMangement() {
         // 입소중인 멤버 리스트 요청 : mem_serial , mem_name 컬럼
         apiCall("/mem/admissionList", "GET")
             .then((response) => {
-                console.log(response.data);  // 전체 데이터 들어옴
+                // console.log(response.data);  // 전체 데이터 들어옴
                 setAdmissionData(response.data);
 
             }).catch((err) => {
@@ -173,9 +171,9 @@ function AttandanceMangement() {
 
 
     // 오늘 일자 확인 => 지우기 필요없슴
-    const today = currentMonth.getDate();
-    const month = currentMonth.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더합니다.
-    const year = currentMonth.getFullYear();
+    // const today = currentMonth.getDate();
+    // const month = currentMonth.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더합니다.
+    // const year = currentMonth.getFullYear();
     // console.log(today);  // 1일
     // console.log("currentMonth를 찍으면?" + currentMonth);
     // console.log("지금 렌더링해야할 월은?" + month);  // 4월
@@ -186,7 +184,7 @@ function AttandanceMangement() {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
-    const endDate = endOfWeek(monthEnd);
+    // const endDate = endOfWeek(monthEnd);
     let day = startDate;
     let count = 0;
     let color = ""
@@ -197,8 +195,6 @@ function AttandanceMangement() {
 
     // 출석률 계산
     var attDate;
-
-    console.log(startDate);
 
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
@@ -292,7 +288,7 @@ function AttandanceMangement() {
 
                     return (
 
-                        <div className='att_mng_list attdata' style={{
+                        <div className='att_mng_list attdata' key={o.memSerial} style={{
                             display: 'grid',
                             gridTemplateColumns: "2% 8% 7% 5% 4% 4% " + rows,
                         }}>
@@ -343,7 +339,7 @@ function AttandanceMangement() {
                                             <div
                                                 className={`attandance_data attcheck ${count.attStatus === '결' ? 'red-text' : ''}`}
                                                 // 기본적으로 index가 0에서 시작하기때문에 + 1
-                                                key={index + 1}
+                                                key={index + 101}
                                                 // onClick={() => setAttData([count.attStatus])}>
                                                 onClick={() => handleAttendanceChange(o.memSerial, o.memName, count.attDate, count.attStatus, attindex)}>
                                                 {count.attStatus}

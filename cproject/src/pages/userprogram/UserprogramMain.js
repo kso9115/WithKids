@@ -23,7 +23,7 @@ function UserprogramMain() {
     function setWordChange(params) {
         setWord(params);
     }
-    console.log(listData);
+
     return (
         <>
             <SearchBoxUser setWord={setWordChange} />

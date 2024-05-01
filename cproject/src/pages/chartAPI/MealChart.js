@@ -66,25 +66,25 @@ function MealChart() {
       {
         name: "조식",
         // data: [100, 150, 100, 180, 200, 130, 120, 125, 160, 200, 100, 80],
-        data: chartdata.brk_meal,
+        data: chartdata.brk_meal || [],
         color: "var(--admin)" 
       },
       {
         name: "중식",
         // data: [150, 180, 150, 180, 220, 150, 130, 130, 160, 250, 110, 90],
-        data: chartdata.lnc_meal,
+        data: chartdata.lnc_meal || [],
         color: "var(--blue2)" 
       },
       {
         name: "석식",
         // data: [180, 200, 180, 200, 220, 200, 200, 220, 230, 260, 170, 190],
-        data: chartdata.dnr_meal,
+        data: chartdata.dnr_meal || [],
         color: "var(--heavyblue)" 
       },
       {
         name: "간식",
         // data: [189, 202, 183, 210, 229, 208, 207, 223, 230, 261, 175, 200],
-        data: chartdata.snk_meal,
+        data: chartdata.snk_meal || [],
         color: "var(--lightblue)" ,
       }
       // Mealmgnm 로 데이터 변경
@@ -94,7 +94,6 @@ function MealChart() {
     useEffect(()=>{
       apiCall('/meal/chartData','POST', null , null)
       .then((res) => {
-        console.log(res.data);
           setChartdata(res.data);
           // console.log(chartdata);
       })

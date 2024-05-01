@@ -18,11 +18,10 @@ function UserMemberInfo() {
     let password1 = "";
     let password2 = "";
     let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/
-    console.log(memData);
+
     useEffect(() => {
         apiCall('/mem/memEduAll', 'POST', { memSerial: sessionData.data.id })
             .then((response) => {
-                console.log(response.data);
                 setMemData(response.data);
             })
             .catch((error) => {

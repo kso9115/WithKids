@@ -30,7 +30,7 @@ function ProgramDetailsPrg({ data, setData, subData, treeUpdate, setTreeUpdate }
             prgFilef: null
         })
     }, [data])
-    console.log(prgDetailData);
+
     // data를 바탕으로 div 생성
     function makeDiv() {
         if (Array.isArray(subData) && subData.length > 0) {

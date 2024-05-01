@@ -4,7 +4,6 @@ import { useEffect } from "react";
 
 function UserNoticeDetails() {
     const location = useLocation();
-    console.log(location);
     useEffect(() => {
         apiCall('/notice/updateCnt', 'GET', { seq: location.state.seq, cnt: location.state.cnt })
             .then((response) => {

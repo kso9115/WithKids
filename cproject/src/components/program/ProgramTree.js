@@ -152,7 +152,6 @@ function ProgramTree({ name, setData, treeUpdate }) {
         for (let i = 2; i < 100; i++) {
             array.push(i + "");
         }
-        console.log(array);
         return array;
     }
 

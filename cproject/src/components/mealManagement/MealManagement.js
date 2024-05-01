@@ -242,8 +242,6 @@ function MealManagement() {
             })
     }
 
-    console.log(memMealDataOne);
-
     return (
         <div className="mealBox">
             <Modal isOpen={modal} onRequestClose={onCloseClick} style={modalStyle} >

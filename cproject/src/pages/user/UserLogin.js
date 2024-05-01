@@ -37,7 +37,6 @@ function UserLogin() {
                 memLoginPW: password
             })
                 .then((response) => {
-                    console.log(response.data);
                     sessionStorage.setItem("userLogin", JSON.stringify(response));
                     setIsUserLoggedIn(true);
                     setUserLoginInfo(response);
@@ -85,11 +84,11 @@ function UserLogin() {
                 <div>
                     <div><a href='/user'><img src={centerImg} alt='withkids아동관리센터'></img></a></div>
                     <div>
-                        <i class="xi-profile-o xi-2x"></i>
+                        <i className="xi-profile-o xi-2x"></i>
                         <div><input type="text" id="faceSereial" name="faceSereial" value={serial} onChange={handleSerialChange} placeholder='ID를 입력해주세요' onKeyDown={handlerIdEnter} /></div>
                     </div>
                     <div>
-                        <i class="xi-lock-o xi-2x"></i>
+                        <i className="xi-lock-o xi-2x"></i>
                         <div><input type="password" id="facePW" name="facePW" value={password} onChange={handlePwChange} placeholder='PW를 입력해주세요' onKeyDown={handlerEnter} autoFocus /></div>
                     </div>
                 </div>

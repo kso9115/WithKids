@@ -6,7 +6,7 @@ import UserHome from './pages/user/UserHome'
 import UserMain from './pages/user/UserMain'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import UserNotice from './pages/notice/UserNotice'
-import Schedule from './pages/schedule/Schedule'
+// import Schedule from './pages/schedule/Schedule'
 // import Survety from './pages/survery/Survery'
 import Userprogram from './pages/userprogram/Userprogram';
 import NoneLogin from './pages/err/ErrNoneLogin';
@@ -39,7 +39,7 @@ function App() {
                             <Route path="dtails" element={<UserNoticeDetails />}></Route>
                         </Route>
                         {/* <Route path="programDtail" element={<UserprogramDetails />}></Route> */}
-                        <Route path="schedule" element={<Schedule />}></Route>
+                        {/* <Route path="schedule" element={<Schedule />}></Route> */}
 
                         <Route path="program" element={<Userprogram />}>
                             <Route path="" element={<UserprogramMain />}></Route>

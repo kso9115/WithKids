@@ -14,7 +14,6 @@ function ProgramDetails({ data, setData, treeUpdate, setTreeUpdate }) {
     // if (prgImage.current) {
     //     console.log(prgImage.current);
     // }
-    console.log(prgImage.current);
     // 가져온 프로그램 정보를 useState에 넣는과정()
     useEffect(() => {
         setPrgDataOneD({

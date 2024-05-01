@@ -33,8 +33,6 @@ function AttandanceStatistic() {
     } else {
         count = format(addDays(startDate, 7), 'd') * 1
     }
-    console.log(count);
-    console.log(format(currentMonth, 'dd') % 7);
     
     const tomorrow = () => {
         if (format(currentMonth, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd')) return;

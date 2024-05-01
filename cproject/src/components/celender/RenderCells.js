@@ -22,7 +22,6 @@ function RenderCells({ currentMonth, selectedDate, onDateClick }) {
     useEffect(() => {
         apiCall('/staff/staffAtnList', 'GET')
             .then((response) => {
-                console.log(response.data)
                 setStfAtn(response.data);
             })
             .catch((error) => {

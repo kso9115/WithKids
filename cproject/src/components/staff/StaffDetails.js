@@ -16,8 +16,6 @@ function StaffDetails({ data, setData, listUpdate, setListUpdate, staffPst }) {
         }
     }, [data]);
 
-    console.log(staffPst);
-
     function resetPswrd() {
         if (window.confirm("정말로 초기화 하시겠습니까?(되돌릴 수 없습니다.)"))
             apiCall('/jwtPrg/staff/resetPswrd', 'GET', { staffId: staffDataOneD.staffId }, loginInfo.data.token)
