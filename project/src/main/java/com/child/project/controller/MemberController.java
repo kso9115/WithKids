@@ -98,6 +98,10 @@ public class MemberController {
         // realPath =
         // "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/memberImg/"
         // + memSerial + "/";
+       
+
+      
+
 
         if (!realPath.contains("tomcat9")) {
             realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/memberImg/"
@@ -105,7 +109,13 @@ public class MemberController {
         } else {
             realPath += "resources/memberImg/" + memSerial + "/";
         }
-        // // 1.4) 저장경로 완성
+        // 1.2 폴더 만들기 (없을수도 있음을 가정, File 클래스)
+        File file = new File(realPath);
+        if (!file.exists()) {
+            // 저장 폴더가 존재하지 않는경우 만들어줌
+            file.mkdir();
+        }
+        // 1.3) 저장경로 완성
         String file1 = "";
         // List<MultipartFile> uploadfilef = entity.getPrgFilef();
         if (memImg != null && !memImg.isEmpty()) {

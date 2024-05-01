@@ -89,39 +89,39 @@ public class JwtTokenMemController {
     @PostMapping("/mem/memInesert")
     public String memInsert(@RequestBody Member entity, HttpServletRequest request) throws IOException {
         String message = "";
-        String realPath = request.getSession().getServletContext().getRealPath("/");
-        log.info("** realPath => " + realPath);
-
-        if (!realPath.contains("tomcat9")) {
-            realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/memberImg/"
-                    + entity.getMemSerial() + "/";
-        } else {
-            realPath += "resources/memberImg/"
-                    + entity.getMemSerial() + "/";
-        }
-        // // 1.3 폴더 만들기 (없을수도 있음을 가정, File 클래스)
-        File file = new File(realPath);
-        if (!file.exists()) {
-            // 저장 폴더가 존재하지 않는경우 만들어줌
-            file.mkdir();
-        }
-
-        log.info(realPath);
-
-        // // ** File Copy 하기 (IO Stream)
-        file = new File(realPath + "memberImg.png"); // uploadImages 폴더에 화일존재
-        if (!file.isFile()) { // 존재하지않는 경우
-            String basicImagePath;
-            if (!realPath.contains("apache-tomcat"))
-                basicImagePath = "C:/Mtest/childProject/project/src/main/webapp/resources/images/memberImg.png";
-            else
-                basicImagePath = "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/images/memberImg.png";
-            FileInputStream fi = new FileInputStream(new File(basicImagePath));
-            // => uploadImages 읽어 파일 입력바이트스트림 생성
-            FileOutputStream fo = new FileOutputStream(file);
-            // => 목적지 파일(realPath+"basicman4.png") 출력바이트스트림 생성
-            FileCopyUtils.copy(fi, fo);
-        }
+//        String realPath = request.getSession().getServletContext().getRealPath("/");
+//        log.info("** realPath => " + realPath);
+//
+//        if (!realPath.contains("tomcat9")) {
+//            realPath = "C:/Mtest/childProject/project/src/main/webapp/resources/memberImg/"
+//                    + entity.getMemSerial() + "/";
+//        } else {
+//            realPath += "resources/memberImg/"
+//                    + entity.getMemSerial() + "/";
+//        }
+//        // // 1.3 폴더 만들기 (없을수도 있음을 가정, File 클래스)
+//        File file = new File(realPath);
+//        if (!file.exists()) {
+//            // 저장 폴더가 존재하지 않는경우 만들어줌
+//            file.mkdir();
+//        }
+//
+//        log.info(realPath);
+//
+//        // // ** File Copy 하기 (IO Stream)
+//        file = new File(realPath + "memberImg.png"); // uploadImages 폴더에 화일존재
+//        if (!file.isFile()) { // 존재하지않는 경우
+//            String basicImagePath;
+//            if (!realPath.contains("apache-tomcat"))
+//                basicImagePath = "C:/Mtest/childProject/project/src/main/webapp/resources/images/memberImg.png";
+//            else
+//                basicImagePath = "E:/Mtest/IDESet/apache-tomcat-9.0.85/webapps/project/resources/images/memberImg.png";
+//            FileInputStream fi = new FileInputStream(new File(basicImagePath));
+//            // => uploadImages 읽어 파일 입력바이트스트림 생성
+//            FileOutputStream fo = new FileOutputStream(file);
+//            // => 목적지 파일(realPath+"basicman4.png") 출력바이트스트림 생성
+//            FileCopyUtils.copy(fi, fo);
+//        }
 
         log.info("entity 값을 확인해보자" + entity); // 잘와유
         // save하려는 값이 없으면 실행x
