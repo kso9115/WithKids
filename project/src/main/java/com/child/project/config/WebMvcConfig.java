@@ -57,24 +57,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		InetAddress local;
-		String ip = "";
-		
-		try {
-			local = InetAddress.getLocalHost();
-			ip = local.getHostAddress();
-			log.info(" ip => " + ip);
-		} catch (UnknownHostException e1) {
-			e1.printStackTrace();
-		}
-		if(ip.contains("192.168.0")) {
-			ip = "localhost";
-		}
+
 		// 모든 경로에 대해
 		registry.addMapping("/**")
 				// Origin이 http:localhost:3000에 대해
-				.allowedOrigins("http://"+ ip +":3000")
-//				.allowedOrigins("http://localhost:3000")
+				.allowedOrigins("http://localhost:3000")
 //				.allowedOrigins("http://3.35.135.209:3000")
 //				 .allowedOrigins("http://3.128.205.98:3000")	// aws 서버 리액트 주소
 				// GET, POST, PUT, PATCH, DELETE, OPTIONS 메서드를 허용한다.
