@@ -22,9 +22,10 @@
 |   [@kimsuok](https://github.com/kso9115)   |    [@immyeonggun](https://github.com/img4029)  | [@limsiwoon](https://github.com/Limsiwoon)  |
 | 팀장 | 팀원 | 팀원 |
 
+<br></br>
 
+## 📚 STACKS
 <div> 
-  <div><h1>📚 STACKS</h1></div>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
   <br>
@@ -52,9 +53,9 @@
   <br>
 </div>
 
-  [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=kso9115)](https://github.com/anuraghazra/github-readme-stats) 
+<br></br>
 
-  <div><h1>🔎 주요기능</h1></div>
+## 🔎 주요기능
   1. 아동의 개인 정보 관리 및 추가 기능
 
   2. 프로그램 정보 관리 및 추가, 수정 기능
@@ -64,8 +65,6 @@
   4. 공지사항
 
   5. 프로그램 신청과 결제 기능
-
-</div>
 
 
 
