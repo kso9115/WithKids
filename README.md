@@ -57,6 +57,7 @@
      - <b>시설 아동 패스워드 초기화</b>
 
   ### [신규 아동 등록 및 수정]
+  
      <img src="https://github.com/kso9115/KimSuOk/assets/148930264/3eb79023-64a7-4e32-aec2-8eee4c838db7"> 
   
        
@@ -68,6 +69,7 @@
      - 개별 아동 급식 수정
        
 ### [출석 체크 등록 및 수정]
+
      <div><img src="https://github.com/kso9115/KimSuOk/assets/148930264/f556f176-1099-42e9-bb93-0f37179f745b">
      <img src="https://github.com/kso9115/KimSuOk/assets/148930264/415418c1-10cd-4444-9f5e-b89d2238126e"></div>
 
