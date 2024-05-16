@@ -7,8 +7,10 @@
 
 > **지역 아동 관리 웹 프로그램 플랫폼** <br/> **개발기간: 2024.03 ~ 2024.05**
 
+
 ## 배포 주소
 > **개발 버전** : http://3.35.135.209:3000 <br>
+
 
 ## 웹개발팀 소개
 
@@ -18,9 +20,11 @@
 |   [@kimsuok](https://github.com/kso9115)   |    [@immyeonggun](https://github.com/img4029)  | [@limsiwoon](https://github.com/Limsiwoon)  |
 | 팀장 | 팀원 | 팀원 |
 
+
 <div> 
   <div><h1>📚 STACKS</h1></div>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
+  <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
   <br>
   
   <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
@@ -34,9 +38,6 @@
   
   <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
   <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
-  <br>
-  
-  <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
   <br>
 
   <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"> 
