@@ -1,5 +1,5 @@
 <div>
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=#cfe2f3&height=150&text=With Kids&section=header" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=#cfe2f3&height=150&text=With Kids&fontSize=90&section=header" />
 
   
 
@@ -9,7 +9,7 @@
 
 
 ## 배포 주소
-> **개발 버전** : http://3.35.135.209:3000 <br><br/>
+> **개발 버전** : http://3.35.135.209:3000 <br><br/><br><br/>
 
 
 ## 웹개발팀 소개
@@ -18,7 +18,7 @@
 | :------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | 
 |   <img width="160px" src="이미지주소" />    |                      <img width="160px" src="이미지주소" />    |                   <img width="160px" src="이미지주소"/>   |
 |   [@kimsuok](https://github.com/kso9115)   |    [@immyeonggun](https://github.com/img4029)  | [@limsiwoon](https://github.com/Limsiwoon)  |
-| 팀장 | 팀원 | 팀원 |<br><br/>
+| 팀장 | 팀원 | 팀원 |<br><br/><br><br/>
 
 
 <div> 
