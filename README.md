@@ -1,5 +1,5 @@
 <div>
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=#cfe2f3&height=150&text=With Kids&fontSize=90&section=header" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=#F1C232&height=150&text=With Kids&fontSize=90&section=header" />
 
   
 
