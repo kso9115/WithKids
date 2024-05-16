@@ -49,6 +49,7 @@
 
 ## 🔎 주요기능
   1. 아동의 개인 정보 관리 및 추가 기능
+     <img src="https://github.com/kso9115/KimSuOk/assets/148930264/3eb79023-64a7-4e32-aec2-8eee4c838db7"> 
      - <b>신규 아동 추가</b>
      - <b>기존 아동 개인정보 수정</b>
      - 기존 아동 입소 등록(시설 입소자)
@@ -57,8 +58,6 @@
      - <b>시설 아동 패스워드 초기화</b>
 
   ### 신규 아동 등록 및 수정
-  
-     <img src="https://github.com/kso9115/KimSuOk/assets/148930264/3eb79023-64a7-4e32-aec2-8eee4c838db7"> 
   
        
   1. 아동 출석/급식 관리 기능
