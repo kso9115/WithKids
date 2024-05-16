@@ -48,7 +48,7 @@
 <br></br>
 
 ## 🔎 주요기능
-  ## 신규 아동 등록 및 수정
+  <div>### 신규 아동 등록 및 수정</div>
      <br></br>
      <img src="https://github.com/kso9115/KimSuOk/assets/148930264/3eb79023-64a7-4e32-aec2-8eee4c838db7"> 
      - <b>신규 아동 추가</b>
