@@ -1,26 +1,24 @@
 <div>
   <img src="https://capsule-render.vercel.app/api?type=waving&color=#F1C232&height=150&section=header" />
 
-  
-
 # With Kids 🐣
 
 > **지역 아동 관리 웹 프로그램 플랫폼** <br/> **개발기간: 2024.03 ~ 2024.05**
 
 <br></br>
 
-## 배포 주소
+## Link
 > **개발 버전** : [With Kids 📝](http://3.35.135.209:3000) <br/>
 
 <br></br>
 
-## 웹개발팀 소개
+## Introduce Team
 
 |      김수옥       |          임명건         |       임시운         |                                                                                                               
 | :------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | 
 |   <img width="160px" src="이미지주소" />    |                      <img width="160px" src="이미지주소" />    |                   <img width="160px" src="이미지주소"/>   |
 |   [@kimsuok](https://github.com/kso9115)   |    [@immyeonggun](https://github.com/img4029)  | [@limsiwoon](https://github.com/Limsiwoon)  |
-| 팀장 | 팀원 | 팀원 |
+| Project Leader | Team member | Team member |
 
 <br></br>
 
@@ -57,31 +55,39 @@
 
 ## 🔎 주요기능
   1. 아동의 개인 정보 관리 및 추가 기능
+     - 신규 아동 추가
+     - 기존 아동 개인정보 수정
+     - 기존 아동 입소 등록(시설 입소자)
+     - 기존 아동 퇴소 등록(시설 퇴소자)
+     - 대상자 리스트 내 검색
+     - 시설 아동 패스워드 초기화
+       
+  2. 아동 출석/급식 관리 기능
+     - 유저 페이지에서 출석체크 시 관리자 페이지에서 출석 등록 확인 가능
+     - 개별 아동 출석 수정
+     - 선택 아동 전체 결석 체크 기능
+     - 결석 체크 후 급식 자동 X 표기
+     - 개별 아동 급식 수정
 
-  2. 프로그램 정보 관리 및 추가, 수정 기능
-
-  3. 아동 출석/급식 관리 기능
+  3. 프로그램 정보 관리 및 추가, 수정 기능
+     - 프로그램 신규 생성
+     - 프로그램 세부 내역 수정 및 파일 첨부
+     - 프로그램 내역 다운로드
+     - 프로그램 계획서 작성(사용자 페이지에서 노출)
+     - 프로그램별 신청 유저 확인
+     - 프로그램 정보 검색기능
   
   4. 공지사항
+     - 공지사항 등록 및 수정
+     - 이미지, 첨부파일 업로드
 
-  5. 프로그램 신청과 결제 기능
+  5. 직원 개인 정보 및 근태 관리
+     - 직원별 권한 부여
+     - 직원 권한 별 게시판 접근 제어
+     - 직원 근태 등록 및 수정
+
+  6. 프로그램 신청과 결제 기능(사용자 페이지)
+     - 프로그램 신청에 관한 결제 API 구현
+     - 프로그램 신청 취소 기능
 
 
-
-<p align='center'>
-  <a href="https://github.com/kyechan99/capsule-render/labels/Idea">
-    <img src="https://img.shields.io/badge/IDEA%20ISSUE%20-%23F7DF1E.svg?&style=for-the-badge&&logoColor=white"/>
-  </a>
-  <a href="#demo">
-    <img src="https://img.shields.io/badge/DEMO%20-%234FC08D.svg?&style=for-the-badge&&logoColor=white"/>
-  </a>
-  <a href="https://capsule-render.vercel.app/">
-    <img src="https://img.shields.io/badge/Generator%20-%235c86fa.svg?&style=for-the-badge&&logoColor=white"/>
-  </a>
-</p> 
-<p align="center"> 
-  <a href="README.md">English</a> 
-  ·
-  <a href="/docs/README_kr.md">한국어</a> 
-</p>
-<br/>
