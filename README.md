@@ -1,8 +1,6 @@
-# 🐣 지역 아동 관리 프로그램 With Kids README
+# 🐣 지역 아동 관리 With Kids README
 
 > **지역 아동 관리 웹 프로그램 플랫폼** <br/> **개발기간: 2024.03 ~ 2024.05**
-
-<br></br>
 
 ## Link
 - 배포 URL : [With Kids 📝](http://3.35.135.209:3000)
