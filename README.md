@@ -1,14 +1,13 @@
-<div>
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=#F1C232&height=150&section=header" />
-
-# With Kids 🐣
+# 🐣 지역 아동 관리 프로그램 With Kids README
 
 > **지역 아동 관리 웹 프로그램 플랫폼** <br/> **개발기간: 2024.03 ~ 2024.05**
 
 <br></br>
 
 ## Link
-> **개발 버전** : [With Kids 📝](http://3.35.135.209:3000) <br/>
+- 배포 URL : [With Kids 📝](http://3.35.135.209:3000)
+- Test ID : testAdmin
+- Test PW : mysql12345
 
 <br></br>
 
@@ -48,7 +47,7 @@
 <br></br>
 
 ## 🔎 주요기능
-### 아동 개인 정보 관리 ###
+### 아동 개인 정보 관리
      <br></br>
      <img src="https://github.com/kso9115/KimSuOk/assets/148930264/3eb79023-64a7-4e32-aec2-8eee4c838db7">
      - ★ 아동리스트 추가하는 이미지
