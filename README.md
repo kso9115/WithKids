@@ -48,7 +48,7 @@
 <br></br>
 
 ## 🔎 주요기능
-### 아동 개인 정보 관리
+### 아동 개인 정보 관리 ###
      <br></br>
      <img src="https://github.com/kso9115/KimSuOk/assets/148930264/3eb79023-64a7-4e32-aec2-8eee4c838db7">
      - ★ 아동리스트 추가하는 이미지
